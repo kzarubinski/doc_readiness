@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doc Readiness Report</title>
+    <title>Doc Readiness Program - Post-Launch Performance</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"></script>
     <style>
         :root {
             --primary: #0077c5;
@@ -154,6 +155,42 @@
         .delta-up { color: var(--accent); }
         .delta-down { color: var(--warn); }
 
+        .summary {
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--accent);
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .summary p {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 0.6rem;
+        }
+
+        .summary ul {
+            padding-left: 1.3rem;
+            margin-top: 0.5rem;
+        }
+
+        .summary li {
+            font-size: 0.92rem;
+            margin-bottom: 0.45rem;
+            color: var(--text);
+        }
+
+        .summary li strong { color: var(--primary); }
+
+        .highlight { color: var(--accent); font-weight: 700; }
+
         .footer {
             text-align: center;
             padding: 1.5rem;
@@ -172,11 +209,23 @@
 <body>
 
 <div class="header">
-    <h1>Doc Readiness Report</h1>
+    <h1>Doc Readiness Program &mdash; Post-Launch Performance</h1>
     <p>Daily Insights &mdash; March 10 – 24, 2026</p>
 </div>
 
 <div class="container">
+
+    <!-- Executive Summary -->
+    <div class="summary">
+        <h2>Executive Summary</h2>
+        <p>Since the Doc Readiness program launched, key metrics have shown meaningful improvement across both Internal and External partner engagements:</p>
+        <ul>
+            <li><strong>Average Doc Readiness rose significantly</strong> &mdash; Internal partners improved from <strong>73.60%</strong> to <span class="highlight">79.90%</span> (+6.3 pp), while External partners jumped from <strong>71.58%</strong> to <span class="highlight">78.99%</span> (+7.4 pp).</li>
+            <li><strong>Fewer low-quality engagements</strong> &mdash; The share of engagements below the 50% readiness threshold dropped from <strong>14.46%</strong> to <span class="highlight">9.16%</span>, a reduction of 5.3 percentage points.</li>
+            <li><strong>Healthier engagements score higher</strong> &mdash; For engagements above the 50% threshold, average readiness increased from <strong>82.60%</strong> to <span class="highlight">86.17%</span> (+3.6 pp), indicating the program lifts quality across the board.</li>
+            <li><strong>Internal % under 50 improved the most</strong> &mdash; Internal partner engagements below 50% dropped from <strong>14.20%</strong> to <span class="highlight">8.94%</span>, while External improved from <strong>15.73%</strong> to <span class="highlight">10.08%</span>.</li>
+        </ul>
+    </div>
 
     <!-- KPI Cards -->
     <div class="kpi-row">
@@ -393,7 +442,48 @@ new Chart(document.getElementById('trendChart'), {
         ...sharedOptions,
         scales: {
             ...sharedOptions.scales,
-            y: { ...sharedOptions.scales.y, min: 74, max: 84 }
+            y: { ...sharedOptions.scales.y, min: 70, max: 84 }
+        },
+        plugins: {
+            ...sharedOptions.plugins,
+            annotation: {
+                annotations: {
+                    baselineExt: {
+                        type: 'line',
+                        yMin: 71.58,
+                        yMax: 71.58,
+                        borderColor: 'rgba(230,81,0,0.5)',
+                        borderWidth: 2,
+                        borderDash: [8, 4],
+                        label: {
+                            display: true,
+                            content: 'External Baseline: 71.58%',
+                            position: 'start',
+                            backgroundColor: 'rgba(230,81,0,0.8)',
+                            color: '#fff',
+                            font: { size: 11, weight: '600' },
+                            padding: 4
+                        }
+                    },
+                    baselineInt: {
+                        type: 'line',
+                        yMin: 73.60,
+                        yMax: 73.60,
+                        borderColor: 'rgba(0,119,197,0.5)',
+                        borderWidth: 2,
+                        borderDash: [8, 4],
+                        label: {
+                            display: true,
+                            content: 'Internal Baseline: 73.60%',
+                            position: 'end',
+                            backgroundColor: 'rgba(0,119,197,0.8)',
+                            color: '#fff',
+                            font: { size: 11, weight: '600' },
+                            padding: 4
+                        }
+                    }
+                }
+            }
         }
     }
 });
@@ -431,7 +521,48 @@ new Chart(document.getElementById('under50Chart'), {
         ...sharedOptions,
         scales: {
             ...sharedOptions.scales,
-            y: { ...sharedOptions.scales.y, min: 4, max: 16 }
+            y: { ...sharedOptions.scales.y, min: 4, max: 18 }
+        },
+        plugins: {
+            ...sharedOptions.plugins,
+            annotation: {
+                annotations: {
+                    baselineExt: {
+                        type: 'line',
+                        yMin: 15.73,
+                        yMax: 15.73,
+                        borderColor: 'rgba(230,81,0,0.5)',
+                        borderWidth: 2,
+                        borderDash: [8, 4],
+                        label: {
+                            display: true,
+                            content: 'External Baseline: 15.73%',
+                            position: 'start',
+                            backgroundColor: 'rgba(230,81,0,0.8)',
+                            color: '#fff',
+                            font: { size: 11, weight: '600' },
+                            padding: 4
+                        }
+                    },
+                    baselineInt: {
+                        type: 'line',
+                        yMin: 14.20,
+                        yMax: 14.20,
+                        borderColor: 'rgba(0,119,197,0.5)',
+                        borderWidth: 2,
+                        borderDash: [8, 4],
+                        label: {
+                            display: true,
+                            content: 'Internal Baseline: 14.20%',
+                            position: 'end',
+                            backgroundColor: 'rgba(0,119,197,0.8)',
+                            color: '#fff',
+                            font: { size: 11, weight: '600' },
+                            padding: 4
+                        }
+                    }
+                }
+            }
         }
     }
 });
