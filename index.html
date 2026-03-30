@@ -128,6 +128,7 @@
         .kpi .value.green { color: var(--accent); }
         .kpi .value.blue { color: var(--primary); }
         .kpi .value.orange { color: var(--warn); }
+        .kpi .value.blue-dark { color: #004a7c; }
 
         .kpi .delta {
             font-size: 0.82rem;
@@ -149,7 +150,7 @@
             background: var(--card);
             border-radius: 12px;
             box-shadow: var(--shadow);
-            border-left: 5px solid var(--accent);
+            border-left: 5px solid var(--primary);
             padding: 1.5rem 1.8rem;
             margin-bottom: 1.5rem;
             font-size: 0.92rem;
@@ -263,7 +264,7 @@
         /* Expert tables */
         .expert-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 1.5rem;
         }
 
@@ -283,9 +284,10 @@
         }
 
         .expert-card.internal h3 { background: var(--primary); }
-        .expert-card.external h3 { background: var(--warn); }
+        .expert-card.external h3 { background: #5cb8ff; }
 
-        .expert-card table { font-size: 0.8rem; }
+        .expert-card .table-scroll { overflow-x: auto; }
+        .expert-card table { font-size: 0.8rem; min-width: 100%; }
         .expert-card thead th { padding: 0.45rem 0.6rem; font-size: 0.75rem; }
         .expert-card tbody td { padding: 0.4rem 0.6rem; }
 
@@ -320,7 +322,6 @@
         @media (max-width: 900px) {
             .kpi-row { grid-template-columns: repeat(2, 1fr); }
             .comparison-grid { grid-template-columns: 1fr; }
-            .expert-section { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 640px) {
@@ -355,25 +356,25 @@
     <div class="kpi-row">
         <div class="kpi">
             <div class="kpi-title">Avg Doc Readiness &mdash; Internal</div>
-            <div class="value green">80.1%</div>
+            <div class="value blue">80.1%</div>
             <div class="delta delta-up">+6.5 pp vs. baseline (73.60%)</div>
             <div class="footnote">Post roll-out weighted average (Without SD)</div>
         </div>
         <div class="kpi">
             <div class="kpi-title">Avg Doc Readiness &mdash; External</div>
-            <div class="value green">79.1%</div>
+            <div class="value blue">79.1%</div>
             <div class="delta delta-up">+7.6 pp vs. baseline (71.58%)</div>
             <div class="footnote">Post roll-out weighted average (Without SD)</div>
         </div>
         <div class="kpi">
             <div class="kpi-title">% Eng &lt;50% Doc Readiness &mdash; Internal</div>
-            <div class="value orange">9.05%</div>
+            <div class="value blue-dark">9.05%</div>
             <div class="delta delta-up">&darr; 5.2 pp vs. baseline (14.20%)</div>
             <div class="footnote">Lower is better &middot; Without SD</div>
         </div>
         <div class="kpi">
             <div class="kpi-title">% Eng &lt;50% Doc Readiness &mdash; External</div>
-            <div class="value orange">10.21%</div>
+            <div class="value blue-dark">10.21%</div>
             <div class="delta delta-up">&darr; 5.5 pp vs. baseline (15.73%)</div>
             <div class="footnote">Lower is better &middot; Without SD</div>
         </div>
@@ -469,15 +470,15 @@
             <tbody>
                 <tr>
                     <td class="cohort-col">&gt;50% Doc Readiness</td>
-                    <td style="text-align:center; font-weight:700; color:var(--accent);">90.75%</td>
-                    <td style="text-align:center; font-weight:700; color:var(--accent);">86.27%</td>
+                    <td style="text-align:center; font-weight:700; color:var(--primary);">90.75%</td>
+                    <td style="text-align:center; font-weight:700; color:var(--primary);">86.27%</td>
                     <td style="text-align:center;">85.54%</td>
                     <td style="text-align:center;">82.60%</td>
                 </tr>
                 <tr>
                     <td class="cohort-col">&lt;50% Doc Readiness</td>
-                    <td style="text-align:center; font-weight:700; color:var(--warn);">9.25%</td>
-                    <td style="text-align:center; font-weight:700; color:var(--warn);">27.05%</td>
+                    <td style="text-align:center; font-weight:700; color:#004a7c;">9.25%</td>
+                    <td style="text-align:center; font-weight:700; color:#004a7c;">27.05%</td>
                     <td style="text-align:center;">14.46%</td>
                     <td style="text-align:center;">26.26%</td>
                 </tr>
@@ -489,10 +490,11 @@
     </div>
 
     <!-- ===== TOP 16 EXPERTS WEEK-OVER-WEEK ===== -->
-    <h2 class="section-title">Top 16 Experts Appearing Week Over Week with &lt;50% Readiness</h2>
+    <h2 class="section-title">Top 15 Experts Appearing Week Over Week with &lt;50% Readiness</h2>
     <div class="expert-section">
         <div class="expert-card internal">
             <h3>Internal (Intuit) &mdash; Top 8</h3>
+            <div class="table-scroll">
             <table>
                 <thead>
                     <tr>
@@ -567,9 +569,11 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
         <div class="expert-card external">
-            <h3>External &mdash; Top 8</h3>
+            <h3>External &mdash; Top 7</h3>
+            <div class="table-scroll">
             <table>
                 <thead>
                     <tr>
@@ -635,15 +639,9 @@
                         <td class="week-cell">3</td><td class="week-cell">45.00%</td>
                         <td class="text-center"><strong>2</strong></td>
                     </tr>
-                    <tr>
-                        <td>Govas, Michael</td><td>Saman Esmaily</td><td>3</td>
-                        <td class="week-cell week-zero">0</td><td class="week-cell week-zero">0.00%</td>
-                        <td class="week-cell">2</td><td class="week-cell">28.74%</td>
-                        <td class="week-cell">1</td><td class="week-cell">21.05%</td>
-                        <td class="text-center"><strong>2</strong></td>
-                    </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 
@@ -790,8 +788,8 @@ new Chart(document.getElementById('trendChart'), {
             {
                 label: 'External',
                 data: extDR,
-                borderColor: '#e65100',
-                backgroundColor: 'rgba(230,81,0,0.08)',
+                borderColor: '#5cb8ff',
+                backgroundColor: 'rgba(92,184,255,0.08)',
                 borderWidth: 2.5,
                 pointRadius: 3,
                 pointHoverRadius: 5,
@@ -821,10 +819,10 @@ new Chart(document.getElementById('trendChart'), {
                     },
                     baselineExt: {
                         type: 'line', yMin: 71.58, yMax: 71.58,
-                        borderColor: 'rgba(230,81,0,0.5)', borderWidth: 2, borderDash: [8, 4],
+                        borderColor: 'rgba(92,184,255,0.5)', borderWidth: 2, borderDash: [8, 4],
                         label: {
                             display: true, content: 'External Baseline: 71.58%', position: 'end',
-                            backgroundColor: 'rgba(230,81,0,0.8)', color: '#fff',
+                            backgroundColor: 'rgba(92,184,255,0.9)', color: '#fff',
                             font: { size: 11, weight: '600' }, padding: 4
                         }
                     }
@@ -854,8 +852,8 @@ new Chart(document.getElementById('under50Chart'), {
             {
                 label: 'External',
                 data: extU50,
-                borderColor: '#e65100',
-                backgroundColor: 'rgba(230,81,0,0.08)',
+                borderColor: '#5cb8ff',
+                backgroundColor: 'rgba(92,184,255,0.08)',
                 borderWidth: 2.5,
                 pointRadius: 3,
                 pointHoverRadius: 5,
@@ -885,10 +883,10 @@ new Chart(document.getElementById('under50Chart'), {
                     },
                     baselineExt: {
                         type: 'line', yMin: 15.73, yMax: 15.73,
-                        borderColor: 'rgba(230,81,0,0.5)', borderWidth: 2, borderDash: [8, 4],
+                        borderColor: 'rgba(92,184,255,0.5)', borderWidth: 2, borderDash: [8, 4],
                         label: {
                             display: true, content: 'External Baseline: 15.73%', position: 'end',
-                            backgroundColor: 'rgba(230,81,0,0.8)', color: '#fff',
+                            backgroundColor: 'rgba(92,184,255,0.9)', color: '#fff',
                             font: { size: 11, weight: '600' }, padding: 4
                         }
                     }
@@ -907,14 +905,14 @@ new Chart(document.getElementById('repeatChart'), {
             label: 'Distinct qualifying days',
             data: repeatExperts.map(e => e.count),
             backgroundColor: repeatExperts.map(e =>
-                e.count >= 5 ? '#c62828' :
-                e.count >= 4 ? '#e65100' :
-                '#f9a825'
+                e.count >= 5 ? '#003d6b' :
+                e.count >= 4 ? '#0077c5' :
+                '#5cb8ff'
             ),
             borderColor: repeatExperts.map(e =>
-                e.count >= 5 ? '#b71c1c' :
-                e.count >= 4 ? '#bf360c' :
-                '#f57f17'
+                e.count >= 5 ? '#002d4f' :
+                e.count >= 4 ? '#005a94' :
+                '#3da5f5'
             ),
             borderWidth: 1,
             borderRadius: 4,
