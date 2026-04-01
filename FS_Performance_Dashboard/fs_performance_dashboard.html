@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FS Performance Dashboard (3/1/26 - 3/30/26)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  :root {
+    --navy-900: #0A1628;
+    --navy-800: #12213A;
+    --navy-700: #1B3054;
+    --navy-600: #1E3A5F;
+    --navy-500: #2C5282;
+    --blue-600: #0077C5;
+    --blue-500: #2B8FD4;
+    --blue-400: #4DA3E0;
+    --blue-300: #7FBFED;
+    --blue-100: #DCEEFB;
+    --blue-50: #EFF8FF;
+    --bg: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --card-border: #D5E3F0;
+    --text: #0A1628;
+    --text-muted: #5A7089;
+    --partner-green: #2D8B5F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--blue-100);
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+    color: var(--navy-900);
+  }
+
+  .header .subtitle {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .header .intuit-badge {
+    display: inline-block;
+    background: var(--navy-700);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 28px;
+    background: var(--blue-50);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 4px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tab {
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    border: none;
+    background: transparent;
+  }
+
+  .tab:hover { color: var(--navy-800); }
+
+  .tab.active {
+    background: var(--navy-700);
+    color: #fff;
+  }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .kpi-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(10,22,40,0.06);
+  }
+
+  .kpi-card .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .kpi-card .intuit-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .kpi-card .intuit-line .tag {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--navy-700);
+    padding: 1px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .kpi-card .intuit-line .val {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--navy-800);
+  }
+
+  .kpi-card .partner-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .kpi-card .partner-line .tag {
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--partner-green);
+    padding: 1px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .kpi-card .partner-line .val {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--partner-green);
+  }
+
+  .kpi-card .note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  .chart-container {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(10,22,40,0.06);
+  }
+
+  .chart-container h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--navy-800);
+  }
+
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .chart-wrap.medium { height: 350px; }
+  .chart-wrap.tall { height: 420px; }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .data-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--card-border);
+    background: var(--blue-50);
+  }
+
+  .data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+
+  .data-table .intuit-row {
+    background: var(--blue-50);
+    font-weight: 600;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .legend-row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+  }
+
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+  }
+
+  .insight-box {
+    background: var(--blue-50);
+    border-left: 3px solid var(--navy-700);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .insight-box strong { color: var(--navy-800); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>FS Performance Dashboard</h1>
+  <div class="subtitle">Data Period: <strong>March 1 - March 30, 2026</strong> &nbsp;|&nbsp; <span class="intuit-badge">INTUIT</span> vs. Domain Partners</div>
+</div>
+
+<div class="tabs" id="tabs">
+  <button class="tab active" data-tab="overview">Overview</button>
+  <button class="tab" data-tab="sku">SKU Mix & CST</button>
+  <button class="tab" data-tab="quality">tNPS & HC</button>
+  <button class="tab" data-tab="table">Full Data Table</button>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<div class="section active" id="sec-overview">
+
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="label">Engagements</div>
+      <div class="intuit-line"><span class="tag">Intuit</span> <span class="val">142,778</span></div>
+      <div class="partner-line"><span class="tag">Partners</span> <span class="val">26,824</span></div>
+      <div class="note">Intuit = 84.2% of total</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Avg CST (min)</div>
+      <div class="intuit-line"><span class="tag">Intuit</span> <span class="val">3.35</span></div>
+      <div class="partner-line"><span class="tag">Partners</span> <span class="val">3.18</span></div>
+      <div class="note">Weighted avg &nbsp;|&nbsp; Lower = faster</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">tNPS</div>
+      <div class="intuit-line"><span class="tag">Intuit</span> <span class="val">78.1</span></div>
+      <div class="partner-line"><span class="tag">Partners</span> <span class="val">76.1</span></div>
+      <div class="note">Weighted avg</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">HC %</div>
+      <div class="intuit-line"><span class="tag">Intuit</span> <span class="val">97.9%</span></div>
+      <div class="partner-line"><span class="tag">Partners</span> <span class="val">98.4%</span></div>
+      <div class="note">Weighted avg</div>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-item"><div class="legend-dot" style="background:#1B3054"></div> INTUIT (Internal)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2B8FD4"></div> JDA</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4DA3E0"></div> MAGNIT</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7FBFED"></div> HIGHSPRING LLC</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#2D8B5F"></div> EDUCATION AT WORK</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#5AADCF"></div> FOUNDEVER</div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-container">
+      <h3>Avg CST</h3>
+      <div class="chart-wrap medium"><canvas id="chartOverallCST"></canvas></div>
+    </div>
+    <div class="chart-container">
+      <h3>Engagement Volume (% of Total)</h3>
+      <div class="chart-wrap medium"><canvas id="chartVolume"></canvas></div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <strong>Key Insight:</strong> CST (Customer Spend Time) measures the time an expert spends on the call with the customer &mdash; <strong>lower is more efficient</strong>.
+    INTUIT handles <strong>84%</strong> of total volume with an avg CST of <strong>3.35 min</strong>. 
+    However, INTUIT has the highest share of Premium SKUs (<strong>53.2%</strong>), which naturally require longer handle times. 
+    When comparing CST, the <strong>SKU mix</strong> must be considered &mdash; see the SKU tab for a controlled comparison. 
+    MAGNIT shows the longest overall CST (4.09 min) but handles <strong>73.3% Premium</strong> engagements.
+    FOUNDEVER and Education at Work show shorter CST driven primarily by <strong>Basic-heavy</strong> portfolios (simpler cases).
+  </div>
+</div>
+
+<!-- ============ SKU MIX & CST ============ -->
+<div class="section" id="sec-sku">
+  <div class="two-col">
+    <div class="chart-container">
+      <h3>SKU Mix Distribution by Partner</h3>
+      <div class="chart-wrap tall"><canvas id="chartSKUMix"></canvas></div>
+    </div>
+    <div class="chart-container">
+      <h3>Avg Customer Spend Time by SKU &amp; Partner</h3>
+      <div class="chart-wrap tall"><canvas id="chartSKUCST"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <h3>CST by SKU &mdash; INTUIT vs. Weighted Partner Avg</h3>
+    <div class="chart-wrap medium"><canvas id="chartCSTH2H"></canvas></div>
+  </div>
+
+  <div class="insight-box">
+    <strong>SKU Mix Matters:</strong> INTUIT's overall CST (3.35 min) appears longer than most partners, but INTUIT handles proportionally more <strong>Premium</strong> cases (53.2%), which inherently require more expert time. 
+    When looking at CST <em>within each SKU</em> (apples-to-apples):
+    <br>&bull; <strong>Basic:</strong> INTUIT (1.96 min) is the <strong>2nd fastest</strong> &mdash; faster than JDA (2.05), HIGHSPRING (2.31), EAW (2.44), MAGNIT (2.68).
+    <br>&bull; <strong>Deluxe:</strong> INTUIT (2.70 min) is mid-range among partners.
+    <br>&bull; <strong>Premium:</strong> INTUIT (4.16 min) is slower than JDA (3.77) but faster than MAGNIT (4.42).
+    <br>This suggests INTUIT's longer overall CST is <strong>largely driven by SKU mix</strong> (more complex products), not slower handling within individual SKUs.
+  </div>
+</div>
+
+<!-- ============ QUALITY ============ -->
+<div class="section" id="sec-quality">
+  <div class="two-col">
+    <div class="chart-container">
+      <h3>tNPS by Partner</h3>
+      <div class="chart-wrap medium"><canvas id="chartTNPS"></canvas></div>
+    </div>
+    <div class="chart-container">
+      <h3>Handled Conversion (HC%) by Partner</h3>
+      <div class="chart-wrap medium"><canvas id="chartHC"></canvas></div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <strong>Quality Metrics:</strong> 
+    <strong>Education at Work</strong> leads in tNPS (<strong>85.0</strong>) despite lower volume, while <strong>HIGHSPRING</strong> lags at 66.7.
+    HC is uniformly high across all partners (95.6% - 98.6%), with <strong>HIGHSPRING</strong> and <strong>JDA</strong> slightly edging out INTUIT.
+    INTUIT's tNPS of 78.1 is <strong>above the weighted partner average</strong> (76.1), positioning it solidly mid-to-high range.
+  </div>
+</div>
+
+<!-- ============ TABLE ============ -->
+<div class="section" id="sec-table">
+  <div class="chart-container">
+    <h3>Complete Performance Data</h3>
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Partner</th>
+            <th>Engagements</th>
+            <th>% of Total</th>
+            <th>Avg CST (min)</th>
+            <th>Basic %</th>
+            <th>Basic CST (min)</th>
+            <th>Deluxe %</th>
+            <th>Deluxe CST (min)</th>
+            <th>Premium %</th>
+            <th>Premium CST (min)</th>
+            <th>Other %</th>
+            <th>Other CST (min)</th>
+            <th>tNPS</th>
+            <th>HC %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="intuit-row">
+            <td>INTUIT</td><td>142,778</td><td>84.19%</td><td>3.35</td>
+            <td>19.68%</td><td>1.96</td><td>26.38%</td><td>2.70</td>
+            <td>53.19%</td><td>4.16</td><td>0.75%</td><td>3.97</td>
+            <td>78.1</td><td>97.9%</td>
+          </tr>
+          <tr>
+            <td>JDA</td><td>22,248</td><td>13.12%</td><td>3.15</td>
+            <td>14.78%</td><td>2.05</td><td>31.68%</td><td>2.60</td>
+            <td>52.91%</td><td>3.77</td><td>0.62%</td><td>5.02</td>
+            <td>76.0</td><td>98.4%</td>
+          </tr>
+          <tr>
+            <td>MAGNIT</td><td>2,604</td><td>1.54%</td><td>4.09</td>
+            <td>9.72%</td><td>2.68</td><td>16.36%</td><td>3.30</td>
+            <td>73.27%</td><td>4.42</td><td>0.65%</td><td>7.19</td>
+            <td>75.7</td><td>98.1%</td>
+          </tr>
+          <tr>
+            <td>HIGHSPRING LLC</td><td>1,228</td><td>0.72%</td><td>3.34</td>
+            <td>23.62%</td><td>2.31</td><td>24.35%</td><td>3.10</td>
+            <td>51.55%</td><td>3.86</td><td>0.49%</td><td>9.04</td>
+            <td>66.7</td><td>98.6%</td>
+          </tr>
+          <tr>
+            <td>EDUCATION AT WORK</td><td>520</td><td>0.31%</td><td>2.71</td>
+            <td>45.77%</td><td>2.44</td><td>39.42%</td><td>2.60</td>
+            <td>13.27%</td><td>3.70</td><td>1.54%</td><td>3.93</td>
+            <td>85.0</td><td>97.0%</td>
+          </tr>
+          <tr>
+            <td>FOUNDEVER</td><td>224</td><td>0.13%</td><td>2.13</td>
+            <td>59.38%</td><td>1.78</td><td>27.23%</td><td>2.30</td>
+            <td>12.95%</td><td>3.09</td><td>0.45%</td><td>8.12</td>
+            <td>79.8</td><td>95.6%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+const COLORS_ARR = ['#1B3054','#2B8FD4','#4DA3E0','#7FBFED','#2D8B5F','#5AADCF'];
+
+const partners = ['INTUIT','JDA','MAGNIT','HIGHSPRING','EAW','FOUNDEVER'];
+const fullNames = ['INTUIT','JDA','MAGNIT','HIGHSPRING LLC','EDUCATION AT WORK','FOUNDEVER'];
+
+const data = {
+  eng:     [142778, 22248, 2604, 1228, 520, 224],
+  cst:     [3.35, 3.15, 4.09, 3.34, 2.71, 2.13],
+  basic_pct:   [19.68, 14.78, 9.72, 23.62, 45.77, 59.38],
+  deluxe_pct:  [26.38, 31.68, 16.36, 24.35, 39.42, 27.23],
+  premium_pct: [53.19, 52.91, 73.27, 51.55, 13.27, 12.95],
+  other_pct:   [0.75, 0.62, 0.65, 0.49, 1.54, 0.45],
+  basic_cst:   [1.96, 2.05, 2.68, 2.31, 2.44, 1.78],
+  deluxe_cst:  [2.70, 2.60, 3.30, 3.10, 2.60, 2.30],
+  premium_cst: [4.16, 3.77, 4.42, 3.86, 3.70, 3.09],
+  other_cst:   [3.97, 5.02, 7.19, 9.04, 3.93, 8.12],
+  tnps:    [78.1, 76.0, 75.7, 66.7, 85.0, 79.8],
+  hc:      [97.9, 98.4, 98.1, 98.6, 97.0, 95.6]
+};
+
+const totalEng = data.eng.reduce((a,b) => a+b, 0);
+const engPct = data.eng.map(e => parseFloat((e / totalEng * 100).toFixed(2)));
+
+// Partner-only indices (1-5), weighted averages by engagement volume
+const pIdx = [1,2,3,4,5];
+const pTotalEng = pIdx.reduce((s,i) => s + data.eng[i], 0);
+
+function weightedAvg(arr) {
+  return pIdx.reduce((s,i) => s + arr[i] * data.eng[i], 0) / pTotalEng;
+}
+
+// Weighted partner avg CST by SKU (using each partner's SKU engagements as weights)
+const partnerBasicEng = pIdx.map(i => data.eng[i] * data.basic_pct[i] / 100);
+const partnerDeluxeEng = pIdx.map(i => data.eng[i] * data.deluxe_pct[i] / 100);
+const partnerPremiumEng = pIdx.map(i => data.eng[i] * data.premium_pct[i] / 100);
+const totalPartnerBasic = partnerBasicEng.reduce((a,b) => a+b, 0);
+const totalPartnerDeluxe = partnerDeluxeEng.reduce((a,b) => a+b, 0);
+const totalPartnerPremium = partnerPremiumEng.reduce((a,b) => a+b, 0);
+const wAvgBasicCST = pIdx.reduce((s, i, j) => s + data.basic_cst[i] * partnerBasicEng[j], 0) / totalPartnerBasic;
+const wAvgDeluxeCST = pIdx.reduce((s, i, j) => s + data.deluxe_cst[i] * partnerDeluxeEng[j], 0) / totalPartnerDeluxe;
+const wAvgPremiumCST = pIdx.reduce((s, i, j) => s + data.premium_cst[i] * partnerPremiumEng[j], 0) / totalPartnerPremium;
+
+Chart.defaults.color = '#5A7089';
+Chart.defaults.borderColor = 'rgba(213,227,240,0.7)';
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+Chart.defaults.plugins.datalabels = { display: false };
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('sec-' + t.dataset.tab).classList.add('active');
+  });
+});
+
+// ========== OVERVIEW CHARTS ==========
+
+new Chart(document.getElementById('chartOverallCST'), {
+  type: 'bar',
+  data: {
+    labels: partners,
+    datasets: [{
+      data: data.cst,
+      backgroundColor: COLORS_ARR,
+      borderRadius: 6,
+      borderSkipped: false,
+      categoryPercentage: 0.8,
+      barPercentage: 0.92
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: (items) => fullNames[items[0].dataIndex],
+          label: (item) => `CST: ${item.raw.toFixed(2)} min`
+        }
+      }
+    },
+    scales: {
+      y: { beginAtZero: true, max: 5, title: { display: true, text: 'Avg CST (min)' }},
+      x: { grid: { display: false }}
+    }
+  }
+});
+
+new Chart(document.getElementById('chartVolume'), {
+  type: 'bar',
+  plugins: [ChartDataLabels],
+  data: {
+    labels: partners,
+    datasets: [{
+      data: engPct,
+      backgroundColor: COLORS_ARR,
+      borderRadius: 6,
+      borderSkipped: false,
+      categoryPercentage: 0.8,
+      barPercentage: 0.92
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      datalabels: {
+        display: true,
+        anchor: 'end',
+        align: 'end',
+        color: '#1B3054',
+        font: { weight: '700', size: 12 },
+        formatter: v => v.toFixed(1) + '%'
+      },
+      tooltip: {
+        callbacks: {
+          title: (items) => fullNames[items[0].dataIndex],
+          label: (item) => `${item.raw.toFixed(1)}% (${data.eng[item.dataIndex].toLocaleString()} engagements)`
+        }
+      }
+    },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: '% of Total Engagements' }},
+      x: { grid: { display: false }}
+    }
+  }
+});
+
+// ========== SKU CHARTS ==========
+
+const skuColors = { basic: '#7FBFED', deluxe: '#2B8FD4', premium: '#1B3054', other: '#B0C4D8' };
+
+new Chart(document.getElementById('chartSKUMix'), {
+  type: 'bar',
+  data: {
+    labels: partners,
+    datasets: [
+      { label: 'Basic', data: data.basic_pct, backgroundColor: skuColors.basic, borderRadius: 2 },
+      { label: 'Deluxe', data: data.deluxe_pct, backgroundColor: skuColors.deluxe, borderRadius: 2 },
+      { label: 'Premium', data: data.premium_pct, backgroundColor: skuColors.premium, borderRadius: 2 },
+      { label: 'Other', data: data.other_pct, backgroundColor: skuColors.other, borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top' },
+      tooltip: { callbacks: { label: item => `${item.dataset.label}: ${item.raw.toFixed(1)}%` }}
+    },
+    scales: {
+      x: { stacked: true, grid: { display: false }},
+      y: { stacked: true, max: 100, title: { display: true, text: '% of Engagements' }}
+    }
+  }
+});
+
+new Chart(document.getElementById('chartSKUCST'), {
+  type: 'bar',
+  data: {
+    labels: partners,
+    datasets: [
+      { label: 'Basic CST (min)', data: data.basic_cst, backgroundColor: skuColors.basic, borderRadius: 4 },
+      { label: 'Deluxe CST (min)', data: data.deluxe_cst, backgroundColor: skuColors.deluxe, borderRadius: 4 },
+      { label: 'Premium CST (min)', data: data.premium_cst, backgroundColor: skuColors.premium, borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top' }},
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'Avg CST (min)' }},
+      x: { grid: { display: false }}
+    }
+  }
+});
+
+new Chart(document.getElementById('chartCSTH2H'), {
+  type: 'bar',
+  data: {
+    labels: ['Basic', 'Deluxe', 'Premium'],
+    datasets: [
+      {
+        label: 'INTUIT',
+        data: [1.96, 2.70, 4.16],
+        backgroundColor: '#1B3054',
+        borderRadius: 6,
+        barThickness: 56
+      },
+      {
+        label: 'Wtd Partner Avg',
+        data: [wAvgBasicCST.toFixed(2), wAvgDeluxeCST.toFixed(2), wAvgPremiumCST.toFixed(2)],
+        backgroundColor: '#2D8B5F',
+        borderRadius: 6,
+        barThickness: 56
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top' }},
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'Avg CST (min)' }},
+      x: { grid: { display: false }}
+    }
+  }
+});
+
+// ========== QUALITY CHARTS ==========
+
+new Chart(document.getElementById('chartTNPS'), {
+  type: 'bar',
+  data: {
+    labels: partners,
+    datasets: [{
+      data: data.tnps,
+      backgroundColor: COLORS_ARR,
+      borderRadius: 6,
+      borderSkipped: false,
+      barThickness: 48
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: (items) => fullNames[items[0].dataIndex],
+          label: (item) => `tNPS: ${item.raw}`
+        }
+      }
+    },
+    scales: {
+      x: { min: 50, max: 100, title: { display: true, text: 'tNPS Score' }},
+      y: { grid: { display: false }}
+    }
+  }
+});
+
+new Chart(document.getElementById('chartHC'), {
+  type: 'bar',
+  data: {
+    labels: partners,
+    datasets: [{
+      data: data.hc,
+      backgroundColor: COLORS_ARR,
+      borderRadius: 6,
+      borderSkipped: false,
+      barThickness: 48
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: (items) => fullNames[items[0].dataIndex],
+          label: (item) => `HC: ${item.raw}%`
+        }
+      }
+    },
+    scales: {
+      x: { min: 94, max: 100, title: { display: true, text: 'HC %' }},
+      y: { grid: { display: false }}
+    }
+  }
+});
+
+</script>
+</body>
+</html>
