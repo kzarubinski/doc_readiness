@@ -429,11 +429,15 @@ new Chart(document.getElementById('chartSKUMix'), {
 
 new Chart(document.getElementById('chartSKUCST'), {
   type: 'bar',
-  data: { labels: partners, datasets: [
-    { label: 'Basic CST (hrs)', data: data.basic_cst, backgroundColor: skuColors.basic, borderRadius: 4 },
-    { label: 'Deluxe CST (hrs)', data: data.deluxe_cst, backgroundColor: skuColors.deluxe, borderRadius: 4 },
-    { label: 'Premium CST (hrs)', data: data.premium_cst, backgroundColor: skuColors.premium, borderRadius: 4 }
-  ]},
+  data: {
+    labels: ['Basic', 'Deluxe', 'Premium'],
+    datasets: partners.map((p, i) => ({
+      label: fullNames[i],
+      data: [data.basic_cst[i], data.deluxe_cst[i], data.premium_cst[i]],
+      backgroundColor: COLORS_ARR[i],
+      borderRadius: 4
+    }))
+  },
   options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' }}, scales: { y: { beginAtZero: true, title: { display: true, text: 'Avg CST (hrs)' }}, x: { grid: { display: false }}}}
 });
 
