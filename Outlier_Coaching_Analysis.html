@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outlier Coaching Project — Analysis Report</title>
+    <style>
+        :root {
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --border: #dee2e6;
+            --text: #212529;
+            --muted: #6c757d;
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --purple: #7c3aed;
+            --purple-light: #ede9fe;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+        h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: var(--primary); }
+        .subtitle { color: var(--muted); margin-bottom: 2rem; }
+        .report-date { color: var(--muted); font-size: 0.9rem; }
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .kpi { background: var(--card); border-radius: 10px; padding: 1.25rem; border: 1px solid var(--border); text-align: center; }
+        .kpi .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 0.35rem; }
+        .kpi .value { font-size: 2rem; font-weight: 700; }
+        .kpi .detail { font-size: 0.82rem; color: var(--muted); margin-top: 0.25rem; }
+        .kpi.green .value { color: var(--success); }
+        .kpi.red .value { color: var(--danger); }
+        .kpi.blue .value { color: var(--primary); }
+        .kpi.purple .value { color: var(--purple); }
+        .card { background: var(--card); border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-green { background: var(--success-light); color: var(--success); }
+        .badge-red { background: var(--danger-light); color: var(--danger); }
+        .badge-yellow { background: var(--warning-light); color: var(--warning); }
+        .badge-blue { background: var(--primary-light); color: var(--primary); }
+        .badge-purple { background: var(--purple-light); color: var(--purple); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.75rem 0; }
+        th, td { padding: 0.55rem 0.75rem; text-align: center; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
+        td:first-child, th:first-child { text-align: left; }
+        tr:hover td { background: #f8fafc; }
+        .highlight-row td { background: var(--primary-light) !important; font-weight: 600; }
+        .neg { color: var(--success); font-weight: 600; }
+        .pos { color: var(--danger); font-weight: 600; }
+        .neutral { color: var(--muted); }
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+        .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+        .chart-box canvas { width: 100% !important; }
+        @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+        .callout { border-left: 4px solid var(--primary); background: var(--primary-light); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.92rem; }
+        .callout.warn { border-left-color: var(--warning); background: var(--warning-light); }
+        .callout.success { border-left-color: var(--success); background: var(--success-light); }
+        .callout.danger { border-left-color: var(--danger); background: var(--danger-light); }
+        .findings li { margin-bottom: 0.5rem; }
+        .findings li strong { color: var(--primary); }
+        .sku-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.75rem 0; }
+        .sku-card { background: #f8fafc; border-radius: 8px; padding: 1rem; border: 1px solid var(--border); }
+        .sku-card h4 { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+        .toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 2rem; margin: 1.5rem 0; }
+        .toc ol { padding-left: 1.25rem; }
+        .toc li { margin-bottom: 0.35rem; }
+        .toc a { color: var(--primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <h1>Outlier Coaching Project — Analysis Report</h1>
+    <p class="subtitle">CST Improvement Initiative &bull; Coached vs. Non-Coached Expert Performance</p>
+    <p class="report-date">Report generated: April 14, 2026 &bull; All 8 groups reviewed</p>
+
+    <div class="toc">
+        <strong>Contents</strong>
+        <ol>
+            <li><a href="#exec">Executive Summary</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#overall">Overall Results — All Groups</a></li>
+            <li><a href="#group-details">Group-by-Group Detailed Analysis</a></li>
+            <li><a href="#sku">SKU-Level Analysis</a></li>
+            <li><a href="#managers">Manager-Level Analysis</a></li>
+            <li><a href="#conclusions">Conclusions &amp; Recommendations</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. EXECUTIVE SUMMARY -->
+    <h2 id="exec">1. Executive Summary</h2>
+    <p>1,400 experts were identified as "Outliers" based on elevated CST (Customer Service Time) rankings. A controlled coaching experiment was conducted across <strong>8 groups</strong> (coached between 3/25 – 4/1/2026) against a stable <strong>non-coached control group of 391 experts</strong>. This report evaluates the effectiveness of coaching in reducing CST.</p>
+
+    <div class="kpi-row">
+        <div class="kpi blue">
+            <div class="label">Total Experts Identified</div>
+            <div class="value">1,400</div>
+            <div class="detail">Outliers by CST ranking</div>
+        </div>
+        <div class="kpi purple">
+            <div class="label">Coached Groups</div>
+            <div class="value">8</div>
+            <div class="detail">All groups reviewed</div>
+        </div>
+        <div class="kpi green">
+            <div class="label">Best Coached Improvement</div>
+            <div class="value">−0.72</div>
+            <div class="detail">Group 8 (coached 4/1)</div>
+        </div>
+        <div class="kpi">
+            <div class="label">Avg Non-Coached Change</div>
+            <div class="value" style="color:var(--success)">−0.14</div>
+            <div class="detail">Natural CST drift (control)</div>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>Key Finding:</strong> 7 out of 8 coached groups showed CST improvement, with <strong>Group 8 achieving the largest improvement (−0.72)</strong> and Group 4 close behind (−0.60). Group 1 was the only coached group where CST increased, driven by a shift in SKU mix toward higher-complexity Premium returns. Notably, the non-coached control group also showed natural CST improvement in most periods — and in some cases matched or exceeded coached groups — raising questions about the incremental efficiency of personalized coaching.
+    </div>
+
+    <!-- 2. METHODOLOGY -->
+    <h2 id="methodology">2. Methodology</h2>
+    <div class="card">
+        <ul style="padding-left:1.25rem;">
+            <li><strong>Control group:</strong> 391 non-coached experts (same group used across all comparisons)</li>
+            <li><strong>Pre-period:</strong> 7-day window before coaching date (engagement date within window)</li>
+            <li><strong>Post-period:</strong> 7-day window starting on coaching date (engagement date within window)</li>
+            <li><strong>Completion rule:</strong> Engagements must be completed within 7 days of the engagement start date</li>
+            <li><strong>Metric:</strong> CST (Customer Service Time) — lower is better</li>
+            <li><strong>SKU breakdown:</strong> Basic, Deluxe, Premium (increasing complexity &amp; typical CST)</li>
+        </ul>
+    </div>
+
+    <!-- 3. OVERALL RESULTS -->
+    <h2 id="overall">3. Overall Results — All Groups</h2>
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Group</th><th>Coaching Date</th><th>Expert Count</th>
+                    <th>Pre CST</th><th>Pre Eng</th><th>Post CST</th><th>Post Eng</th>
+                    <th>CST Change</th><th>Control Change</th><th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Group 1</strong></td><td>3/25</td><td>174</td>
+                    <td>3.51</td><td>370</td><td>3.64</td><td>559</td>
+                    <td class="pos">+0.14</td><td class="neg">−0.12</td>
+                    <td><span class="badge badge-red">Increased</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Group 2</strong></td><td>3/26</td><td>117</td>
+                    <td>3.67</td><td>319</td><td>3.48</td><td>424</td>
+                    <td class="neg">−0.19</td><td class="neg">−0.16</td>
+                    <td><span class="badge badge-green">Improved</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Group 3</strong></td><td>3/27</td><td>131</td>
+                    <td>3.34</td><td>281</td><td>2.96</td><td>430</td>
+                    <td class="neg">−0.38</td><td class="neg">−0.24</td>
+                    <td><span class="badge badge-green">Improved</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Group 4</strong></td><td>3/28</td><td>82</td>
+                    <td>3.39</td><td>193</td><td>2.79</td><td>230</td>
+                    <td class="neg">−0.60</td><td class="neg">−0.27</td>
+                    <td><span class="badge badge-green">Strong</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Group 5</strong></td><td>3/29</td><td>80</td>
+                    <td>3.33</td><td>198</td><td>3.31</td><td>207</td>
+                    <td class="neutral">−0.03</td><td class="neg">−0.22</td>
+                    <td><span class="badge badge-yellow">Minimal</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Group 6</strong></td><td>3/30</td><td>115</td>
+                    <td>3.23</td><td>351</td><td>3.22</td><td>282</td>
+                    <td class="neutral">−0.01</td><td class="neg">−0.14</td>
+                    <td><span class="badge badge-yellow">Minimal</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Group 7</strong></td><td>3/31</td><td>263</td>
+                    <td>3.53</td><td>806</td><td>3.36</td><td>520</td>
+                    <td class="neg">−0.17</td><td class="neg">−0.03</td>
+                    <td><span class="badge badge-green">Improved</span></td>
+                </tr>
+                <tr class="highlight-row">
+                    <td><strong>Group 8</strong></td><td>4/1</td><td>45</td>
+                    <td>3.64</td><td>115</td><td>2.93</td><td>94</td>
+                    <td class="neg">−0.72</td><td class="pos">+0.08</td>
+                    <td><span class="badge badge-green">Best</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">Control Change shown for reference — notably, in some cases the non-coached control group improved as much or more than coached groups, raising questions about the efficiency of personalized coaching. For Group 8, the control group actually worsened (+0.08) while the coached group improved strongly (−0.72).</p>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">CST Change: Coached vs. Non-Coached</h3>
+            <canvas id="chartCSTChange" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Pre vs. Post CST by Group</h3>
+            <canvas id="chartPrePost" height="280"></canvas>
+        </div>
+    </div>
+
+    <!-- 4. GROUP-BY-GROUP DETAILED ANALYSIS -->
+    <h2 id="group-details">4. Group-by-Group Detailed Analysis</h2>
+
+    <!-- GROUP 1 -->
+    <div class="card">
+        <div class="card-header">
+            <h3 style="margin:0;">Group 1 — Coached 3/25/26</h3>
+            <span class="badge badge-red">CST Increased +0.14</span>
+        </div>
+        <p><strong>174 experts</strong> &bull; Pre: 3/18–3/24 &bull; Post: 3/25–3/31</p>
+        <div class="callout danger" style="margin-top:1rem;">
+            Group 1 was the <strong>only coached group where CST worsened</strong>. Root cause: the SKU mix shifted significantly toward Premium returns (+9.6% share post-coaching), which carry inherently higher CST. Basic and Deluxe CST both improved, but Premium CST increased by +0.07. If the SKU ratio had stayed constant, the post-coaching CST would have been <strong>3.39</strong> (a −0.12 improvement).
+        </div>
+        <div class="sku-grid">
+            <div class="sku-card"><h4>Non-Coached (Control)</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>1.94</td><td>17.4%</td><td>1.87</td><td>17.8%</td><td class="neg">−0.07</td></tr>
+                <tr><td>Deluxe</td><td>2.95</td><td>29.6%</td><td>2.74</td><td>29.2%</td><td class="neg">−0.21</td></tr>
+                <tr><td>Premium</td><td>4.13</td><td>52.6%</td><td>4.06</td><td>52.6%</td><td class="neg">−0.07</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.40</td><td></td><td>3.28</td><td></td><td class="neg">−0.12</td></tr></table>
+            </div>
+            <div class="sku-card"><h4>Coached — Group 1</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>2.27</td><td>23.8%</td><td>1.76</td><td>15.2%</td><td class="neg">−0.51</td></tr>
+                <tr><td>Deluxe</td><td>3.22</td><td>29.7%</td><td>3.16</td><td>28.8%</td><td class="neg">−0.06</td></tr>
+                <tr><td>Premium</td><td>4.33</td><td>46.2%</td><td>4.40</td><td>55.8%</td><td class="pos">+0.07</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.51</td><td></td><td>3.64</td><td></td><td class="pos">+0.14</td></tr></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP 2 -->
+    <div class="card">
+        <div class="card-header"><h3 style="margin:0;">Group 2 — Coached 3/26/26</h3><span class="badge badge-green">CST Improved −0.19</span></div>
+        <p><strong>117 experts</strong> &bull; Pre: 3/19–3/25 &bull; Post: 3/26–4/1</p>
+        <div class="callout success" style="margin-top:1rem;">Both coached and non-coached groups improved. Group 2 showed <strong>CST improvement across all SKUs</strong>, with Deluxe (−0.25) and Premium (−0.32) showing the strongest gains.</div>
+        <div class="sku-grid">
+            <div class="sku-card"><h4>Non-Coached (Control)</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>1.96</td><td>16.3%</td><td>1.81</td><td>18.6%</td><td class="neg">−0.15</td></tr>
+                <tr><td>Deluxe</td><td>2.95</td><td>30.4%</td><td>2.70</td><td>29.0%</td><td class="neg">−0.25</td></tr>
+                <tr><td>Premium</td><td>4.15</td><td>52.8%</td><td>4.10</td><td>52.0%</td><td class="neg">−0.05</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.43</td><td></td><td>3.27</td><td></td><td class="neg">−0.16</td></tr></table>
+            </div>
+            <div class="sku-card"><h4>Coached — Group 2</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>1.96</td><td>18.8%</td><td>1.94</td><td>15.8%</td><td class="neutral">−0.02</td></tr>
+                <tr><td>Deluxe</td><td>2.94</td><td>23.5%</td><td>2.69</td><td>24.5%</td><td class="neg">−0.25</td></tr>
+                <tr><td>Premium</td><td>4.53</td><td>57.7%</td><td>4.21</td><td>59.4%</td><td class="neg">−0.32</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.67</td><td></td><td>3.48</td><td></td><td class="neg">−0.19</td></tr></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP 3 -->
+    <div class="card">
+        <div class="card-header"><h3 style="margin:0;">Group 3 — Coached 3/27/26</h3><span class="badge badge-green">CST Improved −0.38</span></div>
+        <p><strong>131 experts</strong> &bull; Pre: 3/20–3/26 &bull; Post: 3/27–4/2</p>
+        <div class="callout success" style="margin-top:1rem;">Strong performance. Group 3 improved across <strong>all three SKUs</strong> — Basic (−0.25), Deluxe (−0.19), Premium (−0.40). SKU distribution shifted slightly from Premium to Deluxe (~5%).</div>
+        <div class="sku-grid">
+            <div class="sku-card"><h4>Non-Coached (Control)</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>2.02</td><td>15.9%</td><td>1.77</td><td>19.8%</td><td class="neg">−0.25</td></tr>
+                <tr><td>Deluxe</td><td>2.92</td><td>30.1%</td><td>2.67</td><td>28.7%</td><td class="neg">−0.25</td></tr>
+                <tr><td>Premium</td><td>4.20</td><td>53.6%</td><td>4.09</td><td>50.9%</td><td class="neg">−0.11</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.46</td><td></td><td>3.22</td><td></td><td class="neg">−0.24</td></tr></table>
+            </div>
+            <div class="sku-card"><h4>Coached — Group 3</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>1.80</td><td>21.7%</td><td>1.55</td><td>21.2%</td><td class="neg">−0.25</td></tr>
+                <tr><td>Deluxe</td><td>2.65</td><td>24.6%</td><td>2.46</td><td>29.1%</td><td class="neg">−0.19</td></tr>
+                <tr><td>Premium</td><td>4.27</td><td>53.0%</td><td>3.87</td><td>49.3%</td><td class="neg">−0.40</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.34</td><td></td><td>2.96</td><td></td><td class="neg">−0.38</td></tr></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP 4 -->
+    <div class="card" style="border: 2px solid var(--success);">
+        <div class="card-header"><h3 style="margin:0;">Group 4 — Coached 3/28/26</h3><span class="badge badge-green">CST Improved −0.60</span></div>
+        <p><strong>82 experts</strong> &bull; Pre: 3/21–3/27 &bull; Post: 3/28–4/3</p>
+        <div class="callout success" style="margin-top:1rem;"><strong>Second-best group.</strong> CST improved by −0.60. Improvement was strong across all SKUs: Basic (−0.50), Deluxe (−0.44), Premium (−0.63).</div>
+        <div class="sku-grid">
+            <div class="sku-card"><h4>Non-Coached (Control)</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>2.00</td><td>16.3%</td><td>1.82</td><td>20.0%</td><td class="neg">−0.18</td></tr>
+                <tr><td>Deluxe</td><td>2.86</td><td>29.0%</td><td>2.75</td><td>29.3%</td><td class="neg">−0.11</td></tr>
+                <tr><td>Premium</td><td>4.23</td><td>54.2%</td><td>4.01</td><td>50.0%</td><td class="neg">−0.22</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.47</td><td></td><td>3.20</td><td></td><td class="neg">−0.27</td></tr></table>
+            </div>
+            <div class="sku-card"><h4>Coached — Group 4</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>2.32</td><td>19.7%</td><td>1.83</td><td>26.5%</td><td class="neg">−0.50</td></tr>
+                <tr><td>Deluxe</td><td>2.84</td><td>32.6%</td><td>2.40</td><td>27.8%</td><td class="neg">−0.44</td></tr>
+                <tr><td>Premium</td><td>4.21</td><td>47.2%</td><td>3.58</td><td>45.7%</td><td class="neg">−0.63</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.39</td><td></td><td>2.79</td><td></td><td class="neg">−0.60</td></tr></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP 5 -->
+    <div class="card">
+        <div class="card-header"><h3 style="margin:0;">Group 5 — Coached 3/29/26</h3><span class="badge badge-yellow">Minimal Change −0.03</span></div>
+        <p><strong>80 experts</strong> &bull; Pre: 3/22–3/28 &bull; Post: 3/29–4/4</p>
+        <div class="callout warn" style="margin-top:1rem;">Very limited overall improvement (−0.03). Basic CST improved dramatically (−0.51), but <strong>Deluxe (+0.01) and Premium (+0.07) showed no improvement</strong>. Experts may have already been aware of the CST initiative and begun self-correcting.</div>
+        <div class="sku-grid">
+            <div class="sku-card"><h4>Non-Coached (Control)</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>2.03</td><td>16.9%</td><td>1.82</td><td>20.1%</td><td class="neg">−0.21</td></tr>
+                <tr><td>Deluxe</td><td>2.93</td><td>28.1%</td><td>2.73</td><td>30.4%</td><td class="neg">−0.20</td></tr>
+                <tr><td>Premium</td><td>4.11</td><td>54.7%</td><td>4.06</td><td>48.8%</td><td class="neg">−0.05</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.42</td><td></td><td>3.20</td><td></td><td class="neg">−0.22</td></tr></table>
+            </div>
+            <div class="sku-card"><h4>Coached — Group 5</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>1.97</td><td>15.2%</td><td>1.45</td><td>13.5%</td><td class="neg">−0.51</td></tr>
+                <tr><td>Deluxe</td><td>2.81</td><td>28.8%</td><td>2.82</td><td>32.9%</td><td class="pos">+0.01</td></tr>
+                <tr><td>Premium</td><td>4.00</td><td>55.6%</td><td>4.07</td><td>53.6%</td><td class="pos">+0.07</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.33</td><td></td><td>3.31</td><td></td><td class="neutral">−0.03</td></tr></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP 6 -->
+    <div class="card">
+        <div class="card-header"><h3 style="margin:0;">Group 6 — Coached 3/30/26</h3><span class="badge badge-yellow">Minimal Change −0.01</span></div>
+        <p><strong>115 experts</strong> &bull; Pre: 3/23–3/29 &bull; Post: 3/30–4/5</p>
+        <div class="callout warn" style="margin-top:1rem;">Near-zero overall improvement (−0.01). Basic CST improved (−0.39), but Deluxe (+0.03) and <strong>Premium worsened (+0.12)</strong>. Like Group 5, experts may have already been self-correcting on Basic returns due to awareness of the initiative.</div>
+        <div class="sku-grid">
+            <div class="sku-card"><h4>Non-Coached (Control)</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>2.00</td><td>16.0%</td><td>1.81</td><td>20.9%</td><td class="neg">−0.19</td></tr>
+                <tr><td>Deluxe</td><td>2.93</td><td>28.8%</td><td>2.72</td><td>30.5%</td><td class="neg">−0.21</td></tr>
+                <tr><td>Premium</td><td>4.09</td><td>54.9%</td><td>4.26</td><td>47.9%</td><td class="pos">+0.17</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.41</td><td></td><td>3.27</td><td></td><td class="neg">−0.14</td></tr></table>
+            </div>
+            <div class="sku-card"><h4>Coached — Group 6</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>2.02</td><td>19.9%</td><td>1.63</td><td>19.1%</td><td class="neg">−0.39</td></tr>
+                <tr><td>Deluxe</td><td>2.59</td><td>26.8%</td><td>2.61</td><td>27.0%</td><td class="pos">+0.03</td></tr>
+                <tr><td>Premium</td><td>4.02</td><td>53.0%</td><td>4.14</td><td>52.5%</td><td class="pos">+0.12</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.23</td><td></td><td>3.22</td><td></td><td class="neutral">−0.01</td></tr></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP 7 -->
+    <div class="card">
+        <div class="card-header"><h3 style="margin:0;">Group 7 — Coached 3/31/26</h3><span class="badge badge-green">CST Improved −0.17</span></div>
+        <p><strong>263 experts</strong> (largest group) &bull; Pre: 3/24–3/30 &bull; Post: 3/31–4/6</p>
+        <div class="callout success" style="margin-top:1rem;">The largest coached group returned to positive results. Deluxe (−0.13) and Premium (−0.14) improved, while Basic showed a slight increase (+0.04). The SKU distribution shifted toward Basic and Deluxe.</div>
+        <div class="sku-grid">
+            <div class="sku-card"><h4>Non-Coached (Control)</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>1.95</td><td>16.3%</td><td>1.87</td><td>21.9%</td><td class="neg">−0.08</td></tr>
+                <tr><td>Deluxe</td><td>2.84</td><td>29.0%</td><td>2.87</td><td>30.6%</td><td class="pos">+0.03</td></tr>
+                <tr><td>Premium</td><td>4.11</td><td>54.3%</td><td>4.37</td><td>46.7%</td><td class="pos">+0.26</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.38</td><td></td><td>3.35</td><td></td><td class="neutral">−0.03</td></tr></table>
+            </div>
+            <div class="sku-card"><h4>Coached — Group 7</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>1.82</td><td>18.2%</td><td>1.85</td><td>19.8%</td><td class="pos">+0.04</td></tr>
+                <tr><td>Deluxe</td><td>2.88</td><td>25.2%</td><td>2.74</td><td>28.3%</td><td class="neg">−0.13</td></tr>
+                <tr><td>Premium</td><td>4.38</td><td>55.5%</td><td>4.23</td><td>51.2%</td><td class="neg">−0.14</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.53</td><td></td><td>3.36</td><td></td><td class="neg">−0.17</td></tr></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- GROUP 8 -->
+    <div class="card" style="border: 2px solid var(--success);">
+        <div class="card-header"><h3 style="margin:0;">Group 8 — Coached 4/1/26</h3><span class="badge badge-green">CST Improved −0.72 ★ Best</span></div>
+        <p><strong>45 experts</strong> (smallest group) &bull; Pre: 3/25–3/31 &bull; Post: 4/1–4/7</p>
+        <div class="callout success" style="margin-top:1rem;">
+            <strong>Best-performing group.</strong> CST improved by −0.72 while the non-coached control group actually worsened (+0.08). Improvement was strong across all SKUs: Basic (−0.68), Deluxe (−0.35), Premium (−0.62). For the Coached group, volume shifted from Premium to Basic for almost 10%, but improvement was genuine at every SKU level.
+        </div>
+        <div class="sku-grid">
+            <div class="sku-card"><h4>Non-Coached (Control)</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>1.86</td><td>17.4%</td><td>1.99</td><td>22.2%</td><td class="pos">+0.13</td></tr>
+                <tr><td>Deluxe</td><td>2.74</td><td>29.3%</td><td>3.04</td><td>29.3%</td><td class="pos">+0.30</td></tr>
+                <tr><td>Premium</td><td>4.11</td><td>52.9%</td><td>4.28</td><td>47.5%</td><td class="pos">+0.17</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.31</td><td></td><td>3.40</td><td></td><td class="pos">+0.08</td></tr></table>
+            </div>
+            <div class="sku-card"><h4>Coached — Group 8</h4>
+                <table><tr><th>SKU</th><th>Pre CST</th><th>Pre %</th><th>Post CST</th><th>Post %</th><th>Δ CST</th></tr>
+                <tr><td>Basic</td><td>2.52</td><td>9.6%</td><td>1.84</td><td>18.1%</td><td class="neg">−0.68</td></tr>
+                <tr><td>Deluxe</td><td>2.79</td><td>33.9%</td><td>2.44</td><td>33.0%</td><td class="neg">−0.35</td></tr>
+                <tr><td>Premium</td><td>4.40</td><td>55.7%</td><td>3.78</td><td>45.7%</td><td class="neg">−0.62</td></tr>
+                <tr style="font-weight:700;"><td>Total</td><td>3.64</td><td></td><td>2.93</td><td></td><td class="neg">−0.72</td></tr></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. SKU ANALYSIS SUMMARY -->
+    <h2 id="sku">5. SKU-Level Analysis Summary</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">CST Change by SKU across All Coached Groups</h3>
+        <table>
+            <thead><tr><th>Group</th><th>Basic Δ</th><th>Deluxe Δ</th><th>Premium Δ</th><th>Overall Δ</th><th>Pattern</th></tr></thead>
+            <tbody>
+                <tr><td>Group 1</td><td class="neg">−0.51</td><td class="neg">−0.06</td><td class="pos">+0.07</td><td class="pos">+0.14</td><td>SKU mix shift inflated total</td></tr>
+                <tr><td>Group 2</td><td class="neutral">−0.02</td><td class="neg">−0.25</td><td class="neg">−0.32</td><td class="neg">−0.19</td><td>Broad improvement</td></tr>
+                <tr><td>Group 3</td><td class="neg">−0.25</td><td class="neg">−0.19</td><td class="neg">−0.40</td><td class="neg">−0.38</td><td>Strong across all SKUs</td></tr>
+                <tr><td>Group 4</td><td class="neg">−0.50</td><td class="neg">−0.44</td><td class="neg">−0.63</td><td class="neg">−0.60</td><td>Strongest across all SKUs</td></tr>
+                <tr><td>Group 5</td><td class="neg">−0.51</td><td class="pos">+0.01</td><td class="pos">+0.07</td><td class="neutral">−0.03</td><td>Basic only; Deluxe/Premium flat</td></tr>
+                <tr><td>Group 6</td><td class="neg">−0.39</td><td class="pos">+0.03</td><td class="pos">+0.12</td><td class="neutral">−0.01</td><td>Basic only; Premium worsened</td></tr>
+                <tr><td>Group 7</td><td class="pos">+0.04</td><td class="neg">−0.13</td><td class="neg">−0.14</td><td class="neg">−0.17</td><td>Deluxe/Premium improved</td></tr>
+                <tr class="highlight-row"><td>Group 8</td><td class="neg">−0.68</td><td class="neg">−0.35</td><td class="neg">−0.62</td><td class="neg">−0.72</td><td>Strong across all SKUs ★</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="chart-row">
+        <div class="chart-box"><h3 style="margin-top:0;">CST Change by SKU — Coached Groups</h3><canvas id="chartSKU" height="300"></canvas></div>
+        <div class="chart-box"><h3 style="margin-top:0;">SKU Mix Shift (Pre → Post) — Coached Groups</h3><canvas id="chartSKUMix" height="300"></canvas></div>
+    </div>
+    <div class="callout">
+        <strong>SKU Insight:</strong> Coaching consistently improved <strong>Basic CST</strong> (7 of 8 groups). <strong>Deluxe and Premium improvement was inconsistent</strong> in the middle groups (5, 6) but strong in Groups 2–4 and 8. Groups 4 and 8, the two best performers, both showed improvement across all three SKU tiers.
+    </div>
+
+    <!-- 6. MANAGER-LEVEL ANALYSIS -->
+    <h2 id="managers">6. Manager-Level Analysis</h2>
+    <p>This section analyzes managers who coached experts across Groups 1–8. We evaluate which managers drove the greatest CST improvement and examine patterns for managers who coached across multiple groups.</p>
+
+    <div class="kpi-row">
+        <div class="kpi blue"><div class="label">Unique Managers</div><div class="value">290+</div><div class="detail">Across Groups 1–8</div></div>
+        <div class="kpi green"><div class="label">Best Single-Group Result</div><div class="value">−8.99</div><div class="detail">Rich Myers (G7, 2 experts)</div></div>
+        <div class="kpi purple"><div class="label">Multi-Group Managers</div><div class="value">50+</div><div class="detail">Coached in 2+ groups</div></div>
+        <div class="kpi"><div class="label">Managers w/ ≥3 Experts &amp; CST ≤ −1.0</div><div class="value" style="color:var(--success);">20+</div><div class="detail">High-impact coaches</div></div>
+    </div>
+
+    <!-- TOP PERFORMERS -->
+    <div class="card">
+        <h3 style="margin-top:0;">Top 15 Managers — Best CST Improvement (≥2 experts coached)</h3>
+        <table>
+            <thead><tr><th>Rank</th><th>Manager</th><th>Group</th><th>Experts</th><th>CST Variance</th><th>Rating</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td>Rich Myers</td><td>G7</td><td>2</td><td class="neg">−8.99</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>2</td><td>Alicia Rodriguez</td><td>G5</td><td>4</td><td class="neg">−4.23</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>3</td><td>Qi Jiang</td><td>G2</td><td>2</td><td class="neg">−4.12</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>4</td><td>Ben Buckendorf</td><td>G7</td><td>1</td><td class="neg">−3.79</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>5</td><td>John Robert Diaz</td><td>G8</td><td>1</td><td class="neg">−3.14</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>6</td><td>Kesha Brown</td><td>G5</td><td>2</td><td class="neg">−2.95</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>7</td><td>Michele Catlett</td><td>G7</td><td>2</td><td class="neg">−2.76</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>8</td><td>Steven Victor</td><td>G1</td><td>2</td><td class="neg">−2.68</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>9</td><td>Sandra Alford</td><td>G7</td><td>2</td><td class="neg">−2.68</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>10</td><td>Angela Moreno</td><td>G1</td><td>2</td><td class="neg">−2.65</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>11</td><td>Dot Brooks</td><td>G7</td><td>2</td><td class="neg">−2.58</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>12</td><td>Scott Woodman</td><td>G4</td><td>3</td><td class="neg">−2.58</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>13</td><td>Mark Horneber</td><td>G5</td><td>4</td><td class="neg">−2.45</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>14</td><td>Gregory Burno</td><td>G8</td><td>5</td><td class="neg">−2.37</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+                <tr><td>15</td><td>Pleazette Hill</td><td>G4</td><td>2</td><td class="neg">−2.37</td><td><span class="badge badge-green">Exceptional</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- WORST PERFORMERS -->
+    <div class="card">
+        <h3 style="margin-top:0;">Bottom 15 Managers — Worst CST Variance (CST increased post-coaching)</h3>
+        <table>
+            <thead><tr><th>Rank</th><th>Manager</th><th>Group</th><th>Experts</th><th>CST Variance</th><th>Rating</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td>Jacquetta Ward</td><td>G1</td><td>1</td><td class="pos">+7.45</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>2</td><td>Ben Vargas</td><td>G2</td><td>1</td><td class="pos">+6.56</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>3</td><td>Marisa Ramsaroop</td><td>G4</td><td>2</td><td class="pos">+5.69</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>4</td><td>Thomas Lebaron</td><td>G7</td><td>4</td><td class="pos">+4.52</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>5</td><td>Julie Epperson</td><td>G1</td><td>2</td><td class="pos">+3.29</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>6</td><td>Fernando Fernandez</td><td>G5</td><td>1</td><td class="pos">+3.18</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>7</td><td>Jonathan Engel</td><td>G2</td><td>1</td><td class="pos">+3.07</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>8</td><td>Jamie Banos</td><td>G3</td><td>3</td><td class="pos">+2.90</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>9</td><td>Helder Rosa</td><td>G6</td><td>2</td><td class="pos">+2.85</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>10</td><td>Keith Michon</td><td>G6</td><td>2</td><td class="pos">+2.83</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>11</td><td>Mandi Carter</td><td>G1</td><td>2</td><td class="pos">+2.80</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>12</td><td>Pleshette Carmouche</td><td>G5</td><td>1</td><td class="pos">+2.75</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>13</td><td>Ellen Komocar</td><td>G7</td><td>2</td><td class="pos">+2.54</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>14</td><td>Katherine Harwood</td><td>G8</td><td>4</td><td class="pos">+2.45</td><td><span class="badge badge-red">Concerning</span></td></tr>
+                <tr><td>15</td><td>Venessa Laster</td><td>G8</td><td>3</td><td class="pos">+2.23</td><td><span class="badge badge-red">Concerning</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- MULTI-GROUP MANAGERS -->
+    <div class="card">
+        <h3 style="margin-top:0;">Multi-Group Managers — Performance Across Groups</h3>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Managers who coached experts in 2 or more groups with measurable results. The <strong>Avg Variance</strong> column shows the average of each manager's per-group variances. Entries where Var = 0 (no engagements in pre or post timeframe) are excluded — they represent missing data, not unchanged CST.</p>
+        <table style="font-size:0.82rem;">
+            <thead><tr><th>Manager</th><th>Groups w/ Data</th><th>Total Experts</th><th>Avg Variance</th><th>G1</th><th>G2</th><th>G3</th><th>G4</th><th>G5</th><th>G6</th><th>G7</th><th>G8</th><th>Trend</th></tr></thead>
+            <tbody>
+                <tr><td>Kesha Brown</td><td>G3, G5</td><td>6</td><td class="neg">−2.08</td><td></td><td></td><td class="neg">−1.20</td><td></td><td class="neg">−2.95</td><td></td><td></td><td></td><td><span class="badge badge-green">Improving</span></td></tr>
+                <tr><td>Teri Hartshorn</td><td>G3, G5</td><td>6</td><td class="neg">−1.61</td><td></td><td></td><td class="neg">−1.16</td><td></td><td class="neg">−2.05</td><td></td><td></td><td></td><td><span class="badge badge-green">Improving</span></td></tr>
+                <tr><td>Doug Little</td><td>G6, G7</td><td>3</td><td class="neg">−2.22</td><td></td><td></td><td></td><td></td><td></td><td class="neg">−2.29</td><td class="neg">−2.14</td><td></td><td><span class="badge badge-green">Consistent</span></td></tr>
+                <tr><td>Gina Tyckoson</td><td>G1, G4</td><td>5</td><td class="neg">−2.27</td><td class="neg">−1.21</td><td></td><td></td><td class="neg">−3.33</td><td></td><td></td><td></td><td></td><td><span class="badge badge-green">Improving</span></td></tr>
+                <tr><td>Pleazette Hill</td><td>G4, G5</td><td>3</td><td class="neg">−2.05</td><td></td><td></td><td></td><td class="neg">−2.37</td><td class="neg">−1.73</td><td></td><td></td><td></td><td><span class="badge badge-green">Consistent</span></td></tr>
+                <tr><td>Karen Tolliver</td><td>G2, G3</td><td>4</td><td class="neg">−1.58</td><td></td><td class="neutral">−0.42</td><td class="neg">−2.73</td><td></td><td></td><td></td><td></td><td></td><td><span class="badge badge-green">Improving</span></td></tr>
+                <tr><td>Karen Helen Flynn</td><td>G2, G3, G5</td><td>4</td><td class="neg">−1.36</td><td></td><td class="neg">−1.52</td><td class="neg">−1.11</td><td></td><td class="neg">−1.44</td><td></td><td></td><td></td><td><span class="badge badge-green">Consistent</span></td></tr>
+                <tr><td>David Hall</td><td>G1, G2</td><td>5</td><td class="neg">−0.79</td><td class="neg">−0.79</td><td class="neg">−0.78</td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="badge badge-green">Consistent</span></td></tr>
+                <tr><td>Thomas Figgatt Sr</td><td>G3, G4, G5</td><td>6</td><td class="neg">−2.07</td><td></td><td></td><td class="neg">−5.26</td><td class="pos">+0.10</td><td class="neg">−1.06</td><td></td><td></td><td></td><td><span class="badge badge-blue">Variable</span></td></tr>
+                <tr><td>Koren Boyd</td><td>G2, G3, G4</td><td>4</td><td class="neutral">+0.07</td><td></td><td class="pos">+1.32</td><td class="neg">−0.47</td><td class="neg">−0.64</td><td></td><td></td><td></td><td></td><td><span class="badge badge-blue">Variable</span></td></tr>
+                <tr><td>Jen Jeanguenat</td><td>G1, G4, G7</td><td>3</td><td class="neg">−1.07</td><td class="neg">−3.40</td><td></td><td></td><td class="neg">−0.91</td><td></td><td></td><td class="pos">+1.10</td><td></td><td><span class="badge badge-blue">Variable</span></td></tr>
+                <tr><td>Julia Shaw</td><td>G3, G4, G7</td><td>4</td><td class="pos">+0.21</td><td></td><td></td><td class="neg">−2.17</td><td class="pos">+1.40</td><td></td><td></td><td class="pos">+1.41</td><td></td><td><span class="badge badge-yellow">Declining</span></td></tr>
+                <tr><td>Macy Palacios</td><td>G4, G5</td><td>5</td><td class="pos">+0.37</td><td></td><td></td><td></td><td class="neg">−1.50</td><td class="pos">+2.24</td><td></td><td></td><td></td><td><span class="badge badge-yellow">Declining</span></td></tr>
+                <tr><td>Corinne Romero</td><td>G1, G2</td><td>5</td><td class="pos">+1.77</td><td class="pos">+2.06</td><td class="pos">+1.47</td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="badge badge-red">Consistently Worse</span></td></tr>
+                <tr><td>Leslie Accuar</td><td>G1, G2</td><td>4</td><td class="pos">+1.76</td><td class="pos">+1.57</td><td class="pos">+1.94</td><td></td><td></td><td></td><td></td><td></td><td></td><td><span class="badge badge-red">Consistently Worse</span></td></tr>
+                <tr><td>Christopher Schurman</td><td>G1, G3, G6</td><td>4</td><td class="pos">+0.64</td><td class="neg">−1.18</td><td></td><td class="pos">+1.27</td><td></td><td></td><td class="pos">+1.83</td><td></td><td></td><td><span class="badge badge-red">Declining</span></td></tr>
+                <tr><td>Jonathan Engel</td><td>G2, G3</td><td>4</td><td class="pos">+2.06</td><td></td><td class="pos">+3.07</td><td class="pos">+1.05</td><td></td><td></td><td></td><td></td><td></td><td><span class="badge badge-red">Consistently Worse</span></td></tr>
+                <tr><td>Venessa Laster</td><td>G7, G8</td><td>7</td><td class="pos">+1.28</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="pos">+0.32</td><td class="pos">+2.23</td><td><span class="badge badge-red">Worsening</span></td></tr>
+                <tr><td>Michele Catlett</td><td>G7, G8</td><td>3</td><td class="neg">−1.10</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="neg">−2.76</td><td class="pos">+0.56</td><td><span class="badge badge-blue">Variable</span></td></tr>
+            </tbody>
+        </table>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">Avg Variance = average of per-group variances where data exists. Groups with Var = 0 (no engagements in pre/post timeframe) are excluded from both the group list and the average calculation.</p>
+    </div>
+
+    <div class="callout">
+        <strong>Manager Insight — Key Patterns:</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>High-volume effective coaches</strong> like Rich Myers (2 experts, −8.99 in G7), Alicia Rodriguez (4 experts, −4.23), Gregory Burno (5 experts, −2.37 in G8), and Mark Horneber (4 experts, −2.45) should be studied for best practices.</li>
+            <li><strong>Multi-group consistent performers</strong> like Kesha Brown (avg −2.08 across 2 groups), Doug Little (avg −2.22 across 2 groups), and Pleazette Hill (avg −2.05 across 2 groups) demonstrate reliable coaching effectiveness regardless of which group they coached.</li>
+            <li><strong>Managers with worsening trends</strong> like Corinne Romero (avg +1.77 across 2 groups), Leslie Accuar (avg +1.76 across 2 groups), and Venessa Laster (avg +1.28 across G7/G8) may need coaching support themselves or a review of their coaching approach.</li>
+            <li><strong>Thomas Figgatt Sr</strong> coached across 3 groups with measurable data (6 total experts) with variable results — avg −2.07, but ranging from exceptional in G3 (−5.26) to slightly positive in G4 (+0.10).</li>
+        </ul>
+    </div>
+
+    <!-- 7. CONCLUSIONS -->
+    <h2 id="conclusions">7. Conclusions &amp; Recommendations</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">Key Findings</h3>
+        <ol class="findings" style="padding-left:1.25rem;">
+            <li><strong>Coaching works, but with variable effectiveness.</strong> 7 of 8 coached groups showed CST improvement post-coaching. Groups 4 and 8 achieved the largest reductions (−0.60 and −0.72 respectively).</li>
+            <li><strong>Group 8 was the standout</strong> with −0.72 improvement — notably while the control group actually worsened (+0.08). Improvement was strong across all three SKU tiers (Basic −0.68, Deluxe −0.35, Premium −0.62).</li>
+            <li><strong>SKU mix is a confounding factor.</strong> Group 1's apparent CST increase was driven by a ~10% shift toward Premium returns, not actual performance degradation. Adjusted for constant SKU mix, Group 1 would have shown −0.12 improvement.</li>
+            <li><strong>Later groups (5 &amp; 6) showed diminished returns.</strong> The hypothesis is that experts in these groups had already become aware of the CST initiative and began self-correcting on Basic returns before being coached, reducing the marginal impact of coaching.</li>
+            <li><strong>Basic CST responds well to coaching</strong> (improved in 7/8 groups). Deluxe and Premium are more inconsistent, suggesting these require more specialized coaching content.</li>
+            <li><strong>Coaching efficiency question.</strong> The non-coached control group also showed natural CST improvement in most time windows. In some cases the control group improved as much or more than coached groups (e.g., Groups 1, 5, 6), raising questions about the incremental value of personalized coaching for certain populations.</li>
+        </ol>
+    </div>
+    <div class="card">
+        <h3 style="margin-top:0;">Recommendations</h3>
+        <ol style="padding-left:1.25rem;">
+            <li><strong>Continue coaching with SKU-specific content.</strong> Develop targeted coaching materials for Deluxe and Premium return types where improvement has been inconsistent.</li>
+            <li><strong>Account for SKU mix in evaluation.</strong> Use SKU-adjusted CST (holding pre-coaching SKU distribution constant) as a supplementary metric to avoid misleading conclusions.</li>
+            <li><strong>Coach earlier in the awareness cycle.</strong> The diminished results for Groups 5 &amp; 6 suggest coaching is most effective before broad awareness of the initiative spreads.</li>
+            <li><strong>Investigate Group 4 and Group 8 success factors.</strong> Identify what made these groups' coaching and/or manager composition especially effective and replicate.</li>
+            <li><strong>Address underperforming managers.</strong> Managers with consistently negative coaching outcomes (e.g., Corinne Romero, Leslie Accuar, Venessa Laster) should receive coaching calibration or support.</li>
+            <li><strong>Leverage top managers.</strong> Rich Myers, Alicia Rodriguez, Gregory Burno, and other top performers should share their coaching techniques as best practices.</li>
+        </ol>
+    </div>
+
+</div>
+
+<footer>
+    <p>Outlier Coaching Project — Analysis Report &bull; Updated April 14, 2026 &bull; All 8 groups complete</p>
+</footer>
+
+<script>
+const groups = ['G1','G2','G3','G4','G5','G6','G7','G8'];
+const coachedChange = [0.14, -0.19, -0.38, -0.60, -0.03, -0.01, -0.17, -0.72];
+const controlChange = [-0.12, -0.16, -0.24, -0.27, -0.22, -0.14, -0.03, 0.08];
+const coachedPre = [3.51, 3.67, 3.34, 3.39, 3.33, 3.23, 3.53, 3.64];
+const coachedPost = [3.64, 3.48, 2.96, 2.79, 3.31, 3.22, 3.36, 2.93];
+
+const chartOpts = {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { font: {size:12} } } },
+    scales: { y: { grid: { color: '#e5e7eb' } }, x: { grid: { display: false } } }
+};
+
+new Chart(document.getElementById('chartCSTChange'), {
+    type: 'bar',
+    data: {
+        labels: groups,
+        datasets: [
+            { label: 'Coached Change', data: coachedChange, backgroundColor: coachedChange.map(v => v > 0 ? '#fca5a5' : '#86efac'), borderColor: coachedChange.map(v => v > 0 ? '#dc2626' : '#16a34a'), borderWidth: 1 },
+            { label: 'Control Change', data: controlChange, backgroundColor: controlChange.map(v => v > 0 ? '#fed7aa' : '#bfdbfe'), borderColor: controlChange.map(v => v > 0 ? '#ea580c' : '#2563eb'), borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Change' } } } }
+});
+
+new Chart(document.getElementById('chartPrePost'), {
+    type: 'bar',
+    data: {
+        labels: groups,
+        datasets: [
+            { label: 'Pre CST', data: coachedPre, backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'Post CST', data: coachedPost, backgroundColor: '#a5b4fc', borderColor: '#4f46e5', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 2.5, title: { display:true, text:'CST' } } } }
+});
+
+const skuBasic = [-0.51, -0.02, -0.25, -0.50, -0.51, -0.39, 0.04, -0.68];
+const skuDeluxe = [-0.06, -0.25, -0.19, -0.44, 0.01, 0.03, -0.13, -0.35];
+const skuPremium = [0.07, -0.32, -0.40, -0.63, 0.07, 0.12, -0.14, -0.62];
+
+new Chart(document.getElementById('chartSKU'), {
+    type: 'bar',
+    data: {
+        labels: groups,
+        datasets: [
+            { label: 'Basic Δ', data: skuBasic, backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 },
+            { label: 'Deluxe Δ', data: skuDeluxe, backgroundColor: '#93c5fd', borderColor: '#2563eb', borderWidth: 1 },
+            { label: 'Premium Δ', data: skuPremium, backgroundColor: '#c4b5fd', borderColor: '#7c3aed', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Change' } } } }
+});
+
+const prePremPct = [46.2, 57.7, 53.0, 47.2, 55.6, 53.0, 55.5, 55.7];
+const postPremPct = [55.8, 59.4, 49.3, 45.7, 53.6, 52.5, 51.2, 45.7];
+
+new Chart(document.getElementById('chartSKUMix'), {
+    type: 'line',
+    data: {
+        labels: groups,
+        datasets: [
+            { label: 'Pre Premium %', data: prePremPct, borderColor: '#7c3aed', backgroundColor: '#ede9fe', fill: false, tension: 0.3, pointRadius: 5 },
+            { label: 'Post Premium %', data: postPremPct, borderColor: '#a855f7', backgroundColor: '#f5f3ff', fill: false, tension: 0.3, borderDash: [5,5], pointRadius: 5 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'Premium SKU Share (%)' }, min: 40, max: 65 } } }
+});
+</script>
+
+</body>
+</html>
