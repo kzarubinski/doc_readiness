@@ -94,6 +94,7 @@
             <li><a href="#group-details">Group-by-Group Detailed Analysis</a></li>
             <li><a href="#sku">SKU-Level Analysis</a></li>
             <li><a href="#managers">Manager-Level Analysis</a></li>
+            <li><a href="#proficiency">Proficiency Level Analysis</a></li>
             <li><a href="#conclusions">Conclusions &amp; Recommendations</a></li>
         </ol>
     </div>
@@ -563,8 +564,135 @@
         </ul>
     </div>
 
-    <!-- 7. CONCLUSIONS -->
-    <h2 id="conclusions">7. Conclusions &amp; Recommendations</h2>
+    <!-- 7. PROFICIENCY LEVEL ANALYSIS -->
+    <h2 id="proficiency">7. Proficiency Level Analysis</h2>
+    <p>This section breaks down coaching effectiveness by expert proficiency level (PL1–PL4). PL1 is the lowest proficiency tier (fewest experts, least experience), while PL4 represents the largest and most experienced group.</p>
+
+    <div class="card">
+        <h3 style="margin-top:0;">CST by Proficiency Level — Overall Summary</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Prof Level</th><th>Experts</th>
+                    <th>Pre CST</th><th>Pre Eng</th><th>Post CST</th><th>Post Eng</th>
+                    <th>CST Change</th><th>Direction</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>PL1</strong></td><td>7</td>
+                    <td>1.81</td><td>10</td><td>2.60</td><td>20</td>
+                    <td class="pos">+0.79</td>
+                    <td><span class="badge badge-red">Worsened</span></td>
+                </tr>
+                <tr>
+                    <td><strong>PL2</strong></td><td>156</td>
+                    <td>2.95</td><td>420</td><td>2.97</td><td>429</td>
+                    <td class="pos">+0.02</td>
+                    <td><span class="badge badge-yellow">Flat</span></td>
+                </tr>
+                <tr>
+                    <td><strong>PL3</strong></td><td>126</td>
+                    <td>3.90</td><td>333</td><td>3.51</td><td>289</td>
+                    <td class="neg">−0.39</td>
+                    <td><span class="badge badge-green">Improved</span></td>
+                </tr>
+                <tr>
+                    <td><strong>PL4</strong></td><td>718</td>
+                    <td>3.51</td><td>1,870</td><td>3.34</td><td>2,008</td>
+                    <td class="neg">−0.17</td>
+                    <td><span class="badge badge-green">Improved</span></td>
+                </tr>
+                <tr style="font-weight:700;background:#f1f5f9;">
+                    <td><strong>Grand Total</strong></td><td>1,007</td>
+                    <td>3.46</td><td>2,633</td><td>3.29</td><td>2,746</td>
+                    <td class="neg">−0.17</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;"><strong>Note:</strong> PL1 has very few experts (7) and engagements (10 pre / 20 post), making its metrics statistically unreliable. PL3 showed the strongest improvement (−0.39), while PL4 — the largest group — improved by −0.17.</p>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Pre vs Post CST by Proficiency Level</h3>
+            <canvas id="chartPLSummary" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">CST Change by Proficiency Level</h3>
+            <canvas id="chartPLChange" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">CST by Proficiency Level &amp; Group — Detailed Breakdown</h3>
+        <table style="font-size:0.82rem;">
+            <thead>
+                <tr>
+                    <th>PL</th><th>Group</th><th>Experts</th>
+                    <th>Pre CST</th><th>Pre Eng</th><th>Post CST</th><th>Post Eng</th>
+                    <th>CST Change</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- PL1 -->
+                <tr style="background:#fefce8;"><td rowspan="6"><strong>PL1</strong></td><td>G2</td><td>1</td><td>2.31</td><td>2</td><td>—</td><td>0</td><td class="neutral">N/A</td></tr>
+                <tr style="background:#fefce8;"><td>G4</td><td>2</td><td>—</td><td>0</td><td>2.64</td><td>8</td><td class="neutral">N/A</td></tr>
+                <tr style="background:#fefce8;"><td>G5</td><td>2</td><td>1.12</td><td>2</td><td>2.57</td><td>6</td><td class="pos">+1.45</td></tr>
+                <tr style="background:#fefce8;"><td>G6</td><td>1</td><td>2.31</td><td>3</td><td>2.34</td><td>1</td><td class="pos">+0.03</td></tr>
+                <tr style="background:#fefce8;"><td>G7</td><td>1</td><td>1.43</td><td>3</td><td>2.61</td><td>5</td><td class="pos">+1.18</td></tr>
+                <tr style="font-weight:600;background:#fef9c3;"><td>PL1 Total</td><td>7</td><td>1.81</td><td>10</td><td>2.60</td><td>20</td><td class="pos">+0.79</td></tr>
+
+                <!-- PL2 -->
+                <tr style="background:#eff6ff;"><td rowspan="9"><strong>PL2</strong></td><td>G1</td><td>25</td><td>2.99</td><td>58</td><td>3.59</td><td>94</td><td class="pos">+0.60</td></tr>
+                <tr style="background:#eff6ff;"><td>G2</td><td>19</td><td>2.80</td><td>65</td><td>2.49</td><td>56</td><td class="neg">−0.31</td></tr>
+                <tr style="background:#eff6ff;"><td>G3</td><td>20</td><td>2.70</td><td>38</td><td>2.47</td><td>70</td><td class="neg">−0.23</td></tr>
+                <tr style="background:#eff6ff;"><td>G4</td><td>15</td><td>2.74</td><td>35</td><td>2.39</td><td>41</td><td class="neg">−0.35</td></tr>
+                <tr style="background:#eff6ff;"><td>G5</td><td>13</td><td>3.04</td><td>28</td><td>2.90</td><td>30</td><td class="neg">−0.14</td></tr>
+                <tr style="background:#eff6ff;"><td>G6</td><td>17</td><td>2.60</td><td>57</td><td>2.54</td><td>38</td><td class="neg">−0.06</td></tr>
+                <tr style="background:#eff6ff;"><td>G7</td><td>41</td><td>3.25</td><td>133</td><td>3.39</td><td>88</td><td class="pos">+0.14</td></tr>
+                <tr style="background:#eff6ff;"><td>G8</td><td>6</td><td>3.18</td><td>6</td><td>3.75</td><td>12</td><td class="pos">+0.57</td></tr>
+                <tr style="font-weight:600;background:#dbeafe;"><td>PL2 Total</td><td>156</td><td>2.95</td><td>420</td><td>2.97</td><td>429</td><td class="pos">+0.02</td></tr>
+
+                <!-- PL3 -->
+                <tr style="background:#f0fdf4;"><td rowspan="9"><strong>PL3</strong></td><td>G1</td><td>22</td><td>3.84</td><td>52</td><td>3.84</td><td>70</td><td class="neutral">0.00</td></tr>
+                <tr style="background:#f0fdf4;"><td>G2</td><td>13</td><td>4.08</td><td>38</td><td>3.57</td><td>50</td><td class="neg">−0.51</td></tr>
+                <tr style="background:#f0fdf4;"><td>G3</td><td>12</td><td>4.09</td><td>22</td><td>3.41</td><td>56</td><td class="neg">−0.68</td></tr>
+                <tr style="background:#f0fdf4;"><td>G4</td><td>6</td><td>3.23</td><td>9</td><td>3.71</td><td>11</td><td class="pos">+0.48</td></tr>
+                <tr style="background:#f0fdf4;"><td>G5</td><td>11</td><td>3.30</td><td>30</td><td>3.82</td><td>20</td><td class="pos">+0.52</td></tr>
+                <tr style="background:#f0fdf4;"><td>G6</td><td>16</td><td>3.85</td><td>51</td><td>3.30</td><td>26</td><td class="neg">−0.55</td></tr>
+                <tr style="background:#f0fdf4;"><td>G7</td><td>41</td><td>4.18</td><td>113</td><td>3.08</td><td>52</td><td class="neg">−1.10</td></tr>
+                <tr style="background:#f0fdf4;"><td>G8</td><td>5</td><td>3.21</td><td>18</td><td>3.01</td><td>4</td><td class="neg">−0.20</td></tr>
+                <tr style="font-weight:600;background:#dcfce7;"><td>PL3 Total</td><td>126</td><td>3.90</td><td>333</td><td>3.51</td><td>289</td><td class="neg">−0.39</td></tr>
+
+                <!-- PL4 -->
+                <tr style="background:#faf5ff;"><td rowspan="9"><strong>PL4</strong></td><td>G1</td><td>127</td><td>3.56</td><td>260</td><td>3.62</td><td>395</td><td class="pos">+0.06</td></tr>
+                <tr style="background:#faf5ff;"><td>G2</td><td>84</td><td>3.88</td><td>214</td><td>3.64</td><td>318</td><td class="neg">−0.24</td></tr>
+                <tr style="background:#faf5ff;"><td>G3</td><td>99</td><td>3.37</td><td>221</td><td>2.99</td><td>304</td><td class="neg">−0.38</td></tr>
+                <tr style="background:#faf5ff;"><td>G4</td><td>59</td><td>3.55</td><td>149</td><td>2.83</td><td>170</td><td class="neg">−0.72</td></tr>
+                <tr style="background:#faf5ff;"><td>G5</td><td>54</td><td>3.43</td><td>138</td><td>3.35</td><td>151</td><td class="neg">−0.08</td></tr>
+                <tr style="background:#faf5ff;"><td>G6</td><td>81</td><td>3.26</td><td>240</td><td>3.34</td><td>217</td><td class="pos">+0.08</td></tr>
+                <tr style="background:#faf5ff;"><td>G7</td><td>180</td><td>3.48</td><td>557</td><td>3.40</td><td>375</td><td class="neg">−0.08</td></tr>
+                <tr style="background:#faf5ff;"><td>G8</td><td>34</td><td>3.76</td><td>91</td><td>2.79</td><td>78</td><td class="neg">−0.97</td></tr>
+                <tr style="font-weight:600;background:#f3e8ff;"><td>PL4 Total</td><td>718</td><td>3.51</td><td>1,870</td><td>3.34</td><td>2,008</td><td class="neg">−0.17</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="callout">
+        <strong>Proficiency Level Insight:</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>PL3 showed the best overall coaching response</strong> (−0.39), with particularly strong results in G7 (−1.10), G3 (−0.68), G6 (−0.55), and G2 (−0.51).</li>
+            <li><strong>PL4 — the largest group (71% of experts)</strong> — improved by −0.17 overall, with standout performance in G4 (−0.72) and G8 (−0.97).</li>
+            <li><strong>PL2 was essentially flat</strong> (+0.02). Improvements in G2–G5 were offset by worsening in G1 (+0.60), G7 (+0.14), and G8 (+0.57).</li>
+            <li><strong>PL1 data is too sparse for conclusions</strong> — only 7 experts with 10 pre-engagements. The apparent +0.79 increase is not statistically meaningful.</li>
+            <li><strong>Coaching appears most effective for mid-to-high proficiency experts</strong> (PL3, PL4), suggesting that experts with more experience can better translate coaching into performance improvement.</li>
+        </ul>
+    </div>
+
+    <!-- 8. CONCLUSIONS -->
+    <h2 id="conclusions">8. Conclusions &amp; Recommendations</h2>
     <div class="card">
         <h3 style="margin-top:0;">Key Findings</h3>
         <ol class="findings" style="padding-left:1.25rem;">
@@ -592,7 +720,7 @@
 </div>
 
 <footer>
-    <p>Outlier Coaching Project — Analysis Report &bull; Updated April 14, 2026 &bull; All 8 groups complete</p>
+    <p>Outlier Coaching Project — Analysis Report &bull; Updated April 13, 2026 &bull; All 8 groups complete</p>
 </footer>
 
 <script>
@@ -663,6 +791,40 @@ new Chart(document.getElementById('chartSKUMix'), {
     },
     options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'Premium SKU Share (%)' }, min: 40, max: 65 } } }
 });
+
+// Proficiency Level Charts
+const plLabels = ['PL1','PL2','PL3','PL4'];
+const plPreCST = [1.81, 2.95, 3.90, 3.51];
+const plPostCST = [2.60, 2.97, 3.51, 3.34];
+const plChange = [0.79, 0.02, -0.39, -0.17];
+
+new Chart(document.getElementById('chartPLSummary'), {
+    type: 'bar',
+    data: {
+        labels: plLabels,
+        datasets: [
+            { label: 'Pre CST', data: plPreCST, backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'Post CST', data: plPostCST, backgroundColor: '#a5b4fc', borderColor: '#4f46e5', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 0, title: { display:true, text:'CST' } } } }
+});
+
+new Chart(document.getElementById('chartPLChange'), {
+    type: 'bar',
+    data: {
+        labels: plLabels,
+        datasets: [{
+            label: 'CST Change',
+            data: plChange,
+            backgroundColor: plChange.map(v => v > 0 ? '#fca5a5' : '#86efac'),
+            borderColor: plChange.map(v => v > 0 ? '#dc2626' : '#16a34a'),
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Change (Post − Pre)' } } } }
+});
+
 </script>
 
 </body>
