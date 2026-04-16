@@ -863,26 +863,47 @@ new Chart(document.getElementById('chartSKU'), {
     options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Change' } } } }
 });
 
-const skuMixLabels = ['G1 Pre','G1 Post','G2 Pre','G2 Post','G3 Pre','G3 Post','G4 Pre','G4 Post','G5 Pre','G5 Post','G6 Pre','G6 Post','G7 Pre','G7 Post','G8 Pre','G8 Post'];
-const skuMixBasic =   [23.8,15.2, 18.8,15.8, 21.7,21.2, 19.7,26.5, 15.2,13.5, 19.9,19.1, 18.2,19.8, 9.6,18.1];
-const skuMixDeluxe =  [29.7,28.8, 23.5,24.5, 24.6,29.1, 32.6,27.8, 28.8,32.9, 26.8,27.0, 25.2,28.3, 33.9,33.0];
-const skuMixPremium = [46.2,55.8, 57.7,59.4, 53.0,49.3, 47.2,45.7, 55.6,53.6, 53.0,52.5, 55.5,51.2, 55.7,45.7];
+const skuMixPreBasic =    [23.8, 18.8, 21.7, 19.7, 15.2, 19.9, 18.2, 9.6];
+const skuMixPreDeluxe =   [29.7, 23.5, 24.6, 32.6, 28.8, 26.8, 25.2, 33.9];
+const skuMixPrePremium =  [46.2, 57.7, 53.0, 47.2, 55.6, 53.0, 55.5, 55.7];
+const skuMixPostBasic =   [15.2, 15.8, 21.2, 26.5, 13.5, 19.1, 19.8, 18.1];
+const skuMixPostDeluxe =  [28.8, 24.5, 29.1, 27.8, 32.9, 27.0, 28.3, 33.0];
+const skuMixPostPremium = [55.8, 59.4, 49.3, 45.7, 53.6, 52.5, 51.2, 45.7];
 
 new Chart(document.getElementById('chartSKUMix'), {
     type: 'bar',
     data: {
-        labels: skuMixLabels,
+        labels: groups,
         datasets: [
-            { label: 'Basic %', data: skuMixBasic, backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 },
-            { label: 'Deluxe %', data: skuMixDeluxe, backgroundColor: '#93c5fd', borderColor: '#2563eb', borderWidth: 1 },
-            { label: 'Premium %', data: skuMixPremium, backgroundColor: '#c4b5fd', borderColor: '#7c3aed', borderWidth: 1 }
+            { label: 'Pre Basic',    data: skuMixPreBasic,    backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1, stack: 'pre' },
+            { label: 'Pre Deluxe',   data: skuMixPreDeluxe,   backgroundColor: '#93c5fd', borderColor: '#2563eb', borderWidth: 1, stack: 'pre' },
+            { label: 'Pre Premium',  data: skuMixPrePremium,  backgroundColor: '#c4b5fd', borderColor: '#7c3aed', borderWidth: 1, stack: 'pre' },
+            { label: 'Post Basic',   data: skuMixPostBasic,   backgroundColor: 'rgba(134,239,172,0.6)', borderColor: '#16a34a', borderWidth: 1, stack: 'post' },
+            { label: 'Post Deluxe',  data: skuMixPostDeluxe,  backgroundColor: 'rgba(147,197,253,0.6)', borderColor: '#2563eb', borderWidth: 1, stack: 'post' },
+            { label: 'Post Premium', data: skuMixPostPremium, backgroundColor: 'rgba(196,181,253,0.6)', borderColor: '#7c3aed', borderWidth: 1, stack: 'post' }
         ]
     },
     options: {
         responsive: true,
-        plugins: { legend: { position: 'bottom', labels: { font: {size:12} } } },
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    font: {size:11},
+                    generateLabels: function(chart) {
+                        return [
+                            { text: 'Basic %', fillStyle: '#86efac', strokeStyle: '#16a34a', lineWidth: 1 },
+                            { text: 'Deluxe %', fillStyle: '#93c5fd', strokeStyle: '#2563eb', lineWidth: 1 },
+                            { text: 'Premium %', fillStyle: '#c4b5fd', strokeStyle: '#7c3aed', lineWidth: 1 },
+                            { text: 'Pre (solid)', fillStyle: '#e0e7ff', strokeStyle: '#6366f1', lineWidth: 2 },
+                            { text: 'Post (muted)', fillStyle: 'rgba(224,231,255,0.5)', strokeStyle: '#6366f1', lineWidth: 1, lineDash: [3,3] }
+                        ];
+                    }
+                }
+            }
+        },
         scales: {
-            x: { stacked: true, grid: { display: false }, ticks: { font: { size: 10 } } },
+            x: { stacked: true, grid: { display: false } },
             y: { stacked: true, grid: { color: '#e5e7eb' }, title: { display:true, text:'SKU Share (%)' }, max: 100 }
         }
     }
