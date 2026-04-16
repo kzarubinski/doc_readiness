@@ -95,6 +95,7 @@
             <li><a href="#sku">SKU-Level Analysis</a></li>
             <li><a href="#managers">Manager-Level Analysis</a></li>
             <li><a href="#proficiency">Proficiency Level Analysis</a></li>
+            <li><a href="#peergoal">Comparison to Weighted Peer Goal</a></li>
             <li><a href="#conclusions">Conclusions &amp; Recommendations</a></li>
         </ol>
     </div>
@@ -691,8 +692,87 @@
         </ul>
     </div>
 
-    <!-- 8. CONCLUSIONS -->
-    <h2 id="conclusions">8. Conclusions &amp; Recommendations</h2>
+    <!-- 8. COMPARISON TO WEIGHTED PEER GOAL -->
+    <h2 id="peergoal">8. Comparison to Weighted Peer Goal</h2>
+    <p>Each expert's <strong>Weighted Peer Goal (WtdPeerGoal)</strong> represents the expected CST based on overall FS volume for the same timeframe, adjusted for that expert's specific SKU mix. <strong>PeerGoalVar</strong> measures how far above (positive = slower) or below (negative = faster) the expert performed versus their personalized goal. An expert "beats" their goal when PeerGoalVar &le; 0.</p>
+
+    <h3>Peer Goal Variance by Group — Pre vs Post</h3>
+    <div class="card" style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">Group</th>
+                    <th colspan="4" style="text-align:center;border-bottom:2px solid var(--primary);">Pre-Coaching</th>
+                    <th colspan="4" style="text-align:center;border-bottom:2px solid var(--purple);">Post-Coaching</th>
+                    <th rowspan="2">Variance<br>Change</th>
+                </tr>
+                <tr>
+                    <th>Experts</th><th>Avg CST</th><th>Avg Goal</th><th>Avg Variance</th>
+                    <th>Experts</th><th>Avg CST</th><th>Avg Goal</th><th>Avg Variance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>130</td><td>3.53</td><td>2.63</td><td>+0.90</td><td>155</td><td>3.82</td><td>2.70</td><td>+1.11</td><td style="color:#dc2626;font-weight:600;">+0.21</td></tr>
+                <tr><td>2</td><td>104</td><td>3.85</td><td>2.76</td><td>+1.09</td><td>108</td><td>3.69</td><td>2.68</td><td>+1.01</td><td style="color:#16a34a;font-weight:600;">−0.08</td></tr>
+                <tr><td>3</td><td>103</td><td>3.35</td><td>2.69</td><td>+0.66</td><td>118</td><td>3.00</td><td>2.59</td><td>+0.41</td><td style="color:#16a34a;font-weight:600;">−0.25</td></tr>
+                <tr><td>4</td><td>70</td><td>3.25</td><td>2.65</td><td>+0.61</td><td>72</td><td>3.14</td><td>2.51</td><td>+0.62</td><td style="color:#dc2626;font-weight:600;">+0.01</td></tr>
+                <tr><td>5</td><td>65</td><td>3.69</td><td>2.73</td><td>+0.95</td><td>71</td><td>3.17</td><td>2.60</td><td>+0.56</td><td style="color:#16a34a;font-weight:600;">−0.39</td></tr>
+                <tr><td>6</td><td>95</td><td>3.32</td><td>2.65</td><td>+0.66</td><td>93</td><td>3.15</td><td>2.60</td><td>+0.55</td><td style="color:#16a34a;font-weight:600;">−0.11</td></tr>
+                <tr><td>7</td><td>238</td><td>3.65</td><td>2.71</td><td>+0.93</td><td>198</td><td>3.49</td><td>2.64</td><td>+0.85</td><td style="color:#16a34a;font-weight:600;">−0.08</td></tr>
+                <tr><td>8</td><td>40</td><td>3.69</td><td>2.72</td><td>+0.97</td><td>35</td><td>3.30</td><td>2.65</td><td>+0.65</td><td style="color:#16a34a;font-weight:600;">−0.32</td></tr>
+            </tbody>
+            <tfoot>
+                <tr style="font-weight:700;border-top:2px solid var(--text);">
+                    <td>Overall</td><td>845</td><td>3.55</td><td>2.69</td><td>+0.86</td><td>850</td><td>3.40</td><td>2.63</td><td>+0.77</td><td style="color:#16a34a;font-weight:700;">−0.09</td>
+                </tr>
+            </tfoot>
+        </table>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">Variance Change = Post Avg Variance − Pre Avg Variance. <span style="color:#16a34a;">Green (negative)</span> = experts moved closer to their goal after coaching. <span style="color:#dc2626;">Red (positive)</span> = experts moved further from goal.</p>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box"><canvas id="chartPeerVar"></canvas></div>
+        <div class="chart-box"><canvas id="chartBeatGoal"></canvas></div>
+    </div>
+
+    <h3>% of Experts Beating Their Weighted Peer Goal</h3>
+    <div class="card" style="overflow-x:auto;">
+        <table>
+            <thead>
+                <tr><th>Group</th><th>Pre % Beat Goal</th><th>Post % Beat Goal</th><th>Change (pp)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>32.3%</td><td>28.4%</td><td style="color:#dc2626;font-weight:600;">−3.9</td></tr>
+                <tr><td>2</td><td>31.7%</td><td>25.9%</td><td style="color:#dc2626;font-weight:600;">−5.8</td></tr>
+                <tr><td>3</td><td>36.9%</td><td>39.8%</td><td style="color:#16a34a;font-weight:600;">+2.9</td></tr>
+                <tr><td>4</td><td>37.1%</td><td>40.3%</td><td style="color:#16a34a;font-weight:600;">+3.2</td></tr>
+                <tr><td>5</td><td>35.4%</td><td>43.7%</td><td style="color:#16a34a;font-weight:600;">+8.3</td></tr>
+                <tr><td>6</td><td>32.6%</td><td>40.9%</td><td style="color:#16a34a;font-weight:600;">+8.3</td></tr>
+                <tr><td>7</td><td>35.3%</td><td>37.9%</td><td style="color:#16a34a;font-weight:600;">+2.6</td></tr>
+                <tr><td>8</td><td>35.0%</td><td>57.1%</td><td style="color:#16a34a;font-weight:600;">+22.1</td></tr>
+            </tbody>
+            <tfoot>
+                <tr style="font-weight:700;border-top:2px solid var(--text);">
+                    <td>Overall</td><td>34.4%</td><td>36.7%</td><td style="color:#16a34a;font-weight:700;">+2.3</td>
+                </tr>
+            </tfoot>
+        </table>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">"Beat Goal" = expert's adjusted CST &le; their Weighted Peer Goal (PeerGoalVar &le; 0). Change in percentage points (pp).</p>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--primary);">
+        <strong>Key Insights — Weighted Peer Goal Analysis</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>Overall, coaching reduced the gap to peer goal</strong> — average PeerGoalVar decreased from +0.86 (Pre) to +0.77 (Post), a −0.09 improvement, and the share of experts beating their goal rose from 34.4% to 36.7%.</li>
+            <li><strong>Group 5 showed the strongest variance improvement</strong> (−0.39), meaning experts moved significantly closer to their personalized goal after coaching.</li>
+            <li><strong>Group 8 had the highest "beat goal" improvement</strong>, jumping from 35.0% to 57.1% (+22.1 pp) — the largest shift of any group, confirming its standout coaching response.</li>
+            <li><strong>Groups 1 and 2 moved in the wrong direction</strong> — Group 1's variance worsened (+0.21) and its beat-goal rate dropped (−3.9 pp). Group 2 also saw fewer experts beating goal post-coaching (−5.8 pp), despite a slight variance improvement.</li>
+            <li><strong>Groups 3–8 (excluding 4) all improved their variance</strong>, aligning with the broader finding that coaching was most effective for these populations.</li>
+        </ul>
+    </div>
+
+    <!-- 9. CONCLUSIONS -->
+    <h2 id="conclusions">9. Conclusions &amp; Recommendations</h2>
     <div class="card">
         <h3 style="margin-top:0;">Key Findings</h3>
         <ol class="findings" style="padding-left:1.25rem;">
@@ -823,6 +903,38 @@ new Chart(document.getElementById('chartPLChange'), {
         }]
     },
     options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Change (Post − Pre)' } } } }
+});
+
+// Peer Goal Charts
+const pgPreVar = [0.90, 1.09, 0.66, 0.61, 0.95, 0.66, 0.93, 0.97];
+const pgPostVar = [1.11, 1.01, 0.41, 0.62, 0.56, 0.55, 0.85, 0.65];
+const pgVarChange = [0.21, -0.08, -0.25, 0.01, -0.39, -0.11, -0.08, -0.32];
+
+new Chart(document.getElementById('chartPeerVar'), {
+    type: 'bar',
+    data: {
+        labels: groups,
+        datasets: [
+            { label: 'Pre Avg Variance', data: pgPreVar, backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'Post Avg Variance', data: pgPostVar, backgroundColor: '#a5b4fc', borderColor: '#4f46e5', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, title: { display: true, text: 'Avg Peer Goal Variance — Pre vs Post', font: {size:14} } }, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'Avg PeerGoalVar' } } } }
+});
+
+const pgPreBeat = [32.3, 31.7, 36.9, 37.1, 35.4, 32.6, 35.3, 35.0];
+const pgPostBeat = [28.4, 25.9, 39.8, 40.3, 43.7, 40.9, 37.9, 57.1];
+
+new Chart(document.getElementById('chartBeatGoal'), {
+    type: 'bar',
+    data: {
+        labels: groups,
+        datasets: [
+            { label: 'Pre % Beat Goal', data: pgPreBeat, backgroundColor: '#fef3c7', borderColor: '#d97706', borderWidth: 1 },
+            { label: 'Post % Beat Goal', data: pgPostBeat, backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, title: { display: true, text: '% Experts Beating Weighted Peer Goal', font: {size:14} } }, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'% Beat Goal' }, min: 0, max: 65 } } }
 });
 
 </script>
