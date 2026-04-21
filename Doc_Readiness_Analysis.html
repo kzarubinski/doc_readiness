@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc Readiness Initiative — Analysis Report</title>
+    <style>
+        :root {
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --border: #dee2e6;
+            --text: #212529;
+            --muted: #6c757d;
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --purple: #7c3aed;
+            --purple-light: #ede9fe;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+        h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: var(--primary); }
+        .subtitle { color: var(--muted); margin-bottom: 2rem; }
+        .report-date { color: var(--muted); font-size: 0.9rem; }
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .kpi { background: var(--card); border-radius: 10px; padding: 1.25rem; border: 1px solid var(--border); text-align: center; }
+        .kpi .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 0.35rem; }
+        .kpi .value { font-size: 2rem; font-weight: 700; }
+        .kpi .detail { font-size: 0.82rem; color: var(--muted); margin-top: 0.25rem; }
+        .kpi.green .value { color: var(--success); }
+        .kpi.red .value { color: var(--danger); }
+        .kpi.blue .value { color: var(--primary); }
+        .kpi.purple .value { color: var(--purple); }
+        .card { background: var(--card); border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-green { background: var(--success-light); color: var(--success); }
+        .badge-red { background: var(--danger-light); color: var(--danger); }
+        .badge-yellow { background: var(--warning-light); color: var(--warning); }
+        .badge-blue { background: var(--primary-light); color: var(--primary); }
+        .badge-purple { background: var(--purple-light); color: var(--purple); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.75rem 0; }
+        th, td { padding: 0.55rem 0.75rem; text-align: center; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
+        td:first-child, th:first-child { text-align: left; }
+        tr:hover td { background: #f8fafc; }
+        .highlight-row td { background: var(--primary-light) !important; font-weight: 600; }
+        .neg { color: var(--success); font-weight: 600; }
+        .pos { color: var(--danger); font-weight: 600; }
+        .neutral { color: var(--muted); }
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+        .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+        .chart-box canvas { width: 100% !important; }
+        @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+        .callout { border-left: 4px solid var(--primary); background: var(--primary-light); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.92rem; }
+        .callout.warn { border-left-color: var(--warning); background: var(--warning-light); }
+        .callout.success { border-left-color: var(--success); background: var(--success-light); }
+        .callout.danger { border-left-color: var(--danger); background: var(--danger-light); }
+        .findings li { margin-bottom: 0.5rem; }
+        .findings li strong { color: var(--primary); }
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.75rem 0; }
+        .compare-card { background: #f8fafc; border-radius: 8px; padding: 1rem; border: 1px solid var(--border); }
+        .compare-card h4 { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+        .toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 2rem; margin: 1.5rem 0; }
+        .toc ol { padding-left: 1.25rem; }
+        .toc li { margin-bottom: 0.35rem; }
+        .toc a { color: var(--primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+        .delta-arrow { font-size: 0.85rem; margin-left: 0.25rem; }
+        .delta-arrow.up { color: var(--success); }
+        .delta-arrow.down { color: var(--danger); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <h1>Doc Readiness Initiative — Analysis Report</h1>
+    <p class="subtitle">Impact of 80% Documentation Upload Threshold on CST &bull; Control vs. Test Period</p>
+    <p class="report-date">Report generated: April 21, 2026</p>
+
+    <div class="toc">
+        <strong>Contents</strong>
+        <ol>
+            <li><a href="#exec">Executive Summary</a></li>
+            <li><a href="#methodology">Methodology &amp; Initiative Overview</a></li>
+            <li><a href="#overall">Overall CST Results</a></li>
+            <li><a href="#engagement">Doc Readiness Engagement Shift</a></li>
+            <li><a href="#cst-gap">CST Gap Analysis: &ge;80% vs. &lt;80%</a></li>
+            <li><a href="#excluded">Same-Day Completion Excluded Analysis</a></li>
+            <li><a href="#channel">Channel Breakdown: Internal vs. External</a></li>
+            <li><a href="#wins">Key Wins &amp; Positive Signals</a></li>
+            <li><a href="#conclusions">Conclusions &amp; Recommendations</a></li>
+        </ol>
+    </div>
+
+    <!-- 1. EXECUTIVE SUMMARY -->
+    <h2 id="exec">1. Executive Summary</h2>
+    <p>The Doc Readiness initiative requires that <strong>&ge;80% of documentation is uploaded before an engagement progresses to the "Prep Return" stage</strong>. The hypothesis: having most documents available upfront would reduce overall Customer Service Time (CST). While <strong>overall CST did not improve</strong> for the test group — and in fact increased modestly — several meaningful wins emerged.</p>
+
+    <div class="kpi-row">
+        <div class="kpi green">
+            <div class="label">Doc-Ready Engagement Rate</div>
+            <div class="value">64.4%</div>
+            <div class="detail">+10.4 pp vs. Control (54.0%)</div>
+        </div>
+        <div class="kpi green">
+            <div class="label">CST Gap Widened (Test)</div>
+            <div class="value">−0.28</div>
+            <div class="detail">vs. −0.18 Control — 56% larger</div>
+        </div>
+        <div class="kpi red">
+            <div class="label">Overall CST (Test)</div>
+            <div class="value">2.76</div>
+            <div class="detail">vs. 2.38 Control — higher</div>
+        </div>
+        <div class="kpi purple">
+            <div class="label">Excl. Same-Day — Gap</div>
+            <div class="value">−0.44</div>
+            <div class="detail">vs. −0.24 Control — 83% larger</div>
+        </div>
+    </div>
+
+    <div class="callout warn">
+        <strong>Bottom Line:</strong> Overall CST increased in the test period, meaning the initiative <strong>did not achieve its primary goal</strong> of reducing CST. However, the initiative succeeded in <strong>shifting more engagements into the doc-ready (&ge;80%) bucket</strong> (+10.4 pp), and the <strong>CST advantage of doc-ready engagements over non-ready ones widened significantly</strong> — especially when same-day completions are excluded. This suggests the mechanism works: doc-ready returns are meaningfully faster, and the initiative is driving more returns into that category.
+    </div>
+
+    <!-- 2. METHODOLOGY -->
+    <h2 id="methodology">2. Methodology &amp; Initiative Overview</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">Initiative Design</h3>
+        <ul style="padding-left:1.25rem;">
+            <li><strong>Goal:</strong> Require &ge;80% of documentation to be uploaded before progressing to "Prep Return" stage</li>
+            <li><strong>Hypothesis:</strong> Having documentation available upfront reduces CST by eliminating wait times for missing documents</li>
+            <li><strong>Control Period (Pre-Rollout):</strong> 2/1/2026 – 3/8/2026</li>
+            <li><strong>Test Period (Post-Rollout):</strong> 3/9/2026 – 4/15/2026</li>
+            <li><strong>Metric:</strong> CST (Customer Service Time) — lower is better</li>
+            <li><strong>Segmentation:</strong> Engagements split into &ge;80% Docs Ready and &lt;80% Docs Ready</li>
+            <li><strong>Channels:</strong> Internal (Intuit) and External</li>
+            <li><strong>Additional cut:</strong> Same-day completed returns excluded to isolate non-trivial engagements</li>
+        </ul>
+    </div>
+
+    <!-- 3. OVERALL CST RESULTS -->
+    <h2 id="overall">3. Overall CST Results</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">Full Data — All Engagements</h3>
+        <div class="compare-grid">
+            <div class="compare-card">
+                <h4>Control Period (Pre-Rollout: 2/1 – 3/8)</h4>
+                <table>
+                    <thead><tr><th>Segment</th><th>&ge;80% Docs<br>% of Eng</th><th>&ge;80% Docs<br>CST</th><th>&lt;80% Docs<br>% of Eng</th><th>&lt;80% Docs<br>CST</th><th>CST Gap</th></tr></thead>
+                    <tbody>
+                        <tr><td>Internal (Intuit)</td><td>54.72%</td><td>2.37</td><td>45.28%</td><td>2.52</td><td class="neg">−0.15</td></tr>
+                        <tr><td>External</td><td>51.05%</td><td>2.12</td><td>48.95%</td><td>2.41</td><td class="neg">−0.30</td></tr>
+                        <tr class="highlight-row"><td><strong>Total</strong></td><td>54.00%</td><td>2.32</td><td>46.00%</td><td>2.50</td><td class="neg">−0.18</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="compare-card" style="border: 2px solid var(--primary);">
+                <h4>Test Period (Post-Rollout: 3/9 – 4/15)</h4>
+                <table>
+                    <thead><tr><th>Segment</th><th>&ge;80% Docs<br>% of Eng</th><th>&ge;80% Docs<br>CST</th><th>&lt;80% Docs<br>% of Eng</th><th>&lt;80% Docs<br>CST</th><th>CST Gap</th></tr></thead>
+                    <tbody>
+                        <tr><td>Internal (Intuit)</td><td>64.71%</td><td>2.77</td><td>35.29%</td><td>3.10</td><td class="neg">−0.33</td></tr>
+                        <tr><td>External</td><td>63.36%</td><td>2.30</td><td>36.64%</td><td>2.47</td><td class="neg">−0.17</td></tr>
+                        <tr class="highlight-row"><td><strong>Total</strong></td><td>64.37%</td><td>2.66</td><td>35.63%</td><td>2.94</td><td class="neg">−0.28</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            <p><strong>CST Gap</strong> = (&ge;80% Docs CST) − (&lt;80% Docs CST). Negative values mean doc-ready engagements are faster.</p>
+        </div>
+    </div>
+
+    <div class="callout danger">
+        <strong>Overall CST Increased:</strong> Blended CST rose from <strong>2.38</strong> (Control weighted: 54%&times;2.32 + 46%&times;2.50) to <strong>2.76</strong> (Test weighted: 64.4%&times;2.66 + 35.6%&times;2.94), an increase of approximately <strong>+0.38 days</strong>. The initiative did not reduce overall CST in the test period — likely driven by seasonality, mix shifts, or other external factors rather than the initiative itself.
+    </div>
+
+    <!-- 4. ENGAGEMENT SHIFT -->
+    <h2 id="engagement">4. Doc Readiness Engagement Shift</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">% of Engagements with &ge;80% Docs Ready</h3>
+        <table>
+            <thead><tr><th>Segment</th><th>Control Period</th><th>Test Period</th><th>Change (pp)</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>Internal (Intuit)</td><td>54.72%</td><td>64.71%</td><td style="color:var(--success);font-weight:600;">+9.99</td><td><span class="badge badge-green">Improved</span></td></tr>
+                <tr><td>External</td><td>51.05%</td><td>63.36%</td><td style="color:var(--success);font-weight:600;">+12.31</td><td><span class="badge badge-green">Strong</span></td></tr>
+                <tr class="highlight-row"><td><strong>Total</strong></td><td>54.00%</td><td>64.37%</td><td style="color:var(--success);font-weight:600;">+10.37</td><td><span class="badge badge-green">Strong</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Doc-Ready Engagement Rate: Control vs. Test</h3>
+            <canvas id="chartEngRate" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Engagement Distribution Shift</h3>
+            <canvas id="chartEngDist" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>Win #1 — Engagement Shift:</strong> The initiative successfully moved <strong>+10.4 percentage points</strong> more engagements into the doc-ready category. External channel saw the largest shift (+12.3 pp), suggesting the doc-readiness gate is particularly effective at driving external customer behavior. The total doc-ready rate reached <strong>64.4%</strong>, up from 54.0%.
+    </div>
+
+    <!-- 5. CST GAP ANALYSIS -->
+    <h2 id="cst-gap">5. CST Gap Analysis: &ge;80% vs. &lt;80%</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">CST Improvement Between Doc-Ready and Non-Ready Groups</h3>
+        <table>
+            <thead><tr><th>Segment</th><th>Control CST Gap</th><th>Test CST Gap</th><th>Gap Change</th><th>Interpretation</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td>Internal (Intuit)</td>
+                    <td class="neg">−0.15</td>
+                    <td class="neg">−0.33</td>
+                    <td style="color:var(--success);font-weight:600;">−0.18</td>
+                    <td>Gap more than doubled</td>
+                </tr>
+                <tr>
+                    <td>External</td>
+                    <td class="neg">−0.30</td>
+                    <td class="neg">−0.17</td>
+                    <td style="color:var(--danger);font-weight:600;">+0.13</td>
+                    <td>Gap narrowed</td>
+                </tr>
+                <tr class="highlight-row">
+                    <td><strong>Total</strong></td>
+                    <td class="neg">−0.18</td>
+                    <td class="neg">−0.28</td>
+                    <td style="color:var(--success);font-weight:600;">−0.10</td>
+                    <td>Gap widened by 56%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">CST by Doc Readiness Group</h3>
+            <canvas id="chartCSTByGroup" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">CST Gap: Control vs. Test Period</h3>
+            <canvas id="chartCSTGap" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>Win #2 — Wider CST Gap:</strong> The CST difference between doc-ready and non-ready engagements grew from <strong>−0.18 days</strong> (Control) to <strong>−0.28 days</strong> (Test) — a <strong>56% increase</strong>. This is particularly striking for Internal (Intuit) engagements, where the gap more than doubled from −0.15 to −0.33. This means the doc-readiness mechanism is <strong>delivering a larger CST benefit per engagement</strong> in the test period.
+    </div>
+
+    <!-- 6. SAME-DAY EXCLUDED -->
+    <h2 id="excluded">6. Same-Day Completion Excluded Analysis</h2>
+    <p>Removing same-day completions isolates non-trivial engagements where documentation readiness has the most opportunity to impact processing time.</p>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Data with Same-Day Completions Excluded</h3>
+        <div class="compare-grid">
+            <div class="compare-card">
+                <h4>Control Period — Excl. Same-Day</h4>
+                <table>
+                    <thead><tr><th>Segment</th><th>&ge;80%<br>% in Group</th><th>&ge;80%<br>CST</th><th>&lt;80%<br>% in Group</th><th>&lt;80%<br>CST</th><th>CST Gap</th></tr></thead>
+                    <tbody>
+                        <tr><td>Internal</td><td>50.51%</td><td>3.10</td><td>49.49%</td><td>3.29</td><td class="neg">−0.19</td></tr>
+                        <tr><td>External</td><td>44.43%</td><td>3.12</td><td>55.57%</td><td>3.58</td><td class="neg">−0.46</td></tr>
+                        <tr class="highlight-row"><td><strong>Total</strong></td><td>49.43%</td><td>3.10</td><td>50.57%</td><td>3.34</td><td class="neg">−0.24</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="compare-card" style="border: 2px solid var(--primary);">
+                <h4>Test Period — Excl. Same-Day</h4>
+                <table>
+                    <thead><tr><th>Segment</th><th>&ge;80%<br>% in Group</th><th>&ge;80%<br>CST</th><th>&lt;80%<br>% in Group</th><th>&lt;80%<br>CST</th><th>CST Gap</th></tr></thead>
+                    <tbody>
+                        <tr><td>Internal</td><td>62.42%</td><td>3.72</td><td>37.58%</td><td>4.15</td><td class="neg">−0.44</td></tr>
+                        <tr><td>External</td><td>62.99%</td><td>3.50</td><td>37.01%</td><td>3.98</td><td class="neg">−0.48</td></tr>
+                        <tr class="highlight-row"><td><strong>Total</strong></td><td>62.54%</td><td>3.68</td><td>37.46%</td><td>4.12</td><td class="neg">−0.44</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="kpi-row">
+        <div class="kpi green">
+            <div class="label">Doc-Ready Rate (Excl. Same-Day)</div>
+            <div class="value">62.5%</div>
+            <div class="detail">+13.1 pp vs. Control (49.4%)</div>
+        </div>
+        <div class="kpi green">
+            <div class="label">CST Gap (Excl. Same-Day, Test)</div>
+            <div class="value">−0.44</div>
+            <div class="detail">vs. −0.24 Control — 83% larger</div>
+        </div>
+        <div class="kpi blue">
+            <div class="label">Internal Gap Change</div>
+            <div class="value">−0.25</div>
+            <div class="detail">From −0.19 to −0.44 (2.3&times;)</div>
+        </div>
+        <div class="kpi purple">
+            <div class="label">External Gap Consistency</div>
+            <div class="value">−0.48</div>
+            <div class="detail">vs. −0.46 — maintained</div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">CST Gap Comparison: Full Data vs. Excl. Same-Day</h3>
+            <canvas id="chartExclGap" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Doc-Ready Engagement Rate: Full vs. Excl. Same-Day</h3>
+            <canvas id="chartExclRate" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>Win #3 — Stronger Signal When Same-Day Excluded:</strong> Removing trivial same-day returns amplifies every finding. The CST gap nearly <strong>doubled</strong> from −0.24 to −0.44 days (an <strong>83% increase</strong>). The doc-ready engagement share jumped by <strong>+13.1 pp</strong> (49.4% → 62.5%). This confirms that doc readiness has the strongest impact on <strong>non-trivial, multi-day engagements</strong> — exactly where reducing CST matters most.
+    </div>
+
+    <!-- 7. CHANNEL BREAKDOWN -->
+    <h2 id="channel">7. Channel Breakdown: Internal vs. External</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">Internal (Intuit) — Summary of Changes</h3>
+        <table>
+            <thead><tr><th>Metric</th><th>Control</th><th>Test</th><th>Change</th><th>Signal</th></tr></thead>
+            <tbody>
+                <tr><td>Doc-Ready Rate (&ge;80%)</td><td>54.72%</td><td>64.71%</td><td style="color:var(--success);font-weight:600;">+9.99 pp</td><td><span class="badge badge-green">Positive</span></td></tr>
+                <tr><td>CST (&ge;80% group)</td><td>2.37</td><td>2.77</td><td class="pos">+0.40</td><td><span class="badge badge-red">Increased</span></td></tr>
+                <tr><td>CST (&lt;80% group)</td><td>2.52</td><td>3.10</td><td class="pos">+0.58</td><td><span class="badge badge-red">Increased</span></td></tr>
+                <tr><td>CST Gap</td><td>−0.15</td><td>−0.33</td><td style="color:var(--success);font-weight:600;">−0.18</td><td><span class="badge badge-green">Widened (2.2&times;)</span></td></tr>
+                <tr style="background:#faf5ff;"><td>CST Gap (Excl. Same-Day)</td><td>−0.19</td><td>−0.44</td><td style="color:var(--success);font-weight:600;">−0.25</td><td><span class="badge badge-green">Widened (2.3&times;)</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">External — Summary of Changes</h3>
+        <table>
+            <thead><tr><th>Metric</th><th>Control</th><th>Test</th><th>Change</th><th>Signal</th></tr></thead>
+            <tbody>
+                <tr><td>Doc-Ready Rate (&ge;80%)</td><td>51.05%</td><td>63.36%</td><td style="color:var(--success);font-weight:600;">+12.31 pp</td><td><span class="badge badge-green">Strong</span></td></tr>
+                <tr><td>CST (&ge;80% group)</td><td>2.12</td><td>2.30</td><td class="pos">+0.18</td><td><span class="badge badge-yellow">Slight Increase</span></td></tr>
+                <tr><td>CST (&lt;80% group)</td><td>2.41</td><td>2.47</td><td class="pos">+0.06</td><td><span class="badge badge-yellow">Slight Increase</span></td></tr>
+                <tr><td>CST Gap</td><td>−0.30</td><td>−0.17</td><td style="color:var(--danger);font-weight:600;">+0.13</td><td><span class="badge badge-yellow">Narrowed</span></td></tr>
+                <tr style="background:#faf5ff;"><td>CST Gap (Excl. Same-Day)</td><td>−0.46</td><td>−0.48</td><td style="color:var(--success);font-weight:600;">−0.02</td><td><span class="badge badge-blue">Maintained</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">CST by Channel &amp; Doc Readiness</h3>
+            <canvas id="chartChannel" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Channel-Level CST Gap Change</h3>
+            <canvas id="chartChannelGap" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>Channel Insight:</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>Internal (Intuit)</strong> saw the most dramatic CST gap widening — from −0.15 to −0.33 in full data, and from −0.19 to −0.44 excluding same-day. The initiative's enforcement mechanism appears to have the strongest differentiating effect on internal engagements.</li>
+            <li><strong>External</strong> showed the largest doc-ready rate improvement (+12.3 pp) but a narrower CST gap in the full data. However, when same-day completions are excluded, the external gap is essentially maintained (−0.46 → −0.48), suggesting the narrowing in full data is driven by trivial same-day returns diluting the signal.</li>
+            <li><strong>Both channels saw CST increases</strong> across the board, indicating the CST rise is a systemic/seasonal factor rather than a consequence of the doc-readiness initiative.</li>
+        </ul>
+    </div>
+
+    <!-- 8. KEY WINS -->
+    <h2 id="wins">8. Key Wins &amp; Positive Signals</h2>
+    <div class="card" style="border: 2px solid var(--success);">
+        <h3 style="margin-top:0;color:var(--success);">Summary of Wins</h3>
+
+        <div style="margin-bottom:1.25rem;">
+            <h4 style="font-size:0.95rem;margin-bottom:0.5rem;">1. Doc-Ready Engagement Rate Increased by +10.4 pp</h4>
+            <p style="font-size:0.9rem;">The initiative's primary behavioral goal — getting more documentation uploaded upfront — was achieved. The doc-ready rate rose from <strong>54.0%</strong> to <strong>64.4%</strong> overall, with External gaining +12.3 pp and Internal +10.0 pp. This demonstrates that the "Prep Return" gate is influencing upstream behavior.</p>
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+            <h4 style="font-size:0.95rem;margin-bottom:0.5rem;">2. CST Gap Between &ge;80% and &lt;80% Groups Widened by 56%</h4>
+            <p style="font-size:0.9rem;">Doc-ready engagements showed a <strong>0.28-day CST advantage</strong> over non-ready ones in the test period (vs. 0.18 days in control). This means the initiative is <strong>amplifying the CST benefit</strong> of doc readiness — engagements that meet the threshold are being processed meaningfully faster relative to those that don't.</p>
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+            <h4 style="font-size:0.95rem;margin-bottom:0.5rem;">3. Excluding Same-Day: CST Gap Nearly Doubled (+83%)</h4>
+            <p style="font-size:0.9rem;">For non-trivial engagements (same-day completions excluded), the CST gap jumped from <strong>−0.24</strong> (Control) to <strong>−0.44</strong> (Test) — an 83% increase. This is the strongest evidence that doc readiness delivers real value where it matters most: multi-day, complex returns.</p>
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+            <h4 style="font-size:0.95rem;margin-bottom:0.5rem;">4. Internal (Intuit) CST Gap More Than Doubled</h4>
+            <p style="font-size:0.9rem;">Internal engagements saw the gap grow from −0.15 to −0.33 (full data) and from −0.19 to −0.44 (excl. same-day). The 2.3&times; improvement in the same-day-excluded view is a strong validation of the initiative's mechanism for internal workflows.</p>
+        </div>
+
+        <div style="margin-bottom:1.25rem;">
+            <h4 style="font-size:0.95rem;margin-bottom:0.5rem;">5. &lt;80% Group CST Increased More Than &ge;80% Group</h4>
+            <p style="font-size:0.9rem;">While both groups saw CST increases (likely seasonal), the <strong>&lt;80% group's CST rose more sharply</strong> (+0.44 overall) compared to the &ge;80% group (+0.34). This suggests that doc-ready engagements are <strong>more resilient</strong> to seasonal/systemic CST pressures — they maintained relatively better performance during a period of overall CST inflation.</p>
+        </div>
+
+        <div>
+            <h4 style="font-size:0.95rem;margin-bottom:0.5rem;">6. Non-Trivial Engagement Doc-Ready Rate Jumped +13.1 pp</h4>
+            <p style="font-size:0.9rem;">When same-day completions are excluded, the doc-ready rate shifted from <strong>49.4%</strong> to <strong>62.5%</strong> — a +13.1 pp gain. Notably, the control period had a near-equal split (49.4% vs. 50.6%), while the test period pushed the majority of non-trivial engagements into the doc-ready bucket. This is especially meaningful because these are the engagements where doc readiness has the most room to impact CST.</p>
+        </div>
+    </div>
+
+    <!-- 9. CONCLUSIONS -->
+    <h2 id="conclusions">9. Conclusions &amp; Recommendations</h2>
+    <div class="card">
+        <h3 style="margin-top:0;">Key Findings</h3>
+        <ol class="findings" style="padding-left:1.25rem;">
+            <li><strong>The initiative did not reduce overall CST</strong> — blended CST increased in the test period. However, this appears to be driven by external/seasonal factors rather than the initiative itself, as both doc-ready and non-ready groups saw CST increases.</li>
+            <li><strong>Behavioral change was successful.</strong> The doc-ready rate increased by +10.4 pp overall, proving the "Prep Return" gate effectively drives earlier document upload. External customers responded most strongly (+12.3 pp).</li>
+            <li><strong>The mechanism works:</strong> Doc-ready engagements consistently outperform non-ready ones on CST, and this advantage <strong>grew</strong> during the test period — by 56% in full data and 83% when same-day completions are excluded.</li>
+            <li><strong>Non-trivial engagements benefit most.</strong> When same-day completions are removed, the CST gap nearly doubles (−0.24 → −0.44), confirming that doc readiness has its greatest impact on complex, multi-day returns.</li>
+            <li><strong>Doc-ready engagements are more resilient to CST inflation.</strong> During a period of rising CST, doc-ready engagements saw smaller increases than non-ready ones, suggesting upfront documentation acts as a buffer against processing delays.</li>
+            <li><strong>Internal (Intuit) channel shows the strongest relative improvement,</strong> with the CST gap more than doubling in both full and same-day-excluded views.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Recommendations</h3>
+        <ol style="padding-left:1.25rem;">
+            <li><strong>Continue the initiative.</strong> Despite overall CST not improving, the behavioral shift and widening CST gap provide strong evidence the mechanism works. The benefits may become more visible as the initiative matures and seasonal CST pressures subside.</li>
+            <li><strong>Target the 80% threshold more aggressively.</strong> The current 64.4% doc-ready rate leaves significant room for improvement. Pushing toward the original goal of >80% of engagements meeting the threshold could yield compounding CST savings.</li>
+            <li><strong>Isolate seasonal effects.</strong> Re-evaluate the initiative once seasonal CST pressures normalize, or compare year-over-year data for the same timeframes to better isolate the initiative's true impact.</li>
+            <li><strong>Focus on non-trivial engagements.</strong> The strongest signal appears when same-day completions are excluded. Consider tailoring messaging and enforcement for engagements likely to be multi-day returns, where doc readiness delivers the greatest value.</li>
+            <li><strong>Investigate external channel gap narrowing.</strong> While the external doc-ready rate improved the most (+12.3 pp), the full-data CST gap narrowed. Determine whether this is driven by same-day return composition or other factors.</li>
+            <li><strong>Track "Prep Return" stage timing.</strong> Measure how quickly engagements progress from doc upload to Prep Return — a reduction in stage transition time would provide additional evidence of the initiative's process efficiency gains.</li>
+        </ol>
+    </div>
+
+</div>
+
+<footer>
+    <p>Doc Readiness Initiative — Analysis Report &bull; April 21, 2026</p>
+</footer>
+
+<script>
+const chartOpts = {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { font: {size:12} } } },
+    scales: { y: { grid: { color: '#e5e7eb' } }, x: { grid: { display: false } } }
+};
+
+// Chart 1: Doc-Ready Engagement Rate
+new Chart(document.getElementById('chartEngRate'), {
+    type: 'bar',
+    data: {
+        labels: ['Internal (Intuit)', 'External', 'Total'],
+        datasets: [
+            { label: 'Control Period', data: [54.72, 51.05, 54.00], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'Test Period', data: [64.71, 63.36, 64.37], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 40, max: 75, title: { display:true, text:'% of Engagements ≥80% Docs Ready' } } } }
+});
+
+// Chart 2: Engagement Distribution
+new Chart(document.getElementById('chartEngDist'), {
+    type: 'bar',
+    data: {
+        labels: ['Control', 'Test'],
+        datasets: [
+            { label: '≥80% Docs Ready', data: [54.00, 64.37], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 },
+            { label: '<80% Docs Ready', data: [46.00, 35.63], backgroundColor: '#fca5a5', borderColor: '#dc2626', borderWidth: 1 }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom', labels: { font: {size:12} } } },
+        scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: { stacked: true, grid: { color: '#e5e7eb' }, title: { display:true, text:'% of Total Engagements' }, max: 100 }
+        }
+    }
+});
+
+// Chart 3: CST by Doc Readiness Group
+new Chart(document.getElementById('chartCSTByGroup'), {
+    type: 'bar',
+    data: {
+        labels: ['Control ≥80%', 'Control <80%', 'Test ≥80%', 'Test <80%'],
+        datasets: [{
+            label: 'CST (days)',
+            data: [2.32, 2.50, 2.66, 2.94],
+            backgroundColor: ['#86efac', '#fca5a5', '#4ade80', '#f87171'],
+            borderColor: ['#16a34a', '#dc2626', '#16a34a', '#dc2626'],
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 2, title: { display:true, text:'CST (days)' } } } }
+});
+
+// Chart 4: CST Gap Comparison
+new Chart(document.getElementById('chartCSTGap'), {
+    type: 'bar',
+    data: {
+        labels: ['Internal', 'External', 'Total'],
+        datasets: [
+            { label: 'Control Gap', data: [-0.15, -0.30, -0.18], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'Test Gap', data: [-0.33, -0.17, -0.28], backgroundColor: '#a5b4fc', borderColor: '#4f46e5', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Gap (≥80% minus <80%) — more negative = better' } } } }
+});
+
+// Chart 5: Full vs Excl Same-Day Gap
+new Chart(document.getElementById('chartExclGap'), {
+    type: 'bar',
+    data: {
+        labels: ['Control Full', 'Control Excl.', 'Test Full', 'Test Excl.'],
+        datasets: [{
+            label: 'CST Gap (days)',
+            data: [-0.18, -0.24, -0.28, -0.44],
+            backgroundColor: ['#e0e7ff', '#bfdbfe', '#86efac', '#4ade80'],
+            borderColor: ['#6366f1', '#3b82f6', '#16a34a', '#15803d'],
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Gap (more negative = better)' } } } }
+});
+
+// Chart 6: Doc-Ready Rate - Full vs Excl Same-Day
+new Chart(document.getElementById('chartExclRate'), {
+    type: 'bar',
+    data: {
+        labels: ['Control Full', 'Control Excl.', 'Test Full', 'Test Excl.'],
+        datasets: [{
+            label: '% Engagements ≥80% Docs Ready',
+            data: [54.00, 49.43, 64.37, 62.54],
+            backgroundColor: ['#e0e7ff', '#bfdbfe', '#86efac', '#4ade80'],
+            borderColor: ['#6366f1', '#3b82f6', '#16a34a', '#15803d'],
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 40, max: 75, title: { display:true, text:'% Doc-Ready Engagements' } } } }
+});
+
+// Chart 7: CST by Channel & Doc Readiness
+new Chart(document.getElementById('chartChannel'), {
+    type: 'bar',
+    data: {
+        labels: ['Internal ≥80%', 'Internal <80%', 'External ≥80%', 'External <80%'],
+        datasets: [
+            { label: 'Control', data: [2.37, 2.52, 2.12, 2.41], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'Test', data: [2.77, 3.10, 2.30, 2.47], backgroundColor: '#c4b5fd', borderColor: '#7c3aed', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 1.5, title: { display:true, text:'CST (days)' } } } }
+});
+
+// Chart 8: Channel Gap Change
+new Chart(document.getElementById('chartChannelGap'), {
+    type: 'bar',
+    data: {
+        labels: ['Internal Full', 'Internal Excl.', 'External Full', 'External Excl.'],
+        datasets: [
+            { label: 'Control Gap', data: [-0.15, -0.19, -0.30, -0.46], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'Test Gap', data: [-0.33, -0.44, -0.17, -0.48], backgroundColor: '#c4b5fd', borderColor: '#7c3aed', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Gap (more negative = better)' } } } }
+});
+</script>
+
+</body>
+</html>
