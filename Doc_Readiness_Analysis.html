@@ -248,17 +248,6 @@
         </table>
     </div>
 
-    <div class="chart-row">
-        <div class="chart-box">
-            <h3 style="margin-top:0;">CST by Doc Readiness Group</h3>
-            <canvas id="chartCSTByGroup" height="280"></canvas>
-        </div>
-        <div class="chart-box">
-            <h3 style="margin-top:0;">CST Gap: Control vs. Test Period</h3>
-            <canvas id="chartCSTGap" height="280"></canvas>
-        </div>
-    </div>
-
     <div class="callout success">
         <strong>Win #2 — Wider CST Gap:</strong> The CST difference between doc-ready and non-ready engagements grew from <strong>−0.18</strong> (Control) to <strong>−0.28</strong> (Test) — a <strong>56% increase</strong>. This is particularly striking for Internal (Intuit) engagements, where the gap more than doubled from −0.15 to −0.33. This means the doc-readiness mechanism is <strong>delivering a larger CST benefit per engagement</strong> in the test period.
     </div>
@@ -315,17 +304,6 @@
             <div class="label">External Gap Consistency</div>
             <div class="value">−0.48</div>
             <div class="detail">vs. −0.46 — maintained</div>
-        </div>
-    </div>
-
-    <div class="chart-row">
-        <div class="chart-box">
-            <h3 style="margin-top:0;">CST Gap Comparison: Full Data vs. Excl. Same-Day</h3>
-            <canvas id="chartExclGap" height="280"></canvas>
-        </div>
-        <div class="chart-box">
-            <h3 style="margin-top:0;">Doc-Ready Engagement Rate: Full vs. Excl. Same-Day</h3>
-            <canvas id="chartExclRate" height="280"></canvas>
         </div>
     </div>
 
@@ -489,67 +467,6 @@ new Chart(document.getElementById('chartEngDist'), {
             y: { stacked: true, grid: { color: '#e5e7eb' }, title: { display:true, text:'% of Total Engagements' }, max: 100 }
         }
     }
-});
-
-// Chart 3: CST by Doc Readiness Group
-new Chart(document.getElementById('chartCSTByGroup'), {
-    type: 'bar',
-    data: {
-        labels: ['Control ≥80%', 'Control <80%', 'Test ≥80%', 'Test <80%'],
-        datasets: [{
-            label: 'CST',
-            data: [2.32, 2.50, 2.66, 2.94],
-            backgroundColor: ['#86efac', '#fca5a5', '#4ade80', '#f87171'],
-            borderColor: ['#16a34a', '#dc2626', '#16a34a', '#dc2626'],
-            borderWidth: 1
-        }]
-    },
-    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 2, title: { display:true, text:'CST' } } } }
-});
-
-// Chart 4: CST Gap Comparison
-new Chart(document.getElementById('chartCSTGap'), {
-    type: 'bar',
-    data: {
-        labels: ['Internal', 'External', 'Total'],
-        datasets: [
-            { label: 'Control Gap', data: [-0.15, -0.30, -0.18], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
-            { label: 'Test Gap', data: [-0.33, -0.17, -0.28], backgroundColor: '#a5b4fc', borderColor: '#4f46e5', borderWidth: 1 }
-        ]
-    },
-    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Gap (≥80% minus <80%) — more negative = better' } } } }
-});
-
-// Chart 5: Full vs Excl Same-Day Gap
-new Chart(document.getElementById('chartExclGap'), {
-    type: 'bar',
-    data: {
-        labels: ['Control Full', 'Control Excl.', 'Test Full', 'Test Excl.'],
-        datasets: [{
-            label: 'CST Gap',
-            data: [-0.18, -0.24, -0.28, -0.44],
-            backgroundColor: ['#e0e7ff', '#bfdbfe', '#86efac', '#4ade80'],
-            borderColor: ['#6366f1', '#3b82f6', '#16a34a', '#15803d'],
-            borderWidth: 1
-        }]
-    },
-    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display:true, text:'CST Gap (more negative = better)' } } } }
-});
-
-// Chart 6: Doc-Ready Rate - Full vs Excl Same-Day
-new Chart(document.getElementById('chartExclRate'), {
-    type: 'bar',
-    data: {
-        labels: ['Control Full', 'Control Excl.', 'Test Full', 'Test Excl.'],
-        datasets: [{
-            label: '% Engagements ≥80% Docs Ready',
-            data: [54.00, 49.43, 64.37, 62.54],
-            backgroundColor: ['#e0e7ff', '#bfdbfe', '#86efac', '#4ade80'],
-            borderColor: ['#6366f1', '#3b82f6', '#16a34a', '#15803d'],
-            borderWidth: 1
-        }]
-    },
-    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 40, max: 75, title: { display:true, text:'% Doc-Ready Engagements' } } } }
 });
 
 // Chart 7: CST by Channel & Doc Readiness
