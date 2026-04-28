@@ -102,6 +102,7 @@
             <li><a href="#ts">Tax Specialist (TS) Analysis</a>
                 <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
                     <li><a href="#ts-overall">Overall PathEDU vs NonPathEDU</a></li>
+                    <li><a href="#ts-sku">SKU Mix Analysis</a></li>
                     <li><a href="#ts-hire">New Hire vs Re-Hire</a></li>
                     <li><a href="#ts-waves">Training Wave Analysis</a></li>
                     <li><a href="#ts-partner">Partner Breakdown</a></li>
@@ -246,8 +247,151 @@
         <strong>Interpretation:</strong> PathEDU TS experts spend ~22% more time per engagement (CST 5.16 vs 4.22), which correlates with <strong>3.1 points higher tNPS</strong> but is a <strong>negative signal for efficiency</strong>. Combined with a <strong>3.6 pp lower conversion rate</strong> and <strong>~2.6 min longer AHT</strong>, this suggests PathEDU students may be spending time less efficiently — possibly less assertive in steering toward conversion (a trainable skill). PathEDU's TTLA tNPS is also notably higher (65.39 vs 58.86), confirming strong customer experience across channels. The higher CST may partly reflect deeper conversations but should be targeted for improvement.
     </div>
 
-    <!-- 3b. New Hire vs Re-Hire -->
-    <h3 id="ts-hire">3b. New Hire vs Re-Hire</h3>
+    <!-- 3b. SKU Mix Analysis -->
+    <h3 id="ts-sku">3b. SKU Mix Analysis — Does Product Complexity Explain CST &amp; Conversion Gaps?</h3>
+    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Tax return complexity varies by SKU: <strong>Basic</strong> (simplest), <strong>Deluxe</strong> (mid), <strong>Premium</strong> (most complex), <strong>Other</strong>. If PathEDU experts handle a different product mix, it could explain observed performance differences.</p>
+
+    <div class="card">
+        <h3 style="margin-top:0;">SKU Mix — PathEDU vs NonPathEDU (All Experts)</h3>
+        <table>
+            <thead>
+                <tr><th>Group</th><th>Total Eng</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th><th>Other %</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>NonPathEDU</strong></td><td>7,250,328</td>
+                    <td>40.55%</td><td>34.80%</td><td>24.26%</td><td>0.40%</td>
+                    <td>4.24</td><td>79.55</td><td>63.07%</td>
+                </tr>
+                <tr class="pathedu-row">
+                    <td><strong>PathEDU</strong></td><td>452,104</td>
+                    <td>53.27%</td><td>35.79%</td><td>10.01%</td><td>0.93%</td>
+                    <td>5.06</td><td>83.24</td><td>60.54%</td>
+                </tr>
+                <tr style="font-weight:700;background:#f1f5f9;">
+                    <td>Difference</td><td></td>
+                    <td class="worse">+12.72pp</td><td>+0.99pp</td><td class="better">−14.25pp</td><td>+0.53pp</td>
+                    <td class="worse">+0.82</td><td class="better">+3.69</td><td class="worse">−2.53pp</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            "Total Eng" = sum of Basic + Deluxe + Premium + Other engagements (differs from FS Engagements used for CST, which excludes null-SKU rows).
+        </div>
+    </div>
+
+    <div class="kpi-row">
+        <div class="kpi red">
+            <div class="label">PathEDU Basic Mix</div>
+            <div class="value">53.3%</div>
+            <div class="detail">vs NonPathEDU 40.6% (+12.7pp)</div>
+        </div>
+        <div class="kpi green">
+            <div class="label">PathEDU Premium Mix</div>
+            <div class="value">10.0%</div>
+            <div class="detail">vs NonPathEDU 24.3% (−14.3pp)</div>
+        </div>
+        <div class="kpi blue">
+            <div class="label">Deluxe Mix</div>
+            <div class="value">~Same</div>
+            <div class="detail">PathEDU 35.8% vs NonPathEDU 34.8%</div>
+        </div>
+        <div class="kpi purple">
+            <div class="label">Mix Implication</div>
+            <div class="value">Significant</div>
+            <div class="detail">Lower complexity → lower CST expected</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">SKU Mix — TermAfterPeak New Hires (Fair Comparison)</h3>
+        <table>
+            <thead>
+                <tr><th>Group</th><th>Total Eng</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th><th>Other %</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>NonPathEDU</strong></td><td>1,548,031</td>
+                    <td>47.20%</td><td>34.84%</td><td>17.52%</td><td>0.44%</td>
+                    <td>4.44</td><td>77.59</td><td>62.36%</td>
+                </tr>
+                <tr class="pathedu-row">
+                    <td><strong>PathEDU</strong></td><td>405,050</td>
+                    <td>53.41%</td><td>35.56%</td><td>10.07%</td><td>0.96%</td>
+                    <td>5.08</td><td>82.30</td><td>60.94%</td>
+                </tr>
+                <tr style="font-weight:700;background:#f1f5f9;">
+                    <td>Difference</td><td></td>
+                    <td class="worse">+6.21pp</td><td>+0.72pp</td><td class="better">−7.45pp</td><td>+0.52pp</td>
+                    <td class="worse">+0.64</td><td class="better">+4.71</td><td class="worse">−1.42pp</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            TermAfterPeak New Hires only — the fairest comparison lens. PathEDU still shows a simpler product mix.
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">SKU Mix — PathEDU by Partner (All Experts)</h3>
+        <table>
+            <thead>
+                <tr><th>Partner</th><th>Total Eng</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th><th>Other %</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Education at Work</strong></td><td>421,435</td><td>52.50%</td><td>36.57%</td><td>10.00%</td><td>0.94%</td><td>5.14</td><td>83.73</td><td>60.72%</td></tr>
+                <tr><td><strong>Foundever</strong></td><td>30,669</td><td>63.93%</td><td>25.09%</td><td>10.18%</td><td>0.80%</td><td>4.06</td><td>77.65</td><td>57.39%</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            Foundever has an even heavier Basic mix (64%) with lower CST (4.06) — consistent with simpler cases being faster.
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">SKU Mix — PathEDU TermAfterPeak New Hires by Wave</h3>
+        <table>
+            <thead>
+                <tr><th>Wave</th><th>Total Eng</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th><th>Other %</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Wave 3</td><td>144,844</td><td>54.86%</td><td>34.57%</td><td>8.99%</td><td>1.57%</td><td>4.92</td><td>83.00</td><td>62.49%</td></tr>
+                <tr><td>Wave 4</td><td>170,230</td><td>53.75%</td><td>36.15%</td><td>9.46%</td><td>0.63%</td><td>5.34</td><td>83.86</td><td>58.88%</td></tr>
+                <tr><td>Wave 5</td><td>62,576</td><td>44.21%</td><td>40.95%</td><td>14.30%</td><td>0.54%</td><td>5.70</td><td>79.55</td><td>62.16%</td></tr>
+                <tr><td>Wave 6</td><td>20,182</td><td>65.07%</td><td>22.96%</td><td>11.63%</td><td>0.34%</td><td>4.66</td><td>66.67</td><td>58.27%</td></tr>
+                <tr><td>Wave 7</td><td>7,218</td><td>63.16%</td><td>30.09%</td><td>5.24%</td><td>1.51%</td><td>2.71</td><td>90.48</td><td>52.35%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">SKU Mix Comparison — PathEDU vs NonPathEDU</h3>
+            <canvas id="chartSKUMix" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">SKU Mix by Wave (PathEDU NH TermAfterPeak)</h3>
+            <canvas id="chartSKUWave" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout warn">
+        <strong>SKU Mix Finding — A Counterintuitive Result:</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>PathEDU handles significantly simpler cases.</strong> 53% Basic vs 41% NonPathEDU, and only 10% Premium vs 24% NonPathEDU. With simpler cases, we would <strong>expect lower CST</strong> — but PathEDU's CST is <strong>higher</strong> (5.06 vs 4.24).</li>
+            <li><strong>This means the true within-SKU CST gap is likely even larger than the headline number.</strong> If PathEDU handled the same product mix as NonPathEDU (i.e., more Premium), their CST would be even higher. The simpler mix is actually <strong>masking</strong> a bigger efficiency gap.</li>
+            <li><strong>Conversion rate gap is partially explained by mix:</strong> Basic returns may have inherently lower conversion potential, and PathEDU's heavier Basic mix (53% vs 41%) could contribute to the 2.5pp conversion deficit.</li>
+            <li><strong>tNPS advantage is likely genuine:</strong> PathEDU's higher tNPS (83.24 vs 79.55) exists despite handling simpler cases, which may have less room for expert value-add. This suggests PathEDU students genuinely deliver better customer experiences.</li>
+            <li><strong>Foundever's pattern confirms the relationship:</strong> 64% Basic mix and CST of 4.06 — the simplest mix produces the lowest CST, as expected. EAW's CST (5.14) remains elevated despite a 52% Basic mix, reinforcing the efficiency concern.</li>
+        </ul>
+    </div>
+
+    <div class="callout danger">
+        <strong>Implication for CST:</strong> The SKU mix analysis <strong>does not explain PathEDU's elevated CST</strong> — it actually makes the gap more concerning. PathEDU experts are spending more time per engagement on <strong>simpler</strong> cases. This strongly suggests a <strong>behavioral/training gap</strong> rather than a case complexity driver. Targeted efficiency coaching (call pacing, time management, structured wrap-up) should be a priority.
+    </div>
+
+    <!-- 3c. New Hire vs Re-Hire -->
+    <h3 id="ts-hire">3c. New Hire vs Re-Hire</h3>
     <div class="card">
         <table>
             <thead>
@@ -289,8 +433,8 @@
         <strong>Re-Hire Insight:</strong> PathEDU Re-Hires deliver <strong>exceptional tNPS (89.83)</strong> — the highest across any segment — beating NonPathEDU Re-Hires by ~9 points. However, this cohort is very small (19 experts, 296 engagements) and has the <strong>lowest conversion rate (56.52%)</strong> across all segments. The CST gap for Re-Hires (+1.16) is nearly double that of New Hires (+0.68) — experienced PathEDU experts spend even more time per customer, which may partially explain the higher tNPS but is a concern for efficiency.
     </div>
 
-    <!-- 3c. Training Wave Analysis -->
-    <h3 id="ts-waves">3c. New Hire — Training Wave Analysis</h3>
+    <!-- 3d. Training Wave Analysis -->
+    <h3 id="ts-waves">3d. New Hire — Training Wave Analysis</h3>
     <div class="card">
         <h3 style="margin-top:0;">PathEDU New Hire Waves (Education at Work)</h3>
         <table>
@@ -356,8 +500,8 @@
         <strong>Wave Trend (EAW):</strong> Across Education at Work waves, <strong>CST worsens progressively</strong> (4.79 → 5.34 → 5.82) while <strong>tNPS declines</strong> (83.81 → 83.33 → 79.12). Later waves are spending more time per engagement without proportional satisfaction gains — a clear coaching opportunity to improve efficiency. Conversion remains relatively stable (58–62%).
     </div>
 
-    <!-- 3d. Partner Breakdown -->
-    <h3 id="ts-partner">3d. Partner Breakdown (TS)</h3>
+    <!-- 3e. Partner Breakdown -->
+    <h3 id="ts-partner">3e. Partner Breakdown (TS)</h3>
     <div class="card">
         <table>
             <thead>
@@ -378,8 +522,8 @@
         <strong>Education at Work</strong> is the clear PathEDU leader for TS: consistent tNPS above 82 for New Hires (88 for Re-Hires), though CST is elevated (5.33 for NH), which is a concern for efficiency. Conversion is reasonable (~60% for New Hires). <strong>Foundever's TS program is too small to draw firm conclusions</strong> (24 New Hires across 2 waves) and shows wide metric variance.
     </div>
 
-    <!-- 3e. Agent Status Analysis -->
-    <h3 id="ts-status">3e. Agent Status Analysis (TS)</h3>
+    <!-- 3f. Agent Status Analysis -->
+    <h3 id="ts-status">3f. Agent Status Analysis (TS)</h3>
     <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;"><strong>Active</strong> = still employed. <strong>TermBeforePeak</strong> = terminated before the peak tax season date (early attrition). <strong>TermAfterPeak</strong> = terminated after peak as part of normal ramp-down.</p>
 
     <div class="card">
@@ -1020,7 +1164,7 @@
         <h3 style="margin-top:0;">Tax Specialist Findings</h3>
         <ol class="findings" style="padding-left:1.25rem;">
             <li><strong>PathEDU delivers higher customer satisfaction.</strong> FS tNPS is 3.1 points higher (82.59 vs 79.48) across all segments. Re-Hires achieve an exceptional 89.83 tNPS.</li>
-            <li><strong>CST and AHT are significantly elevated — an efficiency concern.</strong> PathEDU experts spend more time per engagement (CST 5.16 vs 4.22) and have higher AHT (28.15 vs 25.54 min). While this may contribute to higher tNPS, it reduces capacity and should be targeted for improvement.</li>
+            <li><strong>CST and AHT are significantly elevated — an efficiency concern compounded by SKU mix.</strong> PathEDU experts spend more time per engagement (CST 5.16 vs 4.22) and have higher AHT (28.15 vs 25.54 min). Critically, <strong>SKU mix analysis reveals PathEDU handles simpler cases</strong> (53% Basic vs 41%, only 10% Premium vs 24%), meaning the true within-SKU CST gap is even larger. This points to a behavioral/training gap, not case complexity.</li>
             <li><strong>Conversion rate needs attention.</strong> PathEDU lags by ~3.6 pp overall (59.49% vs 63.10%), with Re-Hires showing a wider gap (−7.04 pp). Targeted conversion training could close this gap.</li>
             <li><strong>Education at Work is the strong TS partner.</strong> Consistent 82+ tNPS for New Hires, 88 for Re-Hires, and reasonable volume. Foundever's TS program is too small for reliable conclusions.</li>
             <li><strong>EAW Wave 3 has the best balance</strong> (tNPS 83.81, Conv 62.22%, lowest CST 4.79). Later waves show worsening CST without proportional satisfaction gains — efficiency coaching is needed.</li>
@@ -1063,7 +1207,7 @@
         <h3 style="margin-top:0;">Strategic Implications</h3>
         <ol style="padding-left:1.25rem;">
             <li><strong>PathEDU is a high-value pipeline.</strong> Across both roles, PathEDU students deliver comparable or superior performance, especially on customer satisfaction metrics. The TermAfterPeak lens strengthens this conclusion.</li>
-            <li><strong>Invest in efficiency and conversion training for TS.</strong> PathEDU's elevated CST and AHT, combined with lower conversion, suggest students need coaching on call efficiency and sales assertiveness. The strong tNPS shows they connect well with customers — the goal is to maintain satisfaction while reducing handle time.</li>
+            <li><strong>Invest in efficiency and conversion training for TS.</strong> PathEDU's elevated CST and AHT, combined with lower conversion, suggest students need coaching on call efficiency and sales assertiveness. The SKU mix analysis confirms this is a <strong>behavioral gap, not a complexity issue</strong> — PathEDU handles simpler cases yet takes longer. The strong tNPS shows they connect well with customers — the goal is to maintain satisfaction while reducing handle time.</li>
             <li><strong>Expand Education at Work partnership.</strong> EAW consistently delivers the strongest metrics across both TS and PS. The partnership is well-calibrated and scalable.</li>
             <li><strong>Monitor Foundever's TS program carefully.</strong> Very small cohorts make metrics unreliable. Foundever's PathEDU PS program is more established and shows stronger signal. Foundever's NonPathEDU PS workstream has fast AHT but lower tNPS — targeted coaching may help.</li>
             <li><strong>Address Wave 7 efficiency dip in PS.</strong> Both EAW and Foundever Wave 7 PS cohorts show elevated AHT — this may reflect a recent wave still ramping up.</li>
@@ -1146,6 +1290,37 @@ new Chart(document.getElementById('chartTSOverviewAHTComp'), {
         }]
     },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend: { display: false } }, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 20, title: { display:true, text:'TTLA AHT (min) (lower = better)' } } } }
+});
+
+// ========================
+// TS SKU MIX CHARTS
+// ========================
+new Chart(document.getElementById('chartSKUMix'), {
+    type: 'bar',
+    data: {
+        labels: ['NonPathEDU', 'PathEDU'],
+        datasets: [
+            { label: 'Basic', data: [40.55, 53.27], backgroundColor: '#93c5fd', borderColor: '#2563eb', borderWidth: 1 },
+            { label: 'Deluxe', data: [34.80, 35.79], backgroundColor: '#c4b5fd', borderColor: '#7c3aed', borderWidth: 1 },
+            { label: 'Premium', data: [24.26, 10.01], backgroundColor: '#fca5a5', borderColor: '#dc2626', borderWidth: 1 },
+            { label: 'Other', data: [0.40, 0.93], backgroundColor: '#d1d5db', borderColor: '#6b7280', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, title: { display:true, text:'SKU Mix Distribution (%)', font:{size:13} } }, scales: { x: { stacked: true, grid:{display:false} }, y: { stacked: true, grid:{color:'#e5e7eb'}, max: 100, title:{display:true, text:'% of Engagements'} } } }
+});
+
+new Chart(document.getElementById('chartSKUWave'), {
+    type: 'bar',
+    data: {
+        labels: ['Wave 3', 'Wave 4', 'Wave 5', 'Wave 6', 'Wave 7'],
+        datasets: [
+            { label: 'Basic', data: [54.86, 53.75, 44.21, 65.07, 63.16], backgroundColor: '#93c5fd', borderColor: '#2563eb', borderWidth: 1 },
+            { label: 'Deluxe', data: [34.57, 36.15, 40.95, 22.96, 30.09], backgroundColor: '#c4b5fd', borderColor: '#7c3aed', borderWidth: 1 },
+            { label: 'Premium', data: [8.99, 9.46, 14.30, 11.63, 5.24], backgroundColor: '#fca5a5', borderColor: '#dc2626', borderWidth: 1 },
+            { label: 'Other', data: [1.57, 0.63, 0.54, 0.34, 1.51], backgroundColor: '#d1d5db', borderColor: '#6b7280', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, title: { display:true, text:'PathEDU NH TermAfterPeak — SKU Mix by Wave', font:{size:13} } }, scales: { x: { stacked: true, grid:{display:false} }, y: { stacked: true, grid:{color:'#e5e7eb'}, max: 100, title:{display:true, text:'% of Engagements'} } } }
 });
 
 // ========================
