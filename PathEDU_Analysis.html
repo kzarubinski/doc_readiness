@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PathEDU Performance Analysis</title>
+    <style>
+        :root {
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --border: #dee2e6;
+            --text: #212529;
+            --muted: #6c757d;
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --purple: #7c3aed;
+            --purple-light: #ede9fe;
+            --teal: #0d9488;
+            --teal-light: #ccfbf1;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+        h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: var(--primary); }
+        .subtitle { color: var(--muted); margin-bottom: 2rem; }
+        .report-date { color: var(--muted); font-size: 0.9rem; }
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .kpi { background: var(--card); border-radius: 10px; padding: 1.25rem; border: 1px solid var(--border); text-align: center; }
+        .kpi .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 0.35rem; }
+        .kpi .value { font-size: 2rem; font-weight: 700; }
+        .kpi .detail { font-size: 0.82rem; color: var(--muted); margin-top: 0.25rem; }
+        .kpi.green .value { color: var(--success); }
+        .kpi.red .value { color: var(--danger); }
+        .kpi.blue .value { color: var(--primary); }
+        .kpi.purple .value { color: var(--purple); }
+        .kpi.teal .value { color: var(--teal); }
+        .card { background: var(--card); border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+        .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-green { background: var(--success-light); color: var(--success); }
+        .badge-red { background: var(--danger-light); color: var(--danger); }
+        .badge-yellow { background: var(--warning-light); color: var(--warning); }
+        .badge-blue { background: var(--primary-light); color: var(--primary); }
+        .badge-purple { background: var(--purple-light); color: var(--purple); }
+        .badge-teal { background: var(--teal-light); color: var(--teal); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.75rem 0; }
+        th, td { padding: 0.55rem 0.75rem; text-align: center; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
+        td:first-child, th:first-child { text-align: left; }
+        tr:hover td { background: #f8fafc; }
+        .highlight-row td { background: var(--primary-light) !important; font-weight: 600; }
+        .pathedu-row td { background: #f0fdf4 !important; }
+        .neg { color: var(--success); font-weight: 600; }
+        .pos { color: var(--danger); font-weight: 600; }
+        .neutral { color: var(--muted); }
+        .better { color: var(--success); font-weight: 600; }
+        .worse { color: var(--danger); font-weight: 600; }
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+        .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+        .chart-box canvas { width: 100% !important; }
+        @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+        .callout { border-left: 4px solid var(--primary); background: var(--primary-light); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.92rem; }
+        .callout.warn { border-left-color: var(--warning); background: var(--warning-light); }
+        .callout.success { border-left-color: var(--success); background: var(--success-light); }
+        .callout.danger { border-left-color: var(--danger); background: var(--danger-light); }
+        .callout.teal { border-left-color: var(--teal); background: var(--teal-light); }
+        .findings li { margin-bottom: 0.5rem; }
+        .findings li strong { color: var(--primary); }
+        .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.75rem 0; }
+        .metric-card { background: #f8fafc; border-radius: 8px; padding: 1rem; border: 1px solid var(--border); }
+        .metric-card h4 { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+        .toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 2rem; margin: 1.5rem 0; }
+        .toc ol { padding-left: 1.25rem; }
+        .toc li { margin-bottom: 0.35rem; }
+        .toc a { color: var(--primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+        .section-divider { border: none; height: 3px; background: linear-gradient(90deg, var(--primary), var(--purple)); margin: 3rem 0; border-radius: 2px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <h1>PathEDU Performance Analysis</h1>
+    <p class="subtitle">PathEDU vs. Non-PathEDU Expert Performance &bull; Tax Specialist &amp; Product Support</p>
+    <p class="report-date">Report generated: April 27, 2026</p>
+
+    <div class="toc">
+        <strong>Contents</strong>
+        <ol>
+            <li><a href="#exec">Executive Summary</a></li>
+            <li><a href="#context">Program Context</a></li>
+            <li><a href="#ts">Tax Specialist (TS) Analysis</a>
+                <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
+                    <li><a href="#ts-overall">Overall PathEDU vs NonPathEDU</a></li>
+                    <li><a href="#ts-hire">New Hire vs Re-Hire</a></li>
+                    <li><a href="#ts-waves">Training Wave Analysis</a></li>
+                    <li><a href="#ts-partner">Partner Breakdown</a></li>
+                    <li><a href="#ts-status">Agent Status Analysis (Active / Early Term / Normal Term)</a></li>
+                </ol>
+            </li>
+            <li><a href="#ps">Product Support (PS) Analysis</a>
+                <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
+                    <li><a href="#ps-overall">Overall PathEDU vs NonPathEDU</a></li>
+                    <li><a href="#ps-hire">New Hire vs Re-Hire</a></li>
+                    <li><a href="#ps-waves">Training Wave Analysis</a></li>
+                    <li><a href="#ps-partner">Partner Breakdown</a></li>
+                    <li><a href="#ps-status">Agent Status Analysis (Active / Early Term / Normal Term)</a></li>
+                </ol>
+            </li>
+            <li><a href="#pathedu-deep">PathEDU Deep-Dive: University &amp; Graduation Year</a>
+                <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
+                    <li><a href="#pathedu-ps-uni">PS Performance by University</a></li>
+                    <li><a href="#pathedu-ts-uni">TS Performance by University</a></li>
+                    <li><a href="#pathedu-ps-grad">PS Performance by Graduation Year</a></li>
+                    <li><a href="#pathedu-ts-grad">TS Performance by Graduation Year</a></li>
+                    <li><a href="#pathedu-early-term">Early Termination (TermBeforePeak) Performance</a></li>
+                </ol>
+            </li>
+            <li><a href="#conclusions">Conclusions &amp; Key Takeaways</a></li>
+        </ol>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 1. EXECUTIVE SUMMARY -->
+    <!-- ============================================================ -->
+    <h2 id="exec">1. Executive Summary</h2>
+    <p>PathEDU is a university-based hiring pipeline that brings students into Intuit's expert workforce through partner organizations. This analysis compares PathEDU experts against the traditional "street to seat" NonPathEDU channel across two roles: <strong>Tax Specialists (TS)</strong> and <strong>Product Support (PS)</strong>.</p>
+
+    <div class="kpi-row">
+        <div class="kpi blue">
+            <div class="label">PathEDU TS Experts</div>
+            <div class="value">294</div>
+            <div class="detail">Across 2 partners</div>
+        </div>
+        <div class="kpi purple">
+            <div class="label">PathEDU PS Experts</div>
+            <div class="value">440</div>
+            <div class="detail">Across 2 partners</div>
+        </div>
+        <div class="kpi red">
+            <div class="label">TS CST Gap</div>
+            <div class="value">+0.94</div>
+            <div class="detail">PathEDU 5.16 vs NonPathEDU 4.22</div>
+        </div>
+        <div class="kpi teal">
+            <div class="label">TS tNPS Advantage</div>
+            <div class="value">+3.11</div>
+            <div class="detail">PathEDU 82.59 vs NonPathEDU 79.48</div>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>Key Finding — Tax Specialists:</strong> PathEDU experts deliver <strong>higher customer satisfaction</strong> (tNPS 82.59 vs 79.48). However, <strong>CST is significantly elevated</strong> (5.16 vs 4.22) — possibly reflecting deeper conversations, but a notable concern for efficiency. <strong>Conversion rate lags behind</strong> (59.49% vs 63.10%), and <strong>AHT is also elevated</strong> (28.15 vs 25.54 min). Education at Work drives strong tNPS performance; Foundever's small TS cohort shows inconsistent results.
+    </div>
+    <div class="callout teal">
+        <strong>Key Finding — Product Support:</strong> PathEDU experts are <strong>competitive on AHT</strong> (17.53 vs 19.85 min — 12% faster) and deliver <strong>comparable or better tNPS</strong> (48.04 vs 45.45). Education at Work is the strongest PS partner across the board, while Foundever's small cohort shows mixed results depending on the wave.
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 2. PROGRAM CONTEXT -->
+    <!-- ============================================================ -->
+    <h2 id="context">2. Program Context</h2>
+    <div class="card">
+        <ul style="padding-left:1.25rem;">
+            <li><strong>PathEDU</strong> is an Intuit program that trains and hires university students to handle customer calls — a different pipeline from the traditional "street to seat" hiring channel.</li>
+            <li><strong>Two roles:</strong> Tax Specialists (TS) handle tax-related customer inquiries; Product Support (PS) handles product/technical issues.</li>
+            <li><strong>Two partners</strong> participating this year:
+                <ul style="padding-left:1.25rem; margin-top:0.25rem;">
+                    <li><strong>Education at Work</strong> — exclusively works with PathEDU (both TS and PS)</li>
+                    <li><strong>Foundever</strong> — only Marshall University participates in PathEDU; Foundever also has many other non-PathEDU workstreams</li>
+                </ul>
+            </li>
+            <li><strong>NonPathEDU comparison:</strong> For TS, the comparison is against Intuit-sourced experts. For PS, NonPathEDU includes multiple partners (Teleperformance, Concentrix, LiveOps, Working Solutions).</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 3. TAX SPECIALIST ANALYSIS -->
+    <!-- ============================================================ -->
+    <hr class="section-divider">
+    <h2 id="ts">3. Tax Specialist (TS) Analysis</h2>
+    <p>Primary metrics: <strong>FS CST</strong> (Customer Service Time — lower is more efficient), <strong>FS tNPS</strong> (customer satisfaction), <strong>Conversion Rate</strong>. Secondary: <strong>TTLA AHT</strong> (Average Handle Time — lower is more efficient).</p>
+
+    <!-- 3a. Overall -->
+    <h3 id="ts-overall">3a. Overall — PathEDU vs NonPathEDU</h3>
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>Group</th><th>Experts</th><th>FS Engagements</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA Handle Cnt</th><th>TTLA AHT</th><th>TTLA tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>NonPathEDU</strong></td><td>2,914</td><td>85,024</td>
+                    <td>4.22</td><td>79.48</td><td>63.10%</td>
+                    <td>246,125</td><td>25.54</td><td>58.86</td>
+                </tr>
+                <tr class="pathedu-row">
+                    <td><strong>PathEDU</strong></td><td>294</td><td>4,001</td>
+                    <td>5.16</td><td>82.59</td><td>59.49%</td>
+                    <td>27,752</td><td>28.15</td><td>65.39</td>
+                </tr>
+                <tr style="font-weight:700;background:#f1f5f9;">
+                    <td>Difference (PathEDU − Non)</td><td></td><td></td>
+                    <td class="worse">+0.94</td><td class="better">+3.11</td><td class="worse">−3.61 pp</td>
+                    <td></td><td class="worse">+2.61</td><td class="better">+6.53</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            <p>PathEDU weighted averages computed from row-level data weighted by engagement/handle counts. CST: lower = more efficient (higher may indicate deeper conversations but is generally worse). tNPS: higher = better satisfaction. Conv Rate: higher = better. AHT: lower = more efficient.</p>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">FS CST — PathEDU vs NonPathEDU</h3>
+            <canvas id="chartTSOverviewCST" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">FS tNPS — PathEDU vs NonPathEDU</h3>
+            <canvas id="chartTSOverviewtNPS" height="280"></canvas>
+        </div>
+    </div>
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Conversion Rate — PathEDU vs NonPathEDU</h3>
+            <canvas id="chartTSOverviewConv" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">TTLA AHT — PathEDU vs NonPathEDU</h3>
+            <canvas id="chartTSOverviewAHTComp" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>Interpretation:</strong> PathEDU TS experts spend ~22% more time per engagement (CST 5.16 vs 4.22), which correlates with <strong>3.1 points higher tNPS</strong> but is a <strong>negative signal for efficiency</strong>. Combined with a <strong>3.6 pp lower conversion rate</strong> and <strong>~2.6 min longer AHT</strong>, this suggests PathEDU students may be spending time less efficiently — possibly less assertive in steering toward conversion (a trainable skill). PathEDU's TTLA tNPS is also notably higher (65.39 vs 58.86), confirming strong customer experience across channels. The higher CST may partly reflect deeper conversations but should be targeted for improvement.
+    </div>
+
+    <!-- 3b. New Hire vs Re-Hire -->
+    <h3 id="ts-hire">3b. New Hire vs Re-Hire</h3>
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>Type</th><th>Hire Type</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA AHT</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>NonPathEDU</strong></td><td>New Hire</td><td>2,129</td><td>35,088</td><td>4.48</td><td>76.96</td><td>61.76%</td><td>25.88</td></tr>
+                <tr><td><strong>NonPathEDU</strong></td><td>Re-Hire</td><td>785</td><td>49,936</td><td>4.04</td><td>80.91</td><td>63.56%</td><td>24.94</td></tr>
+                <tr class="pathedu-row"><td><strong>PathEDU</strong></td><td>New Hire</td><td>275</td><td>3,705</td><td>5.16</td><td>81.89</td><td>59.75%</td><td>28.15</td></tr>
+                <tr class="pathedu-row"><td><strong>PathEDU</strong></td><td>Re-Hire</td><td>19</td><td>296</td><td>5.20</td><td>89.83</td><td>56.52%</td><td>28.20</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="metric-grid">
+        <div class="metric-card">
+            <h4>New Hires Comparison</h4>
+            <table>
+                <tr><th>Metric</th><th>NonPathEDU</th><th>PathEDU</th><th>Diff</th></tr>
+                <tr><td style="text-align:left">FS CST</td><td>4.48</td><td>5.16</td><td class="worse">+0.68</td></tr>
+                <tr><td style="text-align:left">FS tNPS</td><td>76.96</td><td>81.89</td><td class="better">+4.93</td></tr>
+                <tr><td style="text-align:left">Conv Rate</td><td>61.76%</td><td>59.75%</td><td class="worse">−2.01 pp</td></tr>
+                <tr><td style="text-align:left">TTLA AHT</td><td>25.88</td><td>28.15</td><td class="worse">+2.27</td></tr>
+            </table>
+        </div>
+        <div class="metric-card">
+            <h4>Re-Hires Comparison</h4>
+            <table>
+                <tr><th>Metric</th><th>NonPathEDU</th><th>PathEDU</th><th>Diff</th></tr>
+                <tr><td style="text-align:left">FS CST</td><td>4.04</td><td>5.20</td><td class="worse">+1.16</td></tr>
+                <tr><td style="text-align:left">FS tNPS</td><td>80.91</td><td>89.83</td><td class="better">+8.92</td></tr>
+                <tr><td style="text-align:left">Conv Rate</td><td>63.56%</td><td>56.52%</td><td class="worse">−7.04 pp</td></tr>
+                <tr><td style="text-align:left">TTLA AHT</td><td>24.94</td><td>28.20</td><td class="worse">+3.26</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>Re-Hire Insight:</strong> PathEDU Re-Hires deliver <strong>exceptional tNPS (89.83)</strong> — the highest across any segment — beating NonPathEDU Re-Hires by ~9 points. However, this cohort is very small (19 experts, 296 engagements) and has the <strong>lowest conversion rate (56.52%)</strong> across all segments. The CST gap for Re-Hires (+1.16) is nearly double that of New Hires (+0.68) — experienced PathEDU experts spend even more time per customer, which may partially explain the higher tNPS but is a concern for efficiency.
+    </div>
+
+    <!-- 3c. Training Wave Analysis -->
+    <h3 id="ts-waves">3c. New Hire — Training Wave Analysis</h3>
+    <div class="card">
+        <h3 style="margin-top:0;">PathEDU New Hire Waves (Education at Work)</h3>
+        <table>
+            <thead>
+                <tr><th>Wave</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA Cnt</th><th>TTLA AHT</th><th>TTLA tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Wave 3</td><td>46</td><td>731</td><td>4.79</td><td>83.81</td><td>62.22%</td><td>5,679</td><td>26.93</td><td>66.42</td></tr>
+                <tr><td>Wave 4</td><td>115</td><td>1,734</td><td>5.34</td><td>83.33</td><td>58.50%</td><td>12,803</td><td>28.48</td><td>66.88</td></tr>
+                <tr><td>Wave 5</td><td>90</td><td>771</td><td>5.82</td><td>79.12</td><td>62.01%</td><td>7,220</td><td>28.52</td><td>61.30</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            <p>Wave 3 (earliest) shows the best balance: strong tNPS (83.81), reasonable CST (4.79), and the highest conversion rate (62.22%). Wave 5 (latest) has the highest CST (5.82) but lowest tNPS and lowest TTLA tNPS — possibly indicating these students are spending more time but less effectively.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">PathEDU New Hire Waves (Foundever)</h3>
+        <table>
+            <thead>
+                <tr><th>Wave</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA Cnt</th><th>TTLA AHT</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Wave 6</td><td>12</td><td>328</td><td>4.51</td><td>71.19</td><td>58.16%</td><td>1</td><td>7.72</td></tr>
+                <tr><td>Wave 7</td><td>12</td><td>141</td><td>2.70</td><td>90.91</td><td>52.13%</td><td>—</td><td>—</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            <p>Foundever's TS cohort is very small (12 experts per wave). Wave 7 shows extremely high tNPS (90.91) but the lowest conversion rate (52.13%) and very low CST (2.70) — likely due to very low engagement volume (141 engagements). TTLA data is essentially absent. These results should be interpreted with extreme caution.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">NonPathEDU New Hire Waves (Comparison)</h3>
+        <table>
+            <thead>
+                <tr><th>Wave</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA AHT</th><th>TTLA tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Wave 5</td><td>17</td><td>362</td><td>5.00</td><td>56.10</td><td>63.37%</td><td>24.71</td><td>50.00</td></tr>
+                <tr><td>Wave 6</td><td>454</td><td>9,665</td><td>4.84</td><td>72.40</td><td>59.35%</td><td>25.95</td><td>54.90</td></tr>
+                <tr><td>Wave 7</td><td>1,658</td><td>25,061</td><td>4.33</td><td>79.44</td><td>63.22%</td><td>25.87</td><td>54.62</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            <p>NonPathEDU shows improving tNPS across later waves (56.10 → 72.40 → 79.44) as cohort sizes grow. CST decreases in later waves (more efficient). Conversion stays above 59% consistently.</p>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">FS tNPS by Training Wave — EAW vs NonPathEDU</h3>
+            <canvas id="chartTSWavetNPS" height="300"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Conversion Rate by Training Wave</h3>
+            <canvas id="chartTSWaveConv" height="300"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>Wave Trend (EAW):</strong> Across Education at Work waves, <strong>CST worsens progressively</strong> (4.79 → 5.34 → 5.82) while <strong>tNPS declines</strong> (83.81 → 83.33 → 79.12). Later waves are spending more time per engagement without proportional satisfaction gains — a clear coaching opportunity to improve efficiency. Conversion remains relatively stable (58–62%).
+    </div>
+
+    <!-- 3d. Partner Breakdown -->
+    <h3 id="ts-partner">3d. Partner Breakdown (TS)</h3>
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>Partner</th><th>Hire Type</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA AHT</th><th>TTLA tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr style="background:#f0fdf4;"><td><strong>Education at Work</strong></td><td>New Hire</td><td>251</td><td>3,236</td><td>5.33</td><td>82.71</td><td>60.08%</td><td>28.15</td><td>65.35</td></tr>
+                <tr style="background:#f0fdf4;"><td><strong>Education at Work</strong></td><td>Re-Hire</td><td>18</td><td>262</td><td>5.18</td><td>89.09</td><td>55.70%</td><td>28.20</td><td>65.87</td></tr>
+                <tr style="background:#eff6ff;"><td><strong>Foundever</strong></td><td>New Hire</td><td>24</td><td>469</td><td>3.96</td><td>76.54</td><td>56.56%</td><td>7.72</td><td>—</td></tr>
+                <tr style="background:#eff6ff;"><td><strong>Foundever</strong></td><td>Re-Hire</td><td>1</td><td>34</td><td>5.36</td><td>100.00</td><td>67.27%</td><td>—</td><td>—</td></tr>
+                <tr style="background:#faf5ff;"><td><strong>Intuit (NonPathEDU)</strong></td><td>New Hire</td><td>2,129</td><td>35,088</td><td>4.48</td><td>76.96</td><td>61.76%</td><td>25.88</td><td>54.65</td></tr>
+                <tr style="background:#faf5ff;"><td><strong>Intuit (NonPathEDU)</strong></td><td>Re-Hire</td><td>785</td><td>49,936</td><td>4.04</td><td>80.91</td><td>63.56%</td><td>24.94</td><td>65.81</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="callout success">
+        <strong>Education at Work</strong> is the clear PathEDU leader for TS: consistent tNPS above 82 for New Hires (88 for Re-Hires), though CST is elevated (5.33 for NH), which is a concern for efficiency. Conversion is reasonable (~60% for New Hires). <strong>Foundever's TS program is too small to draw firm conclusions</strong> (24 New Hires across 2 waves) and shows wide metric variance.
+    </div>
+
+    <!-- 3e. Agent Status Analysis -->
+    <h3 id="ts-status">3e. Agent Status Analysis (TS)</h3>
+    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;"><strong>Active</strong> = still employed. <strong>TermBeforePeak</strong> = terminated before the peak tax season date (early attrition). <strong>TermAfterPeak</strong> = terminated after peak as part of normal ramp-down.</p>
+
+    <div class="card">
+        <h3 style="margin-top:0;">TS Performance by Agent Status — PathEDU vs NonPathEDU</h3>
+        <table>
+            <thead>
+                <tr><th>Type</th><th>Hire Type</th><th>Status</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA AHT</th><th>TTLA tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>New Hire</td><td><span class="badge badge-green">Active</span></td><td>95</td><td>3,359</td><td>4.62</td><td>77.59</td><td>58.92%</td><td>25.79</td><td>63.44</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>New Hire</td><td><span class="badge badge-yellow">TermBeforePeak</span></td><td>643</td><td>849</td><td>5.55</td><td>63.13</td><td>55.58%</td><td>22.09</td><td>25.83</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>New Hire</td><td><span class="badge badge-blue">TermAfterPeak</span></td><td>1,391</td><td>30,880</td><td>4.43</td><td>77.48</td><td>62.32%</td><td>25.97</td><td>54.29</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>Re-Hire</td><td><span class="badge badge-green">Active</span></td><td>183</td><td>16,746</td><td>3.91</td><td>83.55</td><td>64.45%</td><td>25.67</td><td>69.19</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>Re-Hire</td><td><span class="badge badge-yellow">TermBeforePeak</span></td><td>130</td><td>1,886</td><td>3.71</td><td>83.26</td><td>59.59%</td><td>20.58</td><td>72.50</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>Re-Hire</td><td><span class="badge badge-blue">TermAfterPeak</span></td><td>472</td><td>31,304</td><td>4.13</td><td>79.25</td><td>63.22%</td><td>24.76</td><td>64.08</td></tr>
+                <tr style="background:#f0fdf4;"><td>PathEDU</td><td>New Hire</td><td><span class="badge badge-yellow">TermBeforePeak</span></td><td>79</td><td>102</td><td>4.90</td><td>90.48</td><td>55.09%</td><td>28.28</td><td>74.47</td></tr>
+                <tr style="background:#f0fdf4;"><td>PathEDU</td><td>New Hire</td><td><span class="badge badge-blue">TermAfterPeak</span></td><td>196</td><td>3,603</td><td>5.17</td><td>81.59</td><td>59.83%</td><td>28.14</td><td>65.19</td></tr>
+                <tr style="background:#f0fdf4;"><td>PathEDU</td><td>Re-Hire</td><td><span class="badge badge-yellow">TermBeforePeak</span></td><td>5</td><td>18</td><td>2.49</td><td>100.00</td><td>70.73%</td><td>28.80</td><td>70.59</td></tr>
+                <tr style="background:#f0fdf4;"><td>PathEDU</td><td>Re-Hire</td><td><span class="badge badge-blue">TermAfterPeak</span></td><td>14</td><td>278</td><td>5.37</td><td>89.09</td><td>55.78%</td><td>28.15</td><td>65.45</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            No PathEDU TS experts remain Active. NonPathEDU has 95 Active New Hires and 183 Active Re-Hires still working.
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">TS tNPS by Agent Status — New Hires</h3>
+            <canvas id="chartTSStatusTNPS" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">TS Conversion Rate by Agent Status — New Hires</h3>
+            <canvas id="chartTSStatusConv" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>Status Insight (TS):</strong> Among New Hires, PathEDU's TermAfterPeak experts (the core workforce that completed the season) outperform NonPathEDU on tNPS (81.59 vs 77.48) while trailing slightly on conversion (59.83% vs 62.32%). NonPathEDU's <strong>TermBeforePeak group has notably poor tNPS (63.13)</strong> — early attrition may correlate with lower engagement and customer satisfaction. PathEDU TermBeforePeak experts have very few engagements (102) but still show strong tNPS (90.48). CST is elevated across both groups, with PathEDU TermAfterPeak at 5.17 vs NonPathEDU's 4.43.
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 4. PRODUCT SUPPORT ANALYSIS -->
+    <!-- ============================================================ -->
+    <hr class="section-divider">
+    <h2 id="ps">4. Product Support (PS) Analysis</h2>
+    <p>Primary metrics: <strong>PS AHT</strong> (Average Handle Time — lower is more efficient), <strong>PS tNPS</strong> (customer satisfaction). The PS landscape includes multiple NonPathEDU partners, allowing richer comparisons.</p>
+
+    <!-- 4a. Overall -->
+    <h3 id="ps-overall">4a. Overall — PathEDU vs NonPathEDU</h3>
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>Group</th><th>Experts</th><th>Handle Count</th><th>PS AHT</th><th>PS tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>NonPathEDU</strong></td><td>8,185</td><td>1,715,611</td>
+                    <td>19.85</td><td>45.45</td>
+                </tr>
+                <tr class="pathedu-row">
+                    <td><strong>PathEDU</strong></td><td>440</td><td>117,165</td>
+                    <td>17.53</td><td>48.04</td>
+                </tr>
+                <tr style="font-weight:700;background:#f1f5f9;">
+                    <td>Difference (PathEDU − Non)</td><td></td><td></td>
+                    <td class="better">−2.32</td><td class="better">+2.59</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            Weighted averages by handle count. AHT: lower = more efficient. tNPS: higher = better satisfaction.
+        </div>
+    </div>
+
+    <div class="kpi-row">
+        <div class="kpi green">
+            <div class="label">PathEDU AHT Advantage</div>
+            <div class="value">−2.32 min</div>
+            <div class="detail">17.53 vs 19.85 min (12% faster)</div>
+        </div>
+        <div class="kpi green">
+            <div class="label">PathEDU tNPS Advantage</div>
+            <div class="value">+2.59 pts</div>
+            <div class="detail">48.04 vs 45.45</div>
+        </div>
+        <div class="kpi blue">
+            <div class="label">PathEDU Volume Share</div>
+            <div class="value">6.4%</div>
+            <div class="detail">117K of 1.83M handles</div>
+        </div>
+        <div class="kpi purple">
+            <div class="label">PS Partners (NonPathEDU)</div>
+            <div class="value">4</div>
+            <div class="detail">TPF, CNX, LO, WS</div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS AHT — PathEDU vs NonPathEDU</h3>
+            <canvas id="chartPSOverviewAHT" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS tNPS — PathEDU vs NonPathEDU</h3>
+            <canvas id="chartPSOverviewtNPS" height="280"></canvas>
+        </div>
+    </div>
+
+    <!-- 4b. New Hire vs Re-Hire -->
+    <h3 id="ps-hire">4b. New Hire vs Re-Hire</h3>
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>Type</th><th>Hire Type</th><th>Experts</th><th>Handle Cnt</th><th>PS AHT</th><th>PS tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>NonPathEDU</strong></td><td>New Hire</td><td>5,642</td><td>955,523</td><td>20.08</td><td>41.37</td></tr>
+                <tr><td><strong>NonPathEDU</strong></td><td>Re-Hire</td><td>2,543</td><td>760,088</td><td>19.57</td><td>50.46</td></tr>
+                <tr class="pathedu-row"><td><strong>PathEDU</strong></td><td>New Hire</td><td>361</td><td>89,451</td><td>17.72</td><td>47.53</td></tr>
+                <tr class="pathedu-row"><td><strong>PathEDU</strong></td><td>Re-Hire</td><td>79</td><td>27,714</td><td>16.92</td><td>49.76</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="metric-grid">
+        <div class="metric-card">
+            <h4>New Hires Comparison</h4>
+            <table>
+                <tr><th>Metric</th><th>NonPathEDU</th><th>PathEDU</th><th>Diff</th></tr>
+                <tr><td style="text-align:left">PS AHT</td><td>20.08</td><td>17.72</td><td class="better">−2.36</td></tr>
+                <tr><td style="text-align:left">PS tNPS</td><td>41.37</td><td>47.53</td><td class="better">+6.16</td></tr>
+            </table>
+        </div>
+        <div class="metric-card">
+            <h4>Re-Hires Comparison</h4>
+            <table>
+                <tr><th>Metric</th><th>NonPathEDU</th><th>PathEDU</th><th>Diff</th></tr>
+                <tr><td style="text-align:left">PS AHT</td><td>19.57</td><td>16.92</td><td class="better">−2.65</td></tr>
+                <tr><td style="text-align:left">PS tNPS</td><td>50.46</td><td>49.76</td><td class="worse">−0.70</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>PathEDU wins on AHT for both hire types and on tNPS for New Hires.</strong> New Hires show a notable tNPS advantage (+6.16 pts) while maintaining faster AHT (−2.36 min). Re-Hires show a faster AHT (−2.65 min) but tNPS is essentially even (49.76 vs 50.46) as NonPathEDU Re-Hires are much stronger than their New Hires.
+    </div>
+
+    <!-- 4c. Training Wave Analysis -->
+    <h3 id="ps-waves">4c. New Hire — Training Wave Analysis</h3>
+    <div class="card">
+        <h3 style="margin-top:0;">PathEDU New Hire Waves — Education at Work</h3>
+        <table>
+            <thead>
+                <tr><th>Wave</th><th>Experts</th><th>Handle Cnt</th><th>PS AHT</th><th>PS tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Wave 1</td><td>75</td><td>29,051</td><td>17.60</td><td>49.72</td></tr>
+                <tr><td>Wave 2</td><td>49</td><td>13,848</td><td>16.88</td><td>43.59</td></tr>
+                <tr><td>Wave 4</td><td>44</td><td>11,984</td><td>18.33</td><td>39.49</td></tr>
+                <tr><td>Wave 5</td><td>64</td><td>14,807</td><td>17.75</td><td>45.99</td></tr>
+                <tr><td>Wave 6</td><td>55</td><td>10,888</td><td>16.96</td><td>57.60</td></tr>
+                <tr><td>Wave 7</td><td>16</td><td>1,665</td><td>20.48</td><td>53.66</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">PathEDU New Hire Waves — Foundever</h3>
+        <table>
+            <thead>
+                <tr><th>Wave</th><th>Experts</th><th>Handle Cnt</th><th>PS AHT</th><th>PS tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Wave 5</td><td>20</td><td>2,685</td><td>18.84</td><td>52.03</td></tr>
+                <tr><td>Wave 6</td><td>16</td><td>2,409</td><td>18.05</td><td>41.51</td></tr>
+                <tr><td>Wave 7</td><td>22</td><td>2,114</td><td>21.17</td><td>49.03</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">NonPathEDU New Hire Waves (All Partners Combined)</h3>
+        <table>
+            <thead>
+                <tr><th>Wave</th><th>Experts</th><th>Handle Cnt</th><th>Wtd AHT</th><th>Wtd tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Other</td><td>50</td><td>40,461</td><td>18.97</td><td>72.30</td></tr>
+                <tr><td>Wave 1</td><td>241</td><td>69,758</td><td>19.93</td><td>39.81</td></tr>
+                <tr><td>Wave 2</td><td>562</td><td>137,342</td><td>19.30</td><td>35.60</td></tr>
+                <tr><td>Wave 3</td><td>407</td><td>126,280</td><td>21.94</td><td>41.73</td></tr>
+                <tr><td>Wave 4</td><td>286</td><td>59,333</td><td>18.88</td><td>39.03</td></tr>
+                <tr><td>Wave 5</td><td>640</td><td>125,729</td><td>20.58</td><td>40.78</td></tr>
+                <tr><td>Wave 6</td><td>358</td><td>86,552</td><td>19.64</td><td>47.40</td></tr>
+                <tr><td>Wave 7</td><td>3,098</td><td>310,068</td><td>19.99</td><td>34.99</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            NonPathEDU wave-level weighted averages computed across all partners (TPF, CNX, LO, WS).
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS AHT by Wave — EAW vs NonPathEDU</h3>
+            <canvas id="chartPSWaveAHT" height="300"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS tNPS by Wave — EAW vs NonPathEDU</h3>
+            <canvas id="chartPSWavetNPS" height="300"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>Wave Trends (EAW PS):</strong> Education at Work delivers <strong>consistently competitive AHT</strong> (16.88–18.33 min) across Waves 1–6, beating NonPathEDU in most waves. <strong>Wave 6 is the standout</strong> with the lowest AHT (16.96) and highest tNPS (57.60). Wave 7 is an outlier with notably higher AHT (20.48), but the small cohort size (16 experts, 1,665 handles) limits conclusions.
+    </div>
+
+    <!-- 4d. Partner Breakdown -->
+    <h3 id="ps-partner">4d. Partner Breakdown (PS)</h3>
+    <div class="card">
+        <h3 style="margin-top:0;">All Partners — New Hires (Weighted by Handle Count)</h3>
+        <table>
+            <thead>
+                <tr><th>Partner</th><th>PathEDU?</th><th>Experts</th><th>Handle Cnt</th><th>Wtd AHT</th><th>Wtd tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr style="background:#f0fdf4;"><td><strong>Education at Work</strong></td><td><span class="badge badge-green">PathEDU</span></td><td>303</td><td>82,243</td><td>17.59</td><td>47.52</td></tr>
+                <tr style="background:#f0fdf4;"><td><strong>Foundever</strong></td><td><span class="badge badge-green">PathEDU</span></td><td>58</td><td>7,208</td><td>19.26</td><td>47.63</td></tr>
+                <tr><td><strong>Concentrix</strong></td><td></td><td>1,809</td><td>306,122</td><td>18.78</td><td>37.12</td></tr>
+                <tr><td><strong>Teleperformance</strong></td><td></td><td>1,601</td><td>249,842</td><td>18.78</td><td>45.22</td></tr>
+                <tr><td><strong>LiveOps</strong></td><td></td><td>793</td><td>156,642</td><td>23.09</td><td>45.72</td></tr>
+                <tr><td><strong>Working Solutions</strong></td><td></td><td>1,439</td><td>242,917</td><td>21.11</td><td>39.35</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">All Partners — Re-Hires (Weighted by Handle Count)</h3>
+        <table>
+            <thead>
+                <tr><th>Partner</th><th>PathEDU?</th><th>Experts</th><th>Handle Cnt</th><th>Wtd AHT</th><th>Wtd tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr style="background:#f0fdf4;"><td><strong>Education at Work</strong></td><td><span class="badge badge-green">PathEDU</span></td><td>75</td><td>26,673</td><td>16.97</td><td>49.17</td></tr>
+                <tr style="background:#f0fdf4;"><td><strong>Foundever</strong></td><td><span class="badge badge-green">PathEDU</span></td><td>4</td><td>1,041</td><td>15.74</td><td>63.44</td></tr>
+                <tr><td><strong>Concentrix</strong></td><td></td><td>304</td><td>79,199</td><td>18.30</td><td>55.82</td></tr>
+                <tr><td><strong>Teleperformance</strong></td><td></td><td>588</td><td>147,103</td><td>17.38</td><td>51.14</td></tr>
+                <tr><td><strong>LiveOps</strong></td><td></td><td>682</td><td>235,730</td><td>21.89</td><td>55.41</td></tr>
+                <tr><td><strong>Working Solutions</strong></td><td></td><td>969</td><td>298,056</td><td>19.15</td><td>44.53</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS AHT by Partner (New Hires)</h3>
+            <canvas id="chartPSPartnerAHT" height="300"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS tNPS by Partner (New Hires)</h3>
+            <canvas id="chartPSPartnertNPS" height="300"></canvas>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>Partner Rankings (New Hires):</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>AHT:</strong> Education at Work (17.59) is the fastest, followed by Concentrix and Teleperformance (both 18.78), Foundever (19.26), Working Solutions (21.11), and LiveOps (23.09).</li>
+            <li><strong>tNPS:</strong> Foundever (47.63) and Education at Work (47.52) lead all partners. LiveOps (45.72) and Teleperformance (45.22) are close behind.</li>
+            <li><strong>Education at Work delivers the best combination</strong> of speed and customer satisfaction among all PS New Hire partners.</li>
+        </ul>
+    </div>
+
+    <div class="callout warn">
+        <strong>Foundever PS Note:</strong> Foundever's PS cohort (58 New Hires, 7,208 handles) is moderately sized but shows <strong>higher AHT (19.26)</strong> compared to EAW (17.59). Their tNPS is comparable (47.63 vs 47.52). Wave 7 is the weakest (AHT 21.17, 22 experts) — this may reflect the early ramp-up period. Foundever's Re-Hire results are promising (AHT 15.74, tNPS 63.44) but based on only 4 experts.
+    </div>
+
+    <!-- 4e. Agent Status Analysis -->
+    <h3 id="ps-status">4e. Agent Status Analysis (PS)</h3>
+    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;"><strong>Active</strong> = still employed. <strong>TermBeforePeak</strong> = terminated before peak (early attrition). <strong>TermAfterPeak</strong> = terminated after peak (normal ramp-down).</p>
+
+    <div class="card">
+        <h3 style="margin-top:0;">PS Performance by Agent Status — Overall (PathEDU vs NonPathEDU)</h3>
+        <table>
+            <thead>
+                <tr><th>Type</th><th>Hire Type</th><th>Status</th><th>Experts</th><th>Handle Cnt</th><th>PS AHT</th><th>PS tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>New Hire</td><td><span class="badge badge-green">Active</span></td><td>509</td><td>183,833</td><td>21.78</td><td>62.67</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>New Hire</td><td><span class="badge badge-yellow">TermBeforePeak</span></td><td>1,737</td><td>155,648</td><td>18.04</td><td>13.63</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>New Hire</td><td><span class="badge badge-blue">TermAfterPeak</span></td><td>3,396</td><td>616,042</td><td>20.08</td><td>41.66</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>Re-Hire</td><td><span class="badge badge-green">Active</span></td><td>326</td><td>201,035</td><td>20.85</td><td>63.03</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>Re-Hire</td><td><span class="badge badge-yellow">TermBeforePeak</span></td><td>591</td><td>75,524</td><td>15.95</td><td>19.53</td></tr>
+                <tr style="background:#faf5ff;"><td>NonPathEDU</td><td>Re-Hire</td><td><span class="badge badge-blue">TermAfterPeak</span></td><td>1,626</td><td>483,529</td><td>19.60</td><td>48.64</td></tr>
+                <tr style="background:#f0fdf4;"><td>PathEDU</td><td>New Hire</td><td><span class="badge badge-yellow">TermBeforePeak</span></td><td>135</td><td>10,331</td><td>15.13</td><td>34.84</td></tr>
+                <tr style="background:#f0fdf4;"><td>PathEDU</td><td>New Hire</td><td><span class="badge badge-blue">TermAfterPeak</span></td><td>226</td><td>79,120</td><td>18.06</td><td>49.07</td></tr>
+                <tr style="background:#f0fdf4;"><td>PathEDU</td><td>Re-Hire</td><td><span class="badge badge-yellow">TermBeforePeak</span></td><td>21</td><td>2,037</td><td>17.99</td><td>32.97</td></tr>
+                <tr style="background:#f0fdf4;"><td>PathEDU</td><td>Re-Hire</td><td><span class="badge badge-blue">TermAfterPeak</span></td><td>58</td><td>25,677</td><td>16.84</td><td>51.23</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            No PathEDU PS experts remain Active. NonPathEDU has 509 Active New Hires and 326 Active Re-Hires.
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">PS Performance by Agent Status — TermAfterPeak Only (Fair Comparison)</h3>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">TermAfterPeak represents experts who completed the full season — the most comparable group for performance evaluation.</p>
+        <table>
+            <thead>
+                <tr><th>Type</th><th>Hire Type</th><th>Experts</th><th>Handle Cnt</th><th>PS AHT</th><th>PS tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>NonPathEDU</strong></td><td>New Hire</td><td>3,396</td><td>616,042</td><td>20.08</td><td>41.66</td></tr>
+                <tr class="pathedu-row"><td><strong>PathEDU</strong></td><td>New Hire</td><td>226</td><td>79,120</td><td>18.06</td><td>49.07</td></tr>
+                <tr style="font-weight:700;background:#f1f5f9;"><td colspan="2">Difference</td><td></td><td></td><td class="better">−2.02</td><td class="better">+7.41</td></tr>
+                <tr><td><strong>NonPathEDU</strong></td><td>Re-Hire</td><td>1,626</td><td>483,529</td><td>19.60</td><td>48.64</td></tr>
+                <tr class="pathedu-row"><td><strong>PathEDU</strong></td><td>Re-Hire</td><td>58</td><td>25,677</td><td>16.84</td><td>51.23</td></tr>
+                <tr style="font-weight:700;background:#f1f5f9;"><td colspan="2">Difference</td><td></td><td></td><td class="better">−2.76</td><td class="better">+2.59</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS AHT by Agent Status — New Hires</h3>
+            <canvas id="chartPSStatusAHT" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS tNPS by Agent Status — New Hires</h3>
+            <canvas id="chartPSStatustNPS" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout success">
+        <strong>Status Insight (PS):</strong> When comparing only <strong>TermAfterPeak</strong> experts (the fairest comparison — experts who completed the full season):
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li>PathEDU New Hires are <strong>2.0 min faster</strong> (AHT 18.06 vs 20.08) and deliver <strong>7.4 pts higher tNPS</strong> (49.07 vs 41.66) — a strong advantage.</li>
+            <li>PathEDU Re-Hires are <strong>2.8 min faster</strong> (AHT 16.84 vs 19.60) with <strong>2.6 pts higher tNPS</strong> (51.23 vs 48.64).</li>
+            <li>PathEDU's <strong>TermBeforePeak group has low AHT (15.13)</strong> — early terminations handled fewer calls but faster, likely reflecting short tenure.</li>
+            <li>NonPathEDU's TermBeforePeak group shows <strong>dramatically poor tNPS (13.63 for New Hires, 19.53 for Re-Hires)</strong>, suggesting early attrition is strongly correlated with poor customer outcomes.</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 5. PATHEDU DEEP-DIVE -->
+    <!-- ============================================================ -->
+    <hr class="section-divider">
+    <h2 id="pathedu-deep">5. PathEDU Deep-Dive: University &amp; Graduation Year</h2>
+    <p>This section analyzes PathEDU expert performance broken down by university and academic standing, to identify which student populations perform best and surface any notable patterns.</p>
+
+    <!-- 5a. PS by University -->
+    <h3 id="pathedu-ps-uni">5a. PS Performance by University</h3>
+    <div class="card">
+        <h3 style="margin-top:0;">New Hires — TermAfterPeak Only (by University, weighted by handle count)</h3>
+        <table style="font-size:0.82rem;">
+            <thead>
+                <tr><th>University</th><th>Partner</th><th>Experts</th><th>Handle Cnt</th><th>Wtd AHT</th><th>Wtd tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Arizona State University</strong></td><td>EAW</td><td>42</td><td>21,567</td><td>17.24</td><td>57.36</td></tr>
+                <tr><td><strong>University Of Texas - El Paso</strong></td><td>EAW</td><td>84</td><td>34,814</td><td>18.34</td><td>44.52</td></tr>
+                <tr><td><strong>University of Utah</strong></td><td>EAW</td><td>18</td><td>6,942</td><td>16.07</td><td>53.96</td></tr>
+                <tr><td><strong>Northern Kentucky University</strong></td><td>EAW</td><td>12</td><td>5,157</td><td>17.83</td><td>23.12</td></tr>
+                <tr><td><strong>University Of Arizona</strong></td><td>EAW</td><td>7</td><td>3,568</td><td>16.65</td><td>49.81</td></tr>
+                <tr><td><strong>El Paso Community College</strong></td><td>EAW</td><td>15</td><td>8,636</td><td>16.23</td><td>38.35</td></tr>
+                <tr><td><strong>Salt Lake Community College</strong></td><td>EAW</td><td>5</td><td>2,720</td><td>15.89</td><td>47.17</td></tr>
+                <tr><td><strong>Utah Valley University</strong></td><td>EAW</td><td>2</td><td>875</td><td>20.25</td><td>57.69</td></tr>
+                <tr><td><strong>Brigham Young University</strong></td><td>EAW</td><td>1</td><td>723</td><td>16.35</td><td>48.21</td></tr>
+                <tr><td><strong>University of Cincinnati</strong></td><td>EAW</td><td>4</td><td>947</td><td>23.21</td><td>53.49</td></tr>
+                <tr><td><strong>Marshall</strong></td><td>Foundever</td><td>27</td><td>6,136</td><td>18.92</td><td>52.42</td></tr>
+                <tr style="background:#fef3c7;"><td><em>Unknown / null</em></td><td>EAW/FE</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            Weighted averages for TermAfterPeak New Hires only. Excludes rows with null university. Small cohort sizes for some universities limit reliability.
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS AHT by University (NH, TermAfterPeak)</h3>
+            <canvas id="chartPSUniAHT" height="320"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS tNPS by University (NH, TermAfterPeak)</h3>
+            <canvas id="chartPSUnitNPS" height="320"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>University Standouts (PS):</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>Salt Lake Community College</strong> delivers the lowest AHT (15.89) with solid tNPS (47.17), though only 5 experts.</li>
+            <li><strong>University Of Texas - El Paso</strong> is the largest cohort (84 experts) with moderate results: AHT 18.34, tNPS 44.52.</li>
+            <li><strong>Arizona State University</strong> (42 experts) shows strong tNPS (57.36) and competitive AHT (17.24).</li>
+            <li><strong>Utah Valley University</strong> has the highest tNPS (57.69) but also high AHT (20.25) — only 2 experts.</li>
+            <li><strong>Northern Kentucky University</strong> underperforms significantly on tNPS (23.12) despite reasonable AHT (17.83) — warranting investigation.</li>
+            <li><strong>El Paso Community College</strong> has low AHT (16.23) but lower tNPS (38.35) — below the PathEDU average.</li>
+            <li><strong>University of Utah</strong> (18 experts) delivers strong results: lowest AHT among larger cohorts (16.07) and strong tNPS (53.96).</li>
+        </ul>
+    </div>
+
+    <!-- 5b. TS by University -->
+    <h3 id="pathedu-ts-uni">5b. TS Performance by University</h3>
+    <div class="card">
+        <h3 style="margin-top:0;">New Hires — TermAfterPeak Only (by University, weighted by FS engagements)</h3>
+        <table style="font-size:0.82rem;">
+            <thead>
+                <tr><th>University</th><th>Partner</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA AHT</th><th>TTLA tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Arizona State University</strong></td><td>EAW</td><td>59</td><td>1,161</td><td>4.98</td><td>80.31</td><td>58.96%</td><td>27.68</td><td>66.08</td></tr>
+                <tr><td><strong>University Of Texas - El Paso</strong></td><td>EAW</td><td>50</td><td>962</td><td>5.70</td><td>86.32</td><td>61.05%</td><td>28.86</td><td>57.44</td></tr>
+                <tr><td><strong>University of Utah</strong></td><td>EAW</td><td>38</td><td>437</td><td>4.40</td><td>84.72</td><td>56.17%</td><td>26.88</td><td>75.30</td></tr>
+                <tr><td><strong>El Paso Community College</strong></td><td>EAW</td><td>15</td><td>387</td><td>5.48</td><td>82.22</td><td>65.72%</td><td>28.11</td><td>57.38</td></tr>
+                <tr><td><strong>University Of Arizona</strong></td><td>EAW</td><td>5</td><td>45</td><td>9.80</td><td>57.14</td><td>72.31%</td><td>30.08</td><td>72.73</td></tr>
+                <tr><td><strong>Salt Lake Community College</strong></td><td>EAW</td><td>5</td><td>47</td><td>8.79</td><td>100.00</td><td>58.70%</td><td>32.02</td><td>71.11</td></tr>
+                <tr><td><strong>Utah Valley University</strong></td><td>EAW</td><td>4</td><td>45</td><td>3.25</td><td>100.00</td><td>72.09%</td><td>28.98</td><td>72.73</td></tr>
+                <tr><td><strong>Brigham Young University</strong></td><td>EAW</td><td>3</td><td>48</td><td>5.32</td><td>100.00</td><td>62.80%</td><td>32.11</td><td>86.84</td></tr>
+                <tr><td><strong>Marshall</strong></td><td>Foundever</td><td>13</td><td>440</td><td>4.05</td><td>73.91</td><td>56.44%</td><td>7.72</td><td>—</td></tr>
+                <tr><td><strong>Maricopa County CC</strong></td><td>EAW</td><td>2</td><td>17</td><td>7.16</td><td>100.00</td><td>43.59%</td><td>31.91</td><td>32.00</td></tr>
+                <tr><td><strong>Northern Kentucky</strong></td><td>EAW</td><td>2</td><td>29</td><td>5.58</td><td>33.33</td><td>56.86%</td><td>27.16</td><td>68.75</td></tr>
+                <tr><td><strong>University of Cincinnati</strong></td><td>EAW</td><td>2</td><td>27</td><td>3.06</td><td>100.00</td><td>67.39%</td><td>23.60</td><td>55.56</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            TermAfterPeak New Hires. Small cohort sizes for several universities — interpret cautiously. CST lower = more efficient. Conv Rate and tNPS higher = better.
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">TS CST by University (NH, TermAfterPeak)</h3>
+            <canvas id="chartTSUniCST" height="320"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">TS tNPS by University (NH, TermAfterPeak)</h3>
+            <canvas id="chartTSUnitNPS" height="320"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>University Standouts (TS):</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>Arizona State University</strong> (59 experts, largest cohort) shows balanced results: tNPS 80.31, CST 4.98, Conv 58.96%.</li>
+            <li><strong>University Of Texas - El Paso</strong> (50 experts) has the highest tNPS (86.32) with CST of 5.70 and solid conversion (61.05%).</li>
+            <li><strong>University of Utah</strong> (38 experts) has strong tNPS (84.72) and the best TTLA tNPS (75.30), though conversion is lower (56.17%).</li>
+            <li><strong>El Paso Community College</strong> has the <strong>highest conversion rate (65.72%)</strong> with good tNPS (82.22).</li>
+            <li><strong>Northern Kentucky</strong> underperforms on tNPS (33.33) — consistent with its weak PS showing, though only 2 experts.</li>
+            <li><strong>Foundever/Marshall</strong> (13 experts) has low CST (4.05) and moderate tNPS (73.91), but the Foundever model differs from EAW.</li>
+        </ul>
+    </div>
+
+    <!-- 5c. PS by Graduation Year -->
+    <h3 id="pathedu-ps-grad">5c. PS Performance by Graduation Year / Academic Standing</h3>
+    <div class="card">
+        <h3 style="margin-top:0;">New Hires — TermAfterPeak Only (EAW + Foundever, weighted by handle count)</h3>
+        <table>
+            <thead>
+                <tr><th>Grad Year / Standing</th><th>Experts</th><th>Handle Cnt</th><th>Wtd AHT</th><th>Wtd tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Incoming Freshman</strong></td><td>3</td><td>1,173</td><td>15.40</td><td>21.10</td></tr>
+                <tr><td><strong>Freshman</strong></td><td>43</td><td>19,171</td><td>18.27</td><td>51.30</td></tr>
+                <tr><td><strong>Sophomore</strong></td><td>38</td><td>13,134</td><td>18.36</td><td>47.49</td></tr>
+                <tr><td><strong>Junior</strong></td><td>43</td><td>16,583</td><td>18.00</td><td>51.21</td></tr>
+                <tr><td><strong>Senior</strong></td><td>28</td><td>11,836</td><td>17.16</td><td>41.30</td></tr>
+                <tr><td><strong>Graduate</strong></td><td>6</td><td>2,177</td><td>17.61</td><td>45.51</td></tr>
+                <tr><td><strong>Other</strong></td><td>3</td><td>2,020</td><td>18.23</td><td>39.74</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS AHT by Academic Standing (NH, TermAfterPeak)</h3>
+            <canvas id="chartPSGradAHT" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">PS tNPS by Academic Standing (NH, TermAfterPeak)</h3>
+            <canvas id="chartPSGradtNPS" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>Graduation Year Insight (PS):</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>Freshmen and Juniors deliver the best tNPS:</strong> Freshmen at 51.30 and Juniors at 51.21 among substantial cohorts.</li>
+            <li><strong>Seniors are the most efficient</strong> (AHT 17.16) but have lower tNPS (41.30).</li>
+            <li><strong>Graduates</strong> (6 experts) have competitive AHT (17.61) and moderate tNPS (45.51).</li>
+            <li><strong>Incoming Freshmen</strong> (only 3 experts) show the fastest AHT (15.40) but very low tNPS (21.10) — too small and possibly unreliable.</li>
+            <li>Overall, <strong>academic standing has limited impact on AHT</strong> (17.16–18.36 range, excluding Incoming Freshmen), but <strong>tNPS varies meaningfully</strong> (21.10 for Incoming Freshmen to 51.30 for Freshmen).</li>
+        </ul>
+    </div>
+
+    <!-- 5d. TS by Graduation Year -->
+    <h3 id="pathedu-ts-grad">5d. TS Performance by Graduation Year / Academic Standing</h3>
+    <div class="card">
+        <h3 style="margin-top:0;">New Hires — TermAfterPeak Only (EAW + Foundever, weighted by FS engagements)</h3>
+        <table>
+            <thead>
+                <tr><th>Grad Year / Standing</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Freshman</strong></td><td>20</td><td>422</td><td>5.63</td><td>87.88</td><td>60.71%</td></tr>
+                <tr><td><strong>Sophomore</strong></td><td>37</td><td>537</td><td>5.63</td><td>82.61</td><td>60.43%</td></tr>
+                <tr><td><strong>Junior</strong></td><td>73</td><td>1,328</td><td>5.39</td><td>77.69</td><td>57.11%</td></tr>
+                <tr><td><strong>Senior</strong></td><td>45</td><td>859</td><td>4.44</td><td>81.74</td><td>61.55%</td></tr>
+                <tr><td><strong>Graduate</strong></td><td>6</td><td>82</td><td>5.75</td><td>100.00</td><td>60.70%</td></tr>
+                <tr><td><strong>Other</strong></td><td>1</td><td>26</td><td>2.60</td><td>—</td><td>62.22%</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">TS CST by Academic Standing (NH, TermAfterPeak)</h3>
+            <canvas id="chartTSGradCST" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">TS tNPS by Academic Standing (NH, TermAfterPeak)</h3>
+            <canvas id="chartTSGradtNPS" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout">
+        <strong>Graduation Year Insight (TS):</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>Freshmen have the highest tNPS (87.88)</strong> — the youngest cohort delivers strong customer satisfaction in TS.</li>
+            <li><strong>CST is elevated across most groups</strong> (5.39–5.75 for Juniors through Graduates), while <strong>Seniors are the most efficient (CST 4.44)</strong>.</li>
+            <li><strong>Seniors have the highest conversion rate (61.55%)</strong> combined with the lowest CST and strong tNPS (81.74) — the most balanced cohort.</li>
+            <li><strong>Juniors (73 experts, largest group) have the lowest tNPS (77.69) and lowest conversion (57.11%)</strong> — this is a substantial cohort and may warrant targeted coaching.</li>
+            <li><strong>Graduate students</strong> show 100% tNPS but with only 82 engagements and 6 experts — too small for statistical confidence.</li>
+        </ul>
+    </div>
+
+    <!-- 5e. Early Termination Performance -->
+    <h3 id="pathedu-early-term">5e. Early Termination (TermBeforePeak) Performance</h3>
+    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">This section provides visibility into PathEDU experts who were <strong>terminated before the peak date</strong> (early attrition). These experts left before completing the full season — their metrics are included here for context, though low volumes make many results unreliable.</p>
+
+    <div class="card">
+        <h3 style="margin-top:0;">PS — TermBeforePeak by Partner &amp; Wave</h3>
+        <table style="font-size:0.82rem;">
+            <thead>
+                <tr><th>Partner</th><th>Wave</th><th>Experts</th><th>Handle Cnt</th><th>PS AHT</th><th>PS tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 1</td><td>28</td><td>3,023</td><td>16.29</td><td>32.63</td></tr>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 2</td><td>19</td><td>1,876</td><td>13.16</td><td>42.96</td></tr>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 4</td><td>13</td><td>959</td><td>13.30</td><td>18.52</td></tr>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 5</td><td>28</td><td>1,976</td><td>17.10</td><td>42.47</td></tr>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 6</td><td>13</td><td>1,134</td><td>9.89</td><td>29.09</td></tr>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 7</td><td>3</td><td>72</td><td>21.12</td><td>66.67</td></tr>
+                <tr style="font-weight:600;background:#f1f5f9;"><td>EAW Total</td><td></td><td>104</td><td>9,040</td><td>14.74</td><td>35.93</td></tr>
+                <tr><td><strong>Foundever</strong></td><td>Wave 5</td><td>11</td><td>570</td><td>14.99</td><td>36.36</td></tr>
+                <tr><td><strong>Foundever</strong></td><td>Wave 6</td><td>8</td><td>337</td><td>19.18</td><td>11.11</td></tr>
+                <tr><td><strong>Foundever</strong></td><td>Wave 7</td><td>12</td><td>384</td><td>21.00</td><td>26.92</td></tr>
+                <tr style="font-weight:600;background:#f1f5f9;"><td>Foundever Total</td><td></td><td>31</td><td>1,291</td><td>17.87</td><td>25.58</td></tr>
+                <tr style="font-weight:700;background:#fee2e2;"><td>PathEDU Total</td><td></td><td>135</td><td>10,331</td><td>15.13</td><td>34.84</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">TS — TermBeforePeak by Partner &amp; Wave</h3>
+        <table style="font-size:0.82rem;">
+            <thead>
+                <tr><th>Partner</th><th>Wave</th><th>Experts</th><th>FS Eng</th><th>FS CST</th><th>FS tNPS</th><th>Conv Rate</th><th>TTLA AHT</th><th>TTLA tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 3</td><td>11</td><td>22</td><td>4.14</td><td>100.00</td><td>54.00%</td><td>19.70</td><td>100.00</td></tr>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 4</td><td>20</td><td>16</td><td>2.18</td><td>100.00</td><td>39.03%</td><td>36.19</td><td>50.00</td></tr>
+                <tr><td><strong>Education at Work</strong></td><td>Wave 5</td><td>37</td><td>35</td><td>8.43</td><td>66.67</td><td>59.31%</td><td>29.27</td><td>68.75</td></tr>
+                <tr style="font-weight:600;background:#f1f5f9;"><td>EAW Total</td><td></td><td>68</td><td>73</td><td>5.77</td><td>88.89</td><td>53.84%</td><td>28.28</td><td>74.47</td></tr>
+                <tr><td><strong>Foundever</strong></td><td>Wave 6</td><td>5</td><td>26</td><td>2.78</td><td>90.91</td><td>59.66%</td><td>—</td><td>—</td></tr>
+                <tr><td><strong>Foundever</strong></td><td>Wave 7</td><td>6</td><td>3</td><td>2.31</td><td>100.00</td><td>50.00%</td><td>—</td><td>—</td></tr>
+                <tr style="font-weight:600;background:#f1f5f9;"><td>Foundever Total</td><td></td><td>11</td><td>29</td><td>2.73</td><td>91.67</td><td>58.95%</td><td>—</td><td>—</td></tr>
+                <tr style="font-weight:700;background:#fee2e2;"><td>PathEDU Total</td><td></td><td>79</td><td>102</td><td>4.90</td><td>90.48</td><td>55.09%</td><td>28.28</td><td>74.47</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">PS — TermBeforePeak by University (Top Universities)</h3>
+        <table style="font-size:0.82rem;">
+            <thead>
+                <tr><th>University</th><th>Experts</th><th>Handle Cnt</th><th>Wtd AHT</th><th>Wtd tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>University Of Texas - El Paso</strong></td><td>27</td><td>2,192</td><td>15.97</td><td>19.26</td></tr>
+                <tr><td><strong>Arizona State University</strong></td><td>20</td><td>2,559</td><td>15.53</td><td>48.71</td></tr>
+                <tr><td><strong>El Paso Community College</strong></td><td>7</td><td>620</td><td>11.06</td><td>21.05</td></tr>
+                <tr><td><strong>Utah Valley University</strong></td><td>6</td><td>202</td><td>14.69</td><td>−11.11</td></tr>
+                <tr><td><strong>Northern Kentucky University</strong></td><td>5</td><td>487</td><td>17.44</td><td>31.58</td></tr>
+                <tr><td><strong>Marshall</strong></td><td>4</td><td>249</td><td>22.10</td><td>60.00</td></tr>
+                <tr><td><strong>University of Utah</strong></td><td>3</td><td>374</td><td>15.39</td><td>60.71</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
+            Rows with null/unknown university excluded. Small sample sizes throughout — these metrics reflect experts who left before the season peaked.
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Early Term tNPS: PathEDU vs NonPathEDU</h3>
+            <canvas id="chartEarlyTermtNPS" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Early Term Expert Count by Partner/Wave</h3>
+            <canvas id="chartEarlyTermCount" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="callout warn">
+        <strong>Early Termination Patterns:</strong>
+        <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+            <li><strong>135 PathEDU PS experts (37% of all PathEDU PS New Hires) terminated before peak.</strong> These experts handled 10,331 calls with an AHT of 15.13 min and tNPS of 34.84 — well below the TermAfterPeak cohort (18.06 min, tNPS 49.07).</li>
+            <li><strong>79 PathEDU TS experts terminated before peak</strong>, but with only 102 total FS engagements — most barely started handling calls. Their FS tNPS (90.48) looks strong but is based on very few surveys.</li>
+            <li><strong>EAW PS early attrition is concentrated in Waves 1 and 5</strong> (28 experts each). Wave 6 has the lowest AHT (9.89 min) suggesting these experts may have barely ramped up before leaving.</li>
+            <li><strong>Foundever PS TermBeforePeak</strong> shows worse tNPS (25.58) than EAW (35.93), with Waves 6–7 having the highest attrition (20 of 31 early terms).</li>
+            <li><strong>The low AHT of early terminations</strong> (15.13 min for PS) is misleading — it largely reflects incomplete ramp-up rather than efficiency. These experts didn't reach full proficiency.</li>
+            <li><strong>University-level PS patterns:</strong> Arizona State shows the best tNPS among early terms (48.71), while UT El Paso (19.26) and El Paso CC (21.05) show poor satisfaction. Utah Valley has negative tNPS (−11.11).</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 6. CONCLUSIONS -->
+    <!-- ============================================================ -->
+    <hr class="section-divider">
+    <h2 id="conclusions">6. Conclusions &amp; Key Takeaways</h2>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Tax Specialist Findings</h3>
+        <ol class="findings" style="padding-left:1.25rem;">
+            <li><strong>PathEDU delivers higher customer satisfaction.</strong> FS tNPS is 3.1 points higher (82.59 vs 79.48) across all segments. Re-Hires achieve an exceptional 89.83 tNPS.</li>
+            <li><strong>CST and AHT are significantly elevated — an efficiency concern.</strong> PathEDU experts spend more time per engagement (CST 5.16 vs 4.22) and have higher AHT (28.15 vs 25.54 min). While this may contribute to higher tNPS, it reduces capacity and should be targeted for improvement.</li>
+            <li><strong>Conversion rate needs attention.</strong> PathEDU lags by ~3.6 pp overall (59.49% vs 63.10%), with Re-Hires showing a wider gap (−7.04 pp). Targeted conversion training could close this gap.</li>
+            <li><strong>Education at Work is the strong TS partner.</strong> Consistent 82+ tNPS for New Hires, 88 for Re-Hires, and reasonable volume. Foundever's TS program is too small for reliable conclusions.</li>
+            <li><strong>EAW Wave 3 has the best balance</strong> (tNPS 83.81, Conv 62.22%, lowest CST 4.79). Later waves show worsening CST without proportional satisfaction gains — efficiency coaching is needed.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Product Support Findings</h3>
+        <ol class="findings" style="padding-left:1.25rem;">
+            <li><strong>PathEDU outperforms on both key metrics.</strong> AHT is 12% faster (17.53 vs 19.85 min) and tNPS is 2.6 points higher (48.04 vs 45.45). This is a strong result — faster and better-rated.</li>
+            <li><strong>The advantage holds for both New Hires and Re-Hires.</strong> New Hire tNPS advantage is especially large (+6.16 pts), demonstrating PathEDU students ramp to strong performance quickly.</li>
+            <li><strong>Education at Work is the #1 PS partner across all partners.</strong> Best New Hire AHT (17.59) and strong New Hire tNPS (47.52) — no other partner matches both dimensions.</li>
+            <li><strong>EAW Wave 6 is the standout wave</strong> (AHT 16.96, tNPS 57.60). Wave 7 underperforms (AHT 20.48) but has very few experts (16) and handles (1,665).</li>
+            <li><strong>Foundever PS shows moderate results.</strong> AHT is slightly above EAW (19.26 vs 17.59 for New Hires) but still competitive with NonPathEDU partners. tNPS is strong at 47.63.</li>
+            <li><strong>LiveOps and Working Solutions have the highest AHT</strong> (23+ and 21+ min respectively) among all partners, suggesting potential efficiency improvements there.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Agent Status Findings</h3>
+        <ol class="findings" style="padding-left:1.25rem;">
+            <li><strong>TermAfterPeak is the fairest comparison lens.</strong> When comparing only experts who completed the full season, PathEDU's advantage grows: PS New Hires are 2.0 min faster and 7.4 pts higher tNPS than NonPathEDU.</li>
+            <li><strong>Early attrition (TermBeforePeak) correlates with poor customer outcomes</strong> across both PathEDU and NonPathEDU. NonPathEDU PS TermBeforePeak tNPS is shockingly low (13.63), while PathEDU's is also weak (34.84) but notably better.</li>
+            <li><strong>No PathEDU experts remain Active</strong> — the program is fully seasonal. NonPathEDU retains hundreds of Active experts, whose strong metrics reflect self-selection (longest-tenure, best performers).</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">University &amp; Academic Standing Findings</h3>
+        <ol class="findings" style="padding-left:1.25rem;">
+            <li><strong>Arizona State University and UT El Paso are the volume universities</strong> — together accounting for the majority of PathEDU experts — and both deliver solid results.</li>
+            <li><strong>University of Utah stands out on PS</strong> (best AHT 16.07, strong tNPS 53.96) and on TS (strong tNPS 84.72). Small cohort but consistent excellence.</li>
+            <li><strong>Northern Kentucky University underperforms</strong> on customer satisfaction in both PS (tNPS 23.12) and TS (tNPS 33.33). May warrant program review or targeted support.</li>
+            <li><strong>Freshmen and Juniors deliver the best PS tNPS (~51)</strong> while <strong>Freshmen lead on TS tNPS (87.88)</strong> — younger students aren't at a disadvantage and may bring more enthusiasm.</li>
+            <li><strong>Seniors are the most efficient</strong> across both roles (lowest CST/AHT) and have the highest TS conversion rate (61.55%), but lower tNPS — a speed-vs-satisfaction trade-off.</li>
+        </ol>
+    </div>
+
+    <div class="card" style="border-left:4px solid var(--primary);">
+        <h3 style="margin-top:0;">Strategic Implications</h3>
+        <ol style="padding-left:1.25rem;">
+            <li><strong>PathEDU is a high-value pipeline.</strong> Across both roles, PathEDU students deliver comparable or superior performance, especially on customer satisfaction metrics. The TermAfterPeak lens strengthens this conclusion.</li>
+            <li><strong>Invest in efficiency and conversion training for TS.</strong> PathEDU's elevated CST and AHT, combined with lower conversion, suggest students need coaching on call efficiency and sales assertiveness. The strong tNPS shows they connect well with customers — the goal is to maintain satisfaction while reducing handle time.</li>
+            <li><strong>Expand Education at Work partnership.</strong> EAW consistently delivers the strongest metrics across both TS and PS. The partnership is well-calibrated and scalable.</li>
+            <li><strong>Monitor Foundever's TS program carefully.</strong> Very small cohorts make metrics unreliable. Foundever's PS program is more established and shows stronger signal.</li>
+            <li><strong>Address Wave 7 efficiency dip in PS.</strong> Both EAW and Foundever Wave 7 PS cohorts show elevated AHT — this may reflect a recent wave still ramping up.</li>
+            <li><strong>Investigate Northern Kentucky University performance.</strong> Consistently low tNPS in both PS and TS suggests a training or support gap at this school.</li>
+            <li><strong>Reduce early attrition.</strong> TermBeforePeak experts deliver poor customer outcomes regardless of channel — retention efforts during ramp-up could improve both metrics and ROI.</li>
+        </ol>
+    </div>
+
+</div>
+
+<footer>
+    <p>PathEDU Performance Analysis &bull; Updated April 27, 2026</p>
+</footer>
+
+<script>
+const chartOpts = {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { font: {size:12} } } },
+    scales: { y: { grid: { color: '#e5e7eb' } }, x: { grid: { display: false } } }
+};
+
+// ========================
+// TS OVERVIEW CHARTS
+// ========================
+new Chart(document.getElementById('chartTSOverviewCST'), {
+    type: 'bar',
+    data: {
+        labels: ['NonPathEDU', 'PathEDU'],
+        datasets: [{
+            label: 'FS CST',
+            data: [4.22, 5.16],
+            backgroundColor: ['#e0e7ff', '#fca5a5'],
+            borderColor: ['#6366f1', '#dc2626'],
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend: { display: false } }, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 0, title: { display:true, text:'FS CST (lower = better)' } } } }
+});
+
+new Chart(document.getElementById('chartTSOverviewtNPS'), {
+    type: 'bar',
+    data: {
+        labels: ['NonPathEDU', 'PathEDU'],
+        datasets: [{
+            label: 'FS tNPS',
+            data: [79.48, 82.59],
+            backgroundColor: ['#e0e7ff', '#86efac'],
+            borderColor: ['#6366f1', '#16a34a'],
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend: { display: false } }, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 70, title: { display:true, text:'FS tNPS (higher = better)' } } } }
+});
+
+new Chart(document.getElementById('chartTSOverviewConv'), {
+    type: 'bar',
+    data: {
+        labels: ['NonPathEDU', 'PathEDU'],
+        datasets: [{
+            label: 'Conversion Rate (%)',
+            data: [63.10, 59.49],
+            backgroundColor: ['#e0e7ff', '#fca5a5'],
+            borderColor: ['#6366f1', '#dc2626'],
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend: { display: false } }, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 50, title: { display:true, text:'Conversion Rate (%) (higher = better)' } } } }
+});
+
+new Chart(document.getElementById('chartTSOverviewAHTComp'), {
+    type: 'bar',
+    data: {
+        labels: ['NonPathEDU', 'PathEDU'],
+        datasets: [{
+            label: 'TTLA AHT (min)',
+            data: [25.54, 28.15],
+            backgroundColor: ['#e0e7ff', '#fca5a5'],
+            borderColor: ['#6366f1', '#dc2626'],
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend: { display: false } }, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 20, title: { display:true, text:'TTLA AHT (min) (lower = better)' } } } }
+});
+
+// ========================
+// TS WAVE CHARTS
+// ========================
+const tsWaveLabels = ['Wave 3', 'Wave 4', 'Wave 5', 'Wave 6', 'Wave 7'];
+const eawTStNPS = [83.81, 83.33, 79.12, null, null];
+const nonTStNPS = [null, null, 56.10, 72.40, 79.44];
+
+new Chart(document.getElementById('chartTSWavetNPS'), {
+    type: 'line',
+    data: {
+        labels: tsWaveLabels,
+        datasets: [
+            { label: 'PathEDU (EAW)', data: eawTStNPS, borderColor: '#16a34a', backgroundColor: '#86efac', borderWidth: 2, pointRadius: 5, spanGaps: false, tension: 0.3 },
+            { label: 'NonPathEDU', data: nonTStNPS, borderColor: '#6366f1', backgroundColor: '#a5b4fc', borderWidth: 2, pointRadius: 5, spanGaps: false, tension: 0.3 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 50, max: 95, title: { display:true, text:'FS tNPS' } } } }
+});
+
+const eawTSConv = [62.22, 58.50, 62.01, null, null];
+const nonTSConv = [null, null, 63.37, 59.35, 63.22];
+
+new Chart(document.getElementById('chartTSWaveConv'), {
+    type: 'line',
+    data: {
+        labels: tsWaveLabels,
+        datasets: [
+            { label: 'PathEDU (EAW)', data: eawTSConv, borderColor: '#16a34a', backgroundColor: '#86efac', borderWidth: 2, pointRadius: 5, spanGaps: false, tension: 0.3 },
+            { label: 'NonPathEDU', data: nonTSConv, borderColor: '#6366f1', backgroundColor: '#a5b4fc', borderWidth: 2, pointRadius: 5, spanGaps: false, tension: 0.3 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 50, max: 70, title: { display:true, text:'Conversion Rate (%)' } } } }
+});
+
+// ========================
+// PS OVERVIEW CHARTS
+// ========================
+new Chart(document.getElementById('chartPSOverviewAHT'), {
+    type: 'bar',
+    data: {
+        labels: ['Overall', 'New Hire', 'Re-Hire'],
+        datasets: [
+            { label: 'NonPathEDU', data: [19.85, 20.08, 19.57], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'PathEDU', data: [17.53, 17.72, 16.92], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 14, title: { display:true, text:'AHT (min)' } } } }
+});
+
+new Chart(document.getElementById('chartPSOverviewtNPS'), {
+    type: 'bar',
+    data: {
+        labels: ['Overall', 'New Hire', 'Re-Hire'],
+        datasets: [
+            { label: 'NonPathEDU', data: [45.45, 41.37, 50.46], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'PathEDU', data: [48.04, 47.53, 49.76], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 20, title: { display:true, text:'tNPS' } } } }
+});
+
+// ========================
+// PS WAVE CHARTS
+// ========================
+const psWaveLabels = ['Wave 1', 'Wave 2', 'Wave 3', 'Wave 4', 'Wave 5', 'Wave 6', 'Wave 7'];
+const eawPSAHT = [17.60, 16.88, null, 18.33, 17.75, 16.96, 20.48];
+const nonPSAHT = [19.93, 19.30, 21.94, 18.88, 20.58, 19.64, 19.99];
+
+new Chart(document.getElementById('chartPSWaveAHT'), {
+    type: 'line',
+    data: {
+        labels: psWaveLabels,
+        datasets: [
+            { label: 'PathEDU (EAW)', data: eawPSAHT, borderColor: '#16a34a', backgroundColor: '#86efac', borderWidth: 2, pointRadius: 5, spanGaps: false, tension: 0.3 },
+            { label: 'NonPathEDU', data: nonPSAHT, borderColor: '#6366f1', backgroundColor: '#a5b4fc', borderWidth: 2, pointRadius: 5, tension: 0.3 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 14, max: 25, title: { display:true, text:'AHT (min)' } } } }
+});
+
+const eawPStNPS = [49.72, 43.59, null, 39.49, 45.99, 57.60, 53.66];
+const nonPStNPS = [39.81, 35.60, 41.73, 39.03, 40.78, 47.40, 34.99];
+
+new Chart(document.getElementById('chartPSWavetNPS'), {
+    type: 'line',
+    data: {
+        labels: psWaveLabels,
+        datasets: [
+            { label: 'PathEDU (EAW)', data: eawPStNPS, borderColor: '#16a34a', backgroundColor: '#86efac', borderWidth: 2, pointRadius: 5, spanGaps: false, tension: 0.3 },
+            { label: 'NonPathEDU', data: nonPStNPS, borderColor: '#6366f1', backgroundColor: '#a5b4fc', borderWidth: 2, pointRadius: 5, tension: 0.3 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 25, max: 65, title: { display:true, text:'tNPS' } } } }
+});
+
+// ========================
+// PS PARTNER CHARTS
+// ========================
+const psPartners = ['EAW', 'Foundever', 'Concentrix', 'Teleperf.', 'LiveOps', 'Working Sol.'];
+const psPartnerAHTData = [17.59, 19.26, 18.78, 18.78, 23.09, 21.11];
+const psPartnertNPSData = [47.52, 47.63, 37.12, 45.22, 45.72, 39.35];
+
+const partnerColors = psPartners.map((p, i) => i < 2 ? '#86efac' : '#e0e7ff');
+const partnerBorders = psPartners.map((p, i) => i < 2 ? '#16a34a' : '#6366f1');
+
+new Chart(document.getElementById('chartPSPartnerAHT'), {
+    type: 'bar',
+    data: {
+        labels: psPartners,
+        datasets: [{
+            label: 'AHT (min)',
+            data: psPartnerAHTData,
+            backgroundColor: partnerColors,
+            borderColor: partnerBorders,
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 14, title: { display:true, text:'AHT (min)' } } } }
+});
+
+new Chart(document.getElementById('chartPSPartnertNPS'), {
+    type: 'bar',
+    data: {
+        labels: psPartners,
+        datasets: [{
+            label: 'tNPS',
+            data: psPartnertNPSData,
+            backgroundColor: partnerColors,
+            borderColor: partnerBorders,
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 25, title: { display:true, text:'tNPS' } } } }
+});
+
+// ========================
+// TS STATUS CHARTS
+// ========================
+const tsStatusLabels = ['Active', 'TermBeforePeak', 'TermAfterPeak'];
+const tsStatusColors = ['#86efac', '#fef3c7', '#bfdbfe'];
+const tsStatusBorders = ['#16a34a', '#d97706', '#2563eb'];
+
+new Chart(document.getElementById('chartTSStatusTNPS'), {
+    type: 'bar',
+    data: {
+        labels: tsStatusLabels,
+        datasets: [
+            { label: 'NonPathEDU', data: [77.59, 63.13, 77.48], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'PathEDU', data: [null, 90.48, 81.59], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 50, title: { display:true, text:'FS tNPS' } } } }
+});
+
+new Chart(document.getElementById('chartTSStatusConv'), {
+    type: 'bar',
+    data: {
+        labels: tsStatusLabels,
+        datasets: [
+            { label: 'NonPathEDU', data: [58.92, 55.58, 62.32], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'PathEDU', data: [null, 55.09, 59.83], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 40, title: { display:true, text:'Conversion Rate (%)' } } } }
+});
+
+// ========================
+// PS STATUS CHARTS
+// ========================
+new Chart(document.getElementById('chartPSStatusAHT'), {
+    type: 'bar',
+    data: {
+        labels: tsStatusLabels,
+        datasets: [
+            { label: 'NonPathEDU', data: [21.78, 18.04, 20.08], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'PathEDU', data: [null, 15.13, 18.06], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 10, title: { display:true, text:'AHT (min)' } } } }
+});
+
+new Chart(document.getElementById('chartPSStatustNPS'), {
+    type: 'bar',
+    data: {
+        labels: tsStatusLabels,
+        datasets: [
+            { label: 'NonPathEDU', data: [62.67, 13.63, 41.66], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'PathEDU', data: [null, 34.84, 49.07], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 0, title: { display:true, text:'tNPS' } } } }
+});
+
+// ========================
+// PS UNIVERSITY CHARTS
+// ========================
+const uniLabels = ['ASU', 'UT El Paso', 'U of Utah', 'NKU', 'U of Arizona', 'El Paso CC', 'Salt Lake CC', 'Marshall'];
+const uniAHT = [17.24, 18.34, 16.07, 17.83, 16.65, 16.23, 15.89, 18.92];
+const unitNPS = [57.36, 44.52, 53.96, 23.12, 49.81, 38.35, 47.17, 52.42];
+const uniColors = uniLabels.map(u => u === 'Marshall' ? '#bfdbfe' : '#86efac');
+const uniBorders = uniLabels.map(u => u === 'Marshall' ? '#2563eb' : '#16a34a');
+
+new Chart(document.getElementById('chartPSUniAHT'), {
+    type: 'bar',
+    data: {
+        labels: uniLabels,
+        datasets: [{ label: 'AHT (min)', data: uniAHT, backgroundColor: uniColors, borderColor: uniBorders, borderWidth: 1 }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 14, title: { display:true, text:'AHT (min)' } } } }
+});
+
+new Chart(document.getElementById('chartPSUnitNPS'), {
+    type: 'bar',
+    data: {
+        labels: uniLabels,
+        datasets: [{
+            label: 'tNPS', data: unitNPS,
+            backgroundColor: unitNPS.map(function(v){ return v < 35 ? '#fca5a5' : (v > 50 ? '#86efac' : '#fef3c7'); }),
+            borderColor: unitNPS.map(function(v){ return v < 35 ? '#dc2626' : (v > 50 ? '#16a34a' : '#d97706'); }),
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 10, title: { display:true, text:'tNPS' } } } }
+});
+
+// ========================
+// PS GRADUATION YEAR CHARTS
+// ========================
+const gradLabels = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'];
+const gradAHT = [18.27, 18.36, 18.00, 17.16, 17.61];
+const gradtNPS = [51.30, 47.49, 51.21, 41.30, 45.51];
+
+new Chart(document.getElementById('chartPSGradAHT'), {
+    type: 'bar',
+    data: {
+        labels: gradLabels,
+        datasets: [{ label: 'AHT (min)', data: gradAHT, backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 15, title: { display:true, text:'AHT (min)' } } } }
+});
+
+new Chart(document.getElementById('chartPSGradtNPS'), {
+    type: 'bar',
+    data: {
+        labels: gradLabels,
+        datasets: [{ label: 'tNPS', data: gradtNPS, backgroundColor: gradtNPS.map(v => v > 50 ? '#86efac' : '#fef3c7'), borderColor: gradtNPS.map(v => v > 50 ? '#16a34a' : '#d97706'), borderWidth: 1 }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 30, title: { display:true, text:'tNPS' } } } }
+});
+
+// ========================
+// TS UNIVERSITY CHARTS
+// ========================
+const tsUniLabels = ['ASU', 'UT El Paso', 'U of Utah', 'El Paso CC', 'Marshall', 'U of Arizona', 'NKU'];
+const tsUniCST = [4.98, 5.70, 4.40, 5.48, 4.05, 9.80, 5.58];
+const tsUnitNPSData = [80.31, 86.32, 84.72, 82.22, 73.91, 57.14, 33.33];
+const tsUniColors = tsUniLabels.map(function(u){ return u === 'Marshall' ? '#bfdbfe' : '#86efac'; });
+const tsUniBorders = tsUniLabels.map(function(u){ return u === 'Marshall' ? '#2563eb' : '#16a34a'; });
+
+new Chart(document.getElementById('chartTSUniCST'), {
+    type: 'bar',
+    data: {
+        labels: tsUniLabels,
+        datasets: [{
+            label: 'FS CST', data: tsUniCST,
+            backgroundColor: tsUniCST.map(function(v){ return v > 6 ? '#fca5a5' : (v > 4.5 ? '#fef3c7' : '#86efac'); }),
+            borderColor: tsUniCST.map(function(v){ return v > 6 ? '#dc2626' : (v > 4.5 ? '#d97706' : '#16a34a'); }),
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 0, title: { display:true, text:'FS CST (lower = better)' } } } }
+});
+
+new Chart(document.getElementById('chartTSUnitNPS'), {
+    type: 'bar',
+    data: {
+        labels: tsUniLabels,
+        datasets: [{
+            label: 'tNPS', data: tsUnitNPSData,
+            backgroundColor: tsUnitNPSData.map(function(v){ return v < 50 ? '#fca5a5' : (v > 80 ? '#86efac' : '#fef3c7'); }),
+            borderColor: tsUnitNPSData.map(function(v){ return v < 50 ? '#dc2626' : (v > 80 ? '#16a34a' : '#d97706'); }),
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 20, title: { display:true, text:'tNPS' } } } }
+});
+
+// ========================
+// TS GRADUATION YEAR CHARTS
+// ========================
+const tsGradLabels = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate'];
+const tsGradCST = [5.63, 5.63, 5.39, 4.44, 5.75];
+const tsGradtNPS = [87.88, 82.61, 77.69, 81.74, 100.00];
+
+new Chart(document.getElementById('chartTSGradCST'), {
+    type: 'bar',
+    data: {
+        labels: tsGradLabels,
+        datasets: [{
+            label: 'FS CST', data: tsGradCST,
+            backgroundColor: tsGradCST.map(function(v){ return v > 4.5 ? '#fca5a5' : '#86efac'; }),
+            borderColor: tsGradCST.map(function(v){ return v > 4.5 ? '#dc2626' : '#16a34a'; }),
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 3, title: { display:true, text:'FS CST (lower = better)' } } } }
+});
+
+new Chart(document.getElementById('chartTSGradtNPS'), {
+    type: 'bar',
+    data: {
+        labels: tsGradLabels,
+        datasets: [{
+            label: 'tNPS', data: tsGradtNPS,
+            backgroundColor: tsGradtNPS.map(function(v){ return v > 80 ? '#86efac' : '#fef3c7'; }),
+            borderColor: tsGradtNPS.map(function(v){ return v > 80 ? '#16a34a' : '#d97706'; }),
+            borderWidth: 1
+        }]
+    },
+    options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 60, title: { display:true, text:'tNPS' } } } }
+});
+
+// ========================
+// EARLY TERMINATION CHARTS
+// ========================
+new Chart(document.getElementById('chartEarlyTermtNPS'), {
+    type: 'bar',
+    data: {
+        labels: ['PS New Hire', 'PS Re-Hire', 'TS New Hire', 'TS Re-Hire'],
+        datasets: [
+            { label: 'NonPathEDU', data: [13.63, 19.53, 63.13, 83.26], backgroundColor: '#e0e7ff', borderColor: '#6366f1', borderWidth: 1 },
+            { label: 'PathEDU', data: [34.84, 32.97, 90.48, 100.00], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, title: { display:true, text:'TermBeforePeak tNPS Comparison', font:{size:13} } }, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: -5, title: { display:true, text:'tNPS' } } } }
+});
+
+const earlyWaves = ['W1', 'W2', 'W4', 'W5', 'W6', 'W7'];
+const earlyEAW = [28, 19, 13, 28, 13, 3];
+const earlyFE = [0, 0, 0, 11, 8, 12];
+
+new Chart(document.getElementById('chartEarlyTermCount'), {
+    type: 'bar',
+    data: {
+        labels: earlyWaves,
+        datasets: [
+            { label: 'EAW (PS)', data: earlyEAW, backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 },
+            { label: 'Foundever (PS)', data: earlyFE, backgroundColor: '#bfdbfe', borderColor: '#2563eb', borderWidth: 1 }
+        ]
+    },
+    options: { ...chartOpts, plugins: { ...chartOpts.plugins, title: { display:true, text:'PathEDU PS Early Terminations by Wave', font:{size:13} } }, scales: { x: { stacked: true, grid:{display:false} }, y: { stacked: true, grid:{color:'#e5e7eb'}, title:{display:true, text:'Expert Count'} } } }
+});
+
+</script>
+
+</body>
+</html>
