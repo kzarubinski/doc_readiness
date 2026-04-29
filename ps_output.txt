@@ -1,0 +1,84 @@
+﻿=== SECTION 4a: OVERALL PS ===
+NonPathEDU: {"experts":10446,"ps_handle_cnt":1933042,"ps_aht":19.57515197290075,"ps_handle_min":37839590.92000001,"ps_tnps":45.06487948768895,"ps_tnps_num":58971,"ps_tnps_denom":130858}
+PathEDU: {"experts":440,"ps_handle_cnt":117165,"ps_aht":17.532332522510988,"ps_handle_min":2054175.7399999998,"ps_tnps":48.03991446899501,"ps_tnps_num":4718,"ps_tnps_denom":9821}
+
+=== SECTION 4b: NH vs RH PS ===
+NonPathEDU NH: {"experts":7710,"ps_handle_cnt":1141306,"ps_aht":19.64102689375155,"ps_handle_min":22416421.840000007,"ps_tnps":41.2054931862855,"ps_tnps_num":31235,"ps_tnps_denom":75803}
+NonPathEDU RH: {"experts":2736,"ps_handle_cnt":791736,"ps_aht":19.48019173057686,"ps_handle_min":15423169.08,"ps_tnps":50.378712196894014,"ps_tnps_num":27736,"ps_tnps_denom":55055}
+PathEDU NH: {"experts":361,"ps_handle_cnt":89451,"ps_aht":17.721404679657017,"ps_handle_min":1585197.3699999999,"ps_tnps":47.52580047631649,"ps_tnps_num":3592,"ps_tnps_denom":7558}
+PathEDU RH: {"experts":79,"ps_handle_cnt":27714,"ps_aht":16.922074402828894,"ps_handle_min":468978.37,"ps_tnps":49.75695978789218,"ps_tnps_num":1126,"ps_tnps_denom":2263}
+
+=== SECTION 4c: TRAINING WAVE (NH) ===
+NonPathEDU NH Other: {"experts":59,"ps_handle_cnt":49772,"ps_aht":19.132580165554927,"ps_handle_min":952266.7799999999,"ps_tnps":73.07309300936069,"ps_tnps_num":3669,"ps_tnps_denom":5021}
+NonPathEDU NH Wave 1: {"experts":246,"ps_handle_cnt":69987,"ps_aht":19.930078728906796,"ps_handle_min":1394846.42,"ps_tnps":39.863325740318906,"ps_tnps_num":2100,"ps_tnps_denom":5268}
+PathEDU NH Wave 1: {"experts":75,"ps_handle_cnt":29051,"ps_aht":17.59997039688823,"ps_handle_min":511296.74,"ps_tnps":49.717514124293785,"ps_tnps_num":1232,"ps_tnps_denom":2478}
+NonPathEDU NH Wave 2: {"experts":598,"ps_handle_cnt":144040,"ps_aht":19.121572271591226,"ps_handle_min":2754271.27,"ps_tnps":35.71361809514908,"ps_tnps_num":3821,"ps_tnps_denom":10699}
+PathEDU NH Wave 2: {"experts":49,"ps_handle_cnt":13848,"ps_aht":16.883999133448874,"ps_handle_min":233809.62,"ps_tnps":43.592057761732846,"ps_tnps_num":483,"ps_tnps_denom":1108}
+NonPathEDU NH Wave 3: {"experts":432,"ps_handle_cnt":130574,"ps_aht":21.775553402668223,"ps_handle_min":2843321.1100000003,"ps_tnps":41.71567254737235,"ps_tnps_num":4469,"ps_tnps_denom":10713}
+NonPathEDU NH Wave 4: {"experts":437,"ps_handle_cnt":87392,"ps_aht":18.171814696997437,"ps_handle_min":1588071.23,"ps_tnps":39.82134461683122,"ps_tnps_num":2541,"ps_tnps_denom":6381}
+PathEDU NH Wave 4: {"experts":44,"ps_handle_cnt":11984,"ps_aht":18.331381008010684,"ps_handle_min":219683.27000000002,"ps_tnps":39.489194499017685,"ps_tnps_num":402,"ps_tnps_denom":1018}
+NonPathEDU NH Wave 5: {"experts":857,"ps_handle_cnt":158125,"ps_aht":19.551460869565215,"ps_handle_min":3091574.7499999995,"ps_tnps":39.370821189782276,"ps_tnps_num":4593,"ps_tnps_denom":11666}
+PathEDU NH Wave 5: {"experts":84,"ps_handle_cnt":17492,"ps_aht":17.916353190029728,"ps_handle_min":313392.85,"ps_tnps":46.8999386126458,"ps_tnps_num":764,"ps_tnps_denom":1629}
+NonPathEDU NH Wave 6: {"experts":357,"ps_handle_cnt":86229,"ps_aht":19.584602975797008,"ps_handle_min":1688760.7300000002,"ps_tnps":47.611578497076856,"ps_tnps_num":3339,"ps_tnps_denom":7013}
+PathEDU NH Wave 6: {"experts":71,"ps_handle_cnt":13297,"ps_aht":17.158635030457997,"ps_handle_min":228158.37,"ps_tnps":54.34574976122254,"ps_tnps_num":569,"ps_tnps_denom":1047}
+NonPathEDU NH Wave 7: {"experts":4724,"ps_handle_cnt":415187,"ps_aht":19.517252587388334,"ps_handle_min":8103309.550000001,"ps_tnps":35.20113433462871,"ps_tnps_num":6703,"ps_tnps_denom":19042}
+PathEDU NH Wave 7: {"experts":38,"ps_handle_cnt":3779,"ps_aht":20.86703360677428,"ps_handle_min":78856.52,"ps_tnps":51.07913669064749,"ps_tnps_num":142,"ps_tnps_denom":278}
+
+=== SECTION 4d: PARTNER BREAKDOWN ===
+CONCENTRIX (NonPathEDU): {"experts":2113,"ps_handle_cnt":386015,"ps_aht":18.675827545561702,"ps_handle_min":7209149.570000001,"ps_tnps":41.0661565969479,"ps_tnps_num":9876,"ps_tnps_denom":24049}
+EDUCATION AT WORK (PathEDU): {"experts":378,"ps_handle_cnt":108916,"ps_aht":17.435195012670317,"ps_handle_min":1898971.7000000002,"ps_tnps":47.91003839824465,"ps_tnps_num":4367,"ps_tnps_denom":9115}
+FOUNDEVER (NonPathEDU): {"experts":2319,"ps_handle_cnt":208315,"ps_aht":17.352085543527835,"ps_handle_min":3614699.700000001,"ps_tnps":37.899502840909086,"ps_tnps_num":4269,"ps_tnps_denom":11264}
+LIVEOPS (NonPathEDU): {"experts":1479,"ps_handle_cnt":406819,"ps_aht":22.23164680115727,"ps_handle_min":9044256.32,"ps_tnps":52.7664065498273,"ps_tnps_num":16499,"ps_tnps_denom":31268}
+TELEPERFORMANCE (NonPathEDU): {"experts":2189,"ps_handle_cnt":398087,"ps_aht":18.26532330872397,"ps_handle_min":7271187.759999999,"ps_tnps":47.15274287702478,"ps_tnps_num":12197,"ps_tnps_denom":25867}
+WORKING SOLUTIONS (NonPathEDU): {"experts":2408,"ps_handle_cnt":542055,"ps_aht":20.026568540092793,"ps_handle_min":10855501.61,"ps_tnps":42.133653747826976,"ps_tnps_num":16481,"ps_tnps_denom":39116}
+CONCENTRIX New Hire (NonPathEDU): {"experts":1809,"ps_handle_cnt":306604,"ps_aht":18.77439935552048,"ps_handle_min":5756305.940000001,"ps_tnps":37.12839974699557,"ps_tnps_num":7044,"ps_tnps_denom":18972}
+CONCENTRIX Re-Hire (NonPathEDU): {"experts":304,"ps_handle_cnt":79411,"ps_aht":18.29524410975809,"ps_handle_min":1452843.63,"ps_tnps":55.78097301556038,"ps_tnps_num":2832,"ps_tnps_denom":5077}
+EDUCATION AT WORK New Hire (PathEDU): {"experts":303,"ps_handle_cnt":82243,"ps_aht":17.586612234475883,"ps_handle_min":1446375.75,"ps_tnps":47.51619870410367,"ps_tnps_num":3300,"ps_tnps_denom":6945}
+EDUCATION AT WORK Re-Hire (PathEDU): {"experts":75,"ps_handle_cnt":26673,"ps_aht":16.968318149439508,"ps_handle_min":452595.95,"ps_tnps":49.1705069124424,"ps_tnps_num":1067,"ps_tnps_denom":2170}
+FOUNDEVER New Hire (NonPathEDU): {"experts":2124,"ps_handle_cnt":182949,"ps_aht":17.34756675357614,"ps_handle_min":3173719.990000001,"ps_tnps":37.36672701669684,"ps_tnps_num":3715,"ps_tnps_denom":9942}
+FOUNDEVER Re-Hire (NonPathEDU): {"experts":195,"ps_handle_cnt":25366,"ps_aht":17.384676732634237,"ps_handle_min":440979.71,"ps_tnps":41.90620272314675,"ps_tnps_num":554,"ps_tnps_denom":1322}
+LIVEOPS New Hire (NonPathEDU): {"experts":796,"ps_handle_cnt":165252,"ps_aht":22.949296468423984,"ps_handle_min":3792417.14,"ps_tnps":47.95766495783033,"ps_tnps_num":5800,"ps_tnps_denom":12094}
+LIVEOPS Re-Hire (NonPathEDU): {"experts":683,"ps_handle_cnt":241567,"ps_aht":21.740714501566853,"ps_handle_min":5251839.18,"ps_tnps":55.79952018358193,"ps_tnps_num":10699,"ps_tnps_denom":19174}
+TELEPERFORMANCE New Hire (NonPathEDU): {"experts":1600,"ps_handle_cnt":250228,"ps_aht":18.767372915900697,"ps_handle_min":4696122.1899999995,"ps_tnps":45.31848043416167,"ps_tnps_num":7933,"ps_tnps_denom":17505}
+TELEPERFORMANCE Re-Hire (NonPathEDU): {"experts":589,"ps_handle_cnt":147859,"ps_aht":17.415683658079658,"ps_handle_min":2575065.5700000003,"ps_tnps":50.99258550585984,"ps_tnps_num":4264,"ps_tnps_denom":8362}
+WORKING SOLUTIONS New Hire (NonPathEDU): {"experts":1439,"ps_handle_cnt":243481,"ps_aht":21.096833839190733,"ps_handle_min":5136678.199999999,"ps_tnps":39.295090208344966,"ps_tnps_num":7035,"ps_tnps_denom":17903}
+WORKING SOLUTIONS Re-Hire (NonPathEDU): {"experts":969,"ps_handle_cnt":298574,"ps_aht":19.15378904392211,"ps_handle_min":5718823.41,"ps_tnps":44.52929807193702,"ps_tnps_num":9446,"ps_tnps_denom":21213}
+
+=== SECTION 4e: AGENT STATUS PS ===
+NonPathEDU New Hire Active: {"experts":389,"ps_handle_cnt":167856,"ps_aht":21.61474805785912,"ps_handle_min":3628165.1500000004,"ps_tnps":65.82911132411337,"ps_tnps_num":9615,"ps_tnps_denom":14606}
+NonPathEDU Re-Hire Active: {"experts":255,"ps_handle_cnt":175218,"ps_aht":21.190026310082295,"ps_handle_min":3712874.03,"ps_tnps":66.31965298631965,"ps_tnps_num":9938,"ps_tnps_denom":14985}
+NonPathEDU New Hire TermAfterPeak: {"experts":4622,"ps_handle_cnt":755420,"ps_aht":19.823156628100925,"ps_handle_min":14974808.98,"ps_tnps":41.726034809270445,"ps_tnps_num":18508,"ps_tnps_denom":44356}
+PathEDU New Hire TermAfterPeak: {"experts":226,"ps_handle_cnt":79120,"ps_aht":18.060183645096057,"ps_handle_min":1428921.73,"ps_tnps":49.06528189910979,"ps_tnps_num":3307,"ps_tnps_denom":6740}
+NonPathEDU Re-Hire TermAfterPeak: {"experts":1792,"ps_handle_cnt":531348,"ps_aht":19.475989012850338,"ps_handle_min":10348527.81,"ps_tnps":48.11853654297384,"ps_tnps_num":16611,"ps_tnps_denom":34521}
+PathEDU Re-Hire TermAfterPeak: {"experts":58,"ps_handle_cnt":25677,"ps_aht":16.837346652646335,"ps_handle_min":432332.55,"ps_tnps":51.22537241710716,"ps_tnps_num":1066,"ps_tnps_denom":2081}
+NonPathEDU New Hire TermBeforePeak: {"experts":2699,"ps_handle_cnt":218030,"ps_aht":17.49047245791863,"ps_handle_min":3813447.7099999995,"ps_tnps":18.478712665518675,"ps_tnps_num":3112,"ps_tnps_denom":16841}
+PathEDU New Hire TermBeforePeak: {"experts":135,"ps_handle_cnt":10331,"ps_aht":15.126864775917143,"ps_handle_min":156275.64,"ps_tnps":34.84107579462103,"ps_tnps_num":285,"ps_tnps_denom":818}
+NonPathEDU Re-Hire TermBeforePeak: {"experts":689,"ps_handle_cnt":85170,"ps_aht":15.988813431959608,"ps_handle_min":1361767.2399999998,"ps_tnps":21.391241665164895,"ps_tnps_num":1187,"ps_tnps_denom":5549}
+PathEDU Re-Hire TermBeforePeak: {"experts":21,"ps_handle_cnt":2037,"ps_aht":17.99009327442317,"ps_handle_min":36645.82,"ps_tnps":32.967032967032964,"ps_tnps_num":60,"ps_tnps_denom":182}
+
+=== SECTION 5a: PS BY UNIVERSITY ===
+Arizona State University: {"experts":73,"ps_handle_cnt":25298,"ps_aht":17.057401375602815,"ps_handle_min":431518.14,"ps_tnps":55.722543352601164,"ps_tnps_num":1446,"ps_tnps_denom":2595}
+Brigham Young University: {"experts":2,"ps_handle_cnt":940,"ps_aht":16.960436170212766,"ps_handle_min":15942.81,"ps_tnps":51.85185185185185,"ps_tnps_num":42,"ps_tnps_denom":81}
+El Paso Community College: {"experts":24,"ps_handle_cnt":9439,"ps_aht":15.815336370378217,"ps_handle_min":149280.96,"ps_tnps":38.11881188118812,"ps_tnps_num":231,"ps_tnps_denom":606}
+Marshall: {"experts":31,"ps_handle_cnt":6385,"ps_aht":19.04337353171496,"ps_handle_min":121591.94000000002,"ps_tnps":52.67702936096719,"ps_tnps_num":305,"ps_tnps_denom":579}
+Northern Kentucky University: {"experts":18,"ps_handle_cnt":6122,"ps_aht":18.23858216269193,"ps_handle_min":111656.6,"ps_tnps":21.184510250569478,"ps_tnps_num":93,"ps_tnps_denom":439}
+Salt Lake Community College: {"experts":6,"ps_handle_cnt":2868,"ps_aht":15.861949093444911,"ps_handle_min":45492.07000000001,"ps_tnps":44.888888888888886,"ps_tnps_num":101,"ps_tnps_denom":225}
+University Of Arizona: {"experts":8,"ps_handle_cnt":3621,"ps_aht":16.585067660867164,"ps_handle_min":60054.53,"ps_tnps":50.378787878787875,"ps_tnps_num":133,"ps_tnps_denom":264}
+University Of Texas - El Paso: {"experts":114,"ps_handle_cnt":37102,"ps_aht":18.195563851005335,"ps_handle_min":675091.8099999999,"ps_tnps":43.34575008465967,"ps_tnps_num":1280,"ps_tnps_denom":2953}
+University of Cincinnati: {"experts":6,"ps_handle_cnt":1016,"ps_aht":22.796564960629922,"ps_handle_min":23161.31,"ps_tnps":52.63157894736842,"ps_tnps_num":50,"ps_tnps_denom":95}
+University of Utah: {"experts":21,"ps_handle_cnt":7316,"ps_aht":16.03127802077638,"ps_handle_min":117284.83,"ps_tnps":54.25038639876353,"ps_tnps_num":351,"ps_tnps_denom":647}
+Utah Valley University: {"experts":9,"ps_handle_cnt":1111,"ps_aht":19.254905490549056,"ps_handle_min":21392.2,"ps_tnps":46.03174603174603,"ps_tnps_num":58,"ps_tnps_denom":126}
+
+=== SECTION 5c: PS BY GRADUATION YEAR ===
+?: {"experts":1,"ps_handle_cnt":278,"ps_aht":15.957086330935251,"ps_handle_min":4436.07,"ps_tnps":41.37931034482759,"ps_tnps_num":12,"ps_tnps_denom":29}
+Freshman: {"experts":73,"ps_handle_cnt":26242,"ps_aht":17.838130858928434,"ps_handle_min":468108.2299999999,"ps_tnps":47.70240700218819,"ps_tnps_num":1090,"ps_tnps_denom":2285}
+Graduate: {"experts":14,"ps_handle_cnt":6170,"ps_aht":15.676288492706645,"ps_handle_min":96722.7,"ps_tnps":42.33409610983982,"ps_tnps_num":185,"ps_tnps_denom":437}
+Incoming Freshman: {"experts":6,"ps_handle_cnt":2188,"ps_aht":17.536092321755028,"ps_handle_min":38368.97,"ps_tnps":44.78260869565218,"ps_tnps_num":103,"ps_tnps_denom":230}
+Junior: {"experts":84,"ps_handle_cnt":27816,"ps_aht":17.442088366407827,"ps_handle_min":485169.13000000006,"ps_tnps":51.38831330294239,"ps_tnps_num":1240,"ps_tnps_denom":2413}
+Other: {"experts":4,"ps_handle_cnt":2021,"ps_aht":18.22154873824839,"ps_handle_min":36825.75,"ps_tnps":39.743589743589745,"ps_tnps_num":62,"ps_tnps_denom":156}
+Senior: {"experts":55,"ps_handle_cnt":15953,"ps_aht":17.444326458973237,"ps_handle_min":278289.34,"ps_tnps":43.46829640947288,"ps_tnps_num":569,"ps_tnps_denom":1309}
+Sophomore: {"experts":68,"ps_handle_cnt":16916,"ps_aht":18.233211161030976,"ps_handle_min":308433,"ps_tnps":47.211155378486055,"ps_tnps_num":711,"ps_tnps_denom":1506}
+
+=== SECTION 5e: TERM BEFORE PEAK PS ===
+NonPathEDU TermBeforePeak: {"experts":3388,"ps_handle_cnt":303200,"ps_aht":17.068650890501317,"ps_handle_min":5175214.949999999,"ps_tnps":19.200535953550695,"ps_tnps_num":4299,"ps_tnps_denom":22390}
+PathEDU TermBeforePeak: {"experts":156,"ps_handle_cnt":12368,"ps_aht":15.598436287192758,"ps_handle_min":192921.46000000002,"ps_tnps":34.5,"ps_tnps_num":345,"ps_tnps_denom":1000}
