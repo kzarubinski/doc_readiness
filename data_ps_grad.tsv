@@ -1,0 +1,93 @@
+expert_type	hire_type	role_type	partner_name	agent_status_adj	training_wave	grad_year	expert_cnt	ps_handle_min	ps_handle_cnt	ps_aht	ps_tnps_num	ps_tnps_denom	ps_tnps
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 7	null	13	32581.45	1593	20.45	62	117	52.99
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 5	null	2	9218.35	484	19.05	16	35	45.71
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 1	Freshman	18	168257.37	9493	17.72	422	852	49.53
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 6	Freshman	1	7149.80	412	17.35	12	33	36.36
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 6	Junior	4	18876.95	1002	18.84	46	98	46.94
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 6	null	41	168787.70	9234	18.28	450	751	59.92
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 5	Sophomore	11	79729.50	4439	17.96	150	406	36.95
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 2	Senior	3	2728.22	218	12.51	-1	8	-12.50
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 5	Freshman	10	80092.80	4598	17.42	233	446	52.24
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 2	Senior	6	67440.55	4600	14.66	131	361	36.29
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 5	Junior	11	53534.85	2997	17.86	125	251	49.80
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 2	Junior	4	31127.27	1662	18.73	65	113	57.52
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 4	Junior	8	59242.33	3133	18.91	121	264	45.83
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 6	null	1	4267.63	248	17.21	15	19	78.95
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	Junior	3	5544.95	280	19.80	2	17	11.76
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 2	Freshman	8	54069.95	2579	20.97	139	260	53.46
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 2	NaN	1	10881.62	566	19.23	21	45	46.67
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 2	Freshman	1	323.47	18	17.97	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 1	Sophomore	9	82190.92	4719	17.42	218	401	54.36
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 2	Junior	5	7227.23	706	10.24	6	34	17.65
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 4	Senior	8	31066.10	1908	16.28	28	146	19.18
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 5	Senior	12	18179.35	882	20.61	42	105	40.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	Sophomore	6	16407.80	918	17.87	35	80	43.75
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 4	null	2	72.98	7	10.43	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	null	9	12816.90	882	14.53	14	71	19.72
+PathEDU	New Hire	PS	FOUNDEVER	TermBeforePeak	Wave 5	null	10	7269.48	504	14.42	8	29	27.59
+PathEDU	New Hire	PS	FOUNDEVER	TermBeforePeak	Wave 5	Sophomore	1	1272.77	66	19.28	4	4	100.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 1	Senior	6	71942.98	3795	18.96	167	307	54.40
+PathEDU	New Hire	PS	FOUNDEVER	TermBeforePeak	Wave 7	Sophomore	1	2201.52	100	22.02	2	6	33.33
+PathEDU	New Hire	PS	FOUNDEVER	TermBeforePeak	Wave 6	null	8	6464.53	337	19.18	3	27	11.11
+PathEDU	New Hire	PS	FOUNDEVER	TermBeforePeak	Wave 7	null	9	3832.78	201	19.07	-1	10	-10.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 5	Junior	6	11672.63	822	14.20	46	92	50.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 7	null	3	1520.97	72	21.12	4	6	66.67
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 2	Incoming Freshman	1	7771.82	604	12.87	-6	37	-16.22
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	Freshman	4	7088.53	445	15.93	21	41	51.22
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 1	Junior	12	117626.42	6821	17.24	311	585	53.16
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 2	Sophomore	6	13900.38	762	18.24	15	42	35.71
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 7	Senior	3	14019.95	641	21.87	24	52	46.15
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 4	Sophomore	7	47644.45	2376	20.05	115	223	51.57
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 4	Other	2	22523.47	1279	17.61	36	106	33.96
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 4	Senior	3	1811.72	229	7.91	2	6	33.33
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 2	null	4	554.73	24	23.11	-2	2	-100.00
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 7	null	1	2559.32	90	28.44	5	7	71.43
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 5	Senior	2	7142.38	379	18.85	7	20	35.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 2	Graduate	1	7271.85	460	15.81	51	64	79.69
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 2	Sophomore	5	6576.22	450	14.61	4	27	14.81
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 7	Sophomore	4	12047.75	556	21.67	32	44	72.73
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	Other	1	6.05	1	6.05	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 6	null	13	11211.15	1134	9.89	16	55	29.09
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 2	Graduate	4	23936.32	1199	19.96	60	115	52.17
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 4	Sophomore	2	167.22	16	10.45	-1	1	-100.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 5	Sophomore	2	419.77	29	14.47	1	3	33.33
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 4	Freshman	4	32670.28	1646	19.85	96	157	61.15
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	Incoming Freshman	1	2277.25	148	15.39	1	13	7.69
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 4	Junior	3	989.17	54	18.32	-1	4	-25.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 1	Incoming Freshman	1	7734.30	459	16.85	11	47	23.40
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 6	?	1	4436.07	278	15.96	12	29	41.38
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	Senior	1	278.77	12	23.23	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 5	Graduate	1	1161.43	68	17.08	4	9	44.44
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 5	Freshman	7	2357.30	175	13.47	0	10	0.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 4	Freshman	3	9711.58	653	14.87	15	70	21.43
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 5	Senior	2	9239.92	381	24.25	30	45	66.67
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 4	NaN	1	4076.53	225	18.12	-10	18	-55.56
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 5	Incoming Freshman	1	2560.42	110	23.28	18	25	72.00
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 5	Junior	4	18009.57	968	18.60	51	93	54.84
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 7	Freshman	2	8063.73	443	18.20	8	26	30.77
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 6	Senior	1	2279.77	132	17.27	0	6	0.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	Graduate	2	4778.45	334	14.31	4	14	28.57
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 1	Other	1	14296.23	741	19.29	26	50	52.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 5	NaN	1	5949.65	308	19.32	10	16	62.50
+PathEDU	New Hire	PS	FOUNDEVER	TermBeforePeak	Wave 7	Junior	1	494.63	25	19.79	4	4	100.00
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 4	Graduate	1	9707.43	458	21.20	1	23	4.35
+PathEDU	New Hire	PS	FOUNDEVER	TermAfterPeak	Wave 5	Sophomore	1	5582.68	282	19.80	19	40	47.50
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermAfterPeak	Wave 6	Graduate	1	4684.77	520	9.01	15	29	51.72
+PathEDU	New Hire	PS	EDUCATION AT WORK	TermBeforePeak	Wave 1	NaN	1	49.82	3	16.61	null	null	null
+PathEDU	New Hire	PS	FOUNDEVER	TermBeforePeak	Wave 7	Freshman	1	1534.42	58	26.46	2	6	33.33
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermAfterPeak	Re-Hire	Freshman	10	78108.57	4758	16.42	147	318	46.23
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermAfterPeak	Re-Hire	Junior	16	139176.18	7969	17.46	381	729	52.26
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermAfterPeak	Re-Hire	null	8	19108.53	1029	18.57	36	71	50.70
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermBeforePeak	Re-Hire	Freshman	4	18680.43	964	19.38	-5	66	-7.58
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermBeforePeak	Re-Hire	Senior	4	4312.98	197	21.89	5	16	31.25
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermAfterPeak	Re-Hire	Sophomore	8	34845.77	1912	18.22	85	184	46.20
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermBeforePeak	Re-Hire	Junior	4	5264.53	336	15.67	24	36	66.67
+PathEDU	Re-Hire	PS	FOUNDEVER	TermAfterPeak	Re-Hire	Junior	3	16382.42	1041	15.74	59	93	63.44
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermAfterPeak	Re-Hire	NaN	2	33656.80	2391	14.08	95	158	60.13
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermAfterPeak	Re-Hire	Incoming Freshman	2	18025.18	867	20.79	79	108	73.15
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermBeforePeak	Re-Hire	NaN	1	1499.57	141	10.64	2	8	25.00
+PathEDU	Re-Hire	PS	FOUNDEVER	TermAfterPeak	Re-Hire	Sophomore	1	null	null	null	null	null	null
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermAfterPeak	Re-Hire	Senior	4	47846.65	2579	18.55	134	237	56.54
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermBeforePeak	Re-Hire	Sophomore	4	5446.25	291	18.72	32	45	71.11
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermAfterPeak	Re-Hire	Graduate	4	45182.45	3131	14.43	50	183	27.32
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	TermBeforePeak	Re-Hire	null	4	1442.05	108	13.35	2	11	18.18
