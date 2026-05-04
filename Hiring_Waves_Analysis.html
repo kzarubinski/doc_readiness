@@ -715,6 +715,82 @@
     <!-- ================================================================== -->
     <h2 id="conclusions">6. Conclusions &amp; Key Takeaways</h2>
 
+    <!-- CONSOLIDATED OVERALL VIEW -->
+    <div class="card" style="border:2px solid var(--primary);">
+        <h3 style="margin-top:0;font-size:1.2rem;">Overall Performance Trend — All Partners, Roles &amp; Hire Types Combined</h3>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">New Hire waves (Associates + Experts combined, all partners). Wave 2 is the earliest baseline; Wave 6 is the latest.</p>
+
+        <div class="kpi-row">
+            <div class="kpi red">
+                <div class="label">FS tNPS</div>
+                <div class="value">−21 pts</div>
+                <div class="detail">80.4% → 59.2%</div>
+            </div>
+            <div class="kpi red">
+                <div class="label">TTLA tNPS</div>
+                <div class="value">−18 pts</div>
+                <div class="detail">68.2% → 50.6%</div>
+            </div>
+            <div class="kpi" style="border-color:var(--warning);">
+                <div class="label">TTLA AHT</div>
+                <div class="value" style="color:var(--warning);">+3.4 min</div>
+                <div class="detail">26.9 → 30.3 min</div>
+            </div>
+            <div class="kpi">
+                <div class="label">Conv Rate</div>
+                <div class="value" style="color:var(--muted);">−1.7 pts</div>
+                <div class="detail">73.5% → 71.8%</div>
+            </div>
+        </div>
+
+        <table style="font-size:0.85rem;margin-top:1rem;">
+            <thead><tr><th>Wave</th><th>FS tNPS</th><th>TTLA tNPS</th><th>TTLA AHT</th><th>Conv Rate</th><th>FS CST</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Wave 2</strong></td><td>80.4%</td><td>68.2%</td><td>26.9</td><td>73.5%</td><td>2.30</td></tr>
+                <tr><td><strong>Wave 4</strong></td><td>74.9%</td><td>67.4%</td><td>28.9</td><td>72.5%</td><td>2.49</td></tr>
+                <tr><td><strong>Wave 5</strong></td><td>69.6%</td><td>56.8%</td><td>31.7</td><td>71.3%</td><td>2.63</td></tr>
+                <tr><td><strong>Wave 6</strong></td><td>59.2%</td><td>50.6%</td><td>30.3</td><td>71.8%</td><td>2.40</td></tr>
+            </tbody>
+        </table>
+        <p class="metric-note">Wave 2 is JDA only. Waves 4–6 include all three partners. FS CST fluctuations are driven by SKU mix shifts, not quality changes.</p>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Overall tNPS Decline — FS &amp; TTLA</h3>
+            <canvas id="chartConsolidatedTnps" height="280"></canvas>
+        </div>
+        <div class="chart-box">
+            <h3 style="margin-top:0;">Overall AHT &amp; Conversion Rate</h3>
+            <canvas id="chartConsolidatedAhtConv" height="280"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Key Insights</h3>
+        <ol style="padding-left:1.25rem;">
+            <li style="margin-bottom:0.75rem;"><strong>Customer satisfaction declined sharply across later waves.</strong> FS tNPS dropped 21 points (80% → 59%) and TTLA tNPS dropped 18 points (68% → 51%) from the earliest to the latest wave. This is systemic across all partners and both role types — later-wave hires are delivering measurably worse customer experiences.</li>
+            <li style="margin-bottom:0.75rem;"><strong>Efficiency and conversion impact is partner-dependent.</strong> Overall AHT and conversion changes are modest, but partner-level impacts vary dramatically: Magnit's conversion collapsed from 65% to 42%, and Highspring's AHT spiked +12 minutes. JDA remained relatively stable on both.</li>
+            <li style="margin-bottom:0.75rem;"><strong>Re-hires outperform new hires.</strong> JDA's RH Wave 1 (847 experts) delivered the strongest metrics across the board — 82% FS tNPS, 72% TTLA tNPS, 75% conversion — confirming experienced re-hires are a higher-performing workforce.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Recommendations for Next Year</h3>
+        <ul style="padding-left:1.25rem;">
+            <li style="margin-bottom:0.65rem;"><strong>Prioritize re-hire retention and early onboarding.</strong> Re-hires consistently outperform new hires. Investing in earlier outreach, streamlined re-activation, and retention incentives could shift the workforce mix toward higher performers and reduce reliance on later-wave new hires.</li>
+            <li style="margin-bottom:0.65rem;"><strong>Strengthen training and readiness gates for later waves.</strong> The consistent tNPS decline in Waves 5–6 suggests later-wave hires may receive compressed training or insufficient ramp time. Consider mandatory readiness assessments before going live and/or extended nesting periods for later waves.</li>
+            <li style="margin-bottom:0.65rem;"><strong>Address partner-specific gaps — especially Magnit.</strong> Magnit's disproportionate decline across AHT, tNPS, and conversion warrants a targeted root-cause analysis focused on onboarding quality, candidate screening, and operational support during peak ramp.</li>
+        </ul>
+    </div>
+
+    <div class="callout success">
+        <strong>Bottom Line:</strong> Later hiring waves deliver <strong>measurably worse customer outcomes</strong> — tNPS drops ~20 points, AHT rises, and conversion erodes at partner level. The strongest performing cohort is experienced re-hires. Prioritizing re-hire retention, strengthening later-wave training, and addressing Magnit-specific challenges are the highest-leverage actions for next year.
+    </div>
+
+    <hr style="margin:2.5rem 0;border:none;border-top:2px solid var(--border);">
+    <h3 style="color:var(--muted);text-transform:uppercase;font-size:0.85rem;letter-spacing:0.05em;">Appendix — Detailed Partner-Level Summaries</h3>
+
     <div class="card">
         <h3 style="margin-top:0;">Partner-Level Performance Summary — New Hires (Earliest → Latest Wave)</h3>
         <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem;">Each cell shows <strong>earliest meaningful wave → latest wave</strong> values. Arrows indicate direction of change. For FS CST and TTLA AHT, ▲ (increase) is bad; for tNPS and Conv Rate, ▼ (decrease) is bad.</p>
@@ -827,23 +903,6 @@
         <p class="metric-note">JDA RH Expert Wave 8 has only 15 experts — tNPS/Conv may not be representative. Magnit RH uses only the two waves with ≥10 experts (RH W4: 10, RH W7: 18). Magnit RH Experts excluded (all waves have 1–2 experts).</p>
     </div>
 
-    <div class="card">
-        <h3 style="margin-top:0;">Key Findings</h3>
-        <ol style="padding-left:1.25rem;">
-            <li style="margin-bottom:0.65rem;"><strong>Later New Hire waves consistently underperform earlier waves.</strong> This pattern holds across all three partners, both role types, and virtually every metric. The decline is not a one-partner anomaly — it is systemic.</li>
-            <li style="margin-bottom:0.65rem;"><strong>FS tNPS is the most impacted metric</strong>, dropping 18–22 points from peak (Wave 2) to Wave 6 across both Associates and Experts. This indicates later-wave hires are delivering notably worse customer experiences.</li>
-            <li style="margin-bottom:0.65rem;"><strong>TTLA tNPS follows the same trajectory</strong>, declining ~19 points for Associates (68.0% → 49.0%) and ~9 points for Experts (69.8% → 60.9%). Customer satisfaction is eroding across both service channels.</li>
-            <li style="margin-bottom:0.65rem;"><strong>TTLA AHT increased modestly overall</strong> (+3.6 min for NH Associates), but the impact is dramatically uneven by partner: JDA remained relatively stable (+2.6 min), while Highspring (+12.2 min W4→W6) and Magnit (+6.8 min W4→W5) saw large spikes.</li>
-            <li style="margin-bottom:0.65rem;"><strong>Conversion Rate declined ~3 points overall for NH Associates</strong> (73.3% → 70.5%), but the partner-level picture is more nuanced. The decline is steepest at Magnit (64.6% → 41.3% by W6) and moderate at Highspring (66.2% → 59.8%), while JDA held steady (73.3% → 72.8%).</li>
-            <li style="margin-bottom:0.65rem;"><strong>Magnit shows the most severe quality degradation</strong> across later waves, with the highest AHT levels, sharpest tNPS drops, and steepest conversion decline. This suggests a particular challenge with later-wave onboarding quality or candidate pool.</li>
-            <li style="margin-bottom:0.65rem;"><strong>Re-Hire Wave 1 (JDA) is the gold standard.</strong> With 687+ Associates and 160 Experts, this cohort outperforms almost all New Hire waves, confirming that experienced re-hires deliver superior results. Later RH waves are too small for reliable conclusions.</li>
-            <li style="margin-bottom:0.65rem;"><strong>FS CST remains relatively stable overall.</strong> NH Associate CST stayed near 2.3 hrs across waves (2.29 → 2.32). Fluctuations at the partner level are largely driven by <strong>SKU mix shifts</strong> — Basic engagements take ~1.5 hrs while Premium take ~3.5 hrs. Later waves' increasing Basic share artificially lowers blended CST.</li>
-        </ol>
-    </div>
-
-    <div class="callout success">
-        <strong>Bottom Line:</strong> Later hiring waves (particularly Waves 5 and 6) are producing experts who perform <strong>measurably worse</strong> than their earlier-wave counterparts across customer satisfaction (tNPS), service quality (CST), handle time (AHT), and conversion rate. The decline is most severe at Magnit and Highspring, while JDA shows a more moderate degradation in satisfaction scores with stable conversion. This signals potential issues with later-wave training effectiveness, candidate quality, or insufficient ramp time. JDA's large RH Wave 1 cohort demonstrates that experienced re-hires consistently outperform new hires, suggesting retention and re-hire strategies should be prioritized.
-    </div>
 
 </div>
 
@@ -1131,6 +1190,52 @@ new Chart(document.getElementById('chartRHJdaTtlaTnps'), {
         }]
     },
     options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, min: 0, max: 85, title: { display:true, text:'TTLA tNPS (%)' } } } }
+});
+
+// ========== SECTION 6 — CONSOLIDATED CHARTS ==========
+
+// Consolidated tNPS decline
+new Chart(document.getElementById('chartConsolidatedTnps'), {
+    type: 'line',
+    data: {
+        labels: ['Wave 2','Wave 4','Wave 5','Wave 6'],
+        datasets: [
+            { label: 'FS tNPS', data: [80.4, 74.9, 69.6, 59.2], borderColor: '#dc2626', backgroundColor: 'rgba(220,38,38,0.08)', borderWidth: 3, tension: 0.3, pointRadius: 7, pointBackgroundColor: '#dc2626', fill: true },
+            { label: 'TTLA tNPS', data: [68.2, 67.4, 56.8, 50.6], borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,0.08)', borderWidth: 3, tension: 0.3, pointRadius: 7, pointBackgroundColor: '#7c3aed', fill: true }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { position: 'bottom', labels: { font: {size:13, weight:'bold'} } },
+            annotation: {}
+        },
+        scales: {
+            x: { grid: { display:false }, ticks: { font: {size:13} } },
+            y: { min: 40, max: 90, title: { display:true, text:'tNPS (%)', font:{size:13} }, grid: { color:'#e5e7eb' }, ticks: { font: {size:12} } }
+        }
+    }
+});
+
+// Consolidated AHT + Conv
+new Chart(document.getElementById('chartConsolidatedAhtConv'), {
+    type: 'line',
+    data: {
+        labels: ['Wave 2','Wave 4','Wave 5','Wave 6'],
+        datasets: [
+            { label: 'TTLA AHT (min)', data: [26.9, 28.9, 31.7, 30.3], borderColor: '#d97706', borderWidth: 3, tension: 0.3, pointRadius: 7, pointBackgroundColor: '#d97706', fill: false, yAxisID: 'y' },
+            { label: 'Conv Rate (%)', data: [73.5, 72.5, 71.3, 71.8], borderColor: '#2563eb', borderWidth: 3, tension: 0.3, pointRadius: 7, pointBackgroundColor: '#2563eb', fill: false, yAxisID: 'y1' }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom', labels: { font: {size:13, weight:'bold'} } } },
+        scales: {
+            x: { grid: { display:false }, ticks: { font: {size:13} } },
+            y: { position: 'left', min: 24, max: 35, title: { display:true, text:'AHT (min)', font:{size:13} }, grid: { color:'#e5e7eb' }, ticks: { font: {size:12} } },
+            y1: { position: 'right', min: 65, max: 80, title: { display:true, text:'Conv Rate (%)', font:{size:13} }, grid: { drawOnChartArea:false }, ticks: { font: {size:12} } }
+        }
+    }
 });
 </script>
 
