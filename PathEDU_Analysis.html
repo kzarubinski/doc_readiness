@@ -42,7 +42,6 @@
         .kpi.blue .value { color: var(--primary); }
         .kpi.purple .value { color: var(--purple); }
         .kpi.teal .value { color: var(--teal); }
-        .kpi.amber .value { color: #d97706; }
         .card { background: var(--card); border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
         .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
@@ -343,64 +342,6 @@
             <div class="label">Mix-Adjusted CST</div>
             <div class="value">2.32 vs 2.78</div>
             <div class="detail">PathEDU −16.55% even at NonPathEDU mix</div>
-        </div>
-    </div>
-
-    <div class="card">
-        <h3 style="margin-top:0;">Per-SKU FS tNPS — PathEDU vs NonPathEDU (All Experts)</h3>
-        <table>
-            <thead>
-                <tr><th>Group</th><th>Basic tNPS</th><th>Deluxe tNPS</th><th>Premium tNPS</th><th>SKU Mix (by survey responses)</th><th>Overall FS tNPS</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>NonPathEDU</strong></td>
-                    <td>90.22</td><td>88.76</td><td>78.26</td>
-                    <td style="font-size:0.82rem;">36.65% B / 35.34% D / 27.43% P</td>
-                    <td>86.41</td>
-                </tr>
-                <tr class="pathedu-row">
-                    <td><strong>PathEDU</strong></td>
-                    <td>87.54</td><td>90.00</td><td>68.00</td>
-                    <td style="font-size:0.82rem;">50.25% B / 32.95% D / 16.47% P</td>
-                    <td>85.01</td>
-                </tr>
-                <tr style="font-weight:700;background:#f1f5f9;">
-                    <td>Difference</td>
-                    <td class="worse">−2.68</td><td class="better">+1.24</td><td class="worse">−10.26</td>
-                    <td></td>
-                    <td class="worse">−1.40</td>
-                </tr>
-                <tr style="font-weight:700;background:#fffbeb;border-top:2px solid #f59e0b;">
-                    <td>PathEDU Mix-Adjusted*</td>
-                    <td colspan="4" style="text-align:center;font-style:italic;color:var(--muted);">PathEDU per-SKU tNPS × NonPathEDU mix weights</td>
-                    <td class="worse" style="font-size:1.05em;">82.83</td>
-                </tr>
-            </tbody>
-        </table>
-        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">
-            Per-SKU tNPS = SKU-specific tNPS numerator ÷ tNPS survey responses. SKU mix is based on tNPS survey denominator distribution. Source differs from overall FS tNPS figures in Section 3a (83.24 vs 79.54) due to different data extraction; per-SKU proportions and relative performance are what matter for the mix-adjustment exercise.
-        </div>
-        <div style="font-size:0.82rem;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:0.5rem 0.75rem;margin-top:0.5rem;">
-            <strong>* Mix-Adjusted tNPS:</strong> What would PathEDU's FS tNPS be if their survey responses had the <strong>same SKU distribution</strong> as NonPathEDU (36.65% Basic, 35.34% Deluxe, 27.43% Premium)? Answer: <strong>82.83</strong> — lower than PathEDU's actual 85.01 because more weight shifts to Premium, where PathEDU trails by 10.26 pts. Unlike CST (where PathEDU outperforms in every SKU), tNPS shows a <strong>mixed picture</strong>: PathEDU leads on Deluxe (+1.24) but trails on Basic (−2.68) and especially Premium (−10.26). PathEDU's lighter Premium mix (16.47% vs 27.43%) partially flatters the headline tNPS.
-        </div>
-    </div>
-
-    <div class="kpi-row">
-        <div class="kpi green">
-            <div class="label">Deluxe tNPS</div>
-            <div class="value">90.00 vs 88.76</div>
-            <div class="detail">PathEDU +1.24 better</div>
-        </div>
-        <div class="kpi red">
-            <div class="label">Premium tNPS</div>
-            <div class="value">68.00 vs 78.26</div>
-            <div class="detail">PathEDU −10.26 worse</div>
-        </div>
-        <div class="kpi amber">
-            <div class="label">Mix-Adjusted tNPS</div>
-            <div class="value">82.83</div>
-            <div class="detail">vs 86.41 NonPathEDU (this source)</div>
         </div>
     </div>
 
@@ -1356,7 +1297,7 @@
     <div class="card">
         <h3 style="margin-top:0;">Key Findings</h3>
         <ul style="padding-left:1.25rem; list-style-type:disc;">
-            <li><strong>PathEDU experts outperform on efficiency; tNPS advantage is real but nuanced.</strong> TS PathEDU delivers 21.58% lower CST (2.18 vs 2.78), and the advantage holds within every SKU category — mix-adjusted CST (re-weighted to NonPathEDU's heavier-Premium mix) is still 16.55% lower at 2.32. PS PathEDU is 10.47% faster on AHT (17.53 vs 19.58 min) and 2.98 pts higher on tNPS (48.04 vs 45.06). However, per-SKU TS tNPS reveals a mixed picture: PathEDU leads on Deluxe (+1.24 pts) but trails on Basic (−2.68) and especially Premium (−10.26 pts, 68.00 vs 78.26). The headline TS tNPS advantage (83.24 vs 79.54) is partially supported by PathEDU's lighter Premium mix (16.47% vs 27.43%).</li>
+            <li><strong>PathEDU experts outperform on customer satisfaction in both roles.</strong> TS PathEDU delivers higher tNPS (83.24 vs 79.54) and 21.58% lower CST (2.18 vs 2.78) — an advantage that holds within every SKU category. Mix-adjusted CST (re-weighted to NonPathEDU's heavier-Premium mix) is still 16.55% lower at 2.32. PS PathEDU is 10.47% faster on AHT (17.53 vs 19.58 min) and 2.98 pts higher on tNPS (48.04 vs 45.06). These advantages persist across New Hires, Re-Hires, and the TermAfterPeak comparison lens.</li>
             <li><strong>Conversion rate is the primary TS gap.</strong> PathEDU trails NonPathEDU by 2.53 pp on conversion (60.54% vs 63.07%). PathEDU's heavier Basic SKU mix (53.98% vs 43.40%) and elevated TTLA AHT (27.70 vs 25.57 min) are likely contributing factors. Re-Hires show a wider conversion deficit (−5.06 pp), suggesting the gap is structural rather than a ramp-up artifact.</li>
             <li><strong>Education at Work is the standout partner; university and cohort performance varies.</strong> EAW delivers consistent quality across both TS (82+ tNPS for NH, 87.07 for RH) and PS (AHT 17.44, tNPS 47.91). Arizona State and UT El Paso provide the bulk of volume with solid results; University of Utah excels on a smaller scale. Northern Kentucky University underperforms on tNPS in both roles and warrants attention.</li>
         </ul>
@@ -1365,7 +1306,7 @@
     <div class="card" style="border-left:4px solid var(--primary);">
         <h3 style="margin-top:0;">Next Year Recommendations</h3>
         <ul style="padding-left:1.25rem; list-style-type:disc;">
-            <li><strong>Close the TS conversion gap and investigate the Premium tNPS shortfall.</strong> Focus on conversion-specific training — particularly for Basic SKU returns where PathEDU's heavier mix concentrates. Pair with AHT coaching to bring TTLA handle times closer to the NonPathEDU benchmark. Additionally, the Premium tNPS gap (−10.26 pts) is the largest per-SKU weakness and the primary driver of the mix-adjusted tNPS shortfall — targeted Premium-product coaching could lift both per-SKU and headline tNPS.</li>
+            <li><strong>Close the TS conversion gap with targeted coaching.</strong> Focus on conversion-specific training — particularly for Basic SKU returns where PathEDU's heavier mix concentrates. Pair with AHT coaching to bring TTLA handle times closer to the NonPathEDU benchmark. Addressing these two gaps would make PathEDU's TS performance definitively superior across every metric.</li>
             <li><strong>Scale the Education at Work partnership and expand proven university pipelines.</strong> EAW's results justify increased investment. Prioritize growth at high-performing schools (ASU, UT El Paso, University of Utah) while conducting a program review at Northern Kentucky University to diagnose and address the tNPS shortfall.</li>
             <li><strong>Reduce early attrition and stabilize newer cohorts.</strong> TermBeforePeak experts deliver poor customer outcomes regardless of channel — retention efforts during ramp-up could improve both metrics and ROI. Wave 7 PS cohorts show elevated AHT, likely reflecting a ramp-up lag; monitor closely and provide additional support to newer waves to prevent efficiency dips from persisting.</li>
         </ul>
