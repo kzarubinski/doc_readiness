@@ -1,0 +1,209 @@
+expert_type	hire_type	role_type	partner_name	training_wave	university	q1	q2	q3	expert_cnt	ps_handle_min	ps_handle_cnt	ps_aht	ps_tnps_num	ps_tnps_denom	ps_tnps
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	USA | Texas	NaN	NaN	NaN	3	8900.01667	624	14.262847	15	34	44.1176
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Remote Arizona	NaN	NaN	NaN	4	12366.6	807	15.324164	22	51	43.1373
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	EAW-UofU	Build my resume/skills	Mostly a job to earn money	Somewhat relevant	1	1122.449999	61	18.40082	5	6	83.3333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	Northern Kentucky University	Earn income while in school	Mostly a job to earn money	Very relevant	1	7771.816667	604	12.867246	-6	37	-16.2162
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	Arizona State University	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	3991.433334	184	21.692572	14	27	51.8519
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Salt Lake Community College	NaN	NaN	NaN	1	7827.049998	571	13.707618	21	34	61.7647
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	El Paso Community College	NaN	NaN	NaN	1	939.866668	108	8.702469	1	2	50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Texas - El Paso	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	10444.51667	534	19.55902	23	43	53.4884
+PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Flexible work that fits my schedule	A mix of income and career-building	Very relevant	1	4681.583335	191	24.510908	9	12	75
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	Arizona State University	Gain experience relevant to my future career	A mix of income and career building	Not relevant	1	169.283333	11	15.389394	-1	1	-100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	NaN	NaN	NaN	NaN	1	1913.333332	425	4.501961	-4	5	-80
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Arizona State University	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	5813.950001	427	13.615808	14	34	41.1765
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Utah Valley University	Earn income while in school	Mostly a job to earn money	Not relevant	1	1845.75	137	13.472628	13	14	92.8571
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University of Utah	Flexible work that fits my schedule	A mix of income and career building	Somewhat relevant	1	6957.683336	301	23.115227	10	27	37.037
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	Utah Valley University	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	704.816668	34	20.729902	0	4	0
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	USA | Texas	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	5620.216666	315	17.841958	29	32	90.625
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	USA | Arizona	Gain experience relevant to my future career	Mostly a career-building opportunity	Somewhat relevant	1	2554.916667	151	16.919978	-1	5	-20
+PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	`	A mix of income and career-building	Not relevant	1	4823.033333	291	16.573998	7	15	46.6667
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University Of Texas - El Paso	Earn income while in school	A mix of income and career building	Somewhat relevant	1	401.833333	28	14.35119	1	3	33.3333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of North Texas	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	4309.683335	312	13.813088	9	24	37.5
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University Of Texas - El Paso	Earn income while in school	A mix of income and career building	Somewhat relevant	1	4373.033333	190	23.015965	10	21	47.619
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University Of Texas - El Paso	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	11179.96667	778	14.370137	24	66	36.3636
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University of Utah	Earn income while in school	A mix of income and career building	Somewhat relevant	1	8760.616669	600	14.601028	26	53	49.0566
+PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Build my resume / skills	A mix of income and career-building	Somewhat relevant	2	10385.11666	592	17.542427	44	65	67.6923
+PathEDU	New Hire	PS	FOUNDEVER	Wave 6	null	null	null	null	9	10732.16667	585	18.345584	18	46	39.1304
+PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	NaN	NaN	NaN	2	1903.316666	95	20.034912	6	8	75
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Arizona State University	Earn income while in school	A mix of income and career building	Somewhat relevant	2	23108.53333	1406	16.435657	74	134	55.2239
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Northern Kentucky University	NaN	NaN	NaN	1	2841.466668	145	19.596322	10	16	62.5
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University of Cincinnati	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	1161.433334	68	17.079902	4	9	44.4444
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	EAW-UofU	Flexible work that fits my schedule	A mix of income and career building	Somewhat relevant	1	3798.600002	278	13.664029	7	7	100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	USA | Texas	Gain experience relevant to my future career	Mostly a career-building opportunity	Very relevant	1	1476.633334	76	19.429386	3	4	75
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	NaN	NaN	NaN	4	11806.75001	493	23.948783	23	40	57.5
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	USA | Texas	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	4040.749998	168	24.052083	9	18	50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Arizona State University	Build my resume/skills	Mostly a job to earn money	Somewhat relevant	1	6865.600004	559	12.281932	22	45	48.8889
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University Of Texas - El Paso	Earn income while in school	Mostly a job to earn money	Somewhat relevant	1	6069.683335	644	9.424974	15	39	38.4615
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Arizona State University	NaN	NaN	NaN	4	15118.88333	977	15.474804	55	120	45.8333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Arizona	Flexible work that fits my schedule	A mix of income and career building	Somewhat relevant	1	6332.266665	348	18.196169	8	19	42.1053
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of Texas - El Paso	Earn income while in school	A mix of income and career building	Somewhat relevant	1	5599.816666	222	25.224399	7	21	33.3333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Arizona State University	Earn income while in school	Mostly a career-building opportunity	Somewhat relevant	1	6122.133332	407	15.042097	26	49	53.0612
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Brigham Young University	NaN	NaN	NaN	1	4119.833332	217	18.985407	15	25	60
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University Of Texas - El Paso	NaN	NaN	NaN	10	32395.58333	1775	18.251033	46	143	32.1678
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	El Paso Community College	Gain experience relevant to my future career	Mostly a career-building opportunity	Somewhat relevant	1	9160.666669	383	23.91819	21	32	65.625
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	USA | Arizona	NaN	NaN	NaN	2	1220.400001	74	16.491892	1	5	20
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Northern Kentucky University	Gain experience relevant to my future career	Mostly a career-building opportunity	Very relevant	1	1573.7	129	12.199225	-2	4	-50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University Of Arizona	NaN	NaN	NaN	2	15335.83333	814	18.84009	29	59	49.1525
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Texas - El Paso	Gain experience relevant to my future career	A mix of income and career building	Very relevant	2	21810.21667	853	25.568835	46	84	54.7619
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Arizona State University	Gain experience relevant to my future career	A mix of income and career building	Somewhat relevant	1	9020.783332	381	23.676597	44	58	75.8621
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Arizona State University	NaN	NaN	NaN	3	23411.03334	1089	21.497735	94	131	71.7557
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University Of Texas - El Paso	Gain experience relevant to my future career	Mostly a career-building opportunity	Very relevant	1	6710.433333	452	14.846091	13	28	46.4286
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	El Paso Community College	NaN	NaN	NaN	1	5716.816665	311	18.382047	25	37	67.5676
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of North Texas	NaN	NaN	NaN	2	7422.966665	368	20.171105	21	39	53.8462
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Arizona	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	13460.85	1114	12.083348	31	80	38.75
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	El Paso Community College	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	3782.266666	160	23.639167	5	18	27.7778
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	Other	NaN	NaN	NaN	1	88.966667	2	44.483334	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Other	Gain experience relevant to my future career	Mostly a job to earn money	Very relevant	1	4717.25	179	26.353352	10	20	50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Arizona State University	Build my resume/skills	Mostly a career-building opportunity	Very relevant	1	7940.433337	427	18.595863	19	40	47.5
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Other	NaN	NaN	NaN	1	660.766666	17	38.868627	1	3	33.3333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Texas - El Paso	Gain experience relevant to my future career	Mostly a career-building opportunity	Somewhat relevant	1	9448.233329	475	19.891018	24	42	57.1429
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Brigham Young University	Earn income while in school	Mostly a job to earn money	Somewhat relevant	1	11822.98334	723	16.352674	27	56	48.2143
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	El Paso Community College	NaN	NaN	NaN	5	21678.26667	1482	14.62771	18	103	17.4757
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Salt Lake Community College	NaN	NaN	NaN	1	9437.949996	458	20.606878	41	57	71.9298
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	2978.566664	144	20.684491	-1	7	-14.2857
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	El Paso Community College	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	9985.133336	507	19.694543	-10	33	-30.303
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Remote Utah	NaN	NaN	NaN	1	275.65	20	13.7825	1	1	100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	USA | Texas	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	1889.600001	94	20.102128	3	4	75
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	USA | Arizona	Earn income while in school	A mix of income and career building	Not relevant	1	3096.416669	109	28.407492	4	8	50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Texas - El Paso	NaN	NaN	NaN	6	10972.86667	525	20.900698	26	53	49.0566
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	null	null	null	null	1	4684.766665	520	9.009167	15	29	51.7241
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	USA | Texas	Earn income while in school	A mix of income and career building	Somewhat relevant	1	7161.95	346	20.699277	14	23	60.8696
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	3695.4	216	17.108333	8	19	42.1053
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of Utah	NaN	NaN	NaN	1	1831.400001	158	11.591139	1	3	33.3333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of Utah	Gain experience relevant to my future career	A mix of income and career building	Somewhat relevant	1	3342.666667	182	18.3663	22	23	95.6522
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Texas - El Paso	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	4616.333332	406	11.370279	10	20	50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	El Paso Community College	NaN	NaN	NaN	2	9414.733335	447	21.062043	11	21	52.381
+PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	7326.349999	367	19.962807	16	33	48.4848
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Arizona State University	Earn income while in school	Mostly a job to earn money	Not relevant	1	12263.93334	703	17.44514	21	48	43.75
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	USA | Arizona	Build my resume/skills	Mostly a career-building opportunity	Somewhat relevant	1	1046.133332	58	18.036782	3	4	75
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of Texas - Arlington	NaN	NaN	NaN	1	3990.949999	168	23.755655	5	13	38.4615
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University Of Texas - El Paso	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	9599.283331	538	17.842534	5	33	15.1515
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Remote Texas	NaN	NaN	NaN	1	36.2	2	18.1	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	University of Texas - El Paso	NaN	NaN	NaN	1	2433.816666	121	20.114187	4	6	66.6667
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University Of Texas - El Paso	Earn income while in school	Mostly a job to earn money	Somewhat relevant	1	3677.299999	240	15.322083	6	15	40
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University Of Texas - El Paso	Flexible work that fits my schedule	Mostly a career-building opportunity	Very relevant	1	14082.56667	505	27.886271	52	72	72.2222
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Earn income while in school	Mostly a job to earn money	Not relevant	2	7650.116668	421	18.171298	8	26	30.7692
+PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	NaN	NaN	NaN	1	4436.066667	278	15.957074	12	29	41.3793
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University Of Texas - El Paso	NaN	NaN	NaN	22	167182.9833	8973	18.631782	306	725	42.2069
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Remote Kentucky	NaN	NaN	NaN	1	783.616666	30	26.120556	2	5	40
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of Cincinnati	NaN	NaN	NaN	1	468.800001	147	3.189116	3	5	60
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	USA | Arizona	Gain experience relevant to my future career	A mix of income and career building	Somewhat relevant	1	5952.266666	388	15.340893	13	34	38.2353
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	2400.549998	90	26.672778	6	10	60
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	USA | Arizona	Gain experience relevant to my future career	A mix of income and career building	Somewhat relevant	1	1197.433333	57	21.007602	5	5	100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Texas - El Paso	Flexible work that fits my schedule	A mix of income and career building	Somewhat relevant	2	13760.28333	829	16.598653	23	40	57.5
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Build my resume / skills	Mostly a job to earn money	Somewhat relevant	1	2201.516666	100	22.015167	2	6	33.3333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University Of Texas - El Paso	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	11104.88334	577	19.245898	27	58	46.5517
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Arizona	NaN	NaN	NaN	1	646.7	53	12.201887	3	3	100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University of Utah	NaN	NaN	NaN	2	9584.233333	771	12.430912	22	59	37.2881
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Other	Flexible work that fits my schedule	Mostly a career-building opportunity	Not relevant	1	1366.833333	117	11.682336	1	5	20
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Build my resume / skills	A mix of income and career-building	Somewhat relevant	1	4855.65	196	24.773724	22	22	100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Arizona State University	NaN	NaN	NaN	16	123508.9667	7246	17.045124	355	654	54.2813
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	Northern Kentucky University	Gain experience relevant to my future career	Mostly a career-building opportunity	Very relevant	2	7980.26667	550	14.509576	12	25	48
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University of Utah	NaN	NaN	NaN	2	10373.65	716	14.488338	28	59	47.4576
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University of Utah	Earn income while in school	Mostly a job to earn money	Not relevant	1	2716.216665	207	13.12182	5	11	45.4545
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University of Utah	Build my resume/skills	A mix of income and career building	Somewhat relevant	2	17827.78334	833	21.401901	44	76	57.8947
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	USA | Texas	NaN	NaN	NaN	2	3467.466666	322	10.76853	-5	24	-20.8333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	Grand Canyon University	NaN	NaN	NaN	1	31.616667	3	10.538889	-1	1	-100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	El Paso Community College	Earn income while in school	Mostly a career-building opportunity	Somewhat relevant	1	11899.71667	683	17.422718	39	67	58.209
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Arizona State University	NaN	NaN	NaN	18	56134.68334	3207	17.503799	189	386	48.9637
+PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Build my resume / skills	Mostly a job to earn money	Somewhat relevant	1	5582.683336	282	19.796749	19	40	47.5
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University of Utah	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	5001.85	300	16.672833	18	23	78.2609
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	Arizona State University	NaN	NaN	NaN	6	33707.38334	2181	15.455013	116	212	54.717
+PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Flexible work that fits my schedule	A mix of income and career-building	Somewhat relevant	2	11999.61667	648	18.517927	23	53	43.3962
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Arizona	NaN	NaN	NaN	1	15349.76667	612	25.081318	33	51	64.7059
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Texas Southern University	NaN	NaN	NaN	1	525.25	32	16.414063	0	2	0
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Arizona State University	Flexible work that fits my schedule	A mix of income and career building	Not relevant	1	1870.116666	107	17.477726	4	10	40
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Utah Valley University	NaN	NaN	NaN	7	9525.2	621	15.338486	8	50	16
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Texas - El Paso	Flexible work that fits my schedule	A mix of income and career building	Not relevant	1	2568.916666	126	20.388228	8	12	66.6667
+PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	4225.883335	170	24.858137	10	24	41.6667
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	USA | Arizona	Earn income while in school	Mostly a job to earn money	Not relevant	1	154.25	4	38.5625	null	null	null
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Gain experience relevant to my future career	A mix of income and career-building	Somewhat relevant	1	2773.449998	163	17.015031	4	8	50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Remote Ohio	NaN	NaN	NaN	3	5342.649998	598	8.934197	7	21	33.3333
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	EAW-UofU	NaN	NaN	NaN	2	1533.683333	120	12.780694	3	4	75
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Texas - El Paso	Earn income while in school	Mostly a job to earn money	Somewhat relevant	1	2258.966668	145	15.57908	1	1	100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Arizona State University	Gain experience relevant to my future career	Mostly a career-building opportunity	Very relevant	1	15265.65	882	17.307993	45	73	61.6438
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Arizona State University	Earn income while in school	A mix of income and career building	Somewhat relevant	1	9981.433332	439	22.73675	15	34	44.1176
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Texas - El Paso	Earn income while in school	Mostly a job to earn money	Somewhat relevant	1	6177.066666	293	21.082139	16	32	50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Salt Lake Community College	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	5820.516668	349	16.677698	20	35	57.1429
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	University of Utah	NaN	NaN	NaN	1	5457.55	322	16.948913	8	17	47.0588
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Xavier University	NaN	NaN	NaN	1	3064.883333	95	32.26193	5	7	71.4286
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	USA | Arizona	Build my resume/skills	Mostly a career-building opportunity	Not relevant	1	361.516667	16	22.594792	2	2	100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of Cincinnati	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	1077.083334	41	26.270325	5	5	100
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Arizona State University	Flexible work that fits my schedule	A mix of income and career building	Not relevant	1	5305.299997	209	25.384211	19	23	82.6087
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Texas - El Paso	Build my resume/skills	Mostly a career-building opportunity	Somewhat relevant	1	997.85	66	15.118939	0	4	0
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Northern Kentucky University	NaN	NaN	NaN	5	30221.33334	1305	23.15811	18	97	18.5567
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	USA | Texas	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	4284.983336	173	24.76869	11	16	68.75
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Texas - El Paso	Flexible work that fits my schedule	Mostly a career-building opportunity	Somewhat relevant	1	95.616667	8	11.952083	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Northern Kentucky University	Earn income while in school	Mostly a career-building opportunity	Very relevant	1	9851.11667	603	16.336844	16	50	32
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Salt Lake Community College	Flexible work that fits my schedule	A mix of income and career building	Not relevant	1	2277.25	148	15.386824	1	13	7.6923
+PathEDU	New Hire	PS	FOUNDEVER	Wave 7	null	null	null	null	10	6392.1	291	21.965979	4	17	23.5294
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Arizona State University	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	7852.116667	286	27.454953	24	35	68.5714
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University Of Texas - El Paso	Flexible work that fits my schedule	A mix of income and career building	Somewhat relevant	2	18284.96667	784	23.322662	40	58	68.9655
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Northern Kentucky University	Build my resume/skills	Mostly a career-building opportunity	Somewhat relevant	1	6050.45	440	13.751023	-2	25	-8
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	USA | Arizona	NaN	NaN	NaN	3	255.733333	13	19.671795	0	3	0
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	USA | Arizona	NaN	NaN	NaN	1	36.783333	5	7.356667	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	EAW-UofU	Earn income while in school	A mix of income and career building	Somewhat relevant	1	1252.166667	69	18.147343	3	5	60
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Arizona State University	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	2596.583334	215	12.077132	5	17	29.4118
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	USA | Texas	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	929.549999	35	26.558571	-1	4	-25
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Remote Texas	NaN	NaN	NaN	4	14795.13334	631	23.447121	19	66	28.7879
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Texas - El Paso	Flexible work that fits my schedule	A mix of income and career building	Very relevant	1	9707.433335	458	21.195269	1	23	4.3478
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 7	USA | Texas	NaN	NaN	NaN	5	12944.93333	636	20.353669	25	45	55.5556
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University of Cincinnati	NaN	NaN	NaN	1	11567.01667	455	25.422015	20	46	43.4783
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	University of Utah	Earn income while in school	A mix of income and career building	Somewhat relevant	1	9726.816667	695	13.99542	54	74	72.973
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Texas - El Paso	Gain experience relevant to my future career	A mix of income and career building	Somewhat relevant	1	19.583334	16	1.223958	null	null	null
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University Of Texas - El Paso	Build my resume/skills	A mix of income and career building	Not relevant	1	3783.516665	187	20.232709	1	5	20
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University of Utah	NaN	NaN	NaN	2	1641.516666	95	17.279123	7	15	46.6667
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Remote Texas	Earn income while in school	Mostly a job to earn money	Not relevant	1	5000.033331	266	18.797118	3	7	42.8571
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University of Cincinnati	NaN	NaN	NaN	4	10432.85	493	21.161968	26	40	65
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	University Of Texas - El Paso	NaN	NaN	NaN	20	65155.00001	4105	15.872107	102	329	31.003
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 2	Northern Kentucky University	NaN	NaN	NaN	4	23531.26667	1272	18.499423	55	117	47.0085
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	University of Texas - El Paso	NaN	NaN	NaN	2	7233.366665	413	17.514205	37	49	75.5102
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	University Of Arizona	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	4244.333334	160	26.527083	14	23	60.8696
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Texas - El Paso	Flexible work that fits my schedule	Mostly a career-building opportunity	Very relevant	1	4158.9	128	32.491406	13	21	61.9048
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Salt Lake Community College	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	8367.533334	537	15.581999	9	38	23.6842
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 5	Arizona State University	Earn income while in school	Mostly a career-building opportunity	Very relevant	1	9315.399998	577	16.144541	46	79	58.2278
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Arizona State University	Earn income while in school	Mostly a job to earn money	Not relevant	1	3041.533333	216	14.081173	16	24	66.6667
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	Northern Kentucky University	Build my resume/skills	Mostly a career-building opportunity	Very relevant	1	10623.75	596	17.825084	-3	39	-7.6923
+PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Earn income while in school	A mix of income and career-building	Somewhat relevant	3	11483.86667	607	18.919055	28	69	40.5797
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	El Paso Community College	NaN	NaN	NaN	5	18829.16667	983	19.154798	33	66	50
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 4	University Of Texas - El Paso	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	7228.800004	314	23.021656	28	51	54.902
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 6	Paradise Valley Community College	NaN	NaN	NaN	1	11961.2	841	14.222592	34	42	80.9524
+PathEDU	New Hire	PS	FOUNDEVER	Wave 5	null	null	null	null	12	16487.83334	988	16.68809	24	64	37.5
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	El Paso Community College	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	4737.966667	330	14.357475	4	14	28.5714
+PathEDU	New Hire	PS	EDUCATION AT WORK	Wave 1	Utah Valley University	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	11162.18333	456	24.478472	50	72	69.4444
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	El Paso Community College	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	1499.566667	141	10.635225	2	8	25
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	USA | Arizona	NaN	NaN	NaN	3	1530.133333	113	13.541003	5	12	41.6667
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University Of Texas - El Paso	NaN	NaN	NaN	21	161466.7833	8726	18.504101	276	676	40.8284
+PathEDU	Re-Hire	PS	FOUNDEVER	Re-Hire	Marshall	NaN	NaN	NaN	2	4020.766669	196	20.514116	6	12	50
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	El Paso Community College	NaN	NaN	NaN	3	37975.68334	2635	14.412024	100	169	59.1716
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Remote Texas	NaN	NaN	NaN	2	5169.516667	424	12.192256	3	11	27.2727
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University Of Texas - El Paso	Flexible work that fits my schedule	A mix of income and career building	Somewhat relevant	1	16801.76667	1225	13.715728	21	56	37.5
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Arizona State University	Build my resume/skills	Mostly a career-building opportunity	Somewhat relevant	1	9797.766667	559	17.527311	29	44	65.9091
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Arizona State University	Earn income while in school	A mix of income and career building	Very relevant	1	4444.433334	218	20.387309	15	25	60
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Arizona State University	Gain experience relevant to my future career	Mostly a career-building opportunity	Very relevant	1	6675.816667	414	16.125161	-2	29	-6.8966
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University Of Texas - El Paso	Gain experience relevant to my future career	A mix of income and career building	Somewhat relevant	1	6842.416665	415	16.487751	19	42	45.2381
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	EAW-UofU	NaN	NaN	NaN	1	64.3	3	21.433333	null	null	null
+PathEDU	Re-Hire	PS	FOUNDEVER	Re-Hire	Marshall	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	4777.333332	365	13.088584	5	9	55.5556
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University Of Texas - El Paso	Gain experience relevant to my future career	Mostly a career-building opportunity	Somewhat relevant	1	920.966666	94	9.797518	-1	6	-16.6667
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	El Paso Community College	Build my resume/skills	Mostly a career-building opportunity	Somewhat relevant	1	18601.65	1538	12.094701	1	65	1.5385
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University of Utah	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	7179.633335	371	19.352111	19	29	65.5172
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University of Texas - El Paso	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	2003	87	23.022989	3	5	60
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	USA | Texas	NaN	NaN	NaN	1	258.683333	20	12.934167	0	1	0
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University Of Texas - El Paso	Flexible work that fits my schedule	Mostly a career-building opportunity	Very relevant	1	5511.916668	347	15.884486	12	26	46.1538
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University Of Texas - El Paso	Build my resume/skills	A mix of income and career building	Very relevant	1	451.966666	17	26.586274	1	1	100
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Arizona State University	NaN	NaN	NaN	14	41207.51666	2365	17.423897	193	293	65.8703
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University of Utah	Flexible work that fits my schedule	A mix of income and career building	Somewhat relevant	1	4048.666665	360	11.246296	7	17	41.1765
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Other	Flexible work that fits my schedule	A mix of income and career building	Very relevant	1	6978.099997	268	26.037687	13	27	48.1481
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University Of Texas - El Paso	Gain experience relevant to my future career	A mix of income and career building	Very relevant	1	11432.03334	616	18.558496	39	64	60.9375
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Arizona State University	Build my resume/skills	Mostly a career-building opportunity	Very relevant	1	13849.33333	741	18.690058	51	69	73.913
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Remote Arizona	NaN	NaN	NaN	1	45.9	1	45.9	null	null	null
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University of Utah	NaN	NaN	NaN	4	19653.96667	1165	16.870358	92	148	62.1622
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	USA | Arizona	Earn income while in school	A mix of income and career building	Somewhat relevant	1	56.516667	3	18.838889	-1	1	-100
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University of Utah	Gain experience relevant to my future career	Mostly a career-building opportunity	Somewhat relevant	2	13812.18333	902	15.312842	19	56	33.9286
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Northern Kentucky University	NaN	NaN	NaN	1	11211.43333	478	23.454881	-5	29	-17.2414
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	University Of Texas - El Paso	Build my resume/skills	A mix of income and career building	Somewhat relevant	1	13397.33333	710	18.869484	46	61	75.4098
+PathEDU	Re-Hire	PS	FOUNDEVER	Re-Hire	Marshall	Build my resume / skills	A mix of income and career-building	Very relevant	1	7584.316668	480	15.80066	48	72	66.6667
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Arizona State University	Earn income while in school	Mostly a job to earn money	Somewhat relevant	1	12654.16667	615	20.575881	73	101	72.2772
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Arizona State University	Build my resume/skills	A mix of income and career building	Not relevant	1	4514.766665	255	17.704967	22	43	51.1628
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	Salt Lake Community College	Gain experience relevant to my future career	Mostly a career-building opportunity	Very relevant	1	11761.76666	805	14.61089	9	48	18.75
+PathEDU	Re-Hire	PS	EDUCATION AT WORK	Re-Hire	El Paso Community College	Earn income while in school	Mostly a career-building opportunity	Somewhat relevant	1	776.266668	42	18.48254	6	8	75

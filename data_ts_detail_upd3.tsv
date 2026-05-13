@@ -1,0 +1,156 @@
+expert_type	hire_type	role_type	partner_name	agent_status_adj	attr_status_adj	training_wave	university	grad_year	major	remote	expert_cnt	fs_cst_num	fs_eng	fs_eng_cst	exec_fs_tnps_num	exec_fs_tnps_denom	ttla_handle_min	ttla_handle_cnt	exec_ttla_tnps_num	exec_ttla_tnps_denom	conv_num	conv_denom	conv_rate
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Utah Valley University	Junior	Business	Onsite	2	22.372837	6	3.728806	1	1	1219.516666	64	5	5	288	336	0.8571428571
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University Of Texas - El Paso	Senior	Business	Onsite	8	448.392804	170	2.637605	23	25	37375.06667	1483	60	82	17399	26734	0.6508191816
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University of Utah	NaN	Non-Business	Onsite	2	37.940646	11	3.44915	1	1	9188.966667	290	16	21	946	1634	0.5789473684
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 7	Marshall	Freshman	Non-Business	Virtual	1	17.132955	8	2.141619	1	1	0	0	0	0	432	918	0.4705882353
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University of Utah	Junior	Business	Onsite	3	53.467547	33	1.620229	1	1	10658.41667	498	28	37	3605	5768	0.625
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University Of Texas - El Paso	Junior	Business	Onsite	8	543.118025	207	2.623759	16	19	46453.35	2215	40	117	21040	35493	0.5927929451
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	University Of Arizona	Junior	Business	NaN	2	2.671758	2	1.335879	0	0	735.966667	26	4	4	62	124	0.5
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Texas - El Paso	Junior	Business	Onsite	2	107.311159	32	3.353474	5	5	10259.11667	366	12	18	2805	4250	0.66
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	El Paso Community College	NaN	Non-Business	Onsite	4	335.224202	206	1.627302	19	21	39726.15	1771	83	117	21885	30896	0.7083441222
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Sophomore	Business	Onsite	6	272.863797	123	2.218405	22	29	34971.83333	1595	83	119	12446	21168	0.587962963
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University Of Texas - El Paso	Sophomore	Business	Onsite	2	113.458722	55	2.062886	9	9	11041.81667	419	12	25	6013	8706	0.690673099
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Salt Lake Community College	Sophomore	Business	Onsite	1	60.922763	22	2.769217	5	5	6558	232	13	17	1806	2666	0.6774193548
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University of Utah	NaN	Non-Business	Onsite	4	131.011326	47	2.787475	7	9	17340.36667	874	39	56	5005	8939	0.5599060298
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University Of Texas - El Paso	Sophomore	Non-Business	Onsite	2	92.795782	37	2.507994	8	8	7017.883333	282	22	26	3528	5292	0.6666666667
+PathEDU	New Hire	TS	FOUNDEVER	TermBeforePeak	AttrBeforePeak	Wave 6	Marshall	Junior	Business	Virtual	2	21.601521	20	1.080076	10	11	0	0	0	0	1430	2255	0.6341463415
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Northern Kentucky University	Graduate	Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Junior	Business	Onsite	16	640.332778	315	2.032802	71	94	75994.26667	3450	166	247	32152	57740	0.5568410114
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 6	Marshall	Junior	Non-Business	Virtual	1	48.658451	34	1.431131	8	15	7.716667	1	0	0	2450	6300	0.3888888889
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	University Of Texas - El Paso	Junior	Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University of Utah	Graduate	Business	Onsite	1	24.804232	25	0.992169	3	3	6238.883333	333	26	32	2450	4116	0.5952380952
+PathEDU	New Hire	TS	FOUNDEVER	TermBeforePeak	AttrBeforePeak	Wave 7	null	null	null	null	4	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Maricopa County Community Colleges	Junior	Business	Onsite	1	17.371619	4	4.342905	1	1	2675.95	114	1	13	392	1470	0.2666666667
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University of Utah	Senior	Business	Onsite	4	74.100243	32	2.315633	2	2	11112.25	498	30	31	3136	5782	0.5423728814
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	El Paso Community College	Junior	Business	Virtual	2	67.089391	45	1.490875	9	9	7543.583333	264	7	12	3825	6290	0.6081081081
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University of Utah	Freshman	Business	Onsite	1	112.091722	62	1.807931	12	12	18407.96667	912	56	74	6272	11172	0.5614035088
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Junior	Non-Business	Onsite	2	117.181525	51	2.297677	10	10	12934.61667	518	25	41	5152	7630	0.6752293578
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	El Paso Community College	NaN	Non-Business	Virtual	1	35.069184	19	1.845747	1	1	4849.45	183	6	13	1615	2720	0.59375
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Salt Lake Community College	Sophomore	Business	Onsite	2	47.80139	13	3.67703	4	4	6264.666667	307	14	15	1372	2646	0.5185185185
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Arizona State University	Senior	Business	Onsite	3	158.404035	96	1.650042	7	8	21722.66667	1127	41	57	8245	10965	0.7519379845
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	University Of Texas - El Paso	Junior	Business	Virtual	3	14.882229	11	1.35293	0	1	1888.766667	129	5	7	882	1472	0.5991847826
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	Arizona State University	Junior	Business	Onsite	7	294.890443	113	2.60965	24	30	32881.4	1386	67	102	12064	20176	0.5979381443
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Freshman	Business	Onsite	8	405.931067	142	2.858669	24	28	38526.8	1384	62	97	14233	22291	0.6385088152
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 3	null	null	null	null	5	null	null	null	null	null	0	0	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	University of Utah	Junior	Business	Onsite	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University Of Texas - El Paso	Junior	Non-Business	Onsite	2	74.164165	36	2.060116	3	3	8492.733334	408	19	30	3811	6386	0.5967741935
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Arizona	Sophomore	Non-Business	Onsite	1	11.752165	3	3.917388	1	1	2156.05	104	6	10	340	595	0.5714285714
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Texas - El Paso	Junior	Business	Virtual	4	54.291448	18	3.016192	2	2	10437.3	404	15	21	1530	4165	0.3673469388
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Texas - El Paso	Senior	Business	Virtual	5	168.020928	80	2.100262	6	7	31258.65	1438	54	108	7565	13005	0.5816993464
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Arizona	Sophomore	Business	Onsite	2	49.03744	11	4.457949	3	4	4419.216667	127	4	10	935	1445	0.6470588235
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Utah Valley University	Graduate	Business	Onsite	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 3	University Of Texas - El Paso	Graduate	Non-Business	NaN	1	26.298117	10	2.629812	1	1	103.483333	3	0	0	320	416	0.7692307692
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Utah Valley University	Senior	Business	Onsite	1	9.356161	3	3.11872	0	0	665.883333	16	2	2	255	340	0.75
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Maricopa County Community Colleges	Sophomore	Business	Onsite	1	37.800103	13	2.9077	1	1	5179.083333	183	7	12	1274	2352	0.5416666667
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 3	El Paso Community College	NaN	Non-Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University of Utah	Junior	Business	Onsite	1	10.902706	6	1.817118	0	0	3765.5	191	3	9	850	1190	0.7142857143
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	University Of Texas - El Paso	Junior	Business	NaN	4	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	El Paso Community College	Sophomore	Business	Virtual	1	28.087352	12	2.340613	2	2	6840.416667	235	12	20	1020	1275	0.8
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University of Utah	Junior	Business	Onsite	4	56.752602	23	2.467504	7	10	12062.78333	585	47	55	2254	4606	0.4893617021
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University of Utah	Sophomore	Business	Onsite	1	26.601885	18	1.477883	0	0	2534.083333	179	6	8	1530	2465	0.6206896552
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Arizona State University	Junior	Business	Onsite	4	142.37542	68	2.093756	10	14	22129.08333	917	48	69	6120	10540	0.5806451613
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Sophomore	Non-Business	Onsite	1	31.882666	20	1.594133	4	6	2648.316667	142	4	6	2058	3528	0.5833333333
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Utah Valley University	Senior	Non-Business	NaN	1	null	null	null	null	null	454.216667	19	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University of Utah	Freshman	Business	Onsite	1	9.642536	1	9.642536	0	1	451.916667	31	0	0	104	104	1
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Senior	Business	Onsite	2	110.814206	59	1.878207	18	20	11143.81667	531	33	48	5880	9702	0.6060606061
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University of Cincinnati	Graduate	Business	Virtual	1	13.034034	9	1.448226	2	2	3121.483333	210	6	8	765	1190	0.6428571429
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University Of Texas - El Paso	Senior	Business	Onsite	3	97.430747	53	1.838316	12	12	11881.55	596	20	31	5665	9682	0.585106383
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University of Utah	Sophomore	Business	Onsite	9	177.093134	95	1.864138	15	19	30569.6	1534	89	130	9621	18151	0.5300534406
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	El Paso Community College	Senior	Business	NaN	2	null	null	null	0	0	172.683333	3	1	1	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Texas - El Paso	Junior	Non-Business	Virtual	1	32.08138	12	2.673448	0	0	3295.666667	160	3	6	1190	1785	0.6666666667
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	Arizona State University	Freshman	Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Arizona State University	Junior	Business	NaN	1	null	null	null	0	0	142.266667	7	1	1	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Texas - El Paso	Other	Business	Virtual	1	36.307132	26	1.396428	0	0	6418.033333	293	23	27	2322	3784	0.6136363636
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Arizona State University	Graduate	Business	Virtual	1	32.707358	9	3.634151	0	0	4128.166667	176	3	11	850	1530	0.5555555556
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University Of Texas - El Paso	Freshman	Business	Virtual	2	70.620497	20	3.531025	0	0	7843.083333	338	7	10	2060	3914	0.5263157895
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrDuringTraining	Wave 5	null	null	null	null	5	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Arizona	Senior	Business	Onsite	1	28.894471	17	1.699675	0	2	3632.383333	258	12	13	1445	1955	0.7391304348
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Texas - El Paso	Freshman	Business	Virtual	1	58.879058	28	2.102824	2	4	4335.533333	246	6	9	2494	3784	0.6590909091
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	University Of Texas - El Paso	Senior	Non-Business	Virtual	1	14.098752	2	7.049376	null	null	150.266667	13	null	null	144	288	0.5
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University Of Texas - El Paso	Sophomore	Business	Onsite	2	118.347265	42	2.817792	7	9	11243.31667	478	21	33	4214	6174	0.6825396825
+PathEDU	New Hire	TS	FOUNDEVER	TermBeforePeak	AttrDuringTraining	Wave 7	null	null	null	null	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	El Paso Community College	NaN	Non-Business	Onsite	2	104.139396	37	2.814578	2	2	9953.183333	444	8	16	3724	5684	0.6551724138
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Brigham Young University	Sophomore	Business	Onsite	1	7.011716	1	7.011716	null	null	275.833333	8	null	null	57	114	0.5
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 3	University Of Texas - El Paso	Sophomore	Business	Onsite	1	17.787894	10	1.778789	4	4	1237.966667	69	11	11	1116	2232	0.5
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	El Paso Community College	Graduate	Business	Virtual	1	21.344459	3	7.11482	0	0	3369.183333	134	1	3	255	510	0.5
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	University of Utah	Freshman	Business	Onsite	1	null	null	null	null	null	76.516667	4	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	null	null	null	null	6	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Northern Kentucky University	Senior	Non-Business	Virtual	1	41.415436	13	3.185803	2	2	5281.783333	259	9	14	1190	1870	0.6363636364
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University Of Texas - El Paso	Junior	Business	Onsite	4	167.189589	79	2.116324	4	10	16328.91667	771	23	36	8318	14920	0.5575067024
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	University Of Texas - El Paso	Freshman	Non-Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Utah Valley University	Junior	Business	Onsite	2	69.936081	41	1.705758	4	4	6360.033333	270	8	14	4116	5488	0.75
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	Arizona State University	Junior	Business	NaN	1	2.857913	1	2.857913	null	null	0	0	null	null	29	29	1
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Arizona State University	Senior	Business	Onsite	1	2.496815	2	1.248408	0	0	1078.85	49	4	6	166	332	0.5
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 6	Marshall	Freshman	Non-Business	Virtual	1	60.93044	56	1.088044	9	10	2.383333	1	0	0	4209	6417	0.6559139785
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	University Of Arizona	Junior	Business	NaN	1	null	null	null	null	null	0	0	null	null	null	87	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University of Utah	Senior	Business	Onsite	1	14.295963	9	1.58844	1	1	4597.983333	251	27	29	765	1445	0.5294117647
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	El Paso Community College	NaN	Non-Business	NaN	1	7.011472	6	1.168579	0	0	124.183333	4	1	1	204	340	0.6
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 7	Marshall	Junior	Non-Business	Virtual	2	98.997439	62	1.596733	5	6	0	0	0	0	3510	5724	0.6132075472
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	University Of Texas - El Paso	Sophomore	Non-Business	NaN	1	null	null	null	0	0	616.216667	19	2	4	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	Salt Lake Community College	Senior	Business	Onsite	1	37.032606	11	3.366601	0	0	4442.683333	223	4	8	1133	1957	0.5789473684
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	University Of Texas - El Paso	Senior	Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Northern Kentucky University	Senior	Business	Virtual	1	44.764279	15	2.984285	-1	1	5499.533333	242	1	1	1275	2380	0.5357142857
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	El Paso Community College	Senior	Business	Virtual	3	101.233081	36	2.81203	3	5	15945.73333	854	-2	31	3075	6406	0.4800187324
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 7	Marshall	Sophomore	Business	Virtual	2	41.284879	27	1.52907	7	8	0	0	0	0	1566	2808	0.5576923077
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 6	Marshall	Senior	Non-Business	Virtual	1	63.604949	35	1.817284	4	4	0	0	0	0	2484	3864	0.6428571429
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Arizona State University	Sophomore	Business	Onsite	1	11.187902	6	1.86465	0	0	1276.95	45	2	2	343	637	0.5384615385
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	Arizona State University	Senior	Business	Onsite	2	66.10079	44	1.502291	6	6	9949.15	617	27	50	4576	7904	0.5789473684
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	NaN	Non-Business	Onsite	1	70.382136	24	2.932589	4	4	4866.166666	302	30	30	2352	5096	0.4615384615
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Texas - El Paso	Freshman	Business	Onsite	1	81.194228	21	3.866392	1	1	4301.716667	182	-3	9	1785	2465	0.724137931
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 3	Arizona State University	Sophomore	Non-Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Arizona State University	Senior	Business	NaN	2	null	null	null	0	0	197.816667	12	-1	1	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Maricopa County Community Colleges	Other	Business	Onsite	1	13.201493	4	3.300373	1	1	562.35	18	0	0	224	280	0.8
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	Brigham Young University	Sophomore	Business	Onsite	2	null	null	null	null	null	40.783333	2	null	null	null	85	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Brigham Young University	Junior	Non-Business	Onsite	1	51.951771	23	2.258773	1	1	7797.766667	345	20	23	1955	2975	0.6571428571
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University of Utah	Senior	Non-Business	Onsite	1	17.520013	4	4.380003	1	2	2331.7	120	6	10	392	588	0.6666666667
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Graduate	Business	Onsite	1	23.712277	14	1.693734	1	1	2777.266667	112	3	6	1372	2646	0.5185185185
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Arizona State University	Graduate	Non-Business	Onsite	1	24.244526	22	1.102024	1	1	4224.433333	285	7	10	1870	2380	0.7857142857
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	University Of Texas - El Paso	Senior	Non-Business	NaN	1	null	null	null	null	null	10.3	1	null	null	null	null	null
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 6	Marshall	Senior	Business	Virtual	2	188.3588	93	2.025363	1	6	0	0	0	0	7176	10488	0.6842105263
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Salt Lake Community College	Freshman	Non-Business	Onsite	1	6.663525	3	2.221175	0	0	1819.35	91	0	4	255	510	0.5
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Texas - El Paso	Senior	Business	Onsite	1	29.86533	8	3.733166	0	0	3017.4	133	6	7	595	935	0.6363636364
+PathEDU	New Hire	TS	FOUNDEVER	TermBeforePeak	AttrBeforePeak	Wave 6	Marshall	Sophomore	Business	Virtual	2	2.405741	1	2.405741	null	null	0	0	null	null	25	159	0.1572327044
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Freshman	Non-Business	Onsite	2	85.31072	21	4.062415	2	2	11596.98333	448	12	31	2058	3626	0.5675675676
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 6	Marshall	Junior	Business	Virtual	1	52.04493	25	2.081797	3	6	0	0	0	0	2001	3864	0.5178571429
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	University Of Texas - El Paso	Graduate	Non-Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Utah Valley University	Senior	Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Brigham Young University	Sophomore	Business	Onsite	1	38.784204	10	3.87842	3	3	1654.816667	67	1	1	1176	1470	0.8
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	Arizona State University	Junior	Business	Onsite	1	null	null	null	0	0	977.816667	41	1	3	null	228	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 3	Arizona State University	NaN	Non-Business	Onsite	1	1.548687	1	1.548687	null	null	263.533333	8	null	null	140	350	0.4
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Arizona State University	NaN	Non-Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University of Utah	Sophomore	Business	Onsite	1	24.632279	6	4.10538	0	0	2684.2	106	5	7	618	1030	0.6
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Arizona State University	Senior	Non-Business	Onsite	1	76.867874	27	2.846958	1	2	9266.466667	421	32	43	2646	6272	0.421875
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 3	Arizona State University	Junior	Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 5	Arizona State University	Junior	Business	Onsite	2	null	null	null	0	0	1183.85	41	-1	1	null	69	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	University of Utah	Senior	Business	Onsite	2	40.881435	20	2.044072	4	4	11779.48333	566	21	34	2060	3399	0.6060606061
+PathEDU	New Hire	TS	FOUNDEVER	TermBeforePeak	AttrBeforePeak	Wave 7	Marshall	Senior	Business	Virtual	1	2.240469	1	2.240469	1	1	0	0	0	0	96	192	0.5
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 6	Marshall	Freshman	Business	Virtual	1	105.604787	54	1.955644	7	7	0	0	0	0	4002	7038	0.568627451
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Arizona State University	Sophomore	Non-Business	Onsite	1	4.719142	6	0.786524	2	3	1101.933333	50	-1	4	680	935	0.7272727273
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University Of Arizona	Junior	Business	Onsite	1	30.818413	14	2.201315	0	0	4342.416667	157	10	10	1275	1530	0.8333333333
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	University Of Texas - El Paso	Junior	Non-Business	Onsite	1	50.360639	22	2.28912	1	1	4991.65	179	7	12	2156	3430	0.6285714286
+PathEDU	New Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Wave 7	Marshall	Junior	Business	Virtual	1	50.934081	36	1.414836	6	6	0	0	0	0	2090	4840	0.4318181818
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	University of Cincinnati	Senior	Business	Virtual	1	49.101333	20	2.455067	4	4	7096.283333	331	9	19	1700	2550	0.6666666667
+PathEDU	New Hire	TS	FOUNDEVER	TermBeforePeak	AttrBeforePeak	Wave 6	Marshall	Senior	Business	Virtual	1	null	null	null	null	null	0	0	null	null	null	25	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 3	El Paso Community College	Sophomore	Business	Onsite	1	70.358561	27	2.605873	2	4	6748.233333	294	22	25	2781	4120	0.675
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	Utah Valley University	Freshman	Business	NaN	1	6.293323	3	2.097774	null	null	273.35	11	null	null	102	204	0.5
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	Maricopa County Community Colleges	Graduate	Business	Onsite	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 4	Brigham Young University	Junior	Business	Onsite	1	40.740824	15	2.716055	3	3	5899.333333	226	12	14	1568	3038	0.5161290323
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Wave 5	Utah Valley University	Junior	Business	Onsite	1	3.150232	1	3.150232	0	0	1265.316667	43	6	6	85	255	0.3333333333
+PathEDU	New Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Wave 4	Arizona State University	Freshman	Non-Business	NaN	1	12.937186	6	2.156198	1	1	639.3	26	0	0	204	408	0.5
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	Arizona State University	Junior	Business	Onsite	2	144.70677	57	2.538715	16	17	8954.4	425	11	19	5782	9800	0.59
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	Arizona State University	NaN	Non-Business	Onsite	1	40.635178	19	2.138694	5	5	4924.75	178	9	14	2163	3193	0.6774193548
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	University Of Texas - El Paso	Senior	Business	Onsite	1	55.820485	23	2.426978	0	2	5932.583333	250	4	9	2300	3700	0.6216216216
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	Arizona State University	Senior	Business	Onsite	1	14.937651	7	2.13395	1	1	4272.683333	271	17	21	686	1764	0.3888888889
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Re-Hire	Arizona State University	Junior	Non-Business	Onsite	1	29.972675	17	1.763099	3	3	3245	140	10	14	1632	2112	0.7727272727
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	Northern Kentucky University	Junior	Business	Virtual	1	null	null	null	null	null	32.25	4	null	null	85	85	1
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	University of Utah	NaN	Non-Business	Onsite	1	40.541365	26	1.559283	4	4	5122.933333	304	18	23	2704	4368	0.619047619
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	University Of Texas - El Paso	Junior	Business	Virtual	1	18.301764	6	3.050294	1	1	5580.416667	240	3	5	510	2805	0.1818181818
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	El Paso Community College	NaN	Non-Business	Onsite	1	88.582691	31	2.857506	0	0	5965.816667	233	14	29	3432	5512	0.6226415094
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Re-Hire	Arizona State University	Freshman	Non-Business	NaN	1	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	University Of Texas - El Paso	Sophomore	Non-Business	Virtual	1	32.024826	18	1.779157	5	7	6953.833333	221	11	13	1806	3784	0.4772727273
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	Arizona State University	Freshman	Business	Onsite	1	19.294269	14	1.378162	3	3	4525.066667	128	4	6	1372	2450	0.56
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Re-Hire	null	null	null	null	2	null	null	null	null	null	null	null	null	null	null	null	null
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	University of Utah	Freshman	Non-Business	Onsite	1	23.077071	16	1.442317	4	4	3648.85	207	13	16	1360	2210	0.6153846154
+PathEDU	Re-Hire	TS	FOUNDEVER	TermAfterPeak	AttrAfterPeak	Re-Hire	Marshall	Sophomore	Business	Virtual	1	134.350622	68	1.975744	8	8	0	0	0	0	2442	3630	0.6727272727
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermBeforePeak	AttrBeforePeak	Re-Hire	University Of Texas - El Paso	Junior	Business	NaN	1	3.566311	3	1.18877	1	1	1596.383333	50	2	3	156	416	0.375
+PathEDU	Re-Hire	TS	EDUCATION AT WORK	TermAfterPeak	AttrAfterPeak	Re-Hire	University Of Texas - El Paso	Junior	Business	Onsite	1	74.196387	26	2.853707	6	7	7807.816667	395	20	35	2678	4841	0.5531914894
