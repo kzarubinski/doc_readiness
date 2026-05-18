@@ -610,35 +610,35 @@
     </div>
 <h3 id="s3b">3b. University</h3>
     <div class="card">
-        <table>
-            <thead>
-                <tr><th>University</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv</th><th>TTLA AHT</th></tr>
-            </thead>
-            <tbody>
-
-                <tr><td>Arizona State University</td><td>81</td><td>2.21</td><td>81.94</td><td>59.14%</td><td>22.42</td></tr>
-                <tr><td>University Of Texas - El Paso</td><td>71</td><td>2.47</td><td>84.17</td><td>59.71%</td><td>22.74</td></tr>
-                <tr><td>University of Utah</td><td>40</td><td>2.02</td><td>84.93</td><td>56.74%</td><td>20.39</td></tr>
-                <tr><td>El Paso Community College</td><td>20</td><td>2.03</td><td>86.36</td><td>65.59%</td><td>22.91</td></tr>
-                <tr><td>Marshall</td><td>20</td><td>1.71</td><td>78.65</td><td>57.97%</td><td>5.05</td></tr>
-                <tr><td>Utah Valley University</td><td>10</td><td>2.06</td><td>100.00</td><td>73.17%</td><td>24.20</td></tr>
-                <tr><td>University Of Arizona</td><td>8</td><td>2.62</td><td>57.14</td><td>71.82%</td><td>22.75</td></tr>
-                <tr><td>Brigham Young University</td><td>6</td><td>2.83</td><td>100.00</td><td>62.60%</td><td>24.18</td></tr>
-                <tr><td>Salt Lake Community College</td><td>5</td><td>3.11</td><td>100.00</td><td>58.70%</td><td>22.37</td></tr>
-                <tr><td>Northern Kentucky University</td><td>4</td><td>3.08</td><td>33.33</td><td>58.82%</td><td>21.41</td></tr>
-                <tr><td>University of Cincinnati</td><td>2</td><td>2.14</td><td>100.00</td><td>65.91%</td><td>18.89</td></tr>
-
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th>University</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv</th><th>TTLA AHT</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Arizona State University</td><td>81</td><td>2.21</td><td>81.94</td><td>59.14%</td><td>22.42</td></tr>
+              <tr><td>University Of Texas - El Paso</td><td>71</td><td>2.47</td><td>84.17</td><td>59.81%</td><td>22.74</td></tr>
+              <tr><td>University of Utah</td><td>40</td><td>2.02</td><td>84.93</td><td>56.74%</td><td>20.39</td></tr>
+              <tr><td>Marshall</td><td>25</td><td>1.71</td><td>78.65</td><td>58.05%</td><td>5.05</td></tr>
+              <tr><td>El Paso Community College</td><td>20</td><td>2.23</td><td>85.71</td><td>63.85%</td><td>23.40</td></tr>
+              <tr><td>Utah Valley University</td><td>10</td><td>2.06</td><td>100.00</td><td>73.17%</td><td>24.20</td></tr>
+              <tr><td>University Of Arizona</td><td>8</td><td>2.62</td><td>57.14</td><td>71.82%</td><td>22.75</td></tr>
+              <tr><td>Brigham Young University</td><td>6</td><td>2.83</td><td>100.00</td><td>62.60%</td><td>24.18</td></tr>
+              <tr><td>Salt Lake Community College</td><td>5</td><td>3.11</td><td>100.00</td><td>58.70%</td><td>22.37</td></tr>
+              <tr><td>Northern Kentucky University</td><td>4</td><td>3.08</td><td>33.33</td><td>58.82%</td><td>21.41</td></tr>
+              <tr><td>Maricopa County Community Colleges</td><td>4</td><td>3.26</td><td>100.00</td><td>46.08%</td><td>26.72</td></tr>
+              <tr><td>University of Cincinnati</td><td>2</td><td>2.14</td><td>100.00</td><td>65.91%</td><td>18.89</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout warn"><strong>Key:</strong> ASU provides most volume; EPCC has highest tNPS (86.36) among large schools; NKU underperforms significantly.</div>
-
-    
+    <div class="callout warn">
+        <strong>Key:</strong> University of Cincinnati leads tNPS (100.00); Northern Kentucky University trails (33.33). CST ranges 1.71–3.26.
+    </div>
     <div class="chart-row">
-        <div class="chart-box"><canvas id="c3bCST" height="260"></canvas></div>
-        <div class="chart-box"><canvas id="c3btNPS" height="260"></canvas></div>
+      <canvas id="c3bCST"></canvas>
+      <canvas id="c3btNPS"></canvas>
     </div>
-<h3 id="s3c">3c. Attrition stage</h3>
+
+    <h3 id="s3c">3c. Attrition stage</h3>
     <div class="card">
         <table>
             <thead>
@@ -685,119 +685,119 @@
         <div class="chart-box"><canvas id="c3dCST" height="260"></canvas></div>
         <div class="chart-box"><canvas id="c3dtNPS" height="260"></canvas></div>
     </div>
-<h3 id="s3e">3e. Graduation year</h3>
+<h3 id="s3e">3e. Graduation Year</h3>
     <div class="card">
-        <table>
-            <thead>
-                <tr><th>Year</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv</th><th>TTLA AHT</th></tr>
-            </thead>
-            <tbody>
-
-                <tr><td>Junior</td><td>102</td><td>2.19</td><td>79.45</td><td>57.28%</td><td>22.62</td></tr>
-                <tr><td>Senior</td><td>59</td><td>2.22</td><td>82.05</td><td>61.00%</td><td>20.82</td></tr>
-                <tr><td>Sophomore</td><td>48</td><td>2.26</td><td>83.58</td><td>60.35%</td><td>23.00</td></tr>
-                <tr><td>Freshman</td><td>28</td><td>2.36</td><td>89.19</td><td>60.64%</td><td>24.06</td></tr>
-                <tr><td>Graduate</td><td>11</td><td>1.81</td><td>100.00</td><td>61.64%</td><td>19.12</td></tr>
-                <tr><td>Other</td><td>2</td><td>1.65</td><td>100.00</td><td>62.65%</td><td>22.44</td></tr>
-
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th>Year</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv</th><th>TTLA AHT</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Junior</td><td>104</td><td>2.19</td><td>79.45</td><td>57.37%</td><td>22.62</td></tr>
+              <tr><td>Senior</td><td>59</td><td>2.23</td><td>82.05</td><td>60.98%</td><td>20.82</td></tr>
+              <tr><td>Sophomore</td><td>50</td><td>2.26</td><td>83.58</td><td>60.38%</td><td>23.00</td></tr>
+              <tr><td>Freshman</td><td>29</td><td>2.36</td><td>89.19</td><td>60.64%</td><td>24.06</td></tr>
+              <tr><td>Graduate</td><td>11</td><td>1.81</td><td>100.00</td><td>61.64%</td><td>19.12</td></tr>
+              <tr><td>Other</td><td>2</td><td>1.65</td><td>100.00</td><td>62.65%</td><td>22.44</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout">Juniors are the largest class year bucket; graduates combine the leanest CST with the shortest TTLA AHT among multi-person rows.</div>
-
-    
+    <div class="callout">
+        Other leads tNPS (100.00); Junior trails (79.45). CST ranges 1.65–2.36.
+    </div>
     <div class="chart-row">
-        <div class="chart-box"><canvas id="c3eCST" height="260"></canvas></div>
-        <div class="chart-box"><canvas id="c3etNPS" height="260"></canvas></div>
+      <canvas id="c3eCST"></canvas>
+      <canvas id="c3etNPS"></canvas>
     </div>
-<h3 id="s3f">3f. Major</h3>
+
+    <h3 id="s3f">3f. Major</h3>
     <div class="card">
-        <table>
-            <thead>
-                <tr><th>Major</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv</th><th>TTLA AHT</th></tr>
-            </thead>
-            <tbody>
-
-                <tr><td>Business</td><td>212</td><td>2.25</td><td>82.14</td><td>59.19%</td><td>22.17</td></tr>
-                <tr><td>Non-Business</td><td>59</td><td>2.06</td><td>85.82</td><td>61.76%</td><td>22.43</td></tr>
-
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th>Major</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv</th><th>TTLA AHT</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Business</td><td>212</td><td>2.26</td><td>82.14</td><td>59.23%</td><td>22.17</td></tr>
+              <tr><td>Non-Business</td><td>64</td><td>2.13</td><td>85.61</td><td>60.83%</td><td>22.62</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout success">Non-business majors edge out business majors on CST, tNPS, conversion, and TTLA AHT in this split, though business carries most of the headcount.</div>
-
-    
+    <div class="callout success">
+        Non-Business leads tNPS (85.61); Business trails (82.14). CST ranges 2.13–2.26.
+    </div>
     <div class="chart-row">
-        <div class="chart-box"><canvas id="c3fCST" height="260"></canvas></div>
-        <div class="chart-box"><canvas id="c3ftNPS" height="260"></canvas></div>
+      <canvas id="c3fCST"></canvas>
+      <canvas id="c3ftNPS"></canvas>
     </div>
-<h3 id="s3g">3g. Working location</h3>
+
+    <h3 id="s3g">3g. Working Location</h3>
     <div class="card">
-        <table>
-            <thead>
-                <tr><th>Location</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv</th><th>TTLA AHT</th></tr>
-            </thead>
-            <tbody>
-
-                <tr><td>Onsite</td><td>184</td><td>2.28</td><td>83.86</td><td>60.64%</td><td>22.19</td></tr>
-                <tr><td>Virtual</td><td>54</td><td>1.98</td><td>78.83</td><td>56.47%</td><td>22.25</td></tr>
-
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th>Location</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv</th><th>TTLA AHT</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Onsite</td><td>184</td><td>2.31</td><td>83.78</td><td>60.36%</td><td>22.23</td></tr>
+              <tr><td>Virtual</td><td>59</td><td>1.98</td><td>78.83</td><td>56.57%</td><td>22.25</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout warn">Virtual experts register lower CST than onsite peers but also lower FS tNPS and conversion, suggesting different handle mix or coaching needs rather than a single “better” mode.</div>
+    <div class="callout warn">
+        Onsite leads tNPS (83.78); Virtual trails (78.83). CST ranges 1.98–2.31.
+    </div>
 
     <h3 id="s3h">3h. Survey Response Analysis</h3>
+
     <div class="card">
-        <h4 style="margin:0 0 0.5rem;color:var(--muted);font-size:0.9rem;">Q1 — Why did you join PathEDU?</h4>
-        <table>
-            <thead>
-                <tr><th>Response</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv %</th><th>TTLA AHT</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Build my resume/skills</td><td>21</td><td>2.41</td><td>85.86</td><td>57.66</td><td>21.90</td></tr>
-                <tr><td>Earn income while in school</td><td>13</td><td>2.08</td><td>86.11</td><td>56.69</td><td>21.48</td></tr>
-                <tr><td>Flexible work that fits my schedule</td><td>16</td><td>1.74</td><td>83.05</td><td>66.17</td><td>20.91</td></tr>
-                <tr><td>Gain experience relevant to my future career</td><td>56</td><td>2.25</td><td>86.99</td><td>59.49</td><td>22.26</td></tr>
-            </tbody>
-        </table>
-        <p style="font-size:0.88rem;margin-top:0.5rem;"><strong>Key:</strong> Flexible-schedule seekers have lowest CST and highest conversion; career-experience seekers have highest tNPS.</p>
-    </div>
-    <div class="card">
-        <h4 style="margin:0 0 0.5rem;color:var(--muted);font-size:0.9rem;">Q2 — How do you view this role?</h4>
-        <table>
-            <thead>
-                <tr><th>Response</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv %</th><th>TTLA AHT</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>A mix of income and career building</td><td>56</td><td>2.01</td><td>87.57</td><td>61.60</td><td>21.87</td></tr>
-                <tr><td>Mostly a career-building opportunity</td><td>39</td><td>2.39</td><td>81.74</td><td>57.29</td><td>22.02</td></tr>
-                <tr><td>Mostly a job to earn money</td><td>11</td><td>2.10</td><td>90.00</td><td>62.73</td><td>20.89</td></tr>
-            </tbody>
-        </table>
-        <p style="font-size:0.88rem;margin-top:0.5rem;"><strong>Key:</strong> &quot;Mix&quot; group has best CST/conversion balance; &quot;career-only&quot; shows lowest tNPS.</p>
-    </div>
-    <div class="card">
-        <h4 style="margin:0 0 0.5rem;color:var(--muted);font-size:0.9rem;">Q3 — How relevant is this to your career?</h4>
-        <table>
-            <thead>
-                <tr><th>Response</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv %</th><th>TTLA AHT</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Not relevant</td><td>7</td><td>1.99</td><td>87.50</td><td>57.25</td><td>22.63</td></tr>
-                <tr><td>Somewhat relevant</td><td>35</td><td>2.20</td><td>88.65</td><td>61.71</td><td>21.26</td></tr>
-                <tr><td>Very relevant</td><td>64</td><td>2.13</td><td>83.61</td><td>59.77</td><td>22.02</td></tr>
-            </tbody>
-        </table>
-        <p style="font-size:0.88rem;margin-top:0.5rem;"><strong>Key:</strong> &quot;Somewhat relevant&quot; leads on conversion and tNPS; &quot;Very relevant&quot; underperforms expectations.</p>
+      <h4>Q1 — Why did you join PathEDU?</h4>
+      <table>
+        <thead>
+          <tr><th>Response</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv %</th><th>TTLA AHT</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Gain experience relevant to my future career</td><td>56</td><td>2.25</td><td>39.04</td><td>59.49</td><td>22.26</td></tr>
+              <tr><td>Build my resume/skills</td><td>21</td><td>2.41</td><td>37.37</td><td>57.66</td><td>21.90</td></tr>
+              <tr><td>Flexible work that fits my schedule</td><td>16</td><td>1.87</td><td>36.00</td><td>64.56</td><td>21.09</td></tr>
+              <tr><td>Earn income while in school</td><td>13</td><td>2.08</td><td>36.11</td><td>56.84</td><td>21.48</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Key:</strong> "Flexible work that fits my schedule" has lowest CST (1.87) vs "Build my resume/skills" (2.41). "Gain experience relevant to my future career" leads tNPS (39.04). Conv% best: "Flexible work that fits my schedule" (64.56%).</p>
     </div>
 
-    
-    <div class="chart-row">
-        <div class="chart-box"><canvas id="c3gCST" height="260"></canvas></div>
-        <div class="chart-box"><canvas id="c3gtNPS" height="260"></canvas></div>
+    <div class="card">
+      <h4>Q2 — How do you view this role?</h4>
+      <table>
+        <thead>
+          <tr><th>Response</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv %</th><th>TTLA AHT</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>A mix of income and career building</td><td>56</td><td>2.08</td><td>38.64</td><td>60.72</td><td>21.97</td></tr>
+              <tr><td>Mostly a career-building opportunity</td><td>39</td><td>2.39</td><td>39.13</td><td>57.34</td><td>22.02</td></tr>
+              <tr><td>Mostly a job to earn money</td><td>11</td><td>2.10</td><td>30.00</td><td>62.95</td><td>20.89</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Key:</strong> "A mix of income and career building" has lowest CST (2.08) vs "Mostly a career-building opportunity" (2.39). "Mostly a career-building opportunity" leads tNPS (39.13). Conv% best: "Mostly a job to earn money" (62.95%).</p>
     </div>
-<hr class="section-divider">
+
+    <div class="card">
+      <h4>Q3 — How relevant is this to your career?</h4>
+      <table>
+        <thead>
+          <tr><th>Response</th><th>Experts</th><th>CST</th><th>FS tNPS</th><th>Conv %</th><th>TTLA AHT</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Very relevant</td><td>64</td><td>2.20</td><td>40.80</td><td>58.94</td><td>22.11</td></tr>
+              <tr><td>Somewhat relevant</td><td>35</td><td>2.20</td><td>34.04</td><td>61.78</td><td>21.26</td></tr>
+              <tr><td>Not relevant</td><td>7</td><td>1.99</td><td>37.50</td><td>57.66</td><td>22.63</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Key:</strong> "Not relevant" has lowest CST (1.99) vs "Somewhat relevant" (2.20). "Very relevant" leads tNPS (40.80). Conv% best: "Somewhat relevant" (61.78%).</p>
+    </div>
+
+    <div class="chart-row">
+      <canvas id="c3gCST"></canvas>
+      <canvas id="c3gtNPS"></canvas>
+    </div>
+
     <h2 id="s4">Section 4: PathEDU Product Support detail</h2>
     <p>Breakdowns below are PathEDU-only. Lower AHT and higher tNPS are better.</p>
 
@@ -822,36 +822,50 @@
     </div>
 <h3 id="s4b">4b. University</h3>
     <div class="card">
-        <table>
-            <thead>
-                <tr><th>University</th><th>Experts</th><th>AHT</th><th>tNPS</th></tr>
-            </thead>
-            <tbody>
-
-                <tr><td>Univ. of Texas - El Paso</td><td>114</td><td>18.20</td><td>43.35</td></tr>
-                <tr><td>Arizona State University</td><td>85</td><td>17.42</td><td>56.27</td></tr>
-                <tr><td>Marshall</td><td>31</td><td>19.04</td><td>52.68</td></tr>
-                <tr><td>El Paso Community College</td><td>25</td><td>15.90</td><td>39.81</td></tr>
-                <tr><td>University of Utah</td><td>24</td><td>16.03</td><td>55.36</td></tr>
-                <tr><td>USA | Texas</td><td>18</td><td>18.15</td><td>50.24</td></tr>
-                <tr><td>Northern Kentucky University</td><td>18</td><td>18.24</td><td>21.18</td></tr>
-                <tr><td>USA | Arizona</td><td>17</td><td>17.62</td><td>39.24</td></tr>
-                <tr><td>Utah Valley University</td><td>10</td><td>18.62</td><td>50.71</td></tr>
-                <tr><td>University of Cincinnati</td><td>8</td><td>20.52</td><td>55.24</td></tr>
-                <tr><td>University Of Arizona</td><td>7</td><td>17.86</td><td>50.21</td></tr>
-                <tr><td>Salt Lake Community College</td><td>6</td><td>15.86</td><td>44.89</td></tr>
-
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th>University</th><th>Experts</th><th>AHT</th><th>tNPS</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>University Of Texas - El Paso</td><td>114</td><td>18.20</td><td>43.35</td></tr>
+              <tr><td>Arizona State University</td><td>85</td><td>17.42</td><td>56.27</td></tr>
+              <tr><td>Marshall</td><td>62</td><td>18.81</td><td>49.72</td></tr>
+              <tr><td>El Paso Community College</td><td>25</td><td>15.90</td><td>39.81</td></tr>
+              <tr><td>University of Utah</td><td>24</td><td>16.03</td><td>55.36</td></tr>
+              <tr><td>Northern Kentucky University</td><td>18</td><td>18.24</td><td>21.18</td></tr>
+              <tr><td>USA | Texas</td><td>18</td><td>18.15</td><td>50.24</td></tr>
+              <tr><td>USA | Arizona</td><td>17</td><td>17.62</td><td>39.24</td></tr>
+              <tr><td>Utah Valley University</td><td>10</td><td>18.62</td><td>50.71</td></tr>
+              <tr><td>University of Cincinnati</td><td>8</td><td>20.52</td><td>55.24</td></tr>
+              <tr><td>Remote Texas</td><td>8</td><td>18.90</td><td>29.76</td></tr>
+              <tr><td>University Of Arizona</td><td>7</td><td>17.86</td><td>50.21</td></tr>
+              <tr><td>Salt Lake Community College</td><td>6</td><td>15.86</td><td>44.89</td></tr>
+              <tr><td>EAW-UofU</td><td>6</td><td>14.64</td><td>81.82</td></tr>
+              <tr><td>Other</td><td>5</td><td>23.69</td><td>45.45</td></tr>
+              <tr><td>University of Texas - El Paso</td><td>5</td><td>20.49</td><td>62.96</td></tr>
+              <tr><td>Remote Arizona</td><td>5</td><td>15.36</td><td>43.14</td></tr>
+              <tr><td>University of North Texas</td><td>3</td><td>17.25</td><td>47.62</td></tr>
+              <tr><td>Remote Ohio</td><td>3</td><td>8.93</td><td>33.33</td></tr>
+              <tr><td>Brigham Young University</td><td>2</td><td>16.96</td><td>51.85</td></tr>
+              <tr><td>Remote Kentucky</td><td>1</td><td>26.12</td><td>40.00</td></tr>
+              <tr><td>Paradise Valley Community College</td><td>1</td><td>14.22</td><td>80.95</td></tr>
+              <tr><td>Grand Canyon University</td><td>1</td><td>10.54</td><td>-100.00</td></tr>
+              <tr><td>Texas Southern University</td><td>1</td><td>16.41</td><td>0.00</td></tr>
+              <tr><td>Xavier University</td><td>1</td><td>32.26</td><td>71.43</td></tr>
+              <tr><td>Remote Utah</td><td>1</td><td>13.78</td><td>100.00</td></tr>
+              <tr><td>University of Texas - Arlington</td><td>1</td><td>23.76</td><td>38.46</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout danger"><strong>Key:</strong> UTEP and ASU lead volume; review low-tNPS corridors (e.g., EPCC, USA | Arizona) with modest denominators.</div>
-
-    
+    <div class="callout danger">
+        <strong>Key:</strong> Remote Utah leads tNPS (100.00); Grand Canyon University trails (-100.00). AHT ranges 8.93–32.26 min.
+    </div>
     <div class="chart-row">
-        <div class="chart-box"><canvas id="c4bAHT" height="260"></canvas></div>
-        <div class="chart-box"><canvas id="c4btNPS" height="260"></canvas></div>
+      <canvas id="c4bAHT"></canvas>
+      <canvas id="c4btNPS"></canvas>
     </div>
-<h3 id="s4c">4c. Attrition stage</h3>
+
+    <h3 id="s4c">4c. Attrition stage</h3>
     <div class="card">
         <table>
             <thead>
@@ -898,118 +912,122 @@
         <div class="chart-box"><canvas id="c4dAHT" height="260"></canvas></div>
         <div class="chart-box"><canvas id="c4dtNPS" height="260"></canvas></div>
     </div>
-<h3 id="s4e">4e. Graduation year</h3>
+<h3 id="s4e">4e. Graduation Year</h3>
     <div class="card">
-        <table>
-            <thead>
-                <tr><th>Year</th><th>Experts</th><th>AHT</th><th>tNPS</th></tr>
-            </thead>
-            <tbody>
-
-                <tr><td>Junior</td><td>95</td><td>17.47</td><td>52.34</td></tr>
-                <tr><td>Freshman</td><td>85</td><td>17.90</td><td>48.18</td></tr>
-                <tr><td>Sophomore</td><td>79</td><td>18.18</td><td>47.71</td></tr>
-                <tr><td>Senior</td><td>58</td><td>17.63</td><td>45.81</td></tr>
-                <tr><td>Graduate</td><td>13</td><td>16.29</td><td>41.67</td></tr>
-
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th>Year</th><th>Experts</th><th>AHT</th><th>tNPS</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Junior</td><td>105</td><td>17.51</td><td>52.14</td></tr>
+              <tr><td>Freshman</td><td>90</td><td>17.84</td><td>48.28</td></tr>
+              <tr><td>Sophomore</td><td>87</td><td>18.18</td><td>47.48</td></tr>
+              <tr><td>Senior</td><td>66</td><td>17.68</td><td>45.10</td></tr>
+              <tr><td>Graduate</td><td>13</td><td>16.29</td><td>41.67</td></tr>
+              <tr><td>Incoming Freshman</td><td>6</td><td>17.54</td><td>44.78</td></tr>
+              <tr><td>Other</td><td>4</td><td>18.22</td><td>39.74</td></tr>
+              <tr><td>?</td><td>1</td><td>15.96</td><td>41.38</td></tr>
+              <tr><td>Graduated</td><td>1</td><td>16.95</td><td>47.06</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout">Juniors post the strongest tNPS of the year cohorts with material headcount; seniors are tied on AHT but materially lower on tNPS than juniors.</div>
-
-    
+    <div class="callout">
+        Junior leads tNPS (52.14); Other trails (39.74). AHT ranges 15.96–18.22 min.
+    </div>
     <div class="chart-row">
-        <div class="chart-box"><canvas id="c4eAHT" height="260"></canvas></div>
-        <div class="chart-box"><canvas id="c4etNPS" height="260"></canvas></div>
+      <canvas id="c4eAHT"></canvas>
+      <canvas id="c4etNPS"></canvas>
     </div>
-<h3 id="s4f">4f. Major</h3>
+
+    <h3 id="s4f">4f. Major</h3>
     <div class="card">
-        <table>
-            <thead>
-                <tr><th>Major</th><th>Experts</th><th>AHT</th><th>tNPS</th></tr>
-            </thead>
-            <tbody>
-
-                <tr><td>Non-Business</td><td>206</td><td>17.60</td><td>47.27</td></tr>
-                <tr><td>Business</td><td>202</td><td>17.50</td><td>49.49</td></tr>
-
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th>Major</th><th>Experts</th><th>AHT</th><th>tNPS</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Non-Business</td><td>227</td><td>17.64</td><td>47.07</td></tr>
+              <tr><td>Business</td><td>212</td><td>17.47</td><td>49.39</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout">Non-business leads on headcount; business sits higher on tNPS with slightly lower AHT in this split.</div>
-
-    
+    <div class="callout">
+        Business leads tNPS (49.39); Non-Business trails (47.07). AHT ranges 17.47–17.64 min.
+    </div>
     <div class="chart-row">
-        <div class="chart-box"><canvas id="c4fAHT" height="260"></canvas></div>
-        <div class="chart-box"><canvas id="c4ftNPS" height="260"></canvas></div>
+      <canvas id="c4fAHT"></canvas>
+      <canvas id="c4ftNPS"></canvas>
     </div>
-<h3 id="s4g">4g. Working location</h3>
+
+    <h3 id="s4g">4g. Working Location</h3>
     <div class="card">
-        <table>
-            <thead>
-                <tr><th>Location</th><th>Experts</th><th>AHT</th><th>tNPS</th></tr>
-            </thead>
-            <tbody>
-
-                <tr><td>Onsite</td><td>244</td><td>17.45</td><td>49.70</td></tr>
-                <tr><td>Virtual</td><td>139</td><td>17.88</td><td>44.77</td></tr>
-
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr><th>Location</th><th>Experts</th><th>AHT</th><th>tNPS</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Onsite</td><td>204</td><td>17.54</td><td>52.79</td></tr>
+              <tr><td>Virtual</td><td>178</td><td>17.75</td><td>40.67</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout warn">Onsite shows higher tNPS than virtual in these aggregates (estimates from weighted rollups).</div>
+    <div class="callout warn">
+        Onsite leads tNPS (52.79); Virtual trails (40.67). AHT ranges 17.54–17.75 min.
+    </div>
 
     <h3 id="s4h">4h. Survey Response Analysis</h3>
+
     <div class="card">
-        <h4 style="margin:0 0 0.5rem;color:var(--muted);font-size:0.9rem;">Q1 — Why did you join PathEDU?</h4>
-        <table>
-            <thead>
-                <tr><th>Response</th><th>Experts</th><th>PS AHT</th><th>PS tNPS</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Build my resume/skills</td><td>31</td><td>17.43</td><td>50.39</td></tr>
-                <tr><td>Earn income while in school</td><td>39</td><td>16.93</td><td>50.64</td></tr>
-                <tr><td>Flexible work that fits my schedule</td><td>39</td><td>17.91</td><td>50.97</td></tr>
-                <tr><td>Gain experience relevant to my future career</td><td>36</td><td>18.26</td><td>47.12</td></tr>
-            </tbody>
-        </table>
-        <p style="font-size:0.88rem;margin-top:0.5rem;"><strong>Key:</strong> &quot;Earn income&quot; has lowest AHT; &quot;Gain experience&quot; has longest AHT and lowest tNPS.</p>
-    </div>
-    <div class="card">
-        <h4 style="margin:0 0 0.5rem;color:var(--muted);font-size:0.9rem;">Q2 — How do you view this role?</h4>
-        <table>
-            <thead>
-                <tr><th>Response</th><th>Experts</th><th>PS AHT</th><th>PS tNPS</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>A mix of income and career building</td><td>76</td><td>18.82</td><td>52.97</td></tr>
-                <tr><td>Mostly a career-building opportunity</td><td>33</td><td>16.69</td><td>44.17</td></tr>
-                <tr><td>Mostly a job to earn money</td><td>36</td><td>16.26</td><td>48.99</td></tr>
-            </tbody>
-        </table>
-        <p style="font-size:0.88rem;margin-top:0.5rem;"><strong>Key:</strong> &quot;Career-building&quot; framing shows lowest tNPS; &quot;Mix&quot; has highest tNPS despite longest AHT.</p>
-    </div>
-    <div class="card">
-        <h4 style="margin:0 0 0.5rem;color:var(--muted);font-size:0.9rem;">Q3 — How relevant is this to your career?</h4>
-        <table>
-            <thead>
-                <tr><th>Response</th><th>Experts</th><th>PS AHT</th><th>PS tNPS</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Not relevant</td><td>26</td><td>17.16</td><td>52.17</td></tr>
-                <tr><td>Somewhat relevant</td><td>82</td><td>17.21</td><td>51.37</td></tr>
-                <tr><td>Very relevant</td><td>37</td><td>18.64</td><td>46.08</td></tr>
-            </tbody>
-        </table>
-        <p style="font-size:0.88rem;margin-top:0.5rem;"><strong>Key:</strong> &quot;Very relevant&quot; has highest AHT and lowest tNPS — counterintuitive result.</p>
+      <h4>Q1 — Why did you join PathEDU?</h4>
+      <table>
+        <thead>
+          <tr><th>Response</th><th>Experts</th><th>PS AHT</th><th>PS tNPS</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Earn income while in school</td><td>40</td><td>16.94</td><td>51.09</td></tr>
+              <tr><td>Flexible work that fits my schedule</td><td>39</td><td>17.91</td><td>50.97</td></tr>
+              <tr><td>Gain experience relevant to my future career</td><td>37</td><td>18.30</td><td>47.10</td></tr>
+              <tr><td>Build my resume/skills</td><td>32</td><td>17.52</td><td>50.55</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Key:</strong> "Earn income while in school" has lowest AHT (16.94) vs "Gain experience relevant to my future career" (18.30). "Earn income while in school" leads tNPS (51.09).</p>
     </div>
 
+    <div class="card">
+      <h4>Q2 — How do you view this role?</h4>
+      <table>
+        <thead>
+          <tr><th>Response</th><th>Experts</th><th>PS AHT</th><th>PS tNPS</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>A mix of income and career building</td><td>77</td><td>18.83</td><td>52.88</td></tr>
+              <tr><td>Mostly a job to earn money</td><td>38</td><td>16.37</td><td>49.70</td></tr>
+              <tr><td>Mostly a career-building opportunity</td><td>33</td><td>16.69</td><td>44.17</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Key:</strong> "Mostly a job to earn money" has lowest AHT (16.37) vs "A mix of income and career building" (18.83). "A mix of income and career building" leads tNPS (52.88).</p>
+    </div>
+
+    <div class="card">
+      <h4>Q3 — How relevant is this to your career?</h4>
+      <table>
+        <thead>
+          <tr><th>Response</th><th>Experts</th><th>PS AHT</th><th>PS tNPS</th></tr>
+        </thead>
+        <tbody>
+              <tr><td>Somewhat relevant</td><td>84</td><td>17.25</td><td>51.66</td></tr>
+              <tr><td>Very relevant</td><td>38</td><td>18.65</td><td>46.08</td></tr>
+              <tr><td>Not relevant</td><td>26</td><td>17.16</td><td>52.17</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Key:</strong> "Not relevant" has lowest AHT (17.16) vs "Very relevant" (18.65). "Not relevant" leads tNPS (52.17).</p>
+    </div>
 
     <div class="chart-row">
-        <div class="chart-box"><canvas id="c4gAHT" height="260"></canvas></div>
-        <div class="chart-box"><canvas id="c4gtNPS" height="260"></canvas></div>
+      <canvas id="c4gAHT"></canvas>
+      <canvas id="c4gtNPS"></canvas>
     </div>
-<hr class="section-divider">
+
     <h2 id="s5">Conclusions &amp; Key Takeaways</h2>
 
     <div class="card">
@@ -1236,15 +1254,15 @@ new Chart(document.getElementById('c3atNPS'), {
 
 // 3b University (top 6 by volume)
 {
-const uniLbl = ['ASU', 'UTEP', 'Utah', 'EPCC', 'Marshall', 'UVU', 'UofA', 'BYU', 'SLCC', 'NKU', 'UCinci'];
+const uniLbl = ['ASU', 'UTEP', 'Utah', 'Marshall', 'EPCC', 'UVU', 'UofA', 'BYU', 'SLCC', 'NKU', 'MCCC', 'UCinci'];
 new Chart(document.getElementById('c3bCST'), {
     type: 'bar',
-    data: { labels: uniLbl, datasets: [{ label: 'CST', data: [2.21,2.47,2.02,2.03,1.71,2.06,2.62,2.83,3.11,3.08,2.14], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }] },
+    data: { labels: uniLbl, datasets: [{ label: 'CST', data: [2.21,2.47,2.02,1.71,2.23,2.06,2.62,2.83,3.11,3.08,3.26,2.14], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'TS CST by University', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, beginAtZero:true, title:{display:true, text:'CST'}} } }
 });
 new Chart(document.getElementById('c3btNPS'), {
     type: 'bar',
-    data: { labels: uniLbl, datasets: [{ label: 'FS tNPS', data: [81.94,84.17,84.93,86.36,78.65,100,57.14,100,100,33.33,100], backgroundColor: '#a5b4fc', borderColor: '#6366f1', borderWidth: 1 }] },
+    data: { labels: uniLbl, datasets: [{ label: 'FS tNPS', data: [81.94,84.17,84.93,78.65,85.71,100,57.14,100,100,33.33,100,100], backgroundColor: '#a5b4fc', borderColor: '#6366f1', borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'TS FS tNPS by University', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:0, title:{display:true, text:'tNPS'}} } }
 });
 }
@@ -1281,7 +1299,7 @@ new Chart(document.getElementById('c3dtNPS'), {
 const gradLbl = ['Junior','Senior','Sophomore','Freshman','Graduate','Other'];
 new Chart(document.getElementById('c3eCST'), {
     type: 'bar',
-    data: { labels: gradLbl, datasets: [{ label: 'CST', data: [2.19,2.22,2.26,2.36,1.81,1.65], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }] },
+    data: { labels: gradLbl, datasets: [{ label: 'CST', data: [2.19,2.23,2.26,2.36,1.81,1.65], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'TS CST by Grad Year', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, beginAtZero:true, title:{display:true, text:'CST'}} } }
 });
 new Chart(document.getElementById('c3etNPS'), {
@@ -1294,24 +1312,24 @@ new Chart(document.getElementById('c3etNPS'), {
 // 3f Major
 new Chart(document.getElementById('c3fCST'), {
     type: 'bar',
-    data: { labels: ['Business', 'Non-Business'], datasets: [{ label: 'CST', data: [2.25, 2.06], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
+    data: { labels: ['Business', 'Non-Business'], datasets: [{ label: 'CST', data: [2.26, 2.13], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'TS CST by Major', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, beginAtZero:true, title:{display:true, text:'CST'}} } }
 });
 new Chart(document.getElementById('c3ftNPS'), {
     type: 'bar',
-    data: { labels: ['Business', 'Non-Business'], datasets: [{ label: 'FS tNPS', data: [82.14, 85.82], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
+    data: { labels: ['Business', 'Non-Business'], datasets: [{ label: 'FS tNPS', data: [82.14, 85.61], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'TS FS tNPS by Major', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:70, title:{display:true, text:'tNPS'}} } }
 });
 
 // 3g Working location
 new Chart(document.getElementById('c3gCST'), {
     type: 'bar',
-    data: { labels: ['Onsite', 'Virtual'], datasets: [{ label: 'CST', data: [2.28, 1.98], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
+    data: { labels: ['Onsite', 'Virtual'], datasets: [{ label: 'CST', data: [2.31, 1.98], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'TS CST by Location', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, beginAtZero:true, title:{display:true, text:'CST'}} } }
 });
 new Chart(document.getElementById('c3gtNPS'), {
     type: 'bar',
-    data: { labels: ['Onsite', 'Virtual'], datasets: [{ label: 'FS tNPS', data: [83.86, 78.83], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
+    data: { labels: ['Onsite', 'Virtual'], datasets: [{ label: 'FS tNPS', data: [83.78, 78.83], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'TS FS tNPS by Location', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:70, title:{display:true, text:'tNPS'}} } }
 });
 
@@ -1331,15 +1349,15 @@ new Chart(document.getElementById('c4atNPS'), {
 
 // 4b University
 {
-const psUniLbl = ['UTEP','ASU','Marshall','EPCC','Utah','USA-TX','NKU','USA-AZ','UVU','UCinci','UofA','SLCC'];
+const psUniLbl = ['UTEP','ASU','Marshall','EPCC','Utah','NKU','USA-TX','USA-AZ','UVU','UCinci','RmTX','UofA','SLCC','EAW-U'];
 new Chart(document.getElementById('c4bAHT'), {
     type: 'bar',
-    data: { labels: psUniLbl, datasets: [{ label: 'AHT', data: [18.20,17.42,19.04,15.90,16.03,18.15,18.24,17.62,18.62,20.52,17.86,15.86], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }] },
+    data: { labels: psUniLbl, datasets: [{ label: 'AHT', data: [18.20,17.42,18.81,15.90,16.03,18.24,18.15,17.62,18.62,20.52,18.90,17.86,15.86,14.64], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'PS AHT by University', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:12, title:{display:true, text:'AHT (min)'}} } }
 });
 new Chart(document.getElementById('c4btNPS'), {
     type: 'bar',
-    data: { labels: psUniLbl, datasets: [{ label: 'tNPS', data: [43.35,56.27,52.68,39.81,55.36,50.24,21.18,39.24,50.71,55.24,50.21,44.89], backgroundColor: '#a5b4fc', borderColor: '#6366f1', borderWidth: 1 }] },
+    data: { labels: psUniLbl, datasets: [{ label: 'tNPS', data: [43.35,56.27,49.72,39.81,55.36,21.18,50.24,39.24,50.71,55.24,29.76,50.21,44.89,81.82], backgroundColor: '#a5b4fc', borderColor: '#6366f1', borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'PS tNPS by University', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:0, title:{display:true, text:'tNPS'}} } }
 });
 }
@@ -1373,15 +1391,15 @@ new Chart(document.getElementById('c4dtNPS'), {
 
 // 4e Graduation year
 {
-const psGradLbl = ['Junior','Freshman','Sophomore','Senior','Graduate'];
+const psGradLbl = ['Junior','Freshman','Sophomore','Senior','Graduate','IncFr','Other','?','Graduated'];
 new Chart(document.getElementById('c4eAHT'), {
     type: 'bar',
-    data: { labels: psGradLbl, datasets: [{ label: 'AHT', data: [17.47,17.90,18.18,17.63,16.29], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }] },
+    data: { labels: psGradLbl, datasets: [{ label: 'AHT', data: [17.51,17.84,18.18,17.68,16.29,17.54,18.22,15.96,16.95], backgroundColor: '#86efac', borderColor: '#16a34a', borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'PS AHT by Grad Year', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:14, title:{display:true, text:'AHT (min)'}} } }
 });
 new Chart(document.getElementById('c4etNPS'), {
     type: 'bar',
-    data: { labels: psGradLbl, datasets: [{ label: 'tNPS', data: [52.34,48.18,47.71,45.81,41.67], backgroundColor: '#a5b4fc', borderColor: '#6366f1', borderWidth: 1 }] },
+    data: { labels: psGradLbl, datasets: [{ label: 'tNPS', data: [52.14,48.28,47.48,45.10,41.67,44.78,39.74,41.38,47.06], backgroundColor: '#a5b4fc', borderColor: '#6366f1', borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'PS tNPS by Grad Year', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:30, title:{display:true, text:'tNPS'}} } }
 });
 }
@@ -1389,24 +1407,24 @@ new Chart(document.getElementById('c4etNPS'), {
 // 4f Major
 new Chart(document.getElementById('c4fAHT'), {
     type: 'bar',
-    data: { labels: ['Non-Business', 'Business'], datasets: [{ label: 'AHT', data: [17.60, 17.50], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
+    data: { labels: ['Non-Business', 'Business'], datasets: [{ label: 'AHT', data: [17.64, 17.47], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'PS AHT by Major', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:14, title:{display:true, text:'AHT (min)'}} } }
 });
 new Chart(document.getElementById('c4ftNPS'), {
     type: 'bar',
-    data: { labels: ['Non-Business', 'Business'], datasets: [{ label: 'tNPS', data: [47.27, 49.49], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
+    data: { labels: ['Non-Business', 'Business'], datasets: [{ label: 'tNPS', data: [47.07, 49.39], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'PS tNPS by Major', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:40, title:{display:true, text:'tNPS'}} } }
 });
 
 // 4g Working location
 new Chart(document.getElementById('c4gAHT'), {
     type: 'bar',
-    data: { labels: ['Onsite', 'Virtual'], datasets: [{ label: 'AHT', data: [17.45, 17.88], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
+    data: { labels: ['Onsite', 'Virtual'], datasets: [{ label: 'AHT', data: [17.54, 17.75], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'PS AHT by Location', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:14, title:{display:true, text:'AHT (min)'}} } }
 });
 new Chart(document.getElementById('c4gtNPS'), {
     type: 'bar',
-    data: { labels: ['Onsite', 'Virtual'], datasets: [{ label: 'tNPS', data: [49.70, 44.77], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
+    data: { labels: ['Onsite', 'Virtual'], datasets: [{ label: 'tNPS', data: [52.79, 40.67], backgroundColor: ['#86efac', '#a5b4fc'], borderColor: ['#16a34a', '#6366f1'], borderWidth: 1 }] },
     options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend:{display:false}, title:{display:true, text:'PS tNPS by Location', font:{size:13}} }, scales: { ...chartOpts.scales, y:{...chartOpts.scales.y, min:30, title:{display:true, text:'tNPS'}} } }
 });
 
