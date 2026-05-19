@@ -11,7 +11,7 @@ const path = require('path');
 const HTML_PATH = path.join(__dirname, 'PathEDU_Analysis_upd.html');
 const TS_DETAIL = path.join(__dirname, 'data_ts_detail_upd4.tsv');
 const PS_DETAIL = path.join(__dirname, 'data_ps_detail_upd4.tsv');
-const TS_SURVEY = path.join(__dirname, 'data_ts_survey_upd4.tsv');
+const TS_SURVEY = path.join(__dirname, 'data_ts_survey_upd5.tsv');
 const PS_SURVEY = path.join(__dirname, 'data_ps_survey_upd4.tsv');
 
 /* ──────────── helpers ──────────── */
@@ -172,14 +172,10 @@ function addTsSurveyRow(acc, r) {
   const ex = num(r.expert_cnt); if (ex !== null) acc.expert_cnt += ex;
   const cn = num(r.fs_cst_num), fe = num(r.fs_eng);
   if (cn !== null && fe !== null) { acc.fs_cst_num += cn; acc.fs_eng += fe; }
-  // survey uses exec_fs_tnps_denom and exec_fs_basic_tnps_num (but we need total tnps_num)
-  // Actually the survey columns use exec_fs_tnps_denom for denom, but the "num" is exec_fs_basic_tnps_num
-  // Wait - checking the original compute_survey_upd3.js, it uses exec_fs_tnps_num and exec_fs_tnps_denom
-  // The header says exec_fs_tnps_denom and exec_fs_basic_tnps_num
-  // For tNPS calculation we need num/denom. The "basic_tnps_num" seems wrong for total tNPS.
-  // Let's just use the denom as denom and look for any column that could be the numerator
-  const fn = num(r.exec_fs_tnps_num) !== null ? num(r.exec_fs_tnps_num) : num(r.exec_fs_basic_tnps_num);
-  const fd = num(r.exec_fs_tnps_denom);
+  const fn = num(r.fs_tnps_num) !== null ? num(r.fs_tnps_num)
+           : num(r.exec_fs_tnps_num) !== null ? num(r.exec_fs_tnps_num)
+           : num(r.exec_fs_basic_tnps_num);
+  const fd = num(r.fs_tnps_denom) !== null ? num(r.fs_tnps_denom) : num(r.exec_fs_tnps_denom);
   if (fn !== null && fd !== null) { acc.exec_fs_tnps_num += fn; acc.exec_fs_tnps_denom += fd; }
   // survey uses ttla_handle_min/ttla_handle_cnt for AHT
   const tm = num(r.ttla_handle_min), tc = num(r.ttla_handle_cnt);
