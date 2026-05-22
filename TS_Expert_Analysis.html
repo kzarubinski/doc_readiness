@@ -313,9 +313,11 @@
 </tbody></table>
 </div>
 
-<div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">Expert Breakdown — Tax Specialist</h3><canvas id="eval_ts_breakdown" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">Expert Breakdown — Non-TS</h3><canvas id="eval_nts_breakdown" height="280"></canvas></div>
+<div class="chart-row" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+    <div class="chart-box"><h3 style="margin-top:0;font-size:0.95rem;">Expert Breakdown — TS</h3><canvas id="eval_ts_breakdown" height="200"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;font-size:0.95rem;">Expert Breakdown — Non-TS</h3><canvas id="eval_nts_breakdown" height="200"></canvas></div>
+    <div></div>
+    <div></div>
 </div>
 
 <div class="chart-row">
@@ -324,7 +326,11 @@
 </div>
 <div class="chart-row">
     <div class="chart-box"><h3 style="margin-top:0;">FS-SQS &amp; TTLA-SQS — Both FS &amp; TTLA Experts</h3><canvas id="eval_sqs_both" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS-CST &amp; TTLA-AHT — Both FS &amp; TTLA Experts</h3><canvas id="eval_cst_aht_both" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS-CST — Both FS &amp; TTLA Experts</h3><canvas id="eval_cst_both" height="280"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA-AHT — Both FS &amp; TTLA Experts</h3><canvas id="eval_aht_both" height="280"></canvas></div>
+    <div></div>
 </div>
 
 <div class="callout">
@@ -726,16 +732,22 @@ document.addEventListener('DOMContentLoaded', function() {
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 78 } } }
     });
 
-    new Chart(document.getElementById('eval_cst_aht_both'), {
+    new Chart(document.getElementById('eval_cst_both'), {
         type: 'bar',
         data: {
-            labels: ['FS-CST', 'TTLA-AHT'],
-            datasets: [
-                { label: 'Tax Specialist', data: [2.57, 23.67], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
-                { label: 'Non-TS', data: [2.96, 22.36], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
-            ]
+            labels: ['Tax Specialist', 'Non-TS'],
+            datasets: [{ label: 'FS-CST', data: [2.57, 2.96], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }]
         },
-        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false } } }
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 2.0 } } }
+    });
+
+    new Chart(document.getElementById('eval_aht_both'), {
+        type: 'bar',
+        data: {
+            labels: ['Tax Specialist', 'Non-TS'],
+            datasets: [{ label: 'TTLA-AHT', data: [23.67, 22.36], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 20 } } }
     });
 
     new Chart(document.getElementById('fs_tnps'), {
