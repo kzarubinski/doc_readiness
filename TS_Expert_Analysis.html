@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Specialist Performance Analysis</title>
+    <style>
+        :root {
+            --bg: #f8f9fa; --card: #ffffff; --border: #dee2e6; --text: #212529; --muted: #6c757d;
+            --primary: #2563eb; --primary-light: #dbeafe;
+            --success: #16a34a; --success-light: #dcfce7;
+            --danger: #dc2626; --danger-light: #fee2e2;
+            --warning: #d97706; --warning-light: #fef3c7;
+            --purple: #7c3aed; --purple-light: #ede9fe;
+            --teal: #0d9488; --teal-light: #ccfbf1;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+        h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: var(--primary); }
+        .subtitle { color: var(--muted); margin-bottom: 2rem; }
+        .report-date { color: var(--muted); font-size: 0.9rem; }
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .kpi { background: var(--card); border-radius: 10px; padding: 1.25rem; border: 1px solid var(--border); text-align: center; }
+        .kpi .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 0.35rem; }
+        .kpi .value { font-size: 2rem; font-weight: 700; }
+        .kpi .detail { font-size: 0.82rem; color: var(--muted); margin-top: 0.25rem; }
+        .kpi.green .value { color: var(--success); }
+        .kpi.red .value { color: var(--danger); }
+        .kpi.blue .value { color: var(--primary); }
+        .kpi.purple .value { color: var(--purple); }
+        .kpi.teal .value { color: var(--teal); }
+        .card { background: var(--card); border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+        .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-green { background: var(--success-light); color: var(--success); }
+        .badge-red { background: var(--danger-light); color: var(--danger); }
+        .badge-yellow { background: var(--warning-light); color: var(--warning); }
+        .badge-blue { background: var(--primary-light); color: var(--primary); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 0.75rem 0; }
+        th, td { padding: 0.55rem 0.75rem; text-align: center; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
+        td:first-child, th:first-child { text-align: left; }
+        tr:hover td { background: #f8fafc; }
+        .highlight-row td { background: var(--primary-light) !important; font-weight: 600; }
+        .ts-row td { background: #f0fdf4 !important; font-weight: 600; }
+        .better { color: var(--success); font-weight: 600; }
+        .worse { color: var(--danger); font-weight: 600; }
+        .neutral { color: var(--muted); }
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+        .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+        .chart-box canvas { width: 100% !important; }
+        @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+        .callout { border-left: 4px solid var(--primary); background: var(--primary-light); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.92rem; }
+        .callout.success { border-left-color: var(--success); background: var(--success-light); }
+        .callout.danger { border-left-color: var(--danger); background: var(--danger-light); }
+        .callout.teal { border-left-color: var(--teal); background: var(--teal-light); }
+        .toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 2rem; margin: 1.5rem 0; }
+        .toc ol { padding-left: 1.25rem; }
+        .toc li { margin-bottom: 0.35rem; }
+        .toc a { color: var(--primary); text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+        .section-divider { border: none; height: 3px; background: linear-gradient(90deg, var(--primary), var(--purple)); margin: 3rem 0; border-radius: 2px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <h1>Tax Specialist Performance Analysis</h1>
+    <p class="subtitle">Tax Specialist vs Non-Tax Specialist (Tax Associate + Tax Expert) &bull; Full Service &amp; TTLA</p>
+    <p class="report-date">Report generated: May 22, 2026</p>
+
+    <div class="toc">
+        <strong>Contents</strong>
+        <ol>
+            <li><a href="#exec">Executive Summary</a></li>
+            <li><a href="#expert-eval">Overall Expert Evaluation</a></li>
+            <li><a href="#fs">FS (TTL Full Service Consumer) Analysis</a>
+                <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
+                    <li><a href="#fs-volume">Volume Distribution</a></li>
+                    <li><a href="#fs-overall">Overall Performance</a></li>
+                    <li><a href="#fs-pl">Breakdown by Proficiency Level</a></li>
+                    <li><a href="#fs-sku">SKU Mix &amp; CST by SKU</a></li>
+                </ol>
+            </li>
+            <li><a href="#ttla">TTLA (TTL Assisted Consumer) Analysis</a>
+                <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
+                    <li><a href="#ttla-volume">Volume Distribution</a></li>
+                    <li><a href="#ttla-overall">Overall Performance</a></li>
+                    <li><a href="#ttla-pl">Breakdown by Proficiency Level</a></li>
+                </ol>
+            </li>
+            <li><a href="#conclusions">Conclusions &amp; Key Takeaways</a></li>
+        </ol>
+    </div>
+
+<h2 id="exec">1. Executive Summary</h2>
+<p>This analysis compares <strong>Tax Specialists</strong> against <strong>Non-Tax Specialists</strong> (Tax Associate + Tax Expert combined) across two products: <strong>TTL Full Service Consumer (FS)</strong> and <strong>TTL Assisted Consumer (TTLA)</strong>. All data spans all partners and all reporting periods. Each metric is computed as <code>sum(numerator) / sum(denominator)</code> across all relevant rows.</p>
+
+<p style="font-size:0.9rem;color:var(--muted);margin:0.75rem 0;">Non-Tax Specialist group includes: <strong>Tax Associate</strong> and <strong>Tax Expert</strong> roles. All partners included (EAW, Foundever, Highspring, Intuit, JDA, Magnit).</p>
+
+<div class="kpi-row">
+<div class="kpi red">
+    <div class="label">FS tNPS — TS</div>
+    <div class="value">64.53</div>
+    <div class="detail">vs Non-TS 72.25 (-7.72)</div>
+</div>
+<div class="kpi red">
+    <div class="label">FS HC — TS</div>
+    <div class="value">46.62%</div>
+    <div class="detail">vs Non-TS 67.29% (-20.68)</div>
+</div>
+<div class="kpi green">
+    <div class="label">FS CST — TS</div>
+    <div class="value">2.57</div>
+    <div class="detail">vs Non-TS 2.96 (-0.39)</div>
+</div>
+<div class="kpi green">
+    <div class="label">TTLA tNPS — TS</div>
+    <div class="value">71.38</div>
+    <div class="detail">vs Non-TS 68.80 (+2.58)</div>
+</div>
+<div class="kpi green">
+    <div class="label">TTLA IR — TS</div>
+    <div class="value">87.96</div>
+    <div class="detail">vs Non-TS 86.13 (+1.82)</div>
+</div>
+<div class="kpi red">
+    <div class="label">TTLA AHT — TS</div>
+    <div class="value">23.67</div>
+    <div class="detail">vs Non-TS 22.41 (+1.27)</div>
+</div>
+</div>
+<div class="callout danger">
+    <strong>FS Overview — Tax Specialist vs Non-TS:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li><strong>tNPS:</strong> TS 64.53 vs Non-TS 72.25 (-7.72) — <span class="worse">worse</span></li>
+<li><strong>IR:</strong> TS 61.00 vs Non-TS 72.48 (-11.49) — <span class="worse">worse</span></li>
+<li><strong>SQS:</strong> TS 85.67 vs Non-TS 87.57 (-1.89) — <span class="worse">worse</span></li>
+<li><strong>HC:</strong> TS 46.62 vs Non-TS 67.29 (-20.68) — <span class="worse">worse</span></li>
+<li><strong>CST:</strong> TS 2.57 vs Non-TS 2.96 (-0.39) — <span class="better">better</span></li></ul>
+</div>
+<div class="callout success">
+    <strong>TTLA Overview — Tax Specialist vs Non-TS:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li><strong>tNPS:</strong> TS 71.38 vs Non-TS 68.80 (+2.58) — <span class="better">better</span></li>
+<li><strong>IR:</strong> TS 87.96 vs Non-TS 86.13 (+1.82) — <span class="better">better</span></li>
+<li><strong>SQS:</strong> TS 82.34 vs Non-TS 81.12 (+1.22) — <span class="better">better</span></li>
+<li><strong>AHT:</strong> TS 23.67 vs Non-TS 22.41 (+1.27) — <span class="worse">worse</span></li></ul>
+</div>
+<hr class="section-divider">
+
+<!-- ===================== EXPERT EVALUATION SECTION ===================== -->
+<h2 id="expert-eval">2. Overall Expert Evaluation</h2>
+<p>Expert-level analysis using distinct experts with at least 1 contact to identify unique experts. Experts are categorized by product coverage: <strong>Both FS &amp; TTLA</strong> (expert appears in both products), <strong>Only FS</strong>, or <strong>Only TTLA</strong>.</p>
+
+<h3>2a. Tax Specialist — Expert Breakdown</h3>
+<div class="kpi-row">
+<div class="kpi blue">
+    <div class="label">Total TS Experts</div>
+    <div class="value">2,794</div>
+</div>
+<div class="kpi teal">
+    <div class="label">Both FS &amp; TTLA</div>
+    <div class="value">2,464</div>
+    <div class="detail">88.2% of TS experts</div>
+</div>
+<div class="kpi purple">
+    <div class="label">Only FS</div>
+    <div class="value">317</div>
+    <div class="detail">11.3% of TS experts</div>
+</div>
+<div class="kpi">
+    <div class="label">Only TTLA</div>
+    <div class="value">13</div>
+    <div class="detail">0.5% of TS experts</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>Tax Specialist — All Experts</strong> <span class="badge badge-blue">2,794 experts</span></div>
+<table>
+<thead><tr><th>Product</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th><th>AHT</th></tr></thead>
+<tbody>
+<tr><td><strong>FS</strong></td><td>64.53</td><td>61.00</td><td>85.67</td><td>46.62</td><td>2.57</td><td>—</td></tr>
+<tr><td><strong>TTLA</strong></td><td>71.38</td><td>87.96</td><td>82.34</td><td>—</td><td>—</td><td>23.67</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>Tax Specialist — Both FS &amp; TTLA</strong> <span class="badge badge-green">2,464 experts (88.2%)</span></div>
+<table>
+<thead><tr><th>Product</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th><th>AHT</th></tr></thead>
+<tbody>
+<tr><td><strong>FS</strong></td><td>64.73</td><td>61.10</td><td>85.71</td><td>46.75</td><td>2.57</td><td>—</td></tr>
+<tr><td><strong>TTLA</strong></td><td>71.40</td><td>87.97</td><td>82.34</td><td>—</td><td>—</td><td>23.67</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>Tax Specialist — Only FS</strong> <span class="badge badge-blue">317 experts (11.3%)</span></div>
+<table>
+<thead><tr><th>Product</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr><td><strong>FS</strong></td><td>52.99</td><td>54.79</td><td>83.71</td><td>40.34</td><td>2.54</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>Tax Specialist — Only TTLA</strong> <span class="badge badge-blue">13 experts (0.5%)</span></div>
+<table>
+<thead><tr><th>Product</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr><td><strong>TTLA</strong></td><td>50.00</td><td>75.00</td><td>75.84</td><td>25.09</td></tr>
+</tbody></table>
+</div>
+
+<h3>2b. Non-Tax Specialist — Expert Breakdown</h3>
+<div class="kpi-row">
+<div class="kpi blue">
+    <div class="label">Total Non-TS Experts</div>
+    <div class="value">15,294</div>
+</div>
+<div class="kpi teal">
+    <div class="label">Both FS &amp; TTLA</div>
+    <div class="value">13,551</div>
+    <div class="detail">88.6% of Non-TS experts</div>
+</div>
+<div class="kpi purple">
+    <div class="label">Only FS</div>
+    <div class="value">751</div>
+    <div class="detail">4.9% of Non-TS experts</div>
+</div>
+<div class="kpi">
+    <div class="label">Only TTLA</div>
+    <div class="value">992</div>
+    <div class="detail">6.5% of Non-TS experts</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>Non-TS — All Experts</strong> <span class="badge badge-blue">15,294 experts</span></div>
+<table>
+<thead><tr><th>Product</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th><th>AHT</th></tr></thead>
+<tbody>
+<tr><td><strong>FS</strong></td><td>72.25</td><td>72.48</td><td>87.57</td><td>67.29</td><td>2.96</td><td>—</td></tr>
+<tr><td><strong>TTLA</strong></td><td>68.80</td><td>86.13</td><td>81.12</td><td>—</td><td>—</td><td>22.41</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>Non-TS — Both FS &amp; TTLA</strong> <span class="badge badge-green">13,551 experts (88.6%)</span></div>
+<table>
+<thead><tr><th>Product</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th><th>AHT</th></tr></thead>
+<tbody>
+<tr><td><strong>FS</strong></td><td>72.25</td><td>72.49</td><td>87.57</td><td>67.29</td><td>2.96</td><td>—</td></tr>
+<tr><td><strong>TTLA</strong></td><td>68.95</td><td>86.18</td><td>81.14</td><td>—</td><td>—</td><td>22.36</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>Non-TS — Only FS</strong> <span class="badge badge-blue">751 experts (4.9%)</span></div>
+<table>
+<thead><tr><th>Product</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr><td><strong>FS</strong></td><td>70.37</td><td>50.00</td><td>81.52</td><td>72.73</td><td>3.06</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>Non-TS — Only TTLA</strong> <span class="badge badge-blue">992 experts (6.5%)</span></div>
+<table>
+<thead><tr><th>Product</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr><td><strong>TTLA</strong></td><td>63.22</td><td>84.21</td><td>80.13</td><td>24.15</td></tr>
+</tbody></table>
+</div>
+
+<h3>2c. Side-by-Side Comparison</h3>
+<div class="card">
+<div class="card-header"><strong>FS Metrics — by Expert Category</strong></div>
+<table>
+<thead><tr><th>Category</th><th>Group</th><th>Experts</th><th>FS-tNPS</th><th>FS-IR</th><th>FS-SQS</th><th>FS-HC</th><th>FS-CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>All</td><td><strong>TS</strong></td><td>2,794</td><td>64.53</td><td>61.00</td><td>85.67</td><td>46.62</td><td>2.57</td></tr>
+<tr class="highlight-row"><td>All</td><td><strong>Non-TS</strong></td><td>15,294</td><td>72.25</td><td>72.48</td><td>87.57</td><td>67.29</td><td>2.96</td></tr>
+<tr><td colspan="8" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Both FS &amp; TTLA</td><td><strong>TS</strong></td><td>2,464</td><td>64.73</td><td>61.10</td><td>85.71</td><td>46.75</td><td>2.57</td></tr>
+<tr class="highlight-row"><td>Both FS &amp; TTLA</td><td><strong>Non-TS</strong></td><td>13,551</td><td>72.25</td><td>72.49</td><td>87.57</td><td>67.29</td><td>2.96</td></tr>
+<tr><td colspan="8" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Only FS</td><td><strong>TS</strong></td><td>317</td><td>52.99</td><td>54.79</td><td>83.71</td><td>40.34</td><td>2.54</td></tr>
+<tr class="highlight-row"><td>Only FS</td><td><strong>Non-TS</strong></td><td>751</td><td>70.37</td><td>50.00</td><td>81.52</td><td>72.73</td><td>3.06</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>TTLA Metrics — by Expert Category</strong></div>
+<table>
+<thead><tr><th>Category</th><th>Group</th><th>Experts</th><th>TTLA-tNPS</th><th>TTLA-IR</th><th>TTLA-SQS</th><th>TTLA-AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>All</td><td><strong>TS</strong></td><td>2,794</td><td>71.38</td><td>87.96</td><td>82.34</td><td>23.67</td></tr>
+<tr class="highlight-row"><td>All</td><td><strong>Non-TS</strong></td><td>15,294</td><td>68.80</td><td>86.13</td><td>81.12</td><td>22.41</td></tr>
+<tr><td colspan="7" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Both FS &amp; TTLA</td><td><strong>TS</strong></td><td>2,464</td><td>71.40</td><td>87.97</td><td>82.34</td><td>23.67</td></tr>
+<tr class="highlight-row"><td>Both FS &amp; TTLA</td><td><strong>Non-TS</strong></td><td>13,551</td><td>68.95</td><td>86.18</td><td>81.14</td><td>22.36</td></tr>
+<tr><td colspan="7" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Only TTLA</td><td><strong>TS</strong></td><td>13</td><td>50.00</td><td>75.00</td><td>75.84</td><td>25.09</td></tr>
+<tr class="highlight-row"><td>Only TTLA</td><td><strong>Non-TS</strong></td><td>992</td><td>63.22</td><td>84.21</td><td>80.13</td><td>24.15</td></tr>
+</tbody></table>
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">Expert Breakdown — Tax Specialist</h3><canvas id="eval_ts_breakdown" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">Expert Breakdown — Non-TS</h3><canvas id="eval_nts_breakdown" height="280"></canvas></div>
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS-tNPS &amp; TTLA-tNPS — Both FS &amp; TTLA Experts</h3><canvas id="eval_tnps_both" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS-IR &amp; TTLA-IR — Both FS &amp; TTLA Experts</h3><canvas id="eval_ir_both" height="280"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS-SQS &amp; TTLA-SQS — Both FS &amp; TTLA Experts</h3><canvas id="eval_sqs_both" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS-CST &amp; TTLA-AHT — Both FS &amp; TTLA Experts</h3><canvas id="eval_cst_aht_both" height="280"></canvas></div>
+</div>
+
+<div class="callout">
+    <strong>Key Observations:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>88.2%</strong> of Tax Specialists work both products vs <strong>88.6%</strong> of Non-TS — nearly identical dual-product coverage.</li>
+    <li>TS has a much higher <strong>Only FS</strong> share (11.3% vs 4.9%) and virtually no Only TTLA experts (0.5% vs 6.5%).</li>
+    <li>TS experts working <strong>both products</strong> outperform TS-Only-FS experts significantly on FS metrics (FS-tNPS: 64.73 vs 52.99, FS-HC: 46.75 vs 40.34).</li>
+    <li>For TTLA, Tax Specialists <strong>outperform</strong> Non-TS across all categories on tNPS, IR, and SQS.</li>
+    </ul>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================== FS SECTION ===================== -->
+<h2 id="fs">3. FS (TTL Full Service Consumer) Analysis</h2>
+<p>FS metrics: <strong>CST</strong> (Customer Service Time — lower is better), <strong>tNPS</strong> (customer satisfaction — higher is better), <strong>IR</strong> (Issue Resolution — higher is better), <strong>HC</strong> (Handled Conversion — higher is better), <strong>SQS</strong> (Service Quality Score — higher is better).</p>
+
+<h3 id="fs-volume">3a. FS Volume Distribution</h3>
+<div class="kpi-row">
+<div class="kpi teal">
+    <div class="label">Tax Specialist</div>
+    <div class="value">16.3%</div>
+    <div class="detail">of experts | 12.8% of engagements</div>
+</div>
+<div class="kpi purple">
+    <div class="label">Non-TS</div>
+    <div class="value">83.7%</div>
+    <div class="detail">of experts | 87.2% of engagements</div>
+</div>
+</div>
+
+<h3 id="fs-overall">3b. Overall FS Performance</h3>
+<div class="card">
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>64.53</td><td>61.00</td><td>85.67</td><td>46.62</td><td>2.57</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>72.25</td><td>72.48</td><td>87.57</td><td>67.29</td><td>2.96</td></tr>
+</tbody></table>
+</div>
+<div class="kpi-row">
+<div class="kpi red">
+    <div class="label">TS tNPS</div>
+    <div class="value">64.53</div>
+    <div class="detail">vs Non-TS 72.25 (-7.72)</div>
+</div>
+<div class="kpi red">
+    <div class="label">TS IR</div>
+    <div class="value">61.00</div>
+    <div class="detail">vs Non-TS 72.48 (-11.49)</div>
+</div>
+<div class="kpi red">
+    <div class="label">TS SQS</div>
+    <div class="value">85.67</div>
+    <div class="detail">vs Non-TS 87.57 (-1.89)</div>
+</div>
+<div class="kpi red">
+    <div class="label">TS HC</div>
+    <div class="value">46.62</div>
+    <div class="detail">vs Non-TS 67.29 (-20.68)</div>
+</div>
+<div class="kpi green">
+    <div class="label">TS CST</div>
+    <div class="value">2.57</div>
+    <div class="detail">vs Non-TS 2.96 (-0.39)</div>
+</div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS</h3><canvas id="fs_tnps" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS HC</h3><canvas id="fs_hc" height="280"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST</h3><canvas id="fs_cst" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS SQS &amp; IR</h3><canvas id="fs_sqs_ir" height="280"></canvas></div>
+</div>
+<div class="callout danger">
+    <strong>FS Overall — Tax Specialist vs Non-TS:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li><strong>tNPS:</strong> TS 64.53 vs Non-TS 72.25 (-7.72) — <span class="worse">worse</span></li>
+<li><strong>IR:</strong> TS 61.00 vs Non-TS 72.48 (-11.49) — <span class="worse">worse</span></li>
+<li><strong>SQS:</strong> TS 85.67 vs Non-TS 87.57 (-1.89) — <span class="worse">worse</span></li>
+<li><strong>HC:</strong> TS 46.62 vs Non-TS 67.29 (-20.68) — <span class="worse">worse</span></li>
+<li><strong>CST:</strong> TS 2.57 vs Non-TS 2.96 (-0.39) — <span class="better">better (lower is better)</span></li></ul>
+</div>
+
+<h3 id="fs-pl">3c. FS — Breakdown by Proficiency Level</h3>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL1</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>62.83</td><td>57.77</td><td>84.94</td><td>43.65</td><td>2.44</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>65.26</td><td>65.75</td><td>83.75</td><td>57.19</td><td>2.34</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL2</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>62.33</td><td>61.25</td><td>85.53</td><td>47.38</td><td>2.66</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>68.21</td><td>65.19</td><td>86.74</td><td>66.37</td><td>2.43</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL3</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>76.51</td><td>70.42</td><td>88.72</td><td>48.94</td><td>2.59</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>66.61</td><td>68.82</td><td>87.65</td><td>67.86</td><td>2.86</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL4</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>66.67</td><td>53.70</td><td>88.55</td><td>66.70</td><td>2.23</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>76.72</td><td>77.16</td><td>88.09</td><td>68.22</td><td>3.18</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by Proficiency Level</h3><canvas id="fs_pl_tnps" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS HC by Proficiency Level</h3><canvas id="fs_pl_hc" height="280"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST by Proficiency Level</h3><canvas id="fs_pl_cst" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS SQS by Proficiency Level</h3><canvas id="fs_pl_sqs" height="280"></canvas></div>
+</div>
+
+<h3 id="fs-sku">3d. FS — SKU Mix &amp; CST by SKU</h3>
+<div class="card">
+<div class="card-header"><strong>Overall SKU Mix (% of Engagements)</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>49.33%</td><td>32.63%</td><td>18.04%</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>28.14%</td><td>28.60%</td><td>43.26%</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Overall CST by SKU</strong></div>
+<table>
+<thead><tr><th>Group</th><th>CST Basic</th><th>CST Deluxe</th><th>CST Premium</th><th>CST Overall</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>1.96</td><td>2.68</td><td>3.97</td><td>2.57</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>1.80</td><td>2.47</td><td>4.02</td><td>2.96</td></tr>
+</tbody></table>
+</div>
+<div class="callout">
+    <strong>SKU Mix Insight:</strong> Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.3% vs 28.1%) and far fewer <strong>Premium</strong> returns (18.0% vs 43.3%). This SKU mix difference significantly contributes to Tax Specialists' lower overall CST despite having higher per-SKU CST for Basic and Deluxe.
+</div>
+
+<div class="card">
+<div class="card-header"><strong>SKU Mix by Proficiency Level</strong></div>
+<table>
+<thead><tr><th>PL</th><th>Group</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th><th>CST Basic</th><th>CST Deluxe</th><th>CST Premium</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>PL1</td><td><strong>Tax Specialist</strong></td><td>58.89%</td><td>27.43%</td><td>13.69%</td><td>1.94</td><td>2.75</td><td>3.86</td></tr>
+<tr class="highlight-row"><td>PL1</td><td><strong>Non-TS</strong></td><td>56.49%</td><td>26.16%</td><td>17.35%</td><td>1.81</td><td>2.61</td><td>3.65</td></tr>
+<tr><td colspan="8" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>PL2</td><td><strong>Tax Specialist</strong></td><td>46.40%</td><td>35.35%</td><td>18.25%</td><td>2.02</td><td>2.76</td><td>4.02</td></tr>
+<tr class="highlight-row"><td>PL2</td><td><strong>Non-TS</strong></td><td>39.64%</td><td>38.04%</td><td>22.32%</td><td>1.76</td><td>2.42</td><td>3.62</td></tr>
+<tr><td colspan="8" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>PL3</td><td><strong>Tax Specialist</strong></td><td>44.76%</td><td>34.15%</td><td>21.09%</td><td>1.88</td><td>2.48</td><td>4.24</td></tr>
+<tr class="highlight-row"><td>PL3</td><td><strong>Non-TS</strong></td><td>28.01%</td><td>31.61%</td><td>40.38%</td><td>1.85</td><td>2.47</td><td>3.84</td></tr>
+<tr><td colspan="8" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>PL4</td><td><strong>Tax Specialist</strong></td><td>34.63%</td><td>30.40%</td><td>34.96%</td><td>1.52</td><td>1.96</td><td>3.16</td></tr>
+<tr class="highlight-row"><td>PL4</td><td><strong>Non-TS</strong></td><td>23.38%</td><td>24.95%</td><td>51.67%</td><td>1.81</td><td>2.49</td><td>4.12</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix — Tax Specialist</h3><canvas id="sku_ts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix — Non-TS</h3><canvas id="sku_nonts" height="280"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">CST by SKU — Overall</h3><canvas id="cst_sku" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL — Tax Specialist</h3><canvas id="sku_pl_ts" height="280"></canvas></div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ===================== TTLA SECTION ===================== -->
+<h2 id="ttla">4. TTLA (TTL Assisted Consumer) Analysis</h2>
+<p>TTLA metrics: <strong>AHT</strong> (Average Handle Time in minutes — lower is better), <strong>tNPS</strong> (customer satisfaction — higher is better), <strong>IR</strong> (Issue Resolution — higher is better), <strong>SQS</strong> (Service Quality Score — higher is better).</p>
+
+<h3 id="ttla-volume">4a. TTLA Volume Distribution</h3>
+<div class="kpi-row">
+<div class="kpi teal">
+    <div class="label">Tax Specialist</div>
+    <div class="value">14.6%</div>
+    <div class="detail">of experts | 6.8% of contacts</div>
+</div>
+<div class="kpi purple">
+    <div class="label">Non-TS</div>
+    <div class="value">85.4%</div>
+    <div class="detail">of experts | 93.2% of contacts</div>
+</div>
+</div>
+
+<h3 id="ttla-overall">4b. Overall TTLA Performance</h3>
+<div class="card">
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>71.38</td><td>87.96</td><td>82.34</td><td>23.67</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>68.80</td><td>86.13</td><td>81.12</td><td>22.41</td></tr>
+</tbody></table>
+</div>
+<div class="kpi-row">
+<div class="kpi green">
+    <div class="label">TS tNPS</div>
+    <div class="value">71.38</div>
+    <div class="detail">vs Non-TS 68.80 (+2.58)</div>
+</div>
+<div class="kpi green">
+    <div class="label">TS IR</div>
+    <div class="value">87.96</div>
+    <div class="detail">vs Non-TS 86.13 (+1.82)</div>
+</div>
+<div class="kpi green">
+    <div class="label">TS SQS</div>
+    <div class="value">82.34</div>
+    <div class="detail">vs Non-TS 81.12 (+1.22)</div>
+</div>
+<div class="kpi red">
+    <div class="label">TS AHT</div>
+    <div class="value">23.67</div>
+    <div class="detail">vs Non-TS 22.41 (+1.27)</div>
+</div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS</h3><canvas id="ttla_tnps" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT</h3><canvas id="ttla_aht" height="280"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR</h3><canvas id="ttla_ir" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS</h3><canvas id="ttla_sqs" height="280"></canvas></div>
+</div>
+<div class="callout success">
+    <strong>TTLA Overall — Tax Specialist vs Non-TS:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li><strong>tNPS:</strong> TS 71.38 vs Non-TS 68.80 (+2.58) — <span class="better">better</span></li>
+<li><strong>IR:</strong> TS 87.96 vs Non-TS 86.13 (+1.82) — <span class="better">better</span></li>
+<li><strong>SQS:</strong> TS 82.34 vs Non-TS 81.12 (+1.22) — <span class="better">better</span></li>
+<li><strong>AHT:</strong> TS 23.67 vs Non-TS 22.41 (+1.27) — <span class="worse">worse (higher AHT)</span></li></ul>
+</div>
+
+<h3 id="ttla-pl">4c. TTLA — Breakdown by Proficiency Level</h3>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL1</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>68.40</td><td>86.70</td><td>81.50</td><td>24.40</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>50.96</td><td>77.64</td><td>77.92</td><td>24.17</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL2</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>71.35</td><td>87.99</td><td>82.49</td><td>23.54</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>66.78</td><td>85.43</td><td>80.89</td><td>21.97</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL3</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>83.07</td><td>92.24</td><td>84.84</td><td>22.65</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>73.59</td><td>88.40</td><td>82.09</td><td>21.88</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL4</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>81.82</td><td>93.88</td><td>84.53</td><td>18.36</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>77.27</td><td>89.72</td><td>83.04</td><td>22.36</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by Proficiency Level</h3><canvas id="ttla_pl_tnps" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by Proficiency Level</h3><canvas id="ttla_pl_aht" height="280"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR by Proficiency Level</h3><canvas id="ttla_pl_ir" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by Proficiency Level</h3><canvas id="ttla_pl_sqs" height="280"></canvas></div>
+</div>
+
+<hr class="section-divider">
+
+<h2 id="conclusions">5. Conclusions &amp; Key Takeaways</h2>
+<div class="card"><h3 style="margin-top:0;">FS Summary</h3><ul style="padding-left:1.25rem;">
+<li><strong>tNPS:</strong> TS <strong>64.53</strong> vs Non-TS <strong>72.25</strong> — <span class="worse">Non-TS outperforms by 7.72 (10.7%)</span></li>
+<li><strong>IR:</strong> TS <strong>61.00</strong> vs Non-TS <strong>72.48</strong> — <span class="worse">Non-TS outperforms by 11.49 (15.8%)</span></li>
+<li><strong>SQS:</strong> TS <strong>85.67</strong> vs Non-TS <strong>87.57</strong> — <span class="worse">Non-TS outperforms by 1.89 (2.2%)</span></li>
+<li><strong>HC:</strong> TS <strong>46.62</strong> vs Non-TS <strong>67.29</strong> — <span class="worse">Non-TS outperforms by 20.68 (30.7%)</span></li>
+<li><strong>CST:</strong> TS <strong>2.57</strong> vs Non-TS <strong>2.96</strong> — <span class="better">TS outperforms by 0.39 (13.3%)</span></li>
+</ul></div>
+
+<div class="card"><h3 style="margin-top:0;">FS — Proficiency Level Highlights</h3><table>
+<thead><tr><th>PL</th><th>TS tNPS</th><th>Non-TS tNPS</th><th>TS HC</th><th>Non-TS HC</th><th>TS CST</th><th>Non-TS CST</th><th>TS Strengths</th></tr></thead><tbody>
+<tr><td><strong>PL1</strong></td><td>62.83</td><td>65.26</td><td>43.65</td><td>57.19</td><td>2.44</td><td>2.34</td><td><span class="badge badge-yellow">Below Non-TS</span></td></tr>
+<tr><td><strong>PL2</strong></td><td>62.33</td><td>68.21</td><td>47.38</td><td>66.37</td><td>2.66</td><td>2.43</td><td><span class="badge badge-yellow">Below Non-TS</span></td></tr>
+<tr><td><strong>PL3</strong></td><td>76.51</td><td>66.61</td><td>48.94</td><td>67.86</td><td>2.59</td><td>2.86</td><td><span class="badge badge-green">tNPS</span> <span class="badge badge-green">SQS</span> <span class="badge badge-green">CST</span></td></tr>
+<tr><td><strong>PL4</strong></td><td>66.67</td><td>76.72</td><td>66.70</td><td>68.22</td><td>2.23</td><td>3.18</td><td><span class="badge badge-green">CST</span> <span class="badge badge-green">SQS</span></td></tr>
+</tbody></table></div>
+
+<div class="card"><h3 style="margin-top:0;">FS — SKU Mix Impact</h3>
+<p>Tax Specialists handle a significantly higher share of <strong>Basic</strong> returns (49.3% vs 28.1%) and far fewer <strong>Premium</strong> returns (18.0% vs 43.3%). This favorable SKU mix is the primary driver of TS's lower overall CST (2.57 vs 2.96), even though per-SKU CST is similar or slightly higher for TS on Basic and Deluxe tiers.</p>
+<p style="margin-top:0.5rem;">At PL4, Tax Specialists achieve the <strong>lowest per-SKU CST</strong> across all three tiers (Basic: 1.52 vs 1.81, Deluxe: 1.96 vs 2.49, Premium: 3.16 vs 4.12).</p>
+</div>
+
+<div class="card"><h3 style="margin-top:0;">TTLA Summary</h3><ul style="padding-left:1.25rem;">
+<li><strong>tNPS:</strong> TS <strong>71.38</strong> vs Non-TS <strong>68.80</strong> — <span class="better">TS outperforms by 2.58 (3.8%)</span></li>
+<li><strong>IR:</strong> TS <strong>87.96</strong> vs Non-TS <strong>86.13</strong> — <span class="better">TS outperforms by 1.82 (2.1%)</span></li>
+<li><strong>SQS:</strong> TS <strong>82.34</strong> vs Non-TS <strong>81.12</strong> — <span class="better">TS outperforms by 1.22 (1.5%)</span></li>
+<li><strong>AHT:</strong> TS <strong>23.67</strong> vs Non-TS <strong>22.41</strong> — <span class="worse">Non-TS outperforms by 1.27 (5.6%)</span></li>
+</ul></div>
+
+<div class="card"><h3 style="margin-top:0;">TTLA — Proficiency Level Highlights</h3><table>
+<thead><tr><th>PL</th><th>TS tNPS</th><th>Non-TS tNPS</th><th>TS AHT</th><th>Non-TS AHT</th><th>TS Strengths</th></tr></thead><tbody>
+<tr><td><strong>PL1</strong></td><td>68.40</td><td>50.96</td><td>24.40</td><td>24.17</td><td><span class="badge badge-green">tNPS +17.4</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span></td></tr>
+<tr><td><strong>PL2</strong></td><td>71.35</td><td>66.78</td><td>23.54</td><td>21.97</td><td><span class="badge badge-green">tNPS</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span></td></tr>
+<tr><td><strong>PL3</strong></td><td>83.07</td><td>73.59</td><td>22.65</td><td>21.88</td><td><span class="badge badge-green">tNPS +9.5</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span></td></tr>
+<tr><td><strong>PL4</strong></td><td>81.82</td><td>77.27</td><td>18.36</td><td>22.36</td><td><span class="badge badge-green">tNPS</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span> <span class="badge badge-green">AHT</span></td></tr>
+</tbody></table></div>
+
+<div class="callout teal">
+    <strong>Methodology Note:</strong> All metrics computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria. tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, HC. Lower is better for AHT, CST. SKU mix % = SKU denominator / total SKU denominator.
+</div>
+</div>
+
+<footer>
+    <p>Tax Specialist Performance Analysis &bull; Generated May 22, 2026</p>
+    <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows)</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var tsColor = 'rgba(22,163,74,0.75)';
+    var tsBorder = '#16a34a';
+    var ntsColor = 'rgba(99,102,241,0.75)';
+    var ntsBorder = '#6366f1';
+
+    // Expert Evaluation charts
+    new Chart(document.getElementById('eval_ts_breakdown'), {
+        type: 'doughnut',
+        data: { labels: ['Both FS & TTLA', 'Only FS', 'Only TTLA'], datasets: [{ data: [2464, 317, 13], backgroundColor: ['rgba(22,163,74,0.75)', 'rgba(37,99,235,0.75)', 'rgba(124,58,237,0.75)'], borderColor: ['#16a34a', '#2563eb', '#7c3aed'], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: function(ctx) { var t = ctx.dataset.data.reduce(function(a,b){return a+b},0); return ctx.label + ': ' + ctx.parsed.toLocaleString() + ' (' + (ctx.parsed/t*100).toFixed(1) + '%)'; } } } } }
+    });
+
+    new Chart(document.getElementById('eval_nts_breakdown'), {
+        type: 'doughnut',
+        data: { labels: ['Both FS & TTLA', 'Only FS', 'Only TTLA'], datasets: [{ data: [13551, 751, 992], backgroundColor: ['rgba(99,102,241,0.75)', 'rgba(37,99,235,0.75)', 'rgba(124,58,237,0.75)'], borderColor: ['#6366f1', '#2563eb', '#7c3aed'], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: function(ctx) { var t = ctx.dataset.data.reduce(function(a,b){return a+b},0); return ctx.label + ': ' + ctx.parsed.toLocaleString() + ' (' + (ctx.parsed/t*100).toFixed(1) + '%)'; } } } } }
+    });
+
+    new Chart(document.getElementById('eval_tnps_both'), {
+        type: 'bar',
+        data: {
+            labels: ['FS-tNPS', 'TTLA-tNPS'],
+            datasets: [
+                { label: 'Tax Specialist', data: [64.73, 71.40], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [72.25, 68.95], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 55 } } }
+    });
+
+    new Chart(document.getElementById('eval_ir_both'), {
+        type: 'bar',
+        data: {
+            labels: ['FS-IR', 'TTLA-IR'],
+            datasets: [
+                { label: 'Tax Specialist', data: [61.10, 87.97], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [72.49, 86.18], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 50 } } }
+    });
+
+    new Chart(document.getElementById('eval_sqs_both'), {
+        type: 'bar',
+        data: {
+            labels: ['FS-SQS', 'TTLA-SQS'],
+            datasets: [
+                { label: 'Tax Specialist', data: [85.71, 82.34], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [87.57, 81.14], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 78 } } }
+    });
+
+    new Chart(document.getElementById('eval_cst_aht_both'), {
+        type: 'bar',
+        data: {
+            labels: ['FS-CST', 'TTLA-AHT'],
+            datasets: [
+                { label: 'Tax Specialist', data: [2.57, 23.67], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [2.96, 22.36], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false } } }
+    });
+
+    new Chart(document.getElementById('fs_tnps'), {
+        type: 'bar',
+        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'tNPS', data: [64.53, 72.25], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 55 } } }
+    });
+
+    new Chart(document.getElementById('fs_hc'), {
+        type: 'bar',
+        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'HC', data: [46.62, 67.29], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 35 } } }
+    });
+
+    new Chart(document.getElementById('fs_cst'), {
+        type: 'bar',
+        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'CST', data: [2.57, 2.96], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 2.0 } } }
+    });
+
+    new Chart(document.getElementById('fs_sqs_ir'), {
+        type: 'bar',
+        data: {
+            labels: ['SQS', 'IR'],
+            datasets: [
+                { label: 'Tax Specialist', data: [85.67, 61.00], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [87.57, 72.48], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 50 } } }
+    });
+
+    // FS PL charts
+    var plLabels = ['PL1', 'PL2', 'PL3', 'PL4'];
+    new Chart(document.getElementById('fs_pl_tnps'), {
+        type: 'bar',
+        data: { labels: plLabels, datasets: [
+            { label: 'Tax Specialist', data: [62.83, 62.33, 76.51, 66.67], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+            { label: 'Non-TS', data: [65.26, 68.21, 66.61, 76.72], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+        ]},
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 55 } } }
+    });
+
+    new Chart(document.getElementById('fs_pl_hc'), {
+        type: 'bar',
+        data: { labels: plLabels, datasets: [
+            { label: 'Tax Specialist', data: [43.65, 47.38, 48.94, 66.70], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+            { label: 'Non-TS', data: [57.19, 66.37, 67.86, 68.22], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+        ]},
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 35 } } }
+    });
+
+    new Chart(document.getElementById('fs_pl_cst'), {
+        type: 'bar',
+        data: { labels: plLabels, datasets: [
+            { label: 'Tax Specialist', data: [2.44, 2.66, 2.59, 2.23], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+            { label: 'Non-TS', data: [2.34, 2.43, 2.86, 3.18], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+        ]},
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 2.0 } } }
+    });
+
+    new Chart(document.getElementById('fs_pl_sqs'), {
+        type: 'bar',
+        data: { labels: plLabels, datasets: [
+            { label: 'Tax Specialist', data: [84.94, 85.53, 88.72, 88.55], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+            { label: 'Non-TS', data: [83.75, 86.74, 87.65, 88.09], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+        ]},
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 80 } } }
+    });
+
+    // SKU charts
+    new Chart(document.getElementById('sku_ts'), {
+        type: 'doughnut',
+        data: { labels: ['Basic', 'Deluxe', 'Premium'], datasets: [{ data: [49.33, 32.63, 18.04], backgroundColor: ['rgba(37,99,235,0.75)', 'rgba(217,119,6,0.75)', 'rgba(124,58,237,0.75)'], borderColor: ['#2563eb', '#d97706', '#7c3aed'], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.parsed.toFixed(1) + '%'; } } } } }
+    });
+
+    new Chart(document.getElementById('sku_nonts'), {
+        type: 'doughnut',
+        data: { labels: ['Basic', 'Deluxe', 'Premium'], datasets: [{ data: [28.14, 28.60, 43.26], backgroundColor: ['rgba(37,99,235,0.75)', 'rgba(217,119,6,0.75)', 'rgba(124,58,237,0.75)'], borderColor: ['#2563eb', '#d97706', '#7c3aed'], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' }, tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.parsed.toFixed(1) + '%'; } } } } }
+    });
+
+    new Chart(document.getElementById('cst_sku'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium', 'Overall'],
+            datasets: [
+                { label: 'Tax Specialist', data: [1.96, 2.68, 3.97, 2.57], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [1.80, 2.47, 4.02, 2.96], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 1.5 } } }
+    });
+
+    new Chart(document.getElementById('sku_pl_ts'), {
+        type: 'bar',
+        data: {
+            labels: ['PL1', 'PL2', 'PL3', 'PL4'],
+            datasets: [
+                { label: 'Basic %', data: [58.89, 46.40, 44.76, 34.63], backgroundColor: 'rgba(37,99,235,0.7)', borderColor: '#2563eb', borderWidth: 2 },
+                { label: 'Deluxe %', data: [27.43, 35.35, 34.15, 30.40], backgroundColor: 'rgba(217,119,6,0.7)', borderColor: '#d97706', borderWidth: 2 },
+                { label: 'Premium %', data: [13.69, 18.25, 21.09, 34.96], backgroundColor: 'rgba(124,58,237,0.7)', borderColor: '#7c3aed', borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true }, y: { stacked: true, max: 100 } } }
+    });
+
+    // TTLA charts
+    new Chart(document.getElementById('ttla_tnps'), {
+        type: 'bar',
+        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'tNPS', data: [71.38, 68.80], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 60 } } }
+    });
+
+    new Chart(document.getElementById('ttla_aht'), {
+        type: 'bar',
+        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'AHT', data: [23.67, 22.41], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 20 } } }
+    });
+
+    new Chart(document.getElementById('ttla_ir'), {
+        type: 'bar',
+        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'IR', data: [87.96, 86.13], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 82 } } }
+    });
+
+    new Chart(document.getElementById('ttla_sqs'), {
+        type: 'bar',
+        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'SQS', data: [82.34, 81.12], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 78 } } }
+    });
+
+    // TTLA PL charts
+    new Chart(document.getElementById('ttla_pl_tnps'), {
+        type: 'bar',
+        data: { labels: plLabels, datasets: [
+            { label: 'Tax Specialist', data: [68.40, 71.35, 83.07, 81.82], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+            { label: 'Non-TS', data: [50.96, 66.78, 73.59, 77.27], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+        ]},
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 45 } } }
+    });
+
+    new Chart(document.getElementById('ttla_pl_aht'), {
+        type: 'bar',
+        data: { labels: plLabels, datasets: [
+            { label: 'Tax Specialist', data: [24.40, 23.54, 22.65, 18.36], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+            { label: 'Non-TS', data: [24.17, 21.97, 21.88, 22.36], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+        ]},
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 15 } } }
+    });
+
+    new Chart(document.getElementById('ttla_pl_ir'), {
+        type: 'bar',
+        data: { labels: plLabels, datasets: [
+            { label: 'Tax Specialist', data: [86.70, 87.99, 92.24, 93.88], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+            { label: 'Non-TS', data: [77.64, 85.43, 88.40, 89.72], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+        ]},
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 72 } } }
+    });
+
+    new Chart(document.getElementById('ttla_pl_sqs'), {
+        type: 'bar',
+        data: { labels: plLabels, datasets: [
+            { label: 'Tax Specialist', data: [81.50, 82.49, 84.84, 84.53], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+            { label: 'Non-TS', data: [77.92, 80.89, 82.09, 83.04], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+        ]},
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 75 } } }
+    });
+});
+</script>
+
+</body>
+</html>
