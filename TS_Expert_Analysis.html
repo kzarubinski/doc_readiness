@@ -532,7 +532,7 @@
 </div>
 
 <div class="card">
-<div class="card-header"><strong>SKU Mix by Proficiency Level</strong></div>
+<div class="card-header"><strong>SKU Mix by Proficiency Level (End of Season)</strong></div>
 <table>
 <thead><tr><th>PL</th><th>Group</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th><th>CST Basic</th><th>CST Deluxe</th><th>CST Premium</th></tr></thead>
 <tbody>
@@ -555,7 +555,30 @@
 </div>
 <div class="chart-row">
     <div class="chart-box"><h3 style="margin-top:0;">CST by SKU — Overall</h3><canvas id="cst_sku" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL — Tax Specialist</h3><canvas id="sku_pl_ts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (End of Season) — Tax Specialist</h3><canvas id="sku_pl_ts" height="280"></canvas></div>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>SKU Mix by Proficiency Level (Beginning of Season)</strong></div>
+<table>
+<thead><tr><th>PL</th><th>Group</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th><th>CST Basic</th><th>CST Deluxe</th><th>CST Premium</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>PL1</td><td><strong>Tax Specialist</strong></td><td>53.38%</td><td>31.90%</td><td>14.72%</td><td>2.07</td><td>2.97</td><td>4.12</td></tr>
+<tr class="highlight-row"><td>PL1</td><td><strong>Non-TS</strong></td><td>46.16%</td><td>32.86%</td><td>20.98%</td><td>1.75</td><td>2.46</td><td>3.71</td></tr>
+<tr><td colspan="8" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>PL2</td><td><strong>Tax Specialist</strong></td><td>46.14%</td><td>34.05%</td><td>19.81%</td><td>1.83</td><td>2.36</td><td>3.99</td></tr>
+<tr class="highlight-row"><td>PL2</td><td><strong>Non-TS</strong></td><td>33.26%</td><td>36.92%</td><td>29.82%</td><td>1.80</td><td>2.42</td><td>3.66</td></tr>
+<tr><td colspan="8" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>PL3</td><td><strong>Tax Specialist</strong></td><td>32.93%</td><td>30.05%</td><td>37.02%</td><td>1.66</td><td>2.16</td><td>3.45</td></tr>
+<tr class="highlight-row"><td>PL3</td><td><strong>Non-TS</strong></td><td>24.89%</td><td>26.47%</td><td>48.64%</td><td>1.89</td><td>2.58</td><td>4.00</td></tr>
+<tr><td colspan="8" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>PL4</td><td><strong>Tax Specialist</strong></td><td>36.41%</td><td>31.48%</td><td>32.11%</td><td>1.46</td><td>2.11</td><td>3.12</td></tr>
+<tr class="highlight-row"><td>PL4</td><td><strong>Non-TS</strong></td><td>23.38%</td><td>24.83%</td><td>51.79%</td><td>1.80</td><td>2.47</td><td>4.14</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (Beginning of Season) — Tax Specialist</h3><canvas id="sku_pl_start_ts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (Beginning of Season) — Non-TS</h3><canvas id="sku_pl_start_nts" height="280"></canvas></div>
 </div>
 
 <hr class="section-divider">
@@ -762,7 +785,7 @@
 <li><strong>CST:</strong> TS <strong>2.57</strong> vs Non-TS <strong>2.96</strong> — <span class="better">TS outperforms by 0.39 (13.3%)</span></li>
 </ul></div>
 
-<div class="card"><h3 style="margin-top:0;">FS — Proficiency Level Highlights</h3><table>
+<div class="card"><h3 style="margin-top:0;">FS — Proficiency Level Highlights (End of Season)</h3><table>
 <thead><tr><th>PL</th><th>TS tNPS</th><th>Non-TS tNPS</th><th>TS HC</th><th>Non-TS HC</th><th>TS CST</th><th>Non-TS CST</th><th>TS Strengths</th></tr></thead><tbody>
 <tr><td><strong>PL1</strong></td><td>62.83</td><td>65.26</td><td>43.65</td><td>57.19</td><td>2.44</td><td>2.34</td><td><span class="badge badge-yellow">Below Non-TS</span></td></tr>
 <tr><td><strong>PL2</strong></td><td>62.33</td><td>68.21</td><td>47.38</td><td>66.37</td><td>2.66</td><td>2.43</td><td><span class="badge badge-yellow">Below Non-TS</span></td></tr>
@@ -782,12 +805,28 @@
 <li><strong>AHT:</strong> TS <strong>23.67</strong> vs Non-TS <strong>22.41</strong> — <span class="worse">Non-TS outperforms by 1.27 (5.6%)</span></li>
 </ul></div>
 
-<div class="card"><h3 style="margin-top:0;">TTLA — Proficiency Level Highlights</h3><table>
+<div class="card"><h3 style="margin-top:0;">TTLA — Proficiency Level Highlights (End of Season)</h3><table>
 <thead><tr><th>PL</th><th>TS tNPS</th><th>Non-TS tNPS</th><th>TS AHT</th><th>Non-TS AHT</th><th>TS Strengths</th></tr></thead><tbody>
 <tr><td><strong>PL1</strong></td><td>68.40</td><td>50.96</td><td>24.40</td><td>24.17</td><td><span class="badge badge-green">tNPS +17.4</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span></td></tr>
 <tr><td><strong>PL2</strong></td><td>71.35</td><td>66.78</td><td>23.54</td><td>21.97</td><td><span class="badge badge-green">tNPS</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span></td></tr>
 <tr><td><strong>PL3</strong></td><td>83.07</td><td>73.59</td><td>22.65</td><td>21.88</td><td><span class="badge badge-green">tNPS +9.5</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span></td></tr>
 <tr><td><strong>PL4</strong></td><td>81.82</td><td>77.27</td><td>18.36</td><td>22.36</td><td><span class="badge badge-green">tNPS</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span> <span class="badge badge-green">AHT</span></td></tr>
+</tbody></table></div>
+
+<div class="card"><h3 style="margin-top:0;">FS — Proficiency Level Highlights (Beginning of Season)</h3><table>
+<thead><tr><th>PL</th><th>TS tNPS</th><th>Non-TS tNPS</th><th>TS HC</th><th>Non-TS HC</th><th>TS CST</th><th>Non-TS CST</th><th>TS Strengths</th></tr></thead><tbody>
+<tr><td><strong>PL1</strong></td><td>60.52</td><td>68.33</td><td>45.31</td><td>64.70</td><td>2.67</td><td>2.41</td><td><span class="badge badge-yellow">Below Non-TS</span></td></tr>
+<tr><td><strong>PL2</strong></td><td>73.92</td><td>67.62</td><td>47.43</td><td>67.34</td><td>2.45</td><td>2.59</td><td><span class="badge badge-green">tNPS</span> <span class="badge badge-green">SQS</span> <span class="badge badge-green">CST</span></td></tr>
+<tr><td><strong>PL3</strong></td><td>75.91</td><td>69.84</td><td>68.23</td><td>67.05</td><td>2.48</td><td>3.11</td><td><span class="badge badge-green">tNPS</span> <span class="badge badge-green">HC</span> <span class="badge badge-green">CST</span></td></tr>
+<tr><td><strong>PL4</strong></td><td>58.18</td><td>77.00</td><td>65.57</td><td>68.12</td><td>2.20</td><td>3.18</td><td><span class="badge badge-green">CST</span></td></tr>
+</tbody></table></div>
+
+<div class="card"><h3 style="margin-top:0;">TTLA — Proficiency Level Highlights (Beginning of Season)</h3><table>
+<thead><tr><th>PL</th><th>TS tNPS</th><th>Non-TS tNPS</th><th>TS AHT</th><th>Non-TS AHT</th><th>TS Strengths</th></tr></thead><tbody>
+<tr><td><strong>PL1</strong></td><td>69.50</td><td>62.50</td><td>24.11</td><td>22.79</td><td><span class="badge badge-green">tNPS +7.0</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span></td></tr>
+<tr><td><strong>PL2</strong></td><td>81.08</td><td>69.48</td><td>21.75</td><td>21.88</td><td><span class="badge badge-green">tNPS +11.6</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span> <span class="badge badge-green">AHT</span></td></tr>
+<tr><td><strong>PL3</strong></td><td>82.59</td><td>72.97</td><td>20.33</td><td>22.00</td><td><span class="badge badge-green">tNPS +9.6</span> <span class="badge badge-green">IR</span> <span class="badge badge-green">SQS</span> <span class="badge badge-green">AHT</span></td></tr>
+<tr><td><strong>PL4</strong></td><td>78.43</td><td>77.13</td><td>16.77</td><td>22.49</td><td><span class="badge badge-green">IR</span> <span class="badge badge-green">AHT</span></td></tr>
 </tbody></table></div>
 
 <div class="callout teal">
@@ -1012,6 +1051,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 { label: 'Basic %', data: [58.89, 46.40, 44.76, 34.63], backgroundColor: 'rgba(37,99,235,0.7)', borderColor: '#2563eb', borderWidth: 2 },
                 { label: 'Deluxe %', data: [27.43, 35.35, 34.15, 30.40], backgroundColor: 'rgba(217,119,6,0.7)', borderColor: '#d97706', borderWidth: 2 },
                 { label: 'Premium %', data: [13.69, 18.25, 21.09, 34.96], backgroundColor: 'rgba(124,58,237,0.7)', borderColor: '#7c3aed', borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true }, y: { stacked: true, max: 100 } } }
+    });
+
+    new Chart(document.getElementById('sku_pl_start_ts'), {
+        type: 'bar',
+        data: {
+            labels: ['PL1', 'PL2', 'PL3', 'PL4'],
+            datasets: [
+                { label: 'Basic %', data: [53.38, 46.14, 32.93, 36.41], backgroundColor: 'rgba(37,99,235,0.7)', borderColor: '#2563eb', borderWidth: 2 },
+                { label: 'Deluxe %', data: [31.90, 34.05, 30.05, 31.48], backgroundColor: 'rgba(217,119,6,0.7)', borderColor: '#d97706', borderWidth: 2 },
+                { label: 'Premium %', data: [14.72, 19.81, 37.02, 32.11], backgroundColor: 'rgba(124,58,237,0.7)', borderColor: '#7c3aed', borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true }, y: { stacked: true, max: 100 } } }
+    });
+
+    new Chart(document.getElementById('sku_pl_start_nts'), {
+        type: 'bar',
+        data: {
+            labels: ['PL1', 'PL2', 'PL3', 'PL4'],
+            datasets: [
+                { label: 'Basic %', data: [46.16, 33.26, 24.89, 23.38], backgroundColor: 'rgba(37,99,235,0.7)', borderColor: '#2563eb', borderWidth: 2 },
+                { label: 'Deluxe %', data: [32.86, 36.92, 26.47, 24.83], backgroundColor: 'rgba(217,119,6,0.7)', borderColor: '#d97706', borderWidth: 2 },
+                { label: 'Premium %', data: [20.98, 29.82, 48.64, 51.79], backgroundColor: 'rgba(124,58,237,0.7)', borderColor: '#7c3aed', borderWidth: 2 }
             ]
         },
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true }, y: { stacked: true, max: 100 } } }
