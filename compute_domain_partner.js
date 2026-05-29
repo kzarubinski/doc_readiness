@@ -321,8 +321,7 @@ function renderOverallTable(id, title, tableData, metrics, volDenKey) {
         if (volDenKey) {
             const vol = row.agg[volDenKey] || 0;
             const pct = totalVol > 0 ? (vol / totalVol * 100) : 0;
-            const label = row.type === 'partners_total' ? '' : fmt(pct, 1) + '%';
-            html += `<td>${label}</td>`;
+            html += `<td>${fmt(pct, 1)}%</td>`;
         }
         metrics.forEach(m => { html += `<td>${metricVal(row.agg, m)}</td>`; });
         html += `</tr>\n`;
@@ -465,7 +464,8 @@ function renderDimDistroTable(id, title, rows, dimField, volDenField, partnerLis
     const partnerNames = Object.keys(partnerGroups);
 
     let html = `<div class="card">\n<div class="card-header"><strong>${title}</strong></div>\n`;
-    html += `<table>\n<thead><tr><th>${dimField === 'proficiency_level' ? 'PL' : dimField === 'expert_role' ? 'Role' : dimField === 'hire_type' ? 'Hire Type' : dimField === 'expert_tenure_category' ? 'Tenure' : 'Category'}</th><th>Overall %</th><th>Intuit %</th><th>Partners %</th>`;
+    const dimColLabel = dimField === 'proficiency_level' ? 'PL' : dimField === 'expert_role' ? 'Role' : dimField === 'hire_type' ? 'Hire Type' : dimField === 'expert_tenure_category' ? 'Tenure' : dimField === 'reporting_period' ? 'Period' : 'Category';
+    html += `<table>\n<thead><tr><th>${dimColLabel}</th><th>Overall %</th><th>Intuit %</th><th>Partners %</th>`;
     partnerNames.forEach(name => { html += `<th>${PARTNER_SHORT[name]} %</th>`; });
     html += `</tr></thead>\n<tbody>\n`;
 
@@ -967,29 +967,30 @@ html += `<div class="chart-row">
 chartJS += buildOverallCharts('fs', fsOverall, FS_METRICS);
 html += buildCallout('FS Overall', fsOverall, FS_METRICS);
 
-// 2c. By Reporting Period (with Vol % per metric denominator)
-html += renderPeriodPivot('fs-period', '2c. FS — Breakdown by Reporting Period', fsByPeriod, FS_METRICS, FS_METRIC_VOL);
+// 2c. By Reporting Period — volume distro table + metric pivot tables
+html += `<h3 id="fs-period">2c. FS — Breakdown by Reporting Period</h3>\n`;
+html += renderDimDistroTable('fs-period-vol', 'Volume Distribution by Reporting Period', fsData, 'reporting_period', 'cst_denominator', null, ['Before Season', '26-Jan', '26-Feb', '26-Mar', '26-Apr', 'After Season']);
+html += renderTenurePivot('', '', fsByPeriod, FS_METRICS);
 
 // 2d. By Role + volume distribution table
 html += `<h3 id="fs-role">2d. FS — Breakdown by Expert Role</h3>\n`;
-html += renderDimDistroTable('fs-role-vol', 'Volume Distribution by Expert Role (cst_denominator)', fsData, 'expert_role', 'cst_denominator');
+html += renderDimDistroTable('fs-role-vol', 'Volume Distribution by Expert Role', fsData, 'expert_role', 'cst_denominator');
 html += renderBreakdownSection('fs-role-perf', '', fsByRole, FS_METRICS, 'Role');
 
 // 2e. By PL (PL1-4 + Other) + volume distribution table
 html += `<h3 id="fs-pl">2e. FS — Breakdown by Proficiency Level</h3>\n`;
-html += renderDimDistroTable('fs-pl-vol', 'Volume Distribution by Proficiency Level (cst_denominator)', fsData, 'proficiency_level', 'cst_denominator', null, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
+html += renderDimDistroTable('fs-pl-vol', 'Volume Distribution by Proficiency Level', fsData, 'proficiency_level', 'cst_denominator', null, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
 html += renderBreakdownSection('', '', fsByPL, FS_METRICS, 'Proficiency Level');
 
 // 2f. By Hire Type (inline) + volume distribution table
 html += `<h3 id="fs-hire">2f. FS — Breakdown by Hire Type</h3>\n`;
-html += renderDimDistroTable('fs-hire-vol', 'Volume Distribution by Hire Type (cst_denominator)', fsData, 'hire_type', 'cst_denominator');
+html += renderDimDistroTable('fs-hire-vol', 'Volume Distribution by Hire Type', fsData, 'hire_type', 'cst_denominator');
 html += renderInlineTable('', '', fsByHire, FS_METRICS, 'Hire Type');
 
-// 2g. By Tenure (pivot) + volume distribution table — exclude CST (no meaningful data in tenure breakdown)
-const FS_TENURE_METRICS = FS_METRICS.filter(m => m !== 'cst');
+// 2g. By Tenure (pivot) + volume distribution table
 html += `<h3 id="fs-tenure">2g. FS — Breakdown by Tenure Category</h3>\n`;
-html += renderDimDistroTable('fs-tenure-vol', 'Volume Distribution by Tenure Category (cst_denominator)', fsData, 'expert_tenure_category', 'cst_denominator');
-html += renderTenurePivot('', '', fsTenure, FS_TENURE_METRICS);
+html += renderDimDistroTable('fs-tenure-vol', 'Volume Distribution by Tenure Category', fsData, 'expert_tenure_category', 'handled_conversion_denominator');
+html += renderTenurePivot('', '', fsTenure, FS_METRICS);
 
 // ═══════════════════════════════════════════
 // 3. TTLA ANALYSIS (now section 3)
@@ -1018,17 +1019,19 @@ html += `<div class="chart-row">
 chartJS += buildOverallCharts('ttla', ttlaOverall, TTLA_METRICS);
 html += buildCallout('TTLA Overall', ttlaOverall, TTLA_METRICS);
 
-// 3c. By Reporting Period (with Vol % per metric denominator)
-html += renderPeriodPivot('ttla-period', '3c. TTLA — Breakdown by Reporting Period', ttlaByPeriod, TTLA_METRICS, TTLA_METRIC_VOL);
+// 3c. By Reporting Period — volume distro table + metric pivot tables
+html += `<h3 id="ttla-period">3c. TTLA — Breakdown by Reporting Period</h3>\n`;
+html += renderDimDistroTable('ttla-period-vol', 'Volume Distribution by Reporting Period', ttla, 'reporting_period', 'aht_denominator', TTLA_PARTNERS, ['Before Season', '26-Jan', '26-Feb', '26-Mar', '26-Apr', 'After Season']);
+html += renderTenurePivot('', '', ttlaByPeriod, TTLA_METRICS);
 
 // 3d. By Role + volume distribution table
 html += `<h3 id="ttla-role">3d. TTLA — Breakdown by Expert Role</h3>\n`;
-html += renderDimDistroTable('ttla-role-vol', 'Volume Distribution by Expert Role (aht_denominator)', ttla, 'expert_role', 'aht_denominator', TTLA_PARTNERS);
+html += renderDimDistroTable('ttla-role-vol', 'Volume Distribution by Expert Role', ttla, 'expert_role', 'aht_denominator', TTLA_PARTNERS);
 html += renderBreakdownSection('', '', ttlaByRole, TTLA_METRICS, 'Role');
 
 // 3e. By PL (PL1-4 + Other) + volume distribution table
 html += `<h3 id="ttla-pl">3e. TTLA — Breakdown by Proficiency Level</h3>\n`;
-html += renderDimDistroTable('ttla-pl-vol', 'Volume Distribution by Proficiency Level (aht_denominator)', ttla, 'proficiency_level', 'aht_denominator', TTLA_PARTNERS, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
+html += renderDimDistroTable('ttla-pl-vol', 'Volume Distribution by Proficiency Level', ttla, 'proficiency_level', 'aht_denominator', TTLA_PARTNERS, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
 html += renderBreakdownSection('', '', ttlaByPL, TTLA_METRICS, 'Proficiency Level');
 
 // 3f. By Contact Type (inline)
@@ -1036,12 +1039,12 @@ html += renderInlineTable('ttla-ct', '3f. TTLA — Breakdown by Contact Type', t
 
 // 3g. By Hire Type (inline) + volume distribution table
 html += `<h3 id="ttla-hire">3g. TTLA — Breakdown by Hire Type</h3>\n`;
-html += renderDimDistroTable('ttla-hire-vol', 'Volume Distribution by Hire Type (aht_denominator)', ttla, 'hire_type', 'aht_denominator', TTLA_PARTNERS);
+html += renderDimDistroTable('ttla-hire-vol', 'Volume Distribution by Hire Type', ttla, 'hire_type', 'aht_denominator', TTLA_PARTNERS);
 html += renderInlineTable('', '', ttlaByHire, TTLA_METRICS, 'Hire Type');
 
 // 3h. By Tenure (pivot) + volume distribution table
 html += `<h3 id="ttla-tenure">3h. TTLA — Breakdown by Tenure Category</h3>\n`;
-html += renderDimDistroTable('ttla-tenure-vol', 'Volume Distribution by Tenure Category (aht_denominator)', ttla, 'expert_tenure_category', 'aht_denominator', TTLA_PARTNERS);
+html += renderDimDistroTable('ttla-tenure-vol', 'Volume Distribution by Tenure Category', ttla, 'expert_tenure_category', 'aht_denominator', TTLA_PARTNERS);
 html += renderTenurePivot('', '', ttlaTenure, TTLA_METRICS);
 
 // ═══════════════════════════════════════════
