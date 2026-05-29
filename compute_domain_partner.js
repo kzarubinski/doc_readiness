@@ -63,7 +63,7 @@ function aggregate(rows) {
         hc: hc_den > 0 ? (hc_num / hc_den) * 100 : null,
         aht: aht_den > 0 ? aht_num / aht_den : null,
         cst: cst_den > 0 ? cst_num / cst_den : null,
-        aht_den, cst_den,
+        tnps_den, ir_den, sqs_den, hc_den, aht_den, cst_den,
     };
 }
 
@@ -309,12 +309,21 @@ function rowClass(type) {
     return '';
 }
 
-function renderOverallTable(id, title, tableData, metrics) {
+// volDenKey: which denominator to use for volume % (e.g. 'cst_den' or 'aht_den')
+function renderOverallTable(id, title, tableData, metrics, volDenKey) {
+    const totalVol = tableData.reduce((s, r) => s + (r.type === 'partner' || r.type === 'intuit' ? (r.agg[volDenKey] || 0) : 0), 0);
     let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th>`;
+    if (volDenKey) html += `<th>Vol %</th>`;
     metrics.forEach(m => { html += `<th>${METRIC_LABELS[m]}</th>`; });
     html += `</tr></thead>\n<tbody>\n`;
     tableData.forEach(row => {
         html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
+        if (volDenKey) {
+            const vol = row.agg[volDenKey] || 0;
+            const pct = totalVol > 0 ? (vol / totalVol * 100) : 0;
+            const label = row.type === 'partners_total' ? '' : fmt(pct, 1) + '%';
+            html += `<td>${label}</td>`;
+        }
         metrics.forEach(m => { html += `<td>${metricVal(row.agg, m)}</td>`; });
         html += `</tr>\n`;
     });
@@ -324,7 +333,7 @@ function renderOverallTable(id, title, tableData, metrics) {
 
 function renderBreakdownSection(id, title, breakdownObj, metrics, dimLabel) {
     const { dimValues, data: bData } = breakdownObj;
-    let html = `<h3 id="${id}">${title}</h3>\n`;
+    let html = title ? `<h3 id="${id}">${title}</h3>\n` : '';
     dimValues.forEach(dv => {
         const rows = bData[dv];
         if (!rows || rows.length === 0) return;
@@ -345,7 +354,8 @@ function renderBreakdownSection(id, title, breakdownObj, metrics, dimLabel) {
 // Inline table: metric-first grouping — columns = metric x dimValue
 function renderInlineTable(id, title, inlineData, metrics, dimLabel) {
     const { dimValues, groups } = inlineData;
-    let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead>`;
+    let html = title ? `<h3 id="${id}">${title}</h3>\n` : '';
+    html += `<div class="card">\n<table>\n<thead>`;
     html += `<tr><th rowspan="2">Group</th>`;
     metrics.forEach(m => {
         html += `<th colspan="${dimValues.length}" style="border-bottom:2px solid var(--primary);text-align:center;">${METRIC_LABELS[m]}</th>`;
@@ -371,10 +381,130 @@ function renderInlineTable(id, title, inlineData, metrics, dimLabel) {
     return html;
 }
 
+// Map metric -> which denominator to use for volume % in period tables
+const FS_METRIC_VOL = { tnps: 'tnps_den', ir: 'ir_den', sqs: 'cst_den', hc: 'hc_den', cst: 'cst_den' };
+const TTLA_METRIC_VOL = { tnps: 'tnps_den', ir: 'ir_den', sqs: 'aht_den', aht: 'aht_den' };
+
+// Period pivot with volume % row per metric
+function renderPeriodPivot(id, title, tenureData, metrics, metricVolMap) {
+    const { tenures, groups } = tenureData;
+    let html = `<h3 id="${id}">${title}</h3>\n`;
+
+    metrics.forEach(m => {
+        const volKey = metricVolMap ? metricVolMap[m] : null;
+        html += `<div class="card">\n<div class="card-header"><strong>${METRIC_LABELS[m]}</strong></div>\n`;
+        html += `<table>\n<thead><tr><th>Group</th>`;
+        tenures.forEach(t => { html += `<th>${t}</th>`; });
+        html += `</tr></thead>\n<tbody>\n`;
+
+        if (volKey) {
+            const totalPerPeriod = {};
+            tenures.forEach(t => {
+                totalPerPeriod[t] = groups.reduce((s, g) => {
+                    if (g.type === 'partners_total') return s;
+                    const agg = g.aggs[t];
+                    return s + (agg ? (agg[volKey] || 0) : 0);
+                }, 0);
+            });
+            groups.forEach(g => {
+                html += `<tr class="${rowClass(g.type)}" style="font-size:0.8rem;color:var(--muted);"><td>${g.name} <em>vol%</em></td>`;
+                tenures.forEach(t => {
+                    const agg = g.aggs[t];
+                    const vol = agg ? (agg[volKey] || 0) : 0;
+                    const total = totalPerPeriod[t];
+                    const pct = total > 0 ? (vol / total * 100) : 0;
+                    const label = g.type === 'partners_total' ? '' : (vol > 0 ? fmt(pct, 1) + '%' : '—');
+                    html += `<td>${label}</td>`;
+                });
+                html += `</tr>\n`;
+            });
+            html += `<tr><td colspan="${tenures.length + 1}" style="height:2px;padding:0;background:var(--border);"></td></tr>\n`;
+        }
+
+        groups.forEach(g => {
+            html += `<tr class="${rowClass(g.type)}"><td><strong>${g.name}</strong></td>`;
+            tenures.forEach(t => {
+                const agg = g.aggs[t];
+                html += `<td>${agg ? metricVal(agg, m) : 'N/A'}</td>`;
+            });
+            html += `</tr>\n`;
+        });
+
+        html += `</tbody></table>\n</div>\n`;
+    });
+
+    return html;
+}
+
+// Dimension distribution table: rows = dimension values, columns = Overall% + per-partner %
+function renderDimDistroTable(id, title, rows, dimField, volDenField, partnerList, dimOrder) {
+    const pList = partnerList || PARTNERS_NON_INTUIT;
+    const intuitRows = rows.filter(r => r.expert_partner_name === 'INTUIT');
+    const allPartnerRows = rows.filter(r => pList.includes(r.expert_partner_name));
+    const partnerGroups = {};
+    pList.forEach(p => {
+        const pr = rows.filter(r => r.expert_partner_name === p);
+        if (pr.length > 0) partnerGroups[p] = pr;
+    });
+
+    let dimValues;
+    if (dimOrder) {
+        dimValues = dimOrder;
+    } else {
+        dimValues = [...new Set(rows.map(r => r[dimField]))].filter(v => v && v !== 'N/A').sort();
+    }
+
+    const sumDen = (rws) => rws.reduce((s, r) => s + pf(r[volDenField]), 0);
+
+    const overallTotal = sumDen(rows);
+    const intuitTotal = sumDen(intuitRows);
+    const partnersTotal = sumDen(allPartnerRows);
+    const partnerTotals = {};
+    Object.entries(partnerGroups).forEach(([name, pr]) => { partnerTotals[name] = sumDen(pr); });
+
+    const partnerNames = Object.keys(partnerGroups);
+
+    let html = `<div class="card">\n<div class="card-header"><strong>${title}</strong></div>\n`;
+    html += `<table>\n<thead><tr><th>${dimField === 'proficiency_level' ? 'PL' : dimField === 'expert_role' ? 'Role' : dimField === 'hire_type' ? 'Hire Type' : dimField === 'expert_tenure_category' ? 'Tenure' : 'Category'}</th><th>Overall %</th><th>Intuit %</th><th>Partners %</th>`;
+    partnerNames.forEach(name => { html += `<th>${PARTNER_SHORT[name]} %</th>`; });
+    html += `</tr></thead>\n<tbody>\n`;
+
+    dimValues.forEach(dv => {
+        let filterFn;
+        if (dimField === 'proficiency_level' && dv === 'Other') {
+            const knownPLs = ['PL1', 'PL2', 'PL3', 'PL4'];
+            filterFn = r => !knownPLs.includes(r.proficiency_level);
+        } else {
+            filterFn = r => r[dimField] === dv;
+        }
+
+        const overallVol = sumDen(rows.filter(filterFn));
+        const intuitVol = sumDen(intuitRows.filter(filterFn));
+        const partnersVol = sumDen(allPartnerRows.filter(filterFn));
+
+        const overallPct = overallTotal > 0 ? (overallVol / overallTotal * 100) : 0;
+        const intuitPct = intuitTotal > 0 ? (intuitVol / intuitTotal * 100) : 0;
+        const partnersPct = partnersTotal > 0 ? (partnersVol / partnersTotal * 100) : 0;
+
+        html += `<tr><td><strong>${dv}</strong></td><td>${fmt(overallPct, 1)}%</td><td>${fmt(intuitPct, 1)}%</td><td>${fmt(partnersPct, 1)}%</td>`;
+        partnerNames.forEach(name => {
+            const pRows = partnerGroups[name] || [];
+            const pVol = sumDen(pRows.filter(filterFn));
+            const pTotal = partnerTotals[name] || 0;
+            const pPct = pTotal > 0 ? (pVol / pTotal * 100) : 0;
+            html += `<td>${pVol > 0 ? fmt(pPct, 1) + '%' : '—'}</td>`;
+        });
+        html += `</tr>\n`;
+    });
+
+    html += `</tbody></table>\n</div>\n`;
+    return html;
+}
+
 // Tenure pivot: one table per metric, columns = tenure categories
 function renderTenurePivot(id, title, tenureData, metrics) {
     const { tenures, groups } = tenureData;
-    let html = `<h3 id="${id}">${title}</h3>\n`;
+    let html = title ? `<h3 id="${id}">${title}</h3>\n` : '';
 
     metrics.forEach(m => {
         html += `<div class="card">\n<div class="card-header"><strong>${METRIC_LABELS[m]}</strong></div>\n`;
@@ -822,8 +952,8 @@ const fsVol = renderVolumeSection('fs', '2a. FS Volume Distribution', 'Engagemen
 html += fsVol.html;
 chartJS += buildVolumeCharts(fsVol);
 
-// 2b. Overall
-html += renderOverallTable('fs-overall', '2b. Overall FS Performance', fsOverall, FS_METRICS);
+// 2b. Overall (with Vol % by cst_denominator)
+html += renderOverallTable('fs-overall', '2b. Overall FS Performance', fsOverall, FS_METRICS, 'cst_den');
 html += renderKPIs(fsOverall, FS_METRICS);
 
 html += `<div class="chart-row">
@@ -837,21 +967,29 @@ html += `<div class="chart-row">
 chartJS += buildOverallCharts('fs', fsOverall, FS_METRICS);
 html += buildCallout('FS Overall', fsOverall, FS_METRICS);
 
-// 2c. By Reporting Period
-html += renderTenurePivot('fs-period', '2c. FS — Breakdown by Reporting Period', fsByPeriod, FS_METRICS);
+// 2c. By Reporting Period (with Vol % per metric denominator)
+html += renderPeriodPivot('fs-period', '2c. FS — Breakdown by Reporting Period', fsByPeriod, FS_METRICS, FS_METRIC_VOL);
 
-// 2d. By Role
-html += renderBreakdownSection('fs-role', '2d. FS — Breakdown by Expert Role', fsByRole, FS_METRICS, 'Role');
+// 2d. By Role + volume distribution table
+html += `<h3 id="fs-role">2d. FS — Breakdown by Expert Role</h3>\n`;
+html += renderDimDistroTable('fs-role-vol', 'Volume Distribution by Expert Role (cst_denominator)', fsData, 'expert_role', 'cst_denominator');
+html += renderBreakdownSection('fs-role-perf', '', fsByRole, FS_METRICS, 'Role');
 
-// 2e. By PL (PL1-4 + Other)
-html += renderBreakdownSection('fs-pl', '2e. FS — Breakdown by Proficiency Level', fsByPL, FS_METRICS, 'Proficiency Level');
+// 2e. By PL (PL1-4 + Other) + volume distribution table
+html += `<h3 id="fs-pl">2e. FS — Breakdown by Proficiency Level</h3>\n`;
+html += renderDimDistroTable('fs-pl-vol', 'Volume Distribution by Proficiency Level (cst_denominator)', fsData, 'proficiency_level', 'cst_denominator', null, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
+html += renderBreakdownSection('', '', fsByPL, FS_METRICS, 'Proficiency Level');
 
-// 2f. By Hire Type (inline)
-html += renderInlineTable('fs-hire', '2f. FS — Breakdown by Hire Type', fsByHire, FS_METRICS, 'Hire Type');
+// 2f. By Hire Type (inline) + volume distribution table
+html += `<h3 id="fs-hire">2f. FS — Breakdown by Hire Type</h3>\n`;
+html += renderDimDistroTable('fs-hire-vol', 'Volume Distribution by Hire Type (cst_denominator)', fsData, 'hire_type', 'cst_denominator');
+html += renderInlineTable('', '', fsByHire, FS_METRICS, 'Hire Type');
 
-// 2g. By Tenure (pivot) — exclude CST (no meaningful data in tenure breakdown)
+// 2g. By Tenure (pivot) + volume distribution table — exclude CST (no meaningful data in tenure breakdown)
 const FS_TENURE_METRICS = FS_METRICS.filter(m => m !== 'cst');
-html += renderTenurePivot('fs-tenure', '2g. FS — Breakdown by Tenure Category', fsTenure, FS_TENURE_METRICS);
+html += `<h3 id="fs-tenure">2g. FS — Breakdown by Tenure Category</h3>\n`;
+html += renderDimDistroTable('fs-tenure-vol', 'Volume Distribution by Tenure Category (cst_denominator)', fsData, 'expert_tenure_category', 'cst_denominator');
+html += renderTenurePivot('', '', fsTenure, FS_TENURE_METRICS);
 
 // ═══════════════════════════════════════════
 // 3. TTLA ANALYSIS (now section 3)
@@ -865,8 +1003,8 @@ const ttlaVol = renderVolumeSection('ttla', '3a. TTLA Volume Distribution', 'Con
 html += ttlaVol.html;
 chartJS += buildVolumeCharts(ttlaVol);
 
-// 3b. Overall
-html += renderOverallTable('ttla-overall', '3b. Overall TTLA Performance', ttlaOverall, TTLA_METRICS);
+// 3b. Overall (with Vol % by aht_denominator)
+html += renderOverallTable('ttla-overall', '3b. Overall TTLA Performance', ttlaOverall, TTLA_METRICS, 'aht_den');
 html += renderKPIs(ttlaOverall, TTLA_METRICS);
 
 html += `<div class="chart-row">
@@ -880,23 +1018,31 @@ html += `<div class="chart-row">
 chartJS += buildOverallCharts('ttla', ttlaOverall, TTLA_METRICS);
 html += buildCallout('TTLA Overall', ttlaOverall, TTLA_METRICS);
 
-// 3c. By Reporting Period
-html += renderTenurePivot('ttla-period', '3c. TTLA — Breakdown by Reporting Period', ttlaByPeriod, TTLA_METRICS);
+// 3c. By Reporting Period (with Vol % per metric denominator)
+html += renderPeriodPivot('ttla-period', '3c. TTLA — Breakdown by Reporting Period', ttlaByPeriod, TTLA_METRICS, TTLA_METRIC_VOL);
 
-// 3d. By Role
-html += renderBreakdownSection('ttla-role', '3d. TTLA — Breakdown by Expert Role', ttlaByRole, TTLA_METRICS, 'Role');
+// 3d. By Role + volume distribution table
+html += `<h3 id="ttla-role">3d. TTLA — Breakdown by Expert Role</h3>\n`;
+html += renderDimDistroTable('ttla-role-vol', 'Volume Distribution by Expert Role (aht_denominator)', ttla, 'expert_role', 'aht_denominator', TTLA_PARTNERS);
+html += renderBreakdownSection('', '', ttlaByRole, TTLA_METRICS, 'Role');
 
-// 3e. By PL (PL1-4 + Other)
-html += renderBreakdownSection('ttla-pl', '3e. TTLA — Breakdown by Proficiency Level', ttlaByPL, TTLA_METRICS, 'Proficiency Level');
+// 3e. By PL (PL1-4 + Other) + volume distribution table
+html += `<h3 id="ttla-pl">3e. TTLA — Breakdown by Proficiency Level</h3>\n`;
+html += renderDimDistroTable('ttla-pl-vol', 'Volume Distribution by Proficiency Level (aht_denominator)', ttla, 'proficiency_level', 'aht_denominator', TTLA_PARTNERS, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
+html += renderBreakdownSection('', '', ttlaByPL, TTLA_METRICS, 'Proficiency Level');
 
 // 3f. By Contact Type (inline)
 html += renderInlineTable('ttla-ct', '3f. TTLA — Breakdown by Contact Type', ttlaByCT, TTLA_METRICS, 'Contact Type');
 
-// 3g. By Hire Type (inline)
-html += renderInlineTable('ttla-hire', '3g. TTLA — Breakdown by Hire Type', ttlaByHire, TTLA_METRICS, 'Hire Type');
+// 3g. By Hire Type (inline) + volume distribution table
+html += `<h3 id="ttla-hire">3g. TTLA — Breakdown by Hire Type</h3>\n`;
+html += renderDimDistroTable('ttla-hire-vol', 'Volume Distribution by Hire Type (aht_denominator)', ttla, 'hire_type', 'aht_denominator', TTLA_PARTNERS);
+html += renderInlineTable('', '', ttlaByHire, TTLA_METRICS, 'Hire Type');
 
-// 3h. By Tenure (pivot)
-html += renderTenurePivot('ttla-tenure', '3h. TTLA — Breakdown by Tenure Category', ttlaTenure, TTLA_METRICS);
+// 3h. By Tenure (pivot) + volume distribution table
+html += `<h3 id="ttla-tenure">3h. TTLA — Breakdown by Tenure Category</h3>\n`;
+html += renderDimDistroTable('ttla-tenure-vol', 'Volume Distribution by Tenure Category (aht_denominator)', ttla, 'expert_tenure_category', 'aht_denominator', TTLA_PARTNERS);
+html += renderTenurePivot('', '', ttlaTenure, TTLA_METRICS);
 
 // ═══════════════════════════════════════════
 // 4. CONCLUSIONS — FS first
