@@ -87,6 +87,8 @@
                     <li><a href="#fs-pl-start">Proficiency Level at Beginning of Season</a></li>
                     <li><a href="#fs-sku">SKU Mix &amp; CST by SKU</a></li>
                     <li><a href="#fs-tnps-sku">tNPS by SKU</a></li>
+                    <li><a href="#fs-new-returning">New vs Returning Customer</a></li>
+                    <li><a href="#fs-avg-engagements">Average Engagements per Expert</a></li>
                 </ol>
             </li>
             <li><a href="#ttla">TTLA (TTL Assisted Consumer) Analysis</a>
@@ -97,6 +99,8 @@
                     <li><a href="#ttla-pl-start">Proficiency Level at Beginning of Season</a></li>
                     <li><a href="#ttla-tnps-sku">tNPS by SKU</a></li>
                     <li><a href="#ttla-aht-sku">AHT by SKU</a></li>
+                    <li><a href="#ttla-new-returning">New vs Returning Customer</a></li>
+                    <li><a href="#ttla-avg-contacts">Average Contacts per Expert</a></li>
                 </ol>
             </li>
             <li><a href="#pl1-newhire">PL1 New Hire Analysis (Beginning of Season)</a></li>
@@ -667,6 +671,77 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="fs_tnps_sku_pl_start_nts" height="280"></canvas></div>
 </div>
 
+<h3 id="fs-new-returning">3g. FS — New vs Returning Customer</h3>
+<p class="callout"><strong>Note:</strong> Customers are classified as "New" (first-time filer) or "Returning" (previously filed). Contacts with unknown customer status are excluded from this breakdown.</p>
+<div class="card">
+<div class="card-header"><strong>FS Performance — New vs Returning Customer</strong></div>
+<table>
+<thead><tr><th>Customer Type</th><th>Group</th><th>tNPS</th><th>IR</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>New</td><td><strong>Tax Specialist</strong></td><td>63.60</td><td>60.29</td><td>32.07</td><td>2.72</td></tr>
+<tr class="highlight-row"><td>New</td><td><strong>Non-TS</strong></td><td>71.68</td><td>70.96</td><td>52.64</td><td>3.13</td></tr>
+<tr><td colspan="6" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Returning</td><td><strong>Tax Specialist</strong></td><td>66.13</td><td>61.91</td><td>61.40</td><td>2.49</td></tr>
+<tr class="highlight-row"><td>Returning</td><td><strong>Non-TS</strong></td><td>72.93</td><td>73.49</td><td>78.43</td><td>2.87</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>FS Volume — New vs Returning</strong></div>
+<table>
+<thead><tr><th>Customer Type</th><th>TS Engagements</th><th>TS %</th><th>Non-TS Engagements</th><th>Non-TS %</th></tr></thead>
+<tbody>
+<tr><td><strong>New</strong></td><td>39,855</td><td>32.2%</td><td>302,234</td><td>35.6%</td></tr>
+<tr><td><strong>Returning</strong></td><td>84,002</td><td>67.8%</td><td>547,344</td><td>64.4%</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS — New vs Returning</h3><canvas id="fs_nr_tnps" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST — New vs Returning</h3><canvas id="fs_nr_cst" height="280"></canvas></div>
+</div>
+<div class="card">
+<div class="card-header"><strong>FS tNPS by SKU — New vs Returning</strong></div>
+<table>
+<thead><tr><th>Customer Type</th><th>Group</th><th>tNPS Basic</th><th>tNPS Deluxe</th><th>tNPS Premium</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>New</td><td><strong>Tax Specialist</strong></td><td>68.88</td><td>55.59</td><td>44.06</td></tr>
+<tr class="highlight-row"><td>New</td><td><strong>Non-TS</strong></td><td>76.00</td><td>69.88</td><td>60.05</td></tr>
+<tr><td colspan="5" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Returning</td><td><strong>Tax Specialist</strong></td><td>78.93</td><td>74.36</td><td>49.67</td></tr>
+<tr class="highlight-row"><td>Returning</td><td><strong>Non-TS</strong></td><td>77.70</td><td>75.86</td><td>65.34</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>FS CST by SKU — New vs Returning</strong></div>
+<table>
+<thead><tr><th>Customer Type</th><th>Group</th><th>CST Basic</th><th>CST Deluxe</th><th>CST Premium</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>New</td><td><strong>Tax Specialist</strong></td><td>2.13</td><td>3.03</td><td>4.34</td></tr>
+<tr class="highlight-row"><td>New</td><td><strong>Non-TS</strong></td><td>1.92</td><td>2.72</td><td>4.34</td></tr>
+<tr><td colspan="5" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Returning</td><td><strong>Tax Specialist</strong></td><td>1.86</td><td>2.54</td><td>3.84</td></tr>
+<tr class="highlight-row"><td>Returning</td><td><strong>Non-TS</strong></td><td>1.72</td><td>2.35</td><td>3.86</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — New Customer</h3><canvas id="fs_nr_tnps_sku_new" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — Returning Customer</h3><canvas id="fs_nr_tnps_sku_ret" height="280"></canvas></div>
+</div>
+
+<h3 id="fs-avg-engagements">3h. FS — Average Engagements per Expert</h3>
+<div class="card">
+<div class="card-header"><strong>Average Engagements per Expert (FS)</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Experts</th><th>Total Engagements</th><th>Avg per Expert</th><th>Avg Basic</th><th>Avg Deluxe</th><th>Avg Premium</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>2,781</td><td>123,857</td><td>44.54</td><td>21.88</td><td>14.48</td><td>8.01</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>14,314</td><td>849,578</td><td>59.35</td><td>16.61</td><td>16.89</td><td>25.54</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS Avg Engagements per Expert</h3><canvas id="fs_avg_eng" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS Avg Engagements by SKU</h3><canvas id="fs_avg_eng_sku" height="280"></canvas></div>
+</div>
+
 <hr class="section-divider">
 
 <!-- ===================== TTLA SECTION ===================== -->
@@ -966,6 +1041,78 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_aht_sku_pl_start_nts" height="280"></canvas></div>
 </div>
 
+<h3 id="ttla-new-returning">4g. TTLA — New vs Returning Customer</h3>
+<p class="callout"><strong>Note:</strong> Customers are classified as "New" (first-time filer) or "Returning" (previously filed). Contacts with unknown customer status are excluded from this breakdown.</p>
+<div class="card">
+<div class="card-header"><strong>TTLA Performance — New vs Returning Customer</strong></div>
+<table>
+<thead><tr><th>Customer Type</th><th>Group</th><th>tNPS</th><th>IR</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>New</td><td><strong>Tax Specialist</strong></td><td>67.35</td><td>85.84</td><td>22.56</td></tr>
+<tr class="highlight-row"><td>New</td><td><strong>Non-TS</strong></td><td>65.73</td><td>84.22</td><td>22.37</td></tr>
+<tr><td colspan="5" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Returning</td><td><strong>Tax Specialist</strong></td><td>72.36</td><td>88.52</td><td>23.99</td></tr>
+<tr class="highlight-row"><td>Returning</td><td><strong>Non-TS</strong></td><td>69.75</td><td>86.71</td><td>22.35</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>TTLA Volume — New vs Returning</strong></div>
+<table>
+<thead><tr><th>Customer Type</th><th>TS Contacts</th><th>TS %</th><th>Non-TS Contacts</th><th>Non-TS %</th></tr></thead>
+<tbody>
+<tr><td><strong>New</strong></td><td>43,352</td><td>21.1%</td><td>678,084</td><td>24.1%</td></tr>
+<tr><td><strong>Returning</strong></td><td>158,239</td><td>76.9%</td><td>2,045,652</td><td>72.7%</td></tr>
+<tr><td><strong>Unknown</strong></td><td>4,320</td><td>2.1%</td><td>91,225</td><td>3.2%</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS — New vs Returning</h3><canvas id="ttla_nr_tnps" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT — New vs Returning</h3><canvas id="ttla_nr_aht" height="280"></canvas></div>
+</div>
+<div class="card">
+<div class="card-header"><strong>TTLA tNPS by SKU — New vs Returning</strong></div>
+<table>
+<thead><tr><th>Customer Type</th><th>Group</th><th>tNPS Basic</th><th>tNPS Deluxe</th><th>tNPS Premium</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>New</td><td><strong>Tax Specialist</strong></td><td>70.61</td><td>71.22</td><td>66.30</td></tr>
+<tr class="highlight-row"><td>New</td><td><strong>Non-TS</strong></td><td>65.94</td><td>69.22</td><td>64.80</td></tr>
+<tr><td colspan="5" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Returning</td><td><strong>Tax Specialist</strong></td><td>80.66</td><td>77.23</td><td>69.76</td></tr>
+<tr class="highlight-row"><td>Returning</td><td><strong>Non-TS</strong></td><td>72.95</td><td>72.80</td><td>67.49</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>TTLA AHT by SKU — New vs Returning (minutes)</strong></div>
+<table>
+<thead><tr><th>Customer Type</th><th>Group</th><th>AHT Basic</th><th>AHT Deluxe</th><th>AHT Premium</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td>New</td><td><strong>Tax Specialist</strong></td><td>19.15</td><td>22.29</td><td>27.64</td></tr>
+<tr class="highlight-row"><td>New</td><td><strong>Non-TS</strong></td><td>19.11</td><td>21.35</td><td>26.04</td></tr>
+<tr><td colspan="5" style="border-bottom:2px solid var(--border);"></td></tr>
+<tr class="ts-row"><td>Returning</td><td><strong>Tax Specialist</strong></td><td>19.87</td><td>21.34</td><td>25.94</td></tr>
+<tr class="highlight-row"><td>Returning</td><td><strong>Non-TS</strong></td><td>19.17</td><td>20.17</td><td>24.32</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — New Customer</h3><canvas id="ttla_nr_tnps_sku_new" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — Returning Customer</h3><canvas id="ttla_nr_tnps_sku_ret" height="280"></canvas></div>
+</div>
+
+<h3 id="ttla-avg-contacts">4h. TTLA — Average Contacts per Expert</h3>
+<div class="card">
+<div class="card-header"><strong>Average Contacts per Expert (TTLA)</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Experts</th><th>Total Contacts</th><th>Avg per Expert</th><th>Avg Basic</th><th>Avg Deluxe</th><th>Avg Premium</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>2,477</td><td>205,911</td><td>83.13</td><td>7.10</td><td>24.29</td><td>42.86</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>14,563</td><td>2,814,961</td><td>193.30</td><td>15.84</td><td>59.37</td><td>77.75</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA Avg Contacts per Expert</h3><canvas id="ttla_avg_contacts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA Avg Contacts by SKU</h3><canvas id="ttla_avg_contacts_sku" height="280"></canvas></div>
+</div>
+
 <hr class="section-divider">
 
 <h2 id="pl1-newhire">5. PL1 New Hire Analysis (Beginning of Season)</h2>
@@ -1090,7 +1237,7 @@
 
 <footer>
     <p>Tax Specialist Performance Analysis &bull; Generated May 28, 2026</p>
-    <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows) &bull; domain_partner_expert_data_upd.csv (35,096 rows) &bull; domain_partner_expert_data_add.csv (35,096 rows)</p>
+    <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows) &bull; domain_partner_expert_data_upd.csv (35,096 rows) &bull; domain_partner_expert_data_add.csv (35,096 rows) &bull; domain_partner_expert_data_expanded.csv (102,165 rows)</p>
 </footer>
 
 <script>
@@ -1420,6 +1567,77 @@ document.addEventListener('DOMContentLoaded', function() {
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 40 } } }
     });
 
+    // FS New vs Returning charts
+    new Chart(document.getElementById('fs_nr_tnps'), {
+        type: 'bar',
+        data: {
+            labels: ['New', 'Returning'],
+            datasets: [
+                { label: 'Tax Specialist', data: [63.60, 66.13], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [71.68, 72.93], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 55 } } }
+    });
+
+    new Chart(document.getElementById('fs_nr_cst'), {
+        type: 'bar',
+        data: {
+            labels: ['New', 'Returning'],
+            datasets: [
+                { label: 'Tax Specialist', data: [2.72, 2.49], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [3.13, 2.87], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 2 } } }
+    });
+
+    new Chart(document.getElementById('fs_nr_tnps_sku_new'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'Tax Specialist', data: [68.88, 55.59, 44.06], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [76.00, 69.88, 60.05], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 30 } } }
+    });
+
+    new Chart(document.getElementById('fs_nr_tnps_sku_ret'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'Tax Specialist', data: [78.93, 74.36, 49.67], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [77.70, 75.86, 65.34], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 40 } } }
+    });
+
+    // FS Avg Engagements charts
+    new Chart(document.getElementById('fs_avg_eng'), {
+        type: 'bar',
+        data: {
+            labels: ['Tax Specialist', 'Non-TS'],
+            datasets: [{ label: 'Avg Engagements', data: [44.54, 59.35], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+
+    new Chart(document.getElementById('fs_avg_eng_sku'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'Tax Specialist', data: [21.88, 14.48, 8.01], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [16.61, 16.89, 25.54], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
+    });
+
     // TTLA charts
     new Chart(document.getElementById('ttla_tnps'), {
         type: 'bar',
@@ -1671,6 +1889,77 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         },
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 15 } } }
+    });
+
+    // TTLA New vs Returning charts
+    new Chart(document.getElementById('ttla_nr_tnps'), {
+        type: 'bar',
+        data: {
+            labels: ['New', 'Returning'],
+            datasets: [
+                { label: 'Tax Specialist', data: [67.35, 72.36], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [65.73, 69.75], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 58 } } }
+    });
+
+    new Chart(document.getElementById('ttla_nr_aht'), {
+        type: 'bar',
+        data: {
+            labels: ['New', 'Returning'],
+            datasets: [
+                { label: 'Tax Specialist', data: [22.56, 23.99], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [22.37, 22.35], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 20 } } }
+    });
+
+    new Chart(document.getElementById('ttla_nr_tnps_sku_new'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'Tax Specialist', data: [70.61, 71.22, 66.30], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [65.94, 69.22, 64.80], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 55 } } }
+    });
+
+    new Chart(document.getElementById('ttla_nr_tnps_sku_ret'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'Tax Specialist', data: [80.66, 77.23, 69.76], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [72.95, 72.80, 67.49], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 60 } } }
+    });
+
+    // TTLA Avg Contacts charts
+    new Chart(document.getElementById('ttla_avg_contacts'), {
+        type: 'bar',
+        data: {
+            labels: ['Tax Specialist', 'Non-TS'],
+            datasets: [{ label: 'Avg Contacts', data: [83.13, 193.30], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+
+    new Chart(document.getElementById('ttla_avg_contacts_sku'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'Tax Specialist', data: [7.10, 24.29, 42.86], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [15.84, 59.37, 77.75], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
     });
 
     // PL1 New Hire charts
