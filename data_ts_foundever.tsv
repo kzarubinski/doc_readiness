@@ -1,0 +1,26 @@
+corp_id	corp_login	expert_preferred_name	expert_type	hire_type	role_type	partner_name	training_wave	university	grad_year	major	major_ext	remote	q1	q2	q3	expert_cnt	fs_cst_num	fs_eng	fs_eng_cst	fs_tnps_num	fs_tnps_denom	fs_tnps	conv_num	conv_denom	conv_rate
+50002702638	FF478799	Fiona Feng	PathEDU	Re-Hire	TS	FOUNDEVER	Re-Hire	Marshall	Sophomore	Business	Business management and Finance	Virtual	NaN	NaN	NaN	1	134.350622	68	1.975744	8	8	100	2442	3564	0.6851851852
+50002717422	BD487312	Brendan Dawson	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Freshman	Non-Business	Management Information System	Virtual	Gain experience relevant to my future career	A mix of income and career-building	Very relevant	1	57.26713	54	1.060502	9	10	90	4071	6279	0.6483516484
+50002717423	CN487313	Claire Newhouse	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Sophomore	Business	Business Major	Virtual	NaN	NaN	NaN	1	null	null	null	null	null		null	134	null
+50002717424	LW487314	Louis Wabnitz	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Senior	Business	Master of Science in Accounting	Virtual	NaN	NaN	NaN	1	81.777534	60	1.362959	1	6	17	4761	6693	0.7113402062
+50002717425	EN487315	Emily Nichols	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Junior	Non-Business	History/English	Virtual	NaN	NaN	NaN	1	48.658451	34	1.431131	8	15	53	2450	6230	0.393258427
+50002717427	NP487317	Nicholas Parker	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Junior	Business	Accounting and Finance	Virtual	NaN	NaN	NaN	1	20.269572	19	1.06682	10	11	91	1375	2200	0.625
+50002717429	JH487319	Jenna Hayes	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Junior	Business	Accounting	Virtual	NaN	NaN	NaN	1	null	null	null	null	null		null	null	null
+50002717433	EB487323	Ethan Bohm	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Junior	Business	Business Mgt	Virtual	Build my resume / skills	A mix of income and career-building	Somewhat relevant	1	49.440359	24	2.060015	3	6	50	1932	3795	0.5090909091
+50002717435	JD487325	Jeremy Drake	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Senior	Business	BCC Business	Virtual	NaN	NaN	NaN	1	null	null	null	null	null		null	25	null
+50002717436	JS487326	Joel Skaff	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Freshman	Business	Business/ Marketing	Virtual	NaN	NaN	NaN	1	105.604787	54	1.955644	7	7	100	4002	7038	0.568627451
+50002717437	NW487327	Nathan Whitney	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Senior	Business	Accounting	Virtual	Gain experience relevant to my future career	A mix of income and career-building	Very relevant	1	104.005392	31	3.355013	null	null		2208	3588	0.6153846154
+50002717440	CH487330	Christopher Hermann	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Sophomore	Business	Finance Major	Virtual	NaN	NaN	NaN	1	2.405741	1	2.405741	null	null		25	25	1
+50002717443	RM487333	Ragan Marcum	PathEDU	New Hire	TS	FOUNDEVER	Wave 6	Marshall	Senior	Non-Business	Athlectic Training	Virtual	NaN	NaN	NaN	1	54.176642	33	1.641716	4	4	100	2346	3726	0.6296296296
+50002727449	TC492361	Timothy Cecil	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Sophomore	Business	Accounting	Virtual	NaN	NaN	NaN	1	3.925653	2	1.962827	null	null		108	216	0.5
+50002727450	KD492362	Kristopher Davis	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Junior	Non-Business	psychology	Virtual	NaN	NaN	NaN	1	null	null	null	null	null		null	null	null
+50002727451	JB492363	Jose Balladares Reyes	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Junior	Non-Business	Cyber Security	Virtual	NaN	NaN	NaN	1	50.334947	26	1.93596	1	1	100	1404	2160	0.65
+50002727452	JM492364	Jordon Mccoy	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Freshman	Non-Business	Marketing	Virtual	NaN	NaN	NaN	1	17.132955	8	2.141619	1	1	100	432	918	0.4705882353
+50002727453	JC492365	Jayden Cadle	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Junior	Non-Business	Chemistry/Biology	Virtual	NaN	NaN	NaN	1	41.705838	35	1.191595	4	5	80	2052	3456	0.59375
+50002727454	GC492366	Gavin Craffey	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	finance/economics	Virtual	NaN	NaN	NaN	1	null	null	null	null	null		null	null	null
+50002727455	EH492367	Eli Howard	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Sophomore	Business	Accounting and Finance	Virtual	NaN	NaN	NaN	1	37.359226	25	1.494369	7	8	87.5	1458	2538	0.5744680851
+50002727456	AS492368	Autumn Shepherd	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Senior	Business	Accounting	Virtual	NaN	NaN	NaN	1	2.240469	1	2.240469	1	1	100	96	192	0.5
+50002727457	AP492369	Alan Pendleton	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Junior	Non-Business	Science/pilot	Virtual	NaN	NaN	NaN	1	null	null	null	null	null		null	null	null
+50002727458	GB492370	Gage Bender	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	Criminal justice	Virtual	NaN	NaN	NaN	1	null	null	null	null	null		null	null	null
+50002727459	DK492371	Daniel Kim	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Junior	Business	Marketing/ Accounting	Virtual	NaN	NaN	NaN	1	50.934081	36	1.414836	6	6	100	2090	4785	0.4367816092
+50002735641	AA496849	Abraham Arnold	PathEDU	New Hire	TS	FOUNDEVER	Wave 7	Marshall	Freshman	Non-Business	Theatre Major	Virtual	NaN	NaN	NaN	1	null	null	null	null	null		null	null	null

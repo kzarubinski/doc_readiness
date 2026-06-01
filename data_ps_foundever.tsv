@@ -1,0 +1,63 @@
+corp_id	corp_login	expert_preferred_name	expert_type	hire_type	role_type	partner_name	training_wave	university	grad_year	major	major_ext	remote	q1	q2	q3	expert_cnt	ps_handle_min	ps_handle_cnt	ps_aht	ps_tnps_num	ps_tnps_denom	ps_tnps
+50002615263	DP423406	Dariyana Preston	PathEDU	Re-Hire	PS	FOUNDEVER	Re-Hire	Marshall	Junior	Non-Business	Bio-Medical Science	Virtual	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	4777.333332	365	13.088584	5	9	55.5556
+50002615277	OF423420	Owen Fortune	PathEDU	Re-Hire	PS	FOUNDEVER	Re-Hire	Marshall	Junior	Non-Business	Marketing	Virtual	Build my resume / skills	A mix of income and career-building	Very relevant	1	7584.316668	480	15.80066	48	72	66.6667
+50002702626	AB478787	Amariana Burrow	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Business	Accounting with criminal justice minor	Virtual	Gain experience relevant to my future career	A mix of income and career-building	Very relevant	1	7330.899999	380	19.291842	13	28	46.4286
+50002702627	AB478788	Andrew Banks	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Business	Accounting	Virtual	NaN	NaN	NaN	1	1968.383336	134	14.689428	6	6	100
+50002702628	AH478789	Ava Hill	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Non-Business	Communication disorders	Virtual	NaN	NaN	NaN	1	705.4	32	22.04375	-2	2	-100
+50002702630	BM478791	Brayden Mccormick	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Freshman	Business	Accounting	Virtual	NaN	NaN	NaN	1	432.466667	72	6.006481	0	2	0
+50002702631	CB478792	Caitlin Bills	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Sophomore	Non-Business	Marketing	Virtual	NaN	NaN	NaN	1	353.616667	24	14.734028	2	2	100
+50002702633	CM478794	Cooper Moore	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Sophomore	Business	Accounting	Virtual	Build my resume / skills	Mostly a job to earn money	Somewhat relevant	1	5582.683336	282	19.796749	19	40	47.5
+50002702634	CW478795	Curtis Williams	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Senior	Non-Business	Social work	Virtual	NaN	NaN	NaN	1	622.466667	60	10.374444	-2	2	-100
+50002702639	GA478800	Grace Allen	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Business	Business and marketing	Virtual	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	4225.883335	170	24.858137	10	24	41.6667
+50002702640	HP478801	Hannah Patton	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Senior	Non-Business	education	Virtual	NaN	NaN	NaN	1	1186.466667	35	33.899048	4	6	66.6667
+50002702641	HK478802	Hunter Knisley	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Sophomore	Non-Business	Marketing	Virtual	NaN	NaN	NaN	1	1272.766667	66	19.284343	4	4	100
+50002702642	HS478803	Hunter Salmon	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Non-Business	Science computer and information technology	Virtual	NaN	NaN	NaN	1	1887.449999	104	18.148558	3	7	42.8571
+50002702643	JT478804	Josiah Taxley	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Senior	Non-Business	cyber security	Virtual	NaN	NaN	NaN	1	94.783334	6	15.797222	null	null	null
+50002702645	JR478806	Julie Ann Ross	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Non-Business	Dietetics	Virtual	NaN	NaN	NaN	1	165.133333	8	20.641667	null	null	null
+50002702646	IR478807	Isaac Reidenbaker	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Non-Business	Computer Information	Virtual	Build my resume / skills	A mix of income and career-building	Somewhat relevant	1	5826.783331	402	14.494486	23	32	71.875
+50002702647	LD478808	Lucas Denney	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Non-Business	Religious Studies and Spanish	Virtual	NaN	NaN	NaN	1	630.549999	29	21.743103	2	4	50
+50002702649	NA478810	Nicole Asamoah	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Senior	Non-Business	Bachelors of Science in Nursing	Virtual	Build my resume / skills	A mix of income and career-building	Somewhat relevant	1	4558.333333	190	23.991228	21	33	63.6364
+50002702650	PW478811	Paxton Ward	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Freshman	Business	Finance	Virtual	NaN	NaN	NaN	1	1173.216667	96	12.221007	2	7	28.5714
+50002702652	SK478813	Seth Kirk	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Non-Business	Occupational Safety and Health	Virtual	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	7326.349999	367	19.962807	16	33	48.4848
+50002702653	SM478814	Shelby Mccallister	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Junior	Non-Business	Chemical sciences	Virtual	NaN	NaN	NaN	1	567.550001	37	15.339189	-2	2	-100
+50002703445	TD479478	Tiersa Davis	PathEDU	New Hire	PS	FOUNDEVER	Wave 5	Marshall	Senior	Non-Business	Visual Arts	Virtual	Flexible work that fits my schedule	A mix of income and career-building	Very relevant	1	4681.583335	191	24.510908	9	12	75
+50002711349	BC483784	Braelyn Criner	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Junior	Non-Business	Physical Therapy	Virtual	Flexible work that fits my schedule	A mix of income and career-building	Somewhat relevant	1	4849.816667	236	20.550071	11	20	55
+50002711350	CB483785	Cambrie Booth	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Junior	Non-Business	Athletic training	Virtual	NaN	NaN	NaN	1	1540.466667	59	26.109605	5	8	62.5
+50002711351	CR483786	Chancey Roberts	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	?	Non-Business	NaN	Virtual	NaN	NaN	NaN	1	4436.066667	278	15.957074	12	29	41.3793
+50002711352	DC483787	Destiny Crider	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Junior	Business	Business Administration	Virtual	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	5050.433333	272	18.56777	14	33	42.4242
+50002711354	ER483789	Elijah Robinett	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Sophomore	Non-Business	health care management	Virtual	NaN	NaN	NaN	1	336.066667	16	21.004167	1	1	100
+50002711355	ES483790	Elora Spradlin	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Senior	Non-Business	nursing	Virtual	NaN	NaN	NaN	1	1621.433334	77	21.057576	1	5	20
+50002711356	GR483791	Gabriel Russo	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Freshman	Non-Business	Psychology	Virtual	NaN	NaN	NaN	1	188.516667	17	11.089216	-1	1	-100
+50002711358	HF483793	Hope Fry	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Junior	Non-Business	Cyber security	Virtual	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	4153.666667	203	20.461412	14	30	46.6667
+50002711361	JB483796	Jacqueline Broestler	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Freshman	Non-Business	Communication Disorder	Virtual	Flexible work that fits my schedule	A mix of income and career-building	Somewhat relevant	1	7149.799998	412	17.353883	12	33	36.3636
+50002711363	KK483798	Kaitlyn Keller	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Sophomore	Non-Business	pharmacy	Virtual	NaN	NaN	NaN	1	11.2	2	5.6	null	null	null
+50002711364	KM483799	Katelyn Mullen	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Freshman	Non-Business	Political Science	Virtual	Earn income while in school	Mostly a job to earn money	Somewhat relevant	1	4267.633335	248	17.208199	15	19	78.9474
+50002711365	KF483800	Emma Gibbs	PathEDU	Re-Hire	PS	FOUNDEVER	Re-Hire	Marshall	Junior	Non-Business	Psychology	Virtual	NaN	NaN	NaN	1	4020.766669	196	20.514116	6	12	50
+50002711366	MA483801	Madilyn Asbury	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Senior	Non-Business	English	Virtual	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	2279.766666	132	17.27096	0	6	0
+50002711367	MW483802	Malakai Woodard	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Senior	Non-Business	Healthcare managment	Virtual	NaN	NaN	NaN	1	1357.866667	67	20.266667	-3	5	-60
+50002711368	MH483803	Matthew Hanson	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Junior	Non-Business	Flight Pilot	Virtual	`	A mix of income and career-building	Not relevant	1	4823.033333	291	16.573998	7	15	46.6667
+50002711369	MF483804	Mikyira Flippen	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Freshman	Non-Business	Psychology	Virtual	NaN	NaN	NaN	1	670.616667	25	26.824667	1	1	100
+50002711372	ST483807	Seth Tucker	PathEDU	New Hire	PS	FOUNDEVER	Wave 6	Marshall	Senior	Business	Finance	Virtual	NaN	NaN	NaN	1	738.366667	74	9.977928	-1	6	-16.6667
+50002717442	CW487332	Cassandra Woods	PathEDU	Re-Hire	PS	FOUNDEVER	Re-Hire	Marshall	Sophomore	Business	Business Administration	Virtual	NaN	NaN	NaN	1	null	null	null	null	null	null
+50002720624	AM489391	Aiden Marcum	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Senior	Non-Business	Computer and information security	Virtual	Build my resume / skills	Mostly a job to earn money	Somewhat relevant	1	2559.316667	90	28.436852	5	7	71.4286
+50002720626	CN489393	Cailen Nolley	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Junior	Business	Sport Business	Virtual	NaN	NaN	NaN	1	49.75	3	16.583333	null	null	null
+50002720627	CJ489394	Chloe Jones	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	Biological Sciences	Virtual	Flexible work that fits my schedule	Mostly a job to earn money	Not relevant	1	2400.549998	90	26.672778	6	10	60
+50002720628	CM489395	Connor Miller	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Junior	Non-Business	Criminal Justice	Virtual	NaN	NaN	NaN	1	494.633334	25	19.785333	4	4	100
+50002720629	CJ489396	Coralyn Jones	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	Biology	Virtual	NaN	NaN	NaN	1	655.933333	38	17.261404	-1	1	-100
+50002720630	DR489397	Destiny Robinette	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	Marketing	Virtual	Build my resume / skills	Mostly a job to earn money	Somewhat relevant	1	2201.516666	100	22.015167	2	6	33.3333
+50002720632	GF489399	Gavin Feigel	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Business	Finance minor marketing	Virtual	Build my resume / skills	A mix of income and career-building	Somewhat relevant	1	4855.65	196	24.773724	22	22	100
+50002720633	JH489400	Jacob Howard	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Business	Business/marketing	Virtual	NaN	NaN	NaN	1	5.916667	3	1.972222	null	null	null
+50002720635	JH489402	Jasmine Hairston	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Freshman	Non-Business	Science	Virtual	NaN	NaN	NaN	1	1534.416667	58	26.45546	2	6	33.3333
+50002720637	JW489404	Jonathan White	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Business	Finance	Virtual	Gain experience relevant to my future career	A mix of income and career-building	Somewhat relevant	1	2773.449998	163	17.015031	4	8	50
+50002720639	LO489406	Lauren Obrien	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	Radiology	Virtual	NaN	NaN	NaN	1	248.1	14	17.721429	1	1	100
+50002720641	MJ489408	Meauni Jenkins	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Freshman	Non-Business	Cyber Security	Virtual	NaN	NaN	NaN	1	4368.333334	227	19.243759	0	7	0
+50002720643	RK489410	Rachel King	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	Science	Virtual	Earn income while in school	Mostly a job to earn money	Not relevant	1	2018.1	107	18.860748	0	4	0
+50002720645	SC489412	Shayla Carter	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Junior	Non-Business	Radiology	Virtual	NaN	NaN	NaN	1	491.016666	23	21.348551	0	1	0
+50002720646	TL489413	Tanner Litz	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Senior	Non-Business	Bio Mechanical Engineering	Virtual	Earn income while in school	A mix of income and career-building	Somewhat relevant	1	2978.566664	144	20.684491	-1	7	-14.2857
+50002720647	SS489414	Somya Slonaker	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	Undergraduate Theatre performance	Virtual	NaN	NaN	NaN	1	1299.6	38	34.2	-1	4	-25
+50002720648	TN489415	Timothy Neely	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Junior	Business	Accounting	Virtual	NaN	NaN	NaN	1	218.333333	3	72.777778	null	null	null
+50002720649	TR489416	Torin Risch	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Senior	Non-Business	Science	Virtual	Earn income while in school	Mostly a job to earn money	Not relevant	1	5632.016668	314	17.936359	8	22	36.3636
+50002720651	ZF489418	Zachary Force	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Senior	Business	Accounting	Virtual	NaN	NaN	NaN	1	5409.36667	183	29.559381	17	23	73.913
+50002720652	ZG489419	Zachary Gamble	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Senior	Business	Business/video production	Virtual	NaN	NaN	NaN	1	421.533334	26	16.212821	1	2	50
+50002724530	KF490992	Kelly Fletcher	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Sophomore	Non-Business	Radiology	Virtual	NaN	NaN	NaN	1	442.6	53	8.350943	-1	1	-100
+50002725874	PC491503	Parker Cantrell	PathEDU	New Hire	PS	FOUNDEVER	Wave 7	Marshall	Freshman	Non-Business	Biology	Virtual	Flexible work that fits my schedule	Mostly a job to earn money	Somewhat relevant	1	3695.4	216	17.108333	8	19	42.1053
