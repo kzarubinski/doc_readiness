@@ -26,7 +26,7 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; overflow-x: hidden; }
         h1 { font-size: 2rem; margin-bottom: 0.25rem; }
         h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
         h3 { font-size: 1.15rem; margin: 1.5rem 0 0.75rem; color: var(--primary); }
@@ -63,9 +63,10 @@
         .neutral { color: var(--muted); }
         .better { color: var(--success); font-weight: 600; }
         .worse { color: var(--danger); font-weight: 600; }
-        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
-        .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
-        .chart-box canvas { width: 100% !important; }
+        .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; max-width: 100%; overflow: hidden; }
+        .chart-row > * { min-width: 0; overflow: hidden; }
+        .chart-row canvas { width: 100% !important; height: auto !important; max-width: 100%; }
+        .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; min-width: 0; overflow: hidden; }
         @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
         .callout { border-left: 4px solid var(--primary); background: var(--primary-light); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.92rem; }
         .callout.warn { border-left-color: var(--warning); background: var(--warning-light); }
