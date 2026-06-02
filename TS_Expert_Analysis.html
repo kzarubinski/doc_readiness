@@ -451,24 +451,24 @@
 <div class="card">
 <div class="card-header"><strong>FS Performance by Forecast Group Category — TS vs Non-TS</strong></div>
 <table>
-<thead><tr><th>Category</th><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<thead><tr><th>Category</th><th style="text-align:center;">Group</th><th>Volume</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
 <tbody>
-<tr><td rowspan="2"><strong>STANDARD</strong></td><td>TS</td><td>—</td><td>—</td><td>85.68</td><td>46.63</td><td>2.57</td></tr>
-<tr><td>Non-TS</td><td>58.62</td><td>80.00</td><td>87.57</td><td>67.30</td><td>2.96</td></tr>
-<tr><td rowspan="2"><strong>SYNC NOW</strong></td><td>TS</td><td>83.10</td><td>68.59</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Non-TS</td><td>78.84</td><td>87.90</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td rowspan="2"><strong>SYNC LATER</strong></td><td>TS</td><td>72.44</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Non-TS</td><td>74.73</td><td>97.22</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td rowspan="2"><strong>TRIAGE</strong></td><td>TS</td><td>29.00</td><td>60.75</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Non-TS</td><td>48.58</td><td>70.07</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td rowspan="2"><strong>AMEND</strong></td><td>TS</td><td>50.00</td><td>50.00</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Non-TS</td><td>45.22</td><td>70.40</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td rowspan="2"><strong>WELCOME</strong></td><td>TS</td><td>78.79</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Non-TS</td><td>87.50</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td rowspan="2"><strong>PYRO</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Non-TS</td><td>77.76</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>NULL</strong></td><td style="text-align:center;">TS</td><td>123,857</td><td>—</td><td>—</td><td>85.68</td><td>46.63</td><td>2.57</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>849,578</td><td>58.62</td><td>80.00</td><td>87.57</td><td>67.30</td><td>2.96</td></tr>
+<tr><td rowspan="2"><strong>SYNC NOW</strong></td><td style="text-align:center;">TS</td><td>—</td><td>83.10</td><td>68.59</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>—</td><td>78.84</td><td>87.90</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>SYNC LATER</strong></td><td style="text-align:center;">TS</td><td>—</td><td>72.44</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>—</td><td>74.73</td><td>97.22</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>TRIAGE</strong></td><td style="text-align:center;">TS</td><td>—</td><td>29.00</td><td>60.75</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>—</td><td>48.58</td><td>70.07</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>AMEND</strong></td><td style="text-align:center;">TS</td><td>—</td><td>50.00</td><td>50.00</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>—</td><td>45.22</td><td>70.40</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>WELCOME</strong></td><td style="text-align:center;">TS</td><td>—</td><td>78.79</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>—</td><td>87.50</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>PYRO</strong></td><td style="text-align:center;">TS</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>—</td><td>77.76</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
 </tbody></table>
-<p style="font-size:0.85rem;color:var(--muted);">CONCIERGE excluded — no FS data for either group. Cells marked "—" have insufficient data (zero denominator).</p>
+<p style="font-size:0.85rem;color:var(--muted);">CONCIERGE excluded — no FS data for either group. Volume based on cst_denominator. Non-NULL categories have tNPS/IR from survey data but no CST/HC/SQS volume. Cells marked "—" have insufficient data (zero denominator).</p>
 </div>
 
 <div class="chart-row">
@@ -861,27 +861,27 @@
 <div class="card">
 <div class="card-header"><strong>TTLA Performance by Forecast Group Category — TS vs Non-TS</strong></div>
 <table>
-<thead><tr><th>Category</th><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<thead><tr><th>Category</th><th style="text-align:center;">Group</th><th>Volume</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
 <tbody>
-<tr><td rowspan="2"><strong>STANDARD</strong></td><td>TS</td><td>71.39</td><td>87.96</td><td>82.34</td><td>23.67</td></tr>
-<tr><td>Non-TS</td><td>68.84</td><td>86.16</td><td>81.12</td><td>22.13</td></tr>
-<tr><td rowspan="2"><strong>SYNC LATER</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>26.62</td></tr>
-<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>34.71</td></tr>
-<tr><td rowspan="2"><strong>SYNC NOW</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>16.03</td></tr>
-<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>25.23</td></tr>
-<tr><td rowspan="2"><strong>TRIAGE</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>12.21</td></tr>
-<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>17.21</td></tr>
-<tr><td rowspan="2"><strong>WELCOME</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>10.25</td></tr>
-<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>11.58</td></tr>
-<tr><td rowspan="2"><strong>AMEND</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>16.02</td></tr>
+<tr><td rowspan="2"><strong>NULL</strong></td><td style="text-align:center;">TS</td><td>197,849</td><td>71.39</td><td>87.96</td><td>82.34</td><td>23.67</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>2,683,936</td><td>68.84</td><td>86.16</td><td>81.12</td><td>22.13</td></tr>
+<tr><td rowspan="2"><strong>SYNC LATER</strong></td><td style="text-align:center;">TS</td><td>6,363</td><td>—</td><td>—</td><td>—</td><td>26.62</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>60,572</td><td>—</td><td>—</td><td>—</td><td>34.71</td></tr>
+<tr><td rowspan="2"><strong>SYNC NOW</strong></td><td style="text-align:center;">TS</td><td>795</td><td>—</td><td>—</td><td>—</td><td>16.03</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>45,665</td><td>—</td><td>—</td><td>—</td><td>25.23</td></tr>
+<tr><td rowspan="2"><strong>TRIAGE</strong></td><td style="text-align:center;">TS</td><td>61</td><td>—</td><td>—</td><td>—</td><td>12.21</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>17,982</td><td>—</td><td>—</td><td>—</td><td>17.21</td></tr>
+<tr><td rowspan="2"><strong>WELCOME</strong></td><td style="text-align:center;">TS</td><td>843</td><td>—</td><td>—</td><td>—</td><td>10.25</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>651</td><td>—</td><td>—</td><td>—</td><td>11.58</td></tr>
+<tr><td rowspan="2"><strong>AMEND</strong></td><td style="text-align:center;">TS</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>6,155</td><td>—</td><td>—</td><td>—</td><td>16.02</td></tr>
 </tbody></table>
-<p style="font-size:0.85rem;color:var(--muted);">CONCIERGE and PYRO excluded — no meaningful TTLA data. Cells marked "—" have insufficient data (zero denominator). TS has very limited volume in non-STANDARD categories.</p>
+<p style="font-size:0.85rem;color:var(--muted);">CONCIERGE and PYRO excluded — no meaningful TTLA data. Volume based on aht_denominator. Cells marked "—" have insufficient data (zero denominator). TS has very limited volume outside the NULL category.</p>
 </div>
 
 <div class="chart-row">
     <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by Forecast Group</h3><canvas id="fg_ttla_aht" height="300"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by Forecast Group (STANDARD only)</h3><canvas id="fg_ttla_tnps" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by Forecast Group (NULL only)</h3><canvas id="fg_ttla_tnps" height="300"></canvas></div>
 </div>
 
 <h3 id="ttla-pl-end">4d. TTLA — Proficiency Level at End of Season</h3>
@@ -2118,7 +2118,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(document.getElementById('fg_fs_tnps'), {
         type: 'bar',
         data: {
-            labels: ['STANDARD', 'SYNC NOW', 'SYNC LATER', 'TRIAGE', 'AMEND', 'WELCOME'],
+            labels: ['NULL', 'SYNC NOW', 'SYNC LATER', 'TRIAGE', 'AMEND', 'WELCOME'],
             datasets: [
                 { label: 'TS', data: [null, 83.10, 72.44, 29.00, 50.00, 78.79], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
                 { label: 'Non-TS', data: [58.62, 78.84, 74.73, 48.58, 45.22, 87.50], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
@@ -2130,7 +2130,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(document.getElementById('fg_fs_ir'), {
         type: 'bar',
         data: {
-            labels: ['STANDARD', 'SYNC NOW', 'TRIAGE', 'AMEND'],
+            labels: ['NULL', 'SYNC NOW', 'TRIAGE', 'AMEND'],
             datasets: [
                 { label: 'TS', data: [null, 68.59, 60.75, 50.00], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
                 { label: 'Non-TS', data: [80.00, 87.90, 70.07, 70.40], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
@@ -2142,7 +2142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(document.getElementById('fg_ttla_aht'), {
         type: 'bar',
         data: {
-            labels: ['STANDARD', 'SYNC LATER', 'SYNC NOW', 'TRIAGE', 'WELCOME'],
+            labels: ['NULL', 'SYNC LATER', 'SYNC NOW', 'TRIAGE', 'WELCOME'],
             datasets: [
                 { label: 'TS', data: [23.67, 26.62, 16.03, 12.21, 10.25], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
                 { label: 'Non-TS', data: [22.13, 34.71, 25.23, 17.21, 11.58], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
@@ -2154,7 +2154,7 @@ document.addEventListener('DOMContentLoaded', function() {
     new Chart(document.getElementById('fg_ttla_tnps'), {
         type: 'bar',
         data: {
-            labels: ['STANDARD'],
+            labels: ['NULL'],
             datasets: [
                 { label: 'TS', data: [71.39], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
                 { label: 'Non-TS', data: [68.84], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
