@@ -105,6 +105,7 @@
             </li>
             <li><a href="#pl1-newhire">PL1 New Hire Analysis (Beginning of Season)</a></li>
             <li><a href="#conclusions">Conclusions &amp; Key Takeaways</a></li>
+            <li><a href="#appendix-mix-adj">Appendix A: Mix-Adjusted Performance Analysis</a></li>
         </ol>
     </div>
 
@@ -1235,8 +1236,75 @@
 </div>
 </div>
 
+<hr class="section-divider">
+
+<h2 id="appendix-mix-adj">Appendix A: Mix-Adjusted Performance Analysis <span style="font-size:0.7em;color:var(--muted);">(Work in Progress)</span></h2>
+
+<div class="callout">
+<strong>Purpose:</strong> The raw comparison between Tax Specialists and Non-TS is confounded by differences in SKU mix and customer type (New vs Returning). This analysis reweights TS metrics using Non-TS's volume distribution to isolate the true performance gap from composition effects.
+</div>
+
+<div class="card">
+<h3 style="margin-top:0;">Methodology</h3>
+<p>For each metric, performance is computed in granular cells defined by <strong>SKU (Basic / Deluxe / Premium)</strong> &times; <strong>Customer Type (New / Returning)</strong> — yielding 6 cells. The mix-adjusted TS value applies Non-TS's volume weights to TS's per-cell performance, answering: <em>"What would TS's metric be if they had the same SKU and customer mix as Non-TS?"</em></p>
+<p style="margin-top:0.5rem;font-size:0.9rem;color:var(--muted);">For IR and HC, SKU-level denominators are not available, so adjustment is by Customer Type only (2 cells). tNPS, CST, and AHT use the full 6-cell adjustment.</p>
+</div>
+
+<h3>A1. FS — Mix-Adjusted Performance</h3>
+<div class="card">
+<div class="card-header"><strong>FS Mix-Adjusted Summary</strong></div>
+<table>
+<thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
+<tbody>
+<tr><td><strong>tNPS</strong></td><td>63.63</td><td>61.37</td><td>70.36</td><td class="worse">-6.73</td><td class="worse">-8.98</td><td>-2.25</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>CST</strong></td><td>2.56</td><td>3.06</td><td>2.95</td><td class="better">-0.39</td><td class="worse">+0.11</td><td>+0.50</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>IR</strong></td><td>61.23</td><td>61.34</td><td>72.60</td><td class="worse">-11.37</td><td class="worse">-11.26</td><td>+0.11</td><td>CustType only</td></tr>
+<tr><td><strong>HC</strong></td><td>46.63</td><td>48.74</td><td>67.30</td><td class="worse">-20.67</td><td class="worse">-18.56</td><td>+2.11</td><td>CustType only</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout danger">
+<strong>FS Key Finding:</strong> Mix-adjustment reveals that TS's CST advantage (2.56 vs 2.95) is <strong>entirely driven by SKU mix</strong>. After adjusting for the fact that TS handles more Basic and fewer Premium returns, the mix-adjusted CST is 3.06 — slightly <em>worse</em> than Non-TS. The tNPS gap also widens after adjustment (-6.73 &rarr; -8.98), indicating TS's favorable SKU mix was partially masking the performance gap.
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS — Actual vs Mix-Adjusted vs Non-TS</h3><canvas id="mix_fs_compare" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS — Mix Effect (how much SKU/CustType explains)</h3><canvas id="mix_fs_effect" height="300"></canvas></div>
+</div>
+
+<h3>A2. TTLA — Mix-Adjusted Performance</h3>
+<div class="card">
+<div class="card-header"><strong>TTLA Mix-Adjusted Summary</strong></div>
+<table>
+<thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
+<tbody>
+<tr><td><strong>tNPS</strong></td><td>71.93</td><td>72.30</td><td>69.16</td><td class="better">+2.77</td><td class="better">+3.14</td><td>+0.37</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>AHT</strong></td><td>24.02</td><td>23.70</td><td>22.39</td><td class="worse">+1.63</td><td class="worse">+1.31</td><td>-0.32</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>IR</strong></td><td>88.10</td><td>88.07</td><td>86.29</td><td class="better">+1.81</td><td class="better">+1.78</td><td>-0.03</td><td>CustType only</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout success">
+<strong>TTLA Key Finding:</strong> Mix-adjustment <strong>confirms and slightly strengthens</strong> TS's TTLA advantage. The tNPS gap increases from +2.77 to +3.14 after adjustment, and the AHT gap narrows from +1.63 to +1.31 minutes. The IR advantage is virtually unchanged. TS's TTLA outperformance is genuine and not a composition artifact.
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA — Actual vs Mix-Adjusted vs Non-TS</h3><canvas id="mix_ttla_compare" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA — Mix Effect</h3><canvas id="mix_ttla_effect" height="300"></canvas></div>
+</div>
+
+<div class="card" style="border-left:4px solid var(--warning);">
+<h3 style="margin-top:0;">Interpretation Guide</h3>
+<ul style="padding-left:1.25rem;">
+<li><strong>Mix Effect</strong> = Mix-Adjusted TS &minus; Actual TS. A positive value for tNPS/IR/HC means TS was benefiting from a favorable mix; a negative CST/AHT mix effect means TS's mix was making them look better.</li>
+<li><strong>Adjusted Gap</strong> = Mix-Adjusted TS &minus; Non-TS. This is the "true" performance difference after removing composition effects.</li>
+<li>For CST and AHT (lower is better): a positive adjusted gap means TS is worse after adjustment; a negative gap means TS is better.</li>
+<li>This analysis adjusts for SKU mix and New/Returning customer mix only. Other confounders (partner mix, proficiency level distribution, volume per expert) are not adjusted here.</li>
+</ul>
+</div>
+
 <footer>
-    <p>Tax Specialist Performance Analysis &bull; Generated May 28, 2026</p>
+    <p>Tax Specialist Performance Analysis &bull; Generated June 2, 2026</p>
     <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows) &bull; domain_partner_expert_data_upd.csv (35,096 rows) &bull; domain_partner_expert_data_add.csv (35,096 rows) &bull; domain_partner_expert_data_expanded.csv (102,165 rows)</p>
 </footer>
 
@@ -1985,6 +2053,82 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'bar',
         data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'AHT', data: [24.51, 23.07], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
         options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 20 } } }
+    });
+
+    // Mix-Adjusted charts
+    var mixAdjColor = 'rgba(234,179,8,0.75)';
+    var mixAdjBorder = '#eab308';
+
+    new Chart(document.getElementById('mix_fs_compare'), {
+        type: 'bar',
+        data: {
+            labels: ['tNPS', 'IR', 'HC', 'CST (inv)'],
+            datasets: [
+                { label: 'Actual TS', data: [63.63, 61.23, 46.63, 100-2.56], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Mix-Adjusted TS', data: [61.37, 61.34, 48.74, 100-3.06], backgroundColor: mixAdjColor, borderColor: mixAdjBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [70.36, 72.60, 67.30, 100-2.95], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: { callbacks: { label: function(ctx) {
+                    if (ctx.dataIndex === 3) return ctx.dataset.label + ': CST ' + (100 - ctx.parsed.y).toFixed(2);
+                    return ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2);
+                }}}
+            },
+            scales: { y: { beginAtZero: false, min: 40 } }
+        }
+    });
+
+    new Chart(document.getElementById('mix_fs_effect'), {
+        type: 'bar',
+        data: {
+            labels: ['tNPS', 'CST', 'IR', 'HC'],
+            datasets: [
+                { label: 'Raw Gap (TS - NTS)', data: [-6.73, -0.39, -11.37, -20.67], backgroundColor: 'rgba(239,68,68,0.6)', borderColor: '#ef4444', borderWidth: 2 },
+                { label: 'Adjusted Gap', data: [-8.98, 0.11, -11.26, -18.56], backgroundColor: 'rgba(234,179,8,0.6)', borderColor: '#eab308', borderWidth: 2 },
+                { label: 'Mix Effect', data: [-2.25, 0.50, 0.11, 2.11], backgroundColor: 'rgba(99,102,241,0.6)', borderColor: '#6366f1', borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
+    });
+
+    new Chart(document.getElementById('mix_ttla_compare'), {
+        type: 'bar',
+        data: {
+            labels: ['tNPS', 'IR', 'AHT (inv)'],
+            datasets: [
+                { label: 'Actual TS', data: [71.93, 88.10, 100-24.02], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Mix-Adjusted TS', data: [72.30, 88.07, 100-23.70], backgroundColor: mixAdjColor, borderColor: mixAdjBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [69.16, 86.29, 100-22.39], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: { callbacks: { label: function(ctx) {
+                    if (ctx.dataIndex === 2) return ctx.dataset.label + ': AHT ' + (100 - ctx.parsed.y).toFixed(2);
+                    return ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(2);
+                }}}
+            },
+            scales: { y: { beginAtZero: false, min: 65 } }
+        }
+    });
+
+    new Chart(document.getElementById('mix_ttla_effect'), {
+        type: 'bar',
+        data: {
+            labels: ['tNPS', 'AHT', 'IR'],
+            datasets: [
+                { label: 'Raw Gap (TS - NTS)', data: [2.77, 1.63, 1.81], backgroundColor: 'rgba(22,163,74,0.6)', borderColor: '#16a34a', borderWidth: 2 },
+                { label: 'Adjusted Gap', data: [3.14, 1.31, 1.78], backgroundColor: 'rgba(234,179,8,0.6)', borderColor: '#eab308', borderWidth: 2 },
+                { label: 'Mix Effect', data: [0.37, -0.32, -0.03], backgroundColor: 'rgba(99,102,241,0.6)', borderColor: '#6366f1', borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
     });
 });
 </script>
