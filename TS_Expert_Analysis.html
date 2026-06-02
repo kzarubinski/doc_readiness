@@ -83,6 +83,7 @@
                 <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
                     <li><a href="#fs-volume">Volume Distribution</a></li>
                     <li><a href="#fs-overall">Overall Performance</a></li>
+                    <li><a href="#fs-forecast-group">Forecast Group Category</a></li>
                     <li><a href="#fs-pl-end">Proficiency Level at End of Season</a></li>
                     <li><a href="#fs-pl-start">Proficiency Level at Beginning of Season</a></li>
                     <li><a href="#fs-sku">SKU Mix &amp; CST by SKU</a></li>
@@ -95,6 +96,7 @@
                 <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
                     <li><a href="#ttla-volume">Volume Distribution</a></li>
                     <li><a href="#ttla-overall">Overall Performance</a></li>
+                    <li><a href="#ttla-forecast-group">Forecast Group Category</a></li>
                     <li><a href="#ttla-pl-end">Proficiency Level at End of Season</a></li>
                     <li><a href="#ttla-pl-start">Proficiency Level at Beginning of Season</a></li>
                     <li><a href="#ttla-tnps-sku">tNPS by SKU</a></li>
@@ -445,7 +447,36 @@
 <li><strong>CST:</strong> TS 2.57 vs Non-TS 2.96 (-0.39) — <span class="better">better (lower is better)</span></li></ul>
 </div>
 
-<h3 id="fs-pl-end">3c. FS — Proficiency Level at End of Season</h3>
+<h3 id="fs-forecast-group">3c. FS — Forecast Group Category</h3>
+<div class="card">
+<div class="card-header"><strong>FS Performance by Forecast Group Category — TS vs Non-TS</strong></div>
+<table>
+<thead><tr><th>Category</th><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>STANDARD</strong></td><td>TS</td><td>—</td><td>—</td><td>85.68</td><td>46.63</td><td>2.57</td></tr>
+<tr><td>Non-TS</td><td>58.62</td><td>80.00</td><td>87.57</td><td>67.30</td><td>2.96</td></tr>
+<tr><td rowspan="2"><strong>SYNC NOW</strong></td><td>TS</td><td>83.10</td><td>68.59</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Non-TS</td><td>78.84</td><td>87.90</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>SYNC LATER</strong></td><td>TS</td><td>72.44</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Non-TS</td><td>74.73</td><td>97.22</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>TRIAGE</strong></td><td>TS</td><td>29.00</td><td>60.75</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Non-TS</td><td>48.58</td><td>70.07</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>AMEND</strong></td><td>TS</td><td>50.00</td><td>50.00</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Non-TS</td><td>45.22</td><td>70.40</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>WELCOME</strong></td><td>TS</td><td>78.79</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Non-TS</td><td>87.50</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td rowspan="2"><strong>PYRO</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Non-TS</td><td>77.76</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--muted);">CONCIERGE excluded — no FS data for either group. Cells marked "—" have insufficient data (zero denominator).</p>
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by Forecast Group</h3><canvas id="fg_fs_tnps" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS IR by Forecast Group</h3><canvas id="fg_fs_ir" height="300"></canvas></div>
+</div>
+
+<h3 id="fs-pl-end">3d. FS — Proficiency Level at End of Season</h3>
 <div class="card">
 <div class="card-header"><strong>Proficiency Level: PL1</strong></div>
 <table>
@@ -491,7 +522,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS SQS by PL (End of Season)</h3><canvas id="fs_pl_sqs_end" height="280"></canvas></div>
 </div>
 
-<h3 id="fs-pl-start">3d. FS — Proficiency Level at Beginning of Season</h3>
+<h3 id="fs-pl-start">3e. FS — Proficiency Level at Beginning of Season</h3>
 <div class="card">
 <div class="card-header"><strong>Proficiency Level: PL1</strong></div>
 <table>
@@ -537,7 +568,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS SQS by PL (Beginning of Season)</h3><canvas id="fs_pl_sqs_start" height="280"></canvas></div>
 </div>
 
-<h3 id="fs-sku">3e. FS — SKU Mix &amp; CST by SKU</h3>
+<h3 id="fs-sku">3f. FS — SKU Mix &amp; CST by SKU</h3>
 <div class="card">
 <div class="card-header"><strong>Overall SKU Mix (% of Engagements)</strong></div>
 <table>
@@ -610,7 +641,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (Beginning of Season) — Non-TS</h3><canvas id="sku_pl_start_nts" height="280"></canvas></div>
 </div>
 
-<h3 id="fs-tnps-sku">3f. FS — tNPS by SKU</h3>
+<h3 id="fs-tnps-sku">3g. FS — tNPS by SKU</h3>
 <p class="callout"><strong>Note:</strong> Not all contacts have an identifiable SKU. The percentages below are calculated only for contacts with a valid SKU assignment.</p>
 <div class="card">
 <div class="card-header"><strong>Overall tNPS by SKU</strong></div>
@@ -672,7 +703,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="fs_tnps_sku_pl_start_nts" height="280"></canvas></div>
 </div>
 
-<h3 id="fs-new-returning">3g. FS — New vs Returning Customer</h3>
+<h3 id="fs-new-returning">3h. FS — New vs Returning Customer</h3>
 <p class="callout"><strong>Note:</strong> Customers are classified as "New" (first-time filer) or "Returning" (previously filed). Contacts with unknown customer status are excluded from this breakdown.</p>
 <div class="card">
 <div class="card-header"><strong>FS Performance — New vs Returning Customer</strong></div>
@@ -728,7 +759,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — Returning Customer</h3><canvas id="fs_nr_tnps_sku_ret" height="280"></canvas></div>
 </div>
 
-<h3 id="fs-avg-engagements">3h. FS — Average Engagements per Expert</h3>
+<h3 id="fs-avg-engagements">3i. FS — Average Engagements per Expert</h3>
 <div class="card">
 <div class="card-header"><strong>Average Engagements per Expert (FS)</strong></div>
 <table>
@@ -826,7 +857,34 @@
 <li><strong>AHT:</strong> TS 23.67 vs Non-TS 22.41 (+1.27) — <span class="worse">worse (higher AHT)</span></li></ul>
 </div>
 
-<h3 id="ttla-pl-end">4c. TTLA — Proficiency Level at End of Season</h3>
+<h3 id="ttla-forecast-group">4c. TTLA — Forecast Group Category</h3>
+<div class="card">
+<div class="card-header"><strong>TTLA Performance by Forecast Group Category — TS vs Non-TS</strong></div>
+<table>
+<thead><tr><th>Category</th><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>STANDARD</strong></td><td>TS</td><td>71.39</td><td>87.96</td><td>82.34</td><td>23.67</td></tr>
+<tr><td>Non-TS</td><td>68.84</td><td>86.16</td><td>81.12</td><td>22.13</td></tr>
+<tr><td rowspan="2"><strong>SYNC LATER</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>26.62</td></tr>
+<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>34.71</td></tr>
+<tr><td rowspan="2"><strong>SYNC NOW</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>16.03</td></tr>
+<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>25.23</td></tr>
+<tr><td rowspan="2"><strong>TRIAGE</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>12.21</td></tr>
+<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>17.21</td></tr>
+<tr><td rowspan="2"><strong>WELCOME</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>10.25</td></tr>
+<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>11.58</td></tr>
+<tr><td rowspan="2"><strong>AMEND</strong></td><td>TS</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Non-TS</td><td>—</td><td>—</td><td>—</td><td>16.02</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--muted);">CONCIERGE and PYRO excluded — no meaningful TTLA data. Cells marked "—" have insufficient data (zero denominator). TS has very limited volume in non-STANDARD categories.</p>
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by Forecast Group</h3><canvas id="fg_ttla_aht" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by Forecast Group (STANDARD only)</h3><canvas id="fg_ttla_tnps" height="300"></canvas></div>
+</div>
+
+<h3 id="ttla-pl-end">4d. TTLA — Proficiency Level at End of Season</h3>
 <div class="card">
 <div class="card-header"><strong>Proficiency Level: PL1</strong></div>
 <table>
@@ -872,7 +930,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (End of Season)</h3><canvas id="ttla_pl_sqs_end" height="280"></canvas></div>
 </div>
 
-<h3 id="ttla-pl-start">4d. TTLA — Proficiency Level at Beginning of Season</h3>
+<h3 id="ttla-pl-start">4e. TTLA — Proficiency Level at Beginning of Season</h3>
 <div class="card">
 <div class="card-header"><strong>Proficiency Level: PL1</strong></div>
 <table>
@@ -918,7 +976,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (Beginning of Season)</h3><canvas id="ttla_pl_sqs_start" height="280"></canvas></div>
 </div>
 
-<h3 id="ttla-tnps-sku">4e. TTLA — tNPS by SKU</h3>
+<h3 id="ttla-tnps-sku">4f. TTLA — tNPS by SKU</h3>
 <p class="callout"><strong>Note:</strong> Not all contacts have an identifiable SKU. The percentages below are calculated only for contacts with a valid SKU assignment.</p>
 <div class="card">
 <div class="card-header"><strong>Overall tNPS by SKU</strong></div>
@@ -980,7 +1038,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_tnps_sku_pl_start_nts" height="280"></canvas></div>
 </div>
 
-<h3 id="ttla-aht-sku">4f. TTLA — AHT by SKU</h3>
+<h3 id="ttla-aht-sku">4g. TTLA — AHT by SKU</h3>
 <p class="callout"><strong>Note:</strong> Not all contacts have an identifiable SKU. The percentages below are calculated only for contacts with a valid SKU assignment.</p>
 <div class="card">
 <div class="card-header"><strong>Overall AHT by SKU (minutes)</strong></div>
@@ -1042,7 +1100,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_aht_sku_pl_start_nts" height="280"></canvas></div>
 </div>
 
-<h3 id="ttla-new-returning">4g. TTLA — New vs Returning Customer</h3>
+<h3 id="ttla-new-returning">4h. TTLA — New vs Returning Customer</h3>
 <p class="callout"><strong>Note:</strong> Customers are classified as "New" (first-time filer) or "Returning" (previously filed). Contacts with unknown customer status are excluded from this breakdown.</p>
 <div class="card">
 <div class="card-header"><strong>TTLA Performance — New vs Returning Customer</strong></div>
@@ -1099,7 +1157,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — Returning Customer</h3><canvas id="ttla_nr_tnps_sku_ret" height="280"></canvas></div>
 </div>
 
-<h3 id="ttla-avg-contacts">4h. TTLA — Average Contacts per Expert</h3>
+<h3 id="ttla-avg-contacts">4i. TTLA — Average Contacts per Expert</h3>
 <div class="card">
 <div class="card-header"><strong>Average Contacts per Expert (TTLA)</strong></div>
 <table>
@@ -1306,7 +1364,7 @@
 
 <footer>
     <p>Tax Specialist Performance Analysis &bull; Generated June 2, 2026</p>
-    <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows) &bull; domain_partner_expert_data_upd.csv (35,096 rows) &bull; domain_partner_expert_data_add.csv (35,096 rows) &bull; domain_partner_expert_data_expanded.csv (102,165 rows)</p>
+    <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows) &bull; domain_partner_expert_data_upd.csv (35,096 rows) &bull; domain_partner_expert_data_add.csv (35,096 rows) &bull; domain_partner_expert_data_expanded.csv (102,165 rows) &bull; domain_partner_expert_data_expanded_f.csv (95,972 rows)</p>
 </footer>
 
 <script>
@@ -2054,6 +2112,55 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'bar',
         data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'AHT', data: [24.51, 23.07], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
         options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 20 } } }
+    });
+
+    // Forecast Group Category charts
+    new Chart(document.getElementById('fg_fs_tnps'), {
+        type: 'bar',
+        data: {
+            labels: ['STANDARD', 'SYNC NOW', 'SYNC LATER', 'TRIAGE', 'AMEND', 'WELCOME'],
+            datasets: [
+                { label: 'TS', data: [null, 83.10, 72.44, 29.00, 50.00, 78.79], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [58.62, 78.84, 74.73, 48.58, 45.22, 87.50], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 20, title: { display: true, text: 'tNPS' } } } }
+    });
+
+    new Chart(document.getElementById('fg_fs_ir'), {
+        type: 'bar',
+        data: {
+            labels: ['STANDARD', 'SYNC NOW', 'TRIAGE', 'AMEND'],
+            datasets: [
+                { label: 'TS', data: [null, 68.59, 60.75, 50.00], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [80.00, 87.90, 70.07, 70.40], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 40, title: { display: true, text: 'IR' } } } }
+    });
+
+    new Chart(document.getElementById('fg_ttla_aht'), {
+        type: 'bar',
+        data: {
+            labels: ['STANDARD', 'SYNC LATER', 'SYNC NOW', 'TRIAGE', 'WELCOME'],
+            datasets: [
+                { label: 'TS', data: [23.67, 26.62, 16.03, 12.21, 10.25], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [22.13, 34.71, 25.23, 17.21, 11.58], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 5, title: { display: true, text: 'AHT (min)' } } } }
+    });
+
+    new Chart(document.getElementById('fg_ttla_tnps'), {
+        type: 'bar',
+        data: {
+            labels: ['STANDARD'],
+            datasets: [
+                { label: 'TS', data: [71.39], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [68.84], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: false, min: 60, title: { display: true, text: 'tNPS' } } } }
     });
 
     // Mix-Adjusted charts
