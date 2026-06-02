@@ -32,7 +32,7 @@
         .kpi.blue .value { color: var(--primary); }
         .kpi.purple .value { color: var(--purple); }
         .kpi.teal .value { color: var(--teal); }
-        .card { background: var(--card); border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1.5rem; }
+        .card { background: var(--card); border-radius: 10px; padding: 1.5rem; border: 1px solid var(--border); margin-bottom: 1.5rem; overflow-x: auto; }
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
         .badge { display: inline-block; padding: 0.2rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
         .badge-green { background: var(--success-light); color: var(--success); }
@@ -50,7 +50,7 @@
         .worse { color: var(--danger); font-weight: 600; }
         .neutral { color: var(--muted); }
         .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
-        .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+        .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; min-width: 0; overflow: hidden; }
         .chart-box canvas { width: 100% !important; }
         @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
         .callout { border-left: 4px solid var(--primary); background: var(--primary-light); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.92rem; }
@@ -1234,7 +1234,6 @@
 <div class="callout teal">
     <strong>Methodology Note:</strong> All metrics computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria. tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, HC. Lower is better for AHT, CST. SKU mix % = SKU denominator / total SKU denominator.
 </div>
-</div>
 
 <hr class="section-divider">
 
@@ -1301,6 +1300,8 @@
 <li>For CST and AHT (lower is better): a positive adjusted gap means TS is worse after adjustment; a negative gap means TS is better.</li>
 <li>This analysis adjusts for SKU mix and New/Returning customer mix only. Other confounders (partner mix, proficiency level distribution, volume per expert) are not adjusted here.</li>
 </ul>
+</div>
+
 </div>
 
 <footer>
