@@ -64,6 +64,14 @@
         .toc a:hover { text-decoration: underline; }
         footer { text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 3rem; }
         .section-divider { border: none; height: 3px; background: linear-gradient(90deg, var(--primary), var(--purple)); margin: 3rem 0; border-radius: 2px; }
+
+        /* Tab navigation */
+        .tab-nav { display: flex; gap: 0; margin: 1.5rem 0 0; border-bottom: 2px solid var(--border); }
+        .tab-btn { padding: 0.75rem 2rem; font-size: 1rem; font-weight: 600; background: none; border: none; cursor: pointer; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color 0.2s, border-color 0.2s; }
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
@@ -73,6 +81,13 @@
     <h1>Tax Specialist Performance Analysis</h1>
     <p class="subtitle">Tax Specialist vs Non-Tax Specialist (Tax Associate + Tax Expert) &bull; Full Service &amp; TTLA</p>
     <p class="report-date">Report generated: May 28, 2026</p>
+
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('detail')">Detailed Analysis</button>
+        <button class="tab-btn" onclick="switchTab('summary')">Summary</button>
+    </div>
+
+    <div id="tab-detail" class="tab-panel active">
 
     <div class="toc">
         <strong>Contents</strong>
@@ -1752,6 +1767,15 @@
 </ul>
 </div>
 
+    </div><!-- end tab-detail -->
+
+    <div id="tab-summary" class="tab-panel">
+        <div style="text-align:center; padding: 4rem 2rem;">
+            <h2 style="border:none; color:var(--muted);">Summary</h2>
+            <p style="color:var(--muted); font-size:1.1rem; margin-top:1rem;">Key findings and executive summary will be added here.</p>
+        </div>
+    </div><!-- end tab-summary -->
+
 </div>
 
 <footer>
@@ -2607,6 +2631,16 @@ document.addEventListener('DOMContentLoaded', function() {
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
     });
 });
+</script>
+
+<script>
+function switchTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.querySelector('[onclick="switchTab(\'' + tab + '\')"]').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 
 </body>
