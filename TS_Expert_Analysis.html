@@ -475,6 +475,19 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS IR by Forecast Group</h3><canvas id="fg_fs_ir" height="300"></canvas></div>
 </div>
 
+<div class="card">
+<div class="card-header"><strong>Aggregated: TRIAGE + AMEND vs NON TRIAGE</strong></div>
+<table>
+<thead><tr><th>Category</th><th style="text-align:center;">Group</th><th># of Surveys</th><th>% of Volume</th><th>tNPS</th><th>IR</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>TRIAGE + AMEND</strong></td><td style="text-align:center;">TS</td><td>5,575</td><td>28.8%</td><td>29.04</td><td>60.72</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>12,605</td><td>18.5%</td><td>47.70</td><td>70.16</td></tr>
+<tr><td rowspan="2"><strong>NON TRIAGE</strong></td><td style="text-align:center;">TS</td><td>13,775</td><td>71.2%</td><td>78.90</td><td>68.59</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>55,504</td><td>81.5%</td><td>77.77</td><td>88.21</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--muted);">TRIAGE + AMEND = contacts categorized as Triage or Amend forecast groups. NON TRIAGE = all other forecast group categories combined. TS handles a higher share of TRIAGE + AMEND (28.8% vs 18.5% for Non-TS), which significantly depresses their overall tNPS.</p>
+</div>
+
 <h3 id="fs-pl-end">3d. FS — Proficiency Level at End of Season</h3>
 <div class="card">
 <div class="card-header"><strong>Proficiency Level: PL1</strong></div>
