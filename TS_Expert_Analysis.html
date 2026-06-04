@@ -1770,10 +1770,113 @@
     </div><!-- end tab-detail -->
 
     <div id="tab-summary" class="tab-panel">
-        <div style="text-align:center; padding: 4rem 2rem;">
-            <h2 style="border:none; color:var(--muted);">Summary</h2>
-            <p style="color:var(--muted); font-size:1.1rem; margin-top:1rem;">Key findings and executive summary will be added here.</p>
-        </div>
+
+<h2 id="summary-overview">Key Findings</h2>
+
+<div class="kpi-row">
+<div class="kpi red">
+    <div class="label">FS tNPS — TS</div>
+    <div class="value">64.53</div>
+    <div class="detail">vs Non-TS 72.25 (-7.72)</div>
+</div>
+<div class="kpi red">
+    <div class="label">FS HC — TS</div>
+    <div class="value">46.62%</div>
+    <div class="detail">vs Non-TS 67.29% (-20.68)</div>
+</div>
+<div class="kpi green">
+    <div class="label">FS CST — TS</div>
+    <div class="value">2.57</div>
+    <div class="detail">vs Non-TS 2.96 (-0.39)</div>
+</div>
+<div class="kpi green">
+    <div class="label">TTLA tNPS — TS</div>
+    <div class="value">71.38</div>
+    <div class="detail">vs Non-TS 68.80 (+2.58)</div>
+</div>
+<div class="kpi green">
+    <div class="label">TTLA IR — TS</div>
+    <div class="value">87.96</div>
+    <div class="detail">vs Non-TS 86.13 (+1.82)</div>
+</div>
+<div class="kpi red">
+    <div class="label">TTLA AHT — TS</div>
+    <div class="value">23.67</div>
+    <div class="detail">vs Non-TS 22.41 (+1.27)</div>
+</div>
+</div>
+<div class="callout danger">
+    <strong>FS Overview — Tax Specialist vs Non-TS:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li><strong>tNPS:</strong> TS 64.53 vs Non-TS 72.25 (-7.72) — <span class="worse">worse</span></li>
+<li><strong>IR:</strong> TS 61.00 vs Non-TS 72.48 (-11.49) — <span class="worse">worse</span></li>
+<li><strong>SQS:</strong> TS 85.67 vs Non-TS 87.57 (-1.89) — <span class="worse">worse</span></li>
+<li><strong>HC:</strong> TS 46.62 vs Non-TS 67.29 (-20.68) — <span class="worse">worse</span></li>
+<li><strong>CST:</strong> TS 2.57 vs Non-TS 2.96 (-0.39) — <span class="better">better</span></li></ul>
+</div>
+<div class="callout success">
+    <strong>TTLA Overview — Tax Specialist vs Non-TS:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li><strong>tNPS:</strong> TS 71.38 vs Non-TS 68.80 (+2.58) — <span class="better">better</span></li>
+<li><strong>IR:</strong> TS 87.96 vs Non-TS 86.13 (+1.82) — <span class="better">better</span></li>
+<li><strong>SQS:</strong> TS 82.34 vs Non-TS 81.12 (+1.22) — <span class="better">better</span></li>
+<li><strong>AHT:</strong> TS 23.67 vs Non-TS 22.41 (+1.27) — <span class="worse">worse</span></li></ul>
+</div>
+
+<hr class="section-divider">
+
+<h2 id="summary-tables">Overall Performance Comparison</h2>
+
+<h3>FS — Overall Metrics: TS vs Non-TS</h3>
+<div class="card">
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>64.53</td><td>61.00</td><td>85.67</td><td>46.62</td><td>2.57</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>72.25</td><td>72.48</td><td>87.57</td><td>67.29</td><td>2.96</td></tr>
+</tbody></table>
+</div>
+
+<h3>TTLA — Overall Metrics: TS vs Non-TS</h3>
+<div class="card">
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>71.38</td><td>87.96</td><td>82.34</td><td>23.67</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>68.80</td><td>86.13</td><td>81.12</td><td>22.41</td></tr>
+</tbody></table>
+</div>
+
+<hr class="section-divider">
+
+<h2 id="summary-context">Context &amp; Key Considerations</h2>
+
+<div class="callout">
+<strong>Interpreting FS Performance:</strong> While TS are outperforming DEs on TTLA across all metrics, the numbers show underperformance on Full Service at PL1&ndash;2 &mdash; however TY25 data is skewed:
+<ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li>TS upskilling timelines were significantly more aggressive than previous season, making it difficult to understand performance data at PL1.</li>
+<li>The AHOD period (Jan 14 &ndash; Apr 16) removed coaching &amp; training support at a critical point in season.</li>
+<li>TS received triage calls without proper training, which are now counted under FS analytics &mdash; inflating apparent underperformance.</li>
+</ul>
+</div>
+
+<h3>Triage Impact on FS tNPS</h3>
+<div class="card">
+<div class="card-header"><strong>Aggregated: TRIAGE + AMEND vs NON TRIAGE</strong></div>
+<table>
+<thead><tr><th>Category</th><th style="text-align:center;">Group</th><th># of Surveys</th><th>% of Volume</th><th>tNPS</th><th>IR</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>TRIAGE + AMEND</strong></td><td style="text-align:center;">TS</td><td>5,575</td><td>28.8%</td><td>29.04</td><td>60.72</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>12,605</td><td>18.5%</td><td>47.70</td><td>70.16</td></tr>
+<tr><td rowspan="2"><strong>NON TRIAGE</strong></td><td style="text-align:center;">TS</td><td>13,775</td><td>71.2%</td><td>78.90</td><td>68.59</td></tr>
+<tr><td style="text-align:center;">Non-TS</td><td>55,504</td><td>81.5%</td><td>77.77</td><td>88.21</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--muted);">TRIAGE + AMEND = contacts categorized as Triage or Amend forecast groups. NON TRIAGE = all other forecast group categories combined.</p>
+<div class="callout">
+<strong>Key Insight:</strong> When Triage and Amend contacts are excluded, Tax Specialists achieve a tNPS of <strong>78.90</strong> &mdash; effectively on par with Non-TS at <strong>77.77</strong>. TS handles a disproportionately higher share of Triage contacts (28.8% of survey volume vs 18.5% for Non-TS), and these contacts carry significantly lower satisfaction scores across both groups. This is consistent with the operational change this season, where Tax Specialists received a substantially higher volume of Triage calls compared to prior years &mdash; a routing approach that was not in place last season. The Triage mix is a major driver of the observed FS tNPS gap.
+</div>
+</div>
+
     </div><!-- end tab-summary -->
 
 </div>
