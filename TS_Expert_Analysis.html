@@ -83,11 +83,11 @@
     <p class="report-date">Report generated: May 28, 2026</p>
 
     <div class="tab-nav">
-        <button class="tab-btn active" onclick="switchTab('detail')">Detailed Analysis</button>
-        <button class="tab-btn" onclick="switchTab('summary')">Summary</button>
+        <button class="tab-btn active" onclick="switchTab('summary')">Summary</button>
+        <button class="tab-btn" onclick="switchTab('detail')">Detailed Analysis</button>
     </div>
 
-    <div id="tab-detail" class="tab-panel active">
+    <div id="tab-detail" class="tab-panel">
 
     <div class="toc">
         <strong>Contents</strong>
@@ -1769,7 +1769,7 @@
 
     </div><!-- end tab-detail -->
 
-    <div id="tab-summary" class="tab-panel">
+    <div id="tab-summary" class="tab-panel active">
 
 <h2 id="summary-overview">Key Findings</h2>
 
@@ -1875,6 +1875,25 @@
 <div class="callout">
 <strong>Key Insight:</strong> When Triage and Amend contacts are excluded, Tax Specialists achieve a tNPS of <strong>78.90</strong> &mdash; effectively on par with Non-TS at <strong>77.77</strong>. TS handles a disproportionately higher share of Triage contacts (28.8% of survey volume vs 18.5% for Non-TS), and these contacts carry significantly lower satisfaction scores across both groups. This is consistent with the operational change this season, where Tax Specialists received a substantially higher volume of Triage calls compared to prior years &mdash; a routing approach that was not in place last season. The Triage mix is a major driver of the observed FS tNPS gap.
 </div>
+</div>
+
+<hr class="section-divider">
+
+<h2 id="summary-pathedu">PathEDU Comparison</h2>
+
+<h3>Overall Comparison &mdash; PathEDU vs NonPathEDU</h3>
+<div class="card">
+<table>
+<thead><tr><th>Group</th><th>Experts</th><th>FS Engagements</th><th>FS CST</th><th>FS tNPS</th></tr></thead>
+<tbody>
+<tr><td><strong>NonPathEDU Overall</strong></td><td>2,915</td><td>83,287</td><td>2.79</td><td>64.52</td></tr>
+<tr class="ts-row"><td><strong>PathEDU Overall</strong></td><td>294</td><td>3,991</td><td>2.20</td><td>82.91</td></tr>
+<tr style="font-weight:700;background:#f1f5f9;"><td>Difference (PathEDU &minus; NonPathEDU)</td><td></td><td></td><td class="better">&minus;0.59</td><td class="better">+18.39</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout success">
+<strong>Key Finding &mdash; Tax Specialists:</strong> PathEDU experts deliver higher FS tNPS (82.91 vs 64.52) and 21.09% lower CST (2.20 vs 2.79). TTLA AHT is 8.03% lower (22.22 vs 24.16 min), confirming efficiency gains.
 </div>
 
     </div><!-- end tab-summary -->
