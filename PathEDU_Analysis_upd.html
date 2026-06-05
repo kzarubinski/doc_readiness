@@ -151,6 +151,7 @@
                 </ol>
             </li>
             <li><a href="#s6">Conclusions &amp; Key Takeaways</a></li>
+            <li><a href="#appendix">Appendix: Triage Impact on FS tNPS</a></li>
         </ol>
     </div>
 
@@ -1253,6 +1254,59 @@
         </ul>
     </div>
 
+    <!-- Appendix -->
+    <h2 id="appendix" style="color:var(--primary);">Appendix: Triage Impact on FS tNPS</h2>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Aggregated: TRIAGE + AMEND vs NON TRIAGE</h3>
+        <table>
+            <thead>
+                <tr><th>Category</th><th>Group</th><th># of Surveys</th><th>% of Volume</th><th>tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td rowspan="2"><strong>TRIAGE + AMEND</strong></td><td>PathEDU</td><td>0</td><td>0.0%</td><td>—</td></tr>
+                <tr><td>NonPathEDU</td><td>5,632</td><td>30.3%</td><td>28.52</td></tr>
+                <tr><td rowspan="2"><strong>NON TRIAGE</strong></td><td>PathEDU</td><td>670</td><td>100.0%</td><td>82.09</td></tr>
+                <tr><td>NonPathEDU</td><td>12,940</td><td>69.7%</td><td>78.76</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Detailed Breakdown by Forecast Group</h3>
+        <table>
+            <thead>
+                <tr><th>Forecast Group</th><th>Group</th><th># of Surveys</th><th>tNPS</th></tr>
+            </thead>
+            <tbody>
+                <tr><td rowspan="2"><strong>SYNC NOW</strong></td><td>PathEDU</td><td>670</td><td>82.09</td></tr>
+                <tr><td>NonPathEDU</td><td>7,503</td><td>82.89</td></tr>
+                <tr><td rowspan="2"><strong>SYNC LATER</strong></td><td>PathEDU</td><td>—</td><td>—</td></tr>
+                <tr><td>NonPathEDU</td><td>5,338</td><td>72.96</td></tr>
+                <tr><td rowspan="2"><strong>TRIAGE</strong></td><td>PathEDU</td><td>—</td><td>—</td></tr>
+                <tr><td>NonPathEDU</td><td>5,622</td><td>28.49</td></tr>
+                <tr><td rowspan="2"><strong>WELCOME</strong></td><td>PathEDU</td><td>—</td><td>—</td></tr>
+                <tr><td>NonPathEDU</td><td>99</td><td>78.79</td></tr>
+                <tr><td rowspan="2"><strong>AMEND</strong></td><td>PathEDU</td><td>—</td><td>—</td></tr>
+                <tr><td>NonPathEDU</td><td>10</td><td>50.00</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.82rem;color:var(--muted);margin-top:0.5rem;">Groups with zero surveys (PYRO, CONCIERGE, null) are omitted. PathEDU experts only appear in SYNC NOW for this period.</div>
+    </div>
+
+    <div class="callout">
+        <strong>Key Insight:</strong> PathEDU experts are not routed to Triage or Amend queues — 100% of their survey volume comes from Non-Triage groups (SYNC NOW). NonPathEDU's blended tNPS is significantly dragged down by Triage exposure (tNPS 28.49 on 5,622 surveys). When comparing only Non-Triage volume, the gap narrows: PathEDU 82.09 vs NonPathEDU 78.76 (+3.33 pp).
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-box">
+            <canvas id="chartAppTnpsAgg"></canvas>
+        </div>
+        <div class="chart-box">
+            <canvas id="chartAppTnpsDetail"></canvas>
+        </div>
+    </div>
+
 </div>
 
 <footer>
@@ -1647,6 +1701,30 @@ new Chart(document.getElementById('c5eTsCST'),{type:'bar',data:{labels:["Busines
 new Chart(document.getElementById('c5eTstNPS'),{type:'bar',data:{labels:["Business","Non-Business"],datasets:[{label:'FS tNPS',data:[81.13,75.00],backgroundColor:'rgba(255,159,64,0.6)',borderColor:'rgba(255,159,64,1)',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:true},title:{display:true,text:'TS FS tNPS by Major (Foundever)',font:{size:13}}},scales:{y:{min:60}}}});
 new Chart(document.getElementById('c5fPsAHT'),{type:'bar',data:{labels:["Non-Business","Business"],datasets:[{label:'AHT',data:[18.57,19.56],backgroundColor:'rgba(75,192,192,0.6)',borderColor:'rgba(75,192,192,1)',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:true},title:{display:true,text:'PS AHT by Major (Foundever)',font:{size:13}}},scales:{y:{beginAtZero:true}}}});
 new Chart(document.getElementById('c5fPstNPS'),{type:'bar',data:{labels:["Non-Business","Business"],datasets:[{label:'tNPS',data:[48.32,53.23],backgroundColor:'rgba(255,99,132,0.6)',borderColor:'rgba(255,99,132,1)',borderWidth:1}]},options:{responsive:true,plugins:{legend:{display:true},title:{display:true,text:'PS tNPS by Major (Foundever)',font:{size:13}}},scales:{y:{min:40}}}});
+
+// Appendix charts
+new Chart(document.getElementById('chartAppTnpsAgg'),{
+    type:'bar',
+    data:{
+        labels:['TRIAGE + AMEND','NON TRIAGE'],
+        datasets:[
+            {label:'PathEDU',data:[0,82.09],backgroundColor:'rgba(134,239,172,0.7)',borderColor:'#16a34a',borderWidth:1},
+            {label:'NonPathEDU',data:[28.52,78.76],backgroundColor:'rgba(224,231,255,0.7)',borderColor:'#6366f1',borderWidth:1}
+        ]
+    },
+    options:{responsive:true,plugins:{legend:{display:true},title:{display:true,text:'tNPS: Triage+Amend vs Non-Triage',font:{size:13}}},scales:{y:{min:0,title:{display:true,text:'tNPS'}}}}
+});
+new Chart(document.getElementById('chartAppTnpsDetail'),{
+    type:'bar',
+    data:{
+        labels:['SYNC NOW','SYNC LATER','TRIAGE','WELCOME','AMEND'],
+        datasets:[
+            {label:'PathEDU',data:[82.09,null,null,null,null],backgroundColor:'rgba(134,239,172,0.7)',borderColor:'#16a34a',borderWidth:1},
+            {label:'NonPathEDU',data:[82.89,72.96,28.49,78.79,50.00],backgroundColor:'rgba(224,231,255,0.7)',borderColor:'#6366f1',borderWidth:1}
+        ]
+    },
+    options:{responsive:true,plugins:{legend:{display:true},title:{display:true,text:'tNPS by Forecast Group (Detail)',font:{size:13}}},scales:{y:{min:0,title:{display:true,text:'tNPS'}}}}
+});
 
 </script>
 </body>
