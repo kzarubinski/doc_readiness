@@ -51,7 +51,7 @@
         .neutral { color: var(--muted); }
         .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
         .chart-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; min-width: 0; overflow: hidden; }
-        .chart-box canvas { width: 100% !important; }
+        .chart-box canvas { max-width: 100%; }
         @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
         .callout { border-left: 4px solid var(--primary); background: var(--primary-light); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1rem 0; font-size: 0.92rem; }
         .callout.success { border-left-color: var(--success); background: var(--success-light); }
@@ -137,7 +137,7 @@
             </li>
             <li><a href="#appendix-mix-adj">Appendix A: Mix-Adjusted Performance Analysis</a>
                 <ol type="a" start="3">
-                    <li><a href="#a3-triage-sku">FS &mdash; CST &amp; tNPS Mix-Adjusted by SKU (Triage Breakdown)</a></li>
+                    <li><a href="#a3-triage-sku">FS &mdash; tNPS Mix-Adjusted by SKU (Triage Breakdown)</a></li>
                 </ol>
             </li>
         </ol>
@@ -367,17 +367,17 @@
 </div>
 
 <div class="chart-row" style="grid-template-columns: 1fr 1fr 2fr;">
-    <div class="chart-box"><h3 style="margin-top:0;font-size:0.95rem;">Expert Breakdown — TS</h3><canvas id="eval_ts_breakdown" height="200"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;font-size:0.95rem;">Expert Breakdown — Non-TS</h3><canvas id="eval_nts_breakdown" height="200"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS-tNPS &amp; TTLA-tNPS — Both FS &amp; TTLA Experts</h3><canvas id="eval_tnps_both" height="200"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;font-size:0.95rem;">Expert Breakdown — TS</h3><canvas id="eval_ts_breakdown"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;font-size:0.95rem;">Expert Breakdown — Non-TS</h3><canvas id="eval_nts_breakdown"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS-tNPS &amp; TTLA-tNPS — Both FS &amp; TTLA Experts</h3><canvas id="eval_tnps_both"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS-IR &amp; TTLA-IR — Both FS &amp; TTLA Experts</h3><canvas id="eval_ir_both" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS-SQS &amp; TTLA-SQS — Both FS &amp; TTLA Experts</h3><canvas id="eval_sqs_both" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS-IR &amp; TTLA-IR — Both FS &amp; TTLA Experts</h3><canvas id="eval_ir_both"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS-SQS &amp; TTLA-SQS — Both FS &amp; TTLA Experts</h3><canvas id="eval_sqs_both"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS-CST — Both FS &amp; TTLA Experts</h3><canvas id="eval_cst_both" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA-AHT — Both FS &amp; TTLA Experts</h3><canvas id="eval_aht_both" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS-CST — Both FS &amp; TTLA Experts</h3><canvas id="eval_cst_both"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA-AHT — Both FS &amp; TTLA Experts</h3><canvas id="eval_aht_both"></canvas></div>
 </div>
 
 <div class="callout">
@@ -462,12 +462,12 @@
 </div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS</h3><canvas id="fs_tnps" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS HC</h3><canvas id="fs_hc" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS</h3><canvas id="fs_tnps"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS HC</h3><canvas id="fs_hc"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS CST</h3><canvas id="fs_cst" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS SQS &amp; IR</h3><canvas id="fs_sqs_ir" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST</h3><canvas id="fs_cst"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS SQS &amp; IR</h3><canvas id="fs_sqs_ir"></canvas></div>
 </div>
 <div class="callout danger">
     <strong>FS Overall — Tax Specialist vs Non-TS:</strong>
@@ -504,8 +504,8 @@
 </div>
 
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by Forecast Group</h3><canvas id="fg_fs_tnps" height="300"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS IR by Forecast Group</h3><canvas id="fg_fs_ir" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by Forecast Group</h3><canvas id="fg_fs_tnps"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS IR by Forecast Group</h3><canvas id="fg_fs_ir"></canvas></div>
 </div>
 
 <div class="card">
@@ -562,12 +562,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by PL (End of Season)</h3><canvas id="fs_pl_tnps_end" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS HC by PL (End of Season)</h3><canvas id="fs_pl_hc_end" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by PL (End of Season)</h3><canvas id="fs_pl_tnps_end"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS HC by PL (End of Season)</h3><canvas id="fs_pl_hc_end"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS CST by PL (End of Season)</h3><canvas id="fs_pl_cst_end" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS SQS by PL (End of Season)</h3><canvas id="fs_pl_sqs_end" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST by PL (End of Season)</h3><canvas id="fs_pl_cst_end"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS SQS by PL (End of Season)</h3><canvas id="fs_pl_sqs_end"></canvas></div>
 </div>
 
 <h3 id="fs-pl-start">3e. FS — Proficiency Level at Beginning of Season</h3>
@@ -608,12 +608,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by PL (Beginning of Season)</h3><canvas id="fs_pl_tnps_start" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS HC by PL (Beginning of Season)</h3><canvas id="fs_pl_hc_start" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by PL (Beginning of Season)</h3><canvas id="fs_pl_tnps_start"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS HC by PL (Beginning of Season)</h3><canvas id="fs_pl_hc_start"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS CST by PL (Beginning of Season)</h3><canvas id="fs_pl_cst_start" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS SQS by PL (Beginning of Season)</h3><canvas id="fs_pl_sqs_start" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST by PL (Beginning of Season)</h3><canvas id="fs_pl_cst_start"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS SQS by PL (Beginning of Season)</h3><canvas id="fs_pl_sqs_start"></canvas></div>
 </div>
 
 <h3 id="fs-sku">3f. FS — SKU Mix &amp; CST by SKU</h3>
@@ -658,12 +658,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix — Tax Specialist</h3><canvas id="sku_ts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix — Non-TS</h3><canvas id="sku_nonts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix — Tax Specialist</h3><canvas id="sku_ts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix — Non-TS</h3><canvas id="sku_nonts"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">CST by SKU — Overall</h3><canvas id="cst_sku" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (End of Season) — Tax Specialist</h3><canvas id="sku_pl_ts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">CST by SKU — Overall</h3><canvas id="cst_sku"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (End of Season) — Tax Specialist</h3><canvas id="sku_pl_ts"></canvas></div>
 </div>
 
 <div class="card">
@@ -685,8 +685,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (Beginning of Season) — Tax Specialist</h3><canvas id="sku_pl_start_ts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (Beginning of Season) — Non-TS</h3><canvas id="sku_pl_start_nts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (Beginning of Season) — Tax Specialist</h3><canvas id="sku_pl_start_ts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (Beginning of Season) — Non-TS</h3><canvas id="sku_pl_start_nts"></canvas></div>
 </div>
 
 <h3 id="fs-tnps-sku">3g. FS — tNPS by SKU</h3>
@@ -701,8 +701,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — Overall</h3><canvas id="fs_tnps_sku" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS SKU Mix — Survey Volume</h3><canvas id="fs_tnps_sku_mix" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — Overall</h3><canvas id="fs_tnps_sku"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS SKU Mix — Survey Volume</h3><canvas id="fs_tnps_sku_mix"></canvas></div>
 </div>
 
 <div class="card">
@@ -743,12 +743,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (End of Season) — TS</h3><canvas id="fs_tnps_sku_pl_end_ts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (End of Season) — Non-TS</h3><canvas id="fs_tnps_sku_pl_end_nts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (End of Season) — TS</h3><canvas id="fs_tnps_sku_pl_end_ts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (End of Season) — Non-TS</h3><canvas id="fs_tnps_sku_pl_end_nts"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (Beginning of Season) — TS</h3><canvas id="fs_tnps_sku_pl_start_ts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="fs_tnps_sku_pl_start_nts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (Beginning of Season) — TS</h3><canvas id="fs_tnps_sku_pl_start_ts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="fs_tnps_sku_pl_start_nts"></canvas></div>
 </div>
 
 <h3 id="fs-new-returning">3h. FS — New vs Returning Customer</h3>
@@ -775,8 +775,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS — New vs Returning</h3><canvas id="fs_nr_tnps" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS CST — New vs Returning</h3><canvas id="fs_nr_cst" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS — New vs Returning</h3><canvas id="fs_nr_tnps"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST — New vs Returning</h3><canvas id="fs_nr_cst"></canvas></div>
 </div>
 <div class="card">
 <div class="card-header"><strong>FS tNPS by SKU — New vs Returning</strong></div>
@@ -803,8 +803,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — New Customer</h3><canvas id="fs_nr_tnps_sku_new" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — Returning Customer</h3><canvas id="fs_nr_tnps_sku_ret" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — New Customer</h3><canvas id="fs_nr_tnps_sku_new"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — Returning Customer</h3><canvas id="fs_nr_tnps_sku_ret"></canvas></div>
 </div>
 
 <h3 id="fs-avg-engagements">3i. FS — Average Engagements per Expert</h3>
@@ -818,8 +818,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS Avg Engagements per Expert</h3><canvas id="fs_avg_eng" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS Avg Engagements by SKU</h3><canvas id="fs_avg_eng_sku" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS Avg Engagements per Expert</h3><canvas id="fs_avg_eng"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS Avg Engagements by SKU</h3><canvas id="fs_avg_eng_sku"></canvas></div>
 </div>
 
 <hr class="section-divider">
@@ -889,12 +889,12 @@
 </div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS</h3><canvas id="ttla_tnps" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT</h3><canvas id="ttla_aht" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS</h3><canvas id="ttla_tnps"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT</h3><canvas id="ttla_aht"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR</h3><canvas id="ttla_ir" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS</h3><canvas id="ttla_sqs" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR</h3><canvas id="ttla_ir"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS</h3><canvas id="ttla_sqs"></canvas></div>
 </div>
 <div class="callout success">
     <strong>TTLA Overall — Tax Specialist vs Non-TS:</strong>
@@ -943,12 +943,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by PL (End of Season)</h3><canvas id="ttla_pl_tnps_end" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by PL (End of Season)</h3><canvas id="ttla_pl_aht_end" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by PL (End of Season)</h3><canvas id="ttla_pl_tnps_end"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by PL (End of Season)</h3><canvas id="ttla_pl_aht_end"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR by PL (End of Season)</h3><canvas id="ttla_pl_ir_end" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (End of Season)</h3><canvas id="ttla_pl_sqs_end" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR by PL (End of Season)</h3><canvas id="ttla_pl_ir_end"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (End of Season)</h3><canvas id="ttla_pl_sqs_end"></canvas></div>
 </div>
 
 <h3 id="ttla-pl-start">4d. TTLA — Proficiency Level at Beginning of Season</h3>
@@ -989,12 +989,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by PL (Beginning of Season)</h3><canvas id="ttla_pl_tnps_start" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by PL (Beginning of Season)</h3><canvas id="ttla_pl_aht_start" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by PL (Beginning of Season)</h3><canvas id="ttla_pl_tnps_start"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by PL (Beginning of Season)</h3><canvas id="ttla_pl_aht_start"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR by PL (Beginning of Season)</h3><canvas id="ttla_pl_ir_start" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (Beginning of Season)</h3><canvas id="ttla_pl_sqs_start" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR by PL (Beginning of Season)</h3><canvas id="ttla_pl_ir_start"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (Beginning of Season)</h3><canvas id="ttla_pl_sqs_start"></canvas></div>
 </div>
 
 <h3 id="ttla-tnps-sku">4e. TTLA — tNPS by SKU</h3>
@@ -1009,8 +1009,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — Overall</h3><canvas id="ttla_tnps_sku" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS SKU Mix — Survey Volume</h3><canvas id="ttla_tnps_sku_mix" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — Overall</h3><canvas id="ttla_tnps_sku"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS SKU Mix — Survey Volume</h3><canvas id="ttla_tnps_sku_mix"></canvas></div>
 </div>
 
 <div class="card">
@@ -1051,12 +1051,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (End of Season) — TS</h3><canvas id="ttla_tnps_sku_pl_end_ts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (End of Season) — Non-TS</h3><canvas id="ttla_tnps_sku_pl_end_nts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (End of Season) — TS</h3><canvas id="ttla_tnps_sku_pl_end_ts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (End of Season) — Non-TS</h3><canvas id="ttla_tnps_sku_pl_end_nts"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (Beginning of Season) — TS</h3><canvas id="ttla_tnps_sku_pl_start_ts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_tnps_sku_pl_start_nts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (Beginning of Season) — TS</h3><canvas id="ttla_tnps_sku_pl_start_ts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_tnps_sku_pl_start_nts"></canvas></div>
 </div>
 
 <h3 id="ttla-aht-sku">4f. TTLA — AHT by SKU</h3>
@@ -1071,8 +1071,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU — Overall</h3><canvas id="ttla_aht_sku" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT SKU Mix — Contact Volume</h3><canvas id="ttla_aht_sku_mix" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU — Overall</h3><canvas id="ttla_aht_sku"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT SKU Mix — Contact Volume</h3><canvas id="ttla_aht_sku_mix"></canvas></div>
 </div>
 
 <div class="card">
@@ -1113,12 +1113,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (End of Season) — TS</h3><canvas id="ttla_aht_sku_pl_end_ts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (End of Season) — Non-TS</h3><canvas id="ttla_aht_sku_pl_end_nts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (End of Season) — TS</h3><canvas id="ttla_aht_sku_pl_end_ts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (End of Season) — Non-TS</h3><canvas id="ttla_aht_sku_pl_end_nts"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (Beginning of Season) — TS</h3><canvas id="ttla_aht_sku_pl_start_ts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_aht_sku_pl_start_nts" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (Beginning of Season) — TS</h3><canvas id="ttla_aht_sku_pl_start_ts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_aht_sku_pl_start_nts"></canvas></div>
 </div>
 
 <h3 id="ttla-new-returning">4g. TTLA — New vs Returning Customer</h3>
@@ -1146,8 +1146,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS — New vs Returning</h3><canvas id="ttla_nr_tnps" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT — New vs Returning</h3><canvas id="ttla_nr_aht" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS — New vs Returning</h3><canvas id="ttla_nr_tnps"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT — New vs Returning</h3><canvas id="ttla_nr_aht"></canvas></div>
 </div>
 <div class="card">
 <div class="card-header"><strong>TTLA tNPS by SKU — New vs Returning</strong></div>
@@ -1174,8 +1174,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — New Customer</h3><canvas id="ttla_nr_tnps_sku_new" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — Returning Customer</h3><canvas id="ttla_nr_tnps_sku_ret" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — New Customer</h3><canvas id="ttla_nr_tnps_sku_new"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — Returning Customer</h3><canvas id="ttla_nr_tnps_sku_ret"></canvas></div>
 </div>
 
 <h3 id="ttla-avg-contacts">4h. TTLA — Average Contacts per Expert</h3>
@@ -1189,8 +1189,8 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA Avg Contacts per Expert</h3><canvas id="ttla_avg_contacts" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA Avg Contacts by SKU</h3><canvas id="ttla_avg_contacts_sku" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA Avg Contacts per Expert</h3><canvas id="ttla_avg_contacts"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA Avg Contacts by SKU</h3><canvas id="ttla_avg_contacts_sku"></canvas></div>
 </div>
 
 <hr class="section-divider">
@@ -1218,12 +1218,12 @@
 </tbody></table>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS — PL1 New Hire</h3><canvas id="pl1nh_fs_tnps" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS CST — PL1 New Hire</h3><canvas id="pl1nh_fs_cst" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS — PL1 New Hire</h3><canvas id="pl1nh_fs_tnps"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST — PL1 New Hire</h3><canvas id="pl1nh_fs_cst"></canvas></div>
 </div>
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS — PL1 New Hire</h3><canvas id="pl1nh_ttla_tnps" height="280"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT — PL1 New Hire</h3><canvas id="pl1nh_ttla_aht" height="280"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS — PL1 New Hire</h3><canvas id="pl1nh_ttla_tnps"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT — PL1 New Hire</h3><canvas id="pl1nh_ttla_aht"></canvas></div>
 </div>
 
 <hr class="section-divider">
@@ -1736,8 +1736,8 @@
 </div>
 
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS — Actual vs Mix-Adjusted vs Non-TS</h3><canvas id="mix_fs_compare" height="300"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS — Mix Effect (how much SKU/CustType explains)</h3><canvas id="mix_fs_effect" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS — Actual vs Mix-Adjusted vs Non-TS</h3><canvas id="mix_fs_compare"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS — Mix Effect (how much SKU/CustType explains)</h3><canvas id="mix_fs_effect"></canvas></div>
 </div>
 
 <h3>A2. TTLA — Mix-Adjusted Performance</h3>
@@ -1757,8 +1757,8 @@
 </div>
 
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA — Actual vs Mix-Adjusted vs Non-TS</h3><canvas id="mix_ttla_compare" height="300"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA — Mix Effect</h3><canvas id="mix_ttla_effect" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA — Actual vs Mix-Adjusted vs Non-TS</h3><canvas id="mix_ttla_compare"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA — Mix Effect</h3><canvas id="mix_ttla_effect"></canvas></div>
 </div>
 
 <div class="card" style="border-left:4px solid var(--warning);">
@@ -1771,10 +1771,10 @@
 </ul>
 </div>
 
-<h3 id="a3-triage-sku">A3. FS — CST &amp; tNPS Mix-Adjusted by SKU (Triage Breakdown)</h3>
+<h3 id="a3-triage-sku">A3. FS — tNPS Mix-Adjusted by SKU (Triage Breakdown)</h3>
 
 <div class="callout">
-<strong>Purpose:</strong> This section isolates the Triage effect from the SKU mix effect. Triage+Amend contacts carry no CST data (CST is not tracked for triage interactions), so the CST analysis applies only to Non-Triage contacts. tNPS is analyzed for both categories.
+<strong>Purpose:</strong> This section isolates the Triage effect from the SKU mix effect for tNPS. By separating Triage+Amend and Non-Triage contacts, we can see how SKU composition differences drive the observed tNPS gap within each category.
 </div>
 
 <div class="card">
@@ -1799,47 +1799,28 @@
 </div>
 
 <div class="card">
-<div class="card-header"><strong>FS CST by SKU — NON TRIAGE Contacts Only</strong></div>
+<div class="card-header"><strong>FS tNPS Mix-Adjusted by SKU &mdash; Triage vs Non-Triage</strong></div>
+<p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">TS tNPS reweighted using Non-TS SKU distribution within each Triage category.</p>
 <table>
-<thead><tr><th>Group</th><th>Volume</th><th>Overall CST</th><th>Basic CST</th><th>Basic %</th><th>Deluxe CST</th><th>Deluxe %</th><th>Premium CST</th><th>Premium %</th></tr></thead>
+<thead><tr><th>Category</th><th>Actual TS</th><th>Mix-Adj TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adj Gap</th><th>Mix Effect</th></tr></thead>
 <tbody>
-<tr class="ts-row"><td><strong>TS</strong></td><td>123,857</td><td>2.57</td><td>1.96</td><td>49.1%</td><td>2.68</td><td>32.5%</td><td>3.97</td><td>18.0%</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>849,578</td><td>2.96</td><td>1.80</td><td>28.0%</td><td>2.47</td><td>28.5%</td><td>4.02</td><td>43.0%</td></tr>
-</tbody></table>
-<p style="font-size:0.85rem;color:var(--muted);">Triage+Amend contacts have no CST data, so all CST analysis is Non-Triage only (identical to ALL).</p>
-</div>
-
-<div class="card">
-<div class="card-header"><strong>FS Mix-Adjusted Summary &mdash; Triage vs Non-Triage</strong></div>
-<p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">TS metrics reweighted using Non-TS SKU distribution within each Triage category.</p>
-<table>
-<thead><tr><th>Category</th><th>Metric</th><th>Actual TS</th><th>Mix-Adj TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adj Gap</th><th>Mix Effect</th></tr></thead>
-<tbody>
-<tr><td rowspan="2"><strong>TRIAGE + AMEND</strong></td><td>tNPS</td><td>29.04</td><td>34.22</td><td>47.70</td><td class="worse">&minus;18.66</td><td class="worse">&minus;13.49</td><td>+5.18</td></tr>
-<tr><td>CST</td><td colspan="6" style="color:var(--muted);font-style:italic;">No CST data for Triage contacts</td></tr>
-<tr><td rowspan="2"><strong>NON TRIAGE</strong></td><td>tNPS</td><td>78.90</td><td>73.55</td><td>77.77</td><td class="better">+1.13</td><td class="worse">&minus;4.22</td><td>&minus;5.35</td></tr>
-<tr><td>CST</td><td>2.57</td><td>3.04</td><td>2.96</td><td class="better">&minus;0.39</td><td class="worse">+0.07</td><td>+0.47</td></tr>
-<tr><td rowspan="2"><strong>ALL</strong></td><td>tNPS</td><td>64.53</td><td>61.51</td><td>72.20</td><td class="worse">&minus;7.67</td><td class="worse">&minus;10.69</td><td>&minus;3.02</td></tr>
-<tr><td>CST</td><td>2.57</td><td>3.04</td><td>2.96</td><td class="better">&minus;0.39</td><td class="worse">+0.07</td><td>+0.47</td></tr>
+<tr><td><strong>TRIAGE + AMEND</strong></td><td>29.04</td><td>34.22</td><td>47.70</td><td class="worse">&minus;18.66</td><td class="worse">&minus;13.49</td><td>+5.18</td></tr>
+<tr><td><strong>NON TRIAGE</strong></td><td>78.90</td><td>73.55</td><td>77.77</td><td class="better">+1.13</td><td class="worse">&minus;4.22</td><td>&minus;5.35</td></tr>
+<tr><td><strong>ALL</strong></td><td>64.53</td><td>61.51</td><td>72.20</td><td class="worse">&minus;7.67</td><td class="worse">&minus;10.69</td><td>&minus;3.02</td></tr>
 </tbody></table>
 </div>
 
 <div class="callout">
 <strong>Key Findings:</strong>
 <ul style="margin-top:0.5rem;padding-left:1.25rem;">
-<li><strong>CST:</strong> TS's apparent CST advantage (2.57 vs 2.96, &minus;0.39 hrs) is entirely a SKU mix artifact. TS handles 49% Basic (lower CST) vs Non-TS at 28%. After reweighting to Non-TS's SKU distribution, TS CST rises to 3.04 &mdash; essentially at parity with Non-TS (2.96). At each SKU level, TS CST is actually higher than Non-TS (Basic: 1.96 vs 1.80, Deluxe: 2.68 vs 2.47).</li>
 <li><strong>tNPS (Triage):</strong> TS underperforms by 18.66 pts raw, narrowing to 13.49 pts after SKU adjustment. The SKU mix explains 5.18 pts of the gap, but a meaningful performance gap remains within Triage contacts.</li>
 <li><strong>tNPS (Non-Triage):</strong> TS appears on par raw (+1.13), but after SKU adjustment the gap reverses to &minus;4.22 pts. TS's heavy Basic concentration (which has higher tNPS) masks underperformance in Deluxe and especially Premium SKUs (64.71 vs 69.59).</li>
 </ul>
 </div>
 
 <div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &mdash; Triage+Amend</h3><canvas id="triage_tnps_sku" height="300"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &mdash; Non-Triage</h3><canvas id="nontriage_tnps_sku" height="300"></canvas></div>
-</div>
-<div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">FS CST by SKU &mdash; Non-Triage</h3><canvas id="nontriage_cst_sku" height="300"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">FS SKU Volume Distribution &mdash; TS vs Non-TS</h3><canvas id="sku_vol_dist" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &mdash; Triage+Amend</h3><canvas id="triage_tnps_sku"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &mdash; Non-Triage</h3><canvas id="nontriage_tnps_sku"></canvas></div>
 </div>
 
     </div><!-- end tab-detail -->
@@ -1982,6 +1963,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    Chart.defaults.devicePixelRatio = window.devicePixelRatio || 2;
+    Chart.defaults.responsive = true;
+    Chart.defaults.maintainAspectRatio = true;
+
     var tsColor = 'rgba(22,163,74,0.75)';
     var tsBorder = '#16a34a';
     var ntsColor = 'rgba(99,102,241,0.75)';
@@ -2853,29 +2838,6 @@ document.addEventListener('DOMContentLoaded', function() {
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'tNPS' } } } }
     });
 
-    new Chart(document.getElementById('nontriage_cst_sku'), {
-        type: 'bar',
-        data: {
-            labels: ['Basic', 'Deluxe', 'Premium'],
-            datasets: [
-                { label: 'TS', data: [1.96, 2.68, 3.97], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
-                { label: 'Non-TS', data: [1.80, 2.47, 4.02], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
-            ]
-        },
-        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'CST (hours)' } } } }
-    });
-
-    new Chart(document.getElementById('sku_vol_dist'), {
-        type: 'bar',
-        data: {
-            labels: ['Basic', 'Deluxe', 'Premium'],
-            datasets: [
-                { label: 'TS (% of volume)', data: [49.1, 32.5, 18.0], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
-                { label: 'Non-TS (% of volume)', data: [28.0, 28.5, 43.0], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
-            ]
-        },
-        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: '% of CST Volume' } } } }
-    });
 });
 </script>
 
