@@ -135,7 +135,11 @@
                     <li><a href="#tw-ttla-rp">TTLA &mdash; Training Wave by Reporting Period</a></li>
                 </ol>
             </li>
-            <li><a href="#appendix-mix-adj">Appendix A: Mix-Adjusted Performance Analysis</a></li>
+            <li><a href="#appendix-mix-adj">Appendix A: Mix-Adjusted Performance Analysis</a>
+                <ol type="a" start="3">
+                    <li><a href="#a3-triage-sku">FS &mdash; CST &amp; tNPS Mix-Adjusted by SKU (Triage Breakdown)</a></li>
+                </ol>
+            </li>
         </ol>
     </div>
 
@@ -1767,6 +1771,77 @@
 </ul>
 </div>
 
+<h3 id="a3-triage-sku">A3. FS — CST &amp; tNPS Mix-Adjusted by SKU (Triage Breakdown)</h3>
+
+<div class="callout">
+<strong>Purpose:</strong> This section isolates the Triage effect from the SKU mix effect. Triage+Amend contacts carry no CST data (CST is not tracked for triage interactions), so the CST analysis applies only to Non-Triage contacts. tNPS is analyzed for both categories.
+</div>
+
+<div class="card">
+<div class="card-header"><strong>FS tNPS by SKU — TRIAGE + AMEND Contacts</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Surveys</th><th>Overall tNPS</th><th>Basic tNPS</th><th>Basic %</th><th>Deluxe tNPS</th><th>Deluxe %</th><th>Premium tNPS</th><th>Premium %</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>TS</strong></td><td>5,575</td><td>29.04</td><td>50.46</td><td>3.9%</td><td>34.69</td><td>12.4%</td><td>29.57</td><td>21.0%</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>12,605</td><td>47.70</td><td>67.24</td><td>4.6%</td><td>52.55</td><td>14.3%</td><td>42.96</td><td>17.5%</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--muted);">SKU percentages reflect share of surveys with identifiable SKU within the Triage+Amend subset. Remaining surveys have no SKU classification.</p>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>FS tNPS by SKU — NON TRIAGE Contacts</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Surveys</th><th>Overall tNPS</th><th>Basic tNPS</th><th>Basic %</th><th>Deluxe tNPS</th><th>Deluxe %</th><th>Premium tNPS</th><th>Premium %</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>TS</strong></td><td>13,775</td><td>78.90</td><td>81.41</td><td>7.1%</td><td>80.62</td><td>18.7%</td><td>64.71</td><td>10.4%</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>55,504</td><td>77.77</td><td>79.29</td><td>4.8%</td><td>79.40</td><td>15.4%</td><td>69.59</td><td>16.6%</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>FS CST by SKU — NON TRIAGE Contacts Only</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Volume</th><th>Overall CST</th><th>Basic CST</th><th>Basic %</th><th>Deluxe CST</th><th>Deluxe %</th><th>Premium CST</th><th>Premium %</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>TS</strong></td><td>123,857</td><td>2.57</td><td>1.96</td><td>49.1%</td><td>2.68</td><td>32.5%</td><td>3.97</td><td>18.0%</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>849,578</td><td>2.96</td><td>1.80</td><td>28.0%</td><td>2.47</td><td>28.5%</td><td>4.02</td><td>43.0%</td></tr>
+</tbody></table>
+<p style="font-size:0.85rem;color:var(--muted);">Triage+Amend contacts have no CST data, so all CST analysis is Non-Triage only (identical to ALL).</p>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>FS Mix-Adjusted Summary &mdash; Triage vs Non-Triage</strong></div>
+<p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">TS metrics reweighted using Non-TS SKU distribution within each Triage category.</p>
+<table>
+<thead><tr><th>Category</th><th>Metric</th><th>Actual TS</th><th>Mix-Adj TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adj Gap</th><th>Mix Effect</th></tr></thead>
+<tbody>
+<tr><td rowspan="2"><strong>TRIAGE + AMEND</strong></td><td>tNPS</td><td>29.04</td><td>34.22</td><td>47.70</td><td class="worse">&minus;18.66</td><td class="worse">&minus;13.49</td><td>+5.18</td></tr>
+<tr><td>CST</td><td colspan="6" style="color:var(--muted);font-style:italic;">No CST data for Triage contacts</td></tr>
+<tr><td rowspan="2"><strong>NON TRIAGE</strong></td><td>tNPS</td><td>78.90</td><td>73.55</td><td>77.77</td><td class="better">+1.13</td><td class="worse">&minus;4.22</td><td>&minus;5.35</td></tr>
+<tr><td>CST</td><td>2.57</td><td>3.04</td><td>2.96</td><td class="better">&minus;0.39</td><td class="worse">+0.07</td><td>+0.47</td></tr>
+<tr><td rowspan="2"><strong>ALL</strong></td><td>tNPS</td><td>64.53</td><td>61.51</td><td>72.20</td><td class="worse">&minus;7.67</td><td class="worse">&minus;10.69</td><td>&minus;3.02</td></tr>
+<tr><td>CST</td><td>2.57</td><td>3.04</td><td>2.96</td><td class="better">&minus;0.39</td><td class="worse">+0.07</td><td>+0.47</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout">
+<strong>Key Findings:</strong>
+<ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li><strong>CST:</strong> TS's apparent CST advantage (2.57 vs 2.96, &minus;0.39 hrs) is entirely a SKU mix artifact. TS handles 49% Basic (lower CST) vs Non-TS at 28%. After reweighting to Non-TS's SKU distribution, TS CST rises to 3.04 &mdash; essentially at parity with Non-TS (2.96). At each SKU level, TS CST is actually higher than Non-TS (Basic: 1.96 vs 1.80, Deluxe: 2.68 vs 2.47).</li>
+<li><strong>tNPS (Triage):</strong> TS underperforms by 18.66 pts raw, narrowing to 13.49 pts after SKU adjustment. The SKU mix explains 5.18 pts of the gap, but a meaningful performance gap remains within Triage contacts.</li>
+<li><strong>tNPS (Non-Triage):</strong> TS appears on par raw (+1.13), but after SKU adjustment the gap reverses to &minus;4.22 pts. TS's heavy Basic concentration (which has higher tNPS) masks underperformance in Deluxe and especially Premium SKUs (64.71 vs 69.59).</li>
+</ul>
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &mdash; Triage+Amend</h3><canvas id="triage_tnps_sku" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &mdash; Non-Triage</h3><canvas id="nontriage_tnps_sku" height="300"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">FS CST by SKU &mdash; Non-Triage</h3><canvas id="nontriage_cst_sku" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">FS SKU Volume Distribution &mdash; TS vs Non-TS</h3><canvas id="sku_vol_dist" height="300"></canvas></div>
+</div>
+
     </div><!-- end tab-detail -->
 
     <div id="tab-summary" class="tab-panel active">
@@ -2751,6 +2826,55 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         },
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
+    });
+
+    // A3: Triage SKU charts
+    new Chart(document.getElementById('triage_tnps_sku'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'TS', data: [50.46, 34.69, 29.57], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [67.24, 52.55, 42.96], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'tNPS' } } } }
+    });
+
+    new Chart(document.getElementById('nontriage_tnps_sku'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'TS', data: [81.41, 80.62, 64.71], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [79.29, 79.40, 69.59], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'tNPS' } } } }
+    });
+
+    new Chart(document.getElementById('nontriage_cst_sku'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'TS', data: [1.96, 2.68, 3.97], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [1.80, 2.47, 4.02], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'CST (hours)' } } } }
+    });
+
+    new Chart(document.getElementById('sku_vol_dist'), {
+        type: 'bar',
+        data: {
+            labels: ['Basic', 'Deluxe', 'Premium'],
+            datasets: [
+                { label: 'TS (% of volume)', data: [49.1, 32.5, 18.0], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS (% of volume)', data: [28.0, 28.5, 43.0], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: '% of CST Volume' } } } }
     });
 });
 </script>
