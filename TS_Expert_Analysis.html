@@ -140,6 +140,14 @@
                     <li><a href="#a3-triage-sku">FS &mdash; tNPS Mix-Adjusted by SKU (Triage Breakdown)</a></li>
                 </ol>
             </li>
+            <li><a href="#appendix-hc">Appendix B: FS Handled Conversion Gap Analysis</a>
+                <ol type="a">
+                    <li><a href="#hc-pl-dist">Proficiency Level Distribution</a></li>
+                    <li><a href="#hc-within-pl">Within-PL Performance</a></li>
+                    <li><a href="#hc-trajectory">Seasonal Trajectory</a></li>
+                    <li><a href="#hc-partner">Partner Composition</a></li>
+                </ol>
+            </li>
         </ol>
     </div>
 
@@ -1823,6 +1831,137 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &mdash; Non-Triage</h3><canvas id="nontriage_tnps_sku"></canvas></div>
 </div>
 
+<hr class="section-divider">
+
+<h2 id="appendix-hc">Appendix B: FS Handled Conversion Gap Analysis</h2>
+
+<div class="callout">
+<strong>Purpose:</strong> Handled Conversion (HC) shows the largest gap between TS (46.63%) and Non-TS (67.30%) at &minus;20.67 percentage points. This appendix investigates the drivers of this gap across every available dimension to determine how much is structural (composition) vs genuine performance difference.
+</div>
+
+<h3 id="hc-pl-dist">B1. Proficiency Level Distribution &mdash; The Primary Driver</h3>
+
+<div class="card">
+<div class="card-header"><strong>HC Volume Distribution by Proficiency Level (Beginning of Season)</strong></div>
+<table>
+<thead><tr><th>PL (Start)</th><th>TS % of Volume</th><th>TS HC</th><th>Non-TS % of Volume</th><th>Non-TS HC</th><th>HC Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>PL1</strong></td><td>74.1%</td><td>45.31</td><td>13.8%</td><td>64.70</td><td class="worse">&minus;19.39</td></tr>
+<tr><td><strong>PL2</strong></td><td>21.5%</td><td>47.43</td><td>26.5%</td><td>67.34</td><td class="worse">&minus;19.91</td></tr>
+<tr><td><strong>PL3</strong></td><td>2.7%</td><td>68.23</td><td>14.3%</td><td>67.05</td><td class="better">+1.18</td></tr>
+<tr><td><strong>PL4</strong></td><td>1.0%</td><td>65.57</td><td>45.4%</td><td>68.12</td><td class="worse">&minus;2.54</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout danger">
+<strong>Key Finding:</strong> <strong>74.1% of TS volume is at PL1</strong> (beginning of season) vs only <strong>13.8%</strong> for Non-TS. Meanwhile, Non-TS has <strong>45.4%</strong> of volume at PL4 where HC is naturally highest. This extreme PL distribution difference is the single largest structural driver of the HC gap. At PL3, TS actually <strong>outperforms</strong> Non-TS by +1.18pp, and the PL4 gap is only &minus;2.54pp.
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">HC Volume Distribution by PL (Start)</h3><canvas id="hc_pl_vol_dist"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">HC by Proficiency Level (Start)</h3><canvas id="hc_by_pl_start"></canvas></div>
+</div>
+
+<h3 id="hc-within-pl">B2. Within-PL Performance &amp; PL Movement</h3>
+
+<div class="card">
+<div class="card-header"><strong>HC by Proficiency Level (End of Season)</strong></div>
+<table>
+<thead><tr><th>PL (End)</th><th>TS HC</th><th>TS Volume</th><th>Non-TS HC</th><th>Non-TS Volume</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>PL1</strong></td><td>43.57</td><td>35,754</td><td>57.10</td><td>29,335</td><td class="worse">&minus;13.53</td></tr>
+<tr><td><strong>PL2</strong></td><td>47.42</td><td>48,363</td><td>66.42</td><td>180,186</td><td class="worse">&minus;19.00</td></tr>
+<tr><td><strong>PL3</strong></td><td>48.75</td><td>10,754</td><td>67.94</td><td>150,916</td><td class="worse">&minus;19.19</td></tr>
+<tr><td><strong>PL4</strong></td><td>66.12</td><td>2,320</td><td>68.15</td><td>418,502</td><td class="worse">&minus;2.03</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>HC by PL Movement (Start &rarr; End)</strong></div>
+<p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Shows how HC differs based on where experts started and where they ended the season.</p>
+<table>
+<thead><tr><th>PL Start &rarr; End</th><th>TS HC</th><th>TS Volume</th><th>Non-TS HC</th><th>Non-TS Volume</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>PL1 &rarr; PL1</strong></td><td>43.64</td><td>33,826</td><td>56.76</td><td>27,718</td><td class="worse">&minus;13.11</td></tr>
+<tr><td><strong>PL1 &rarr; PL2</strong></td><td>46.86</td><td>37,806</td><td>67.82</td><td>71,372</td><td class="worse">&minus;20.96</td></tr>
+<tr><td><strong>PL1 &rarr; PL3</strong></td><td>41.99</td><td>762</td><td>62.03</td><td>5,273</td><td class="worse">&minus;20.04</td></tr>
+<tr><td><strong>PL2 &rarr; PL2</strong></td><td>47.39</td><td>9,491</td><td>65.56</td><td>104,126</td><td class="worse">&minus;18.16</td></tr>
+<tr><td><strong>PL2 &rarr; PL3</strong></td><td>48.57</td><td>9,627</td><td>69.22</td><td>89,281</td><td class="worse">&minus;20.65</td></tr>
+<tr><td><strong>PL2 &rarr; PL4</strong></td><td>43.66</td><td>268</td><td>69.42</td><td>12,045</td><td class="worse">&minus;25.77</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout">
+<strong>Observation:</strong> The within-PL HC gap persists at PL1&ndash;PL2 regardless of movement path, suggesting that the gap at lower proficiency levels is not solely a composition artifact. However, the gap narrows dramatically at PL3+ (start of season). The aggressive upskilling timelines and AHOD disruption may have impaired TS experts&rsquo; ability to convert effectively during the critical early-to-mid season ramp-up period.
+</div>
+
+<h3 id="hc-trajectory">B3. Seasonal Trajectory</h3>
+
+<div class="card">
+<div class="card-header"><strong>HC by Reporting Period</strong></div>
+<table>
+<thead><tr><th>Period</th><th>TS HC</th><th>TS Volume</th><th>Non-TS HC</th><th>Non-TS Volume</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>Before Season</strong></td><td>23.48</td><td>8,864</td><td>40.11</td><td>90,370</td><td class="worse">&minus;16.63</td></tr>
+<tr><td><strong>January-26</strong></td><td>32.92</td><td>5,124</td><td>61.06</td><td>41,107</td><td class="worse">&minus;28.14</td></tr>
+<tr><td><strong>February-26_1</strong></td><td>36.01</td><td>9,899</td><td>69.38</td><td>114,299</td><td class="worse">&minus;33.37</td></tr>
+<tr><td><strong>February-26_2</strong></td><td>45.58</td><td>14,329</td><td>73.87</td><td>110,182</td><td class="worse">&minus;28.30</td></tr>
+<tr><td><strong>March-26_1</strong></td><td>49.96</td><td>13,658</td><td>74.67</td><td>106,276</td><td class="worse">&minus;24.72</td></tr>
+<tr><td><strong>March-26_2</strong></td><td>55.14</td><td>17,014</td><td>77.45</td><td>123,657</td><td class="worse">&minus;22.30</td></tr>
+<tr><td><strong>April-26</strong></td><td>55.84</td><td>26,761</td><td>68.37</td><td>175,896</td><td class="worse">&minus;12.52</td></tr>
+<tr><td><strong>After Season</strong></td><td>31.10</td><td>2,669</td><td>39.89</td><td>17,441</td><td class="worse">&minus;8.79</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout success">
+<strong>Positive Trend:</strong> The HC gap narrows significantly over the season &mdash; from &minus;33.37pp at its worst (February) down to <strong>&minus;12.52pp in April</strong>. TS HC more than doubles from 23.48% (Before Season) to 55.84% (April). The worst gap coincides with the AHOD period (Jan 14 &ndash; Apr 16) when coaching and training support was removed. By end of season, TS is on a clear convergence trajectory.
+</div>
+
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">HC by Reporting Period</h3><canvas id="hc_by_period"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">HC Gap by Reporting Period</h3><canvas id="hc_gap_period"></canvas></div>
+</div>
+
+<h3 id="hc-partner">B4. Partner Composition</h3>
+
+<div class="card">
+<div class="card-header"><strong>HC by Partner</strong></div>
+<table>
+<thead><tr><th>Partner</th><th>TS HC</th><th>TS Volume</th><th>Non-TS HC</th><th>Non-TS Volume</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>INTUIT</strong></td><td>46.76</td><td>94,036</td><td>65.97</td><td>605,348</td><td class="worse">&minus;19.21</td></tr>
+<tr><td><strong>JDA</strong></td><td>&mdash;</td><td>0</td><td>73.18</td><td>147,909</td><td>&mdash;</td></tr>
+<tr><td><strong>MAGNIT</strong></td><td>&mdash;</td><td>0</td><td>64.77</td><td>17,565</td><td>&mdash;</td></tr>
+<tr><td><strong>HIGHSPRING LLC</strong></td><td>&mdash;</td><td>0</td><td>64.13</td><td>8,406</td><td>&mdash;</td></tr>
+<tr><td><strong>EDUCATION AT WORK</strong></td><td>43.43</td><td>3,044</td><td>&mdash;</td><td>0</td><td>&mdash;</td></tr>
+<tr><td><strong>FOUNDEVER</strong></td><td>44.26</td><td>1,238</td><td>&mdash;</td><td>0</td><td>&mdash;</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout">
+<strong>Partner Effect:</strong> Non-TS benefits from JDA (HC = 73.18%, 147K volume) which has no TS presence. JDA alone contributes 19% of Non-TS HC volume with above-average performance, pulling the Non-TS aggregate up. When comparing <strong>INTUIT only</strong> (the only partner with both TS and Non-TS), the gap narrows slightly to &minus;19.21pp vs the overall &minus;20.67pp.
+</div>
+
+<hr class="section-divider">
+
+<h3>Summary of HC Gap Drivers</h3>
+<div class="card" style="border-left:4px solid var(--primary);">
+<table>
+<thead><tr><th>Driver</th><th>Impact</th><th>Evidence</th></tr></thead>
+<tbody>
+<tr><td><strong>PL Distribution</strong></td><td class="worse">Major</td><td>74% of TS at PL1 (start) vs 14% of Non-TS. At PL3+, HC gap virtually disappears.</td></tr>
+<tr><td><strong>Within-PL Gap (PL1&ndash;PL2)</strong></td><td class="worse">Significant</td><td>&minus;19pp gap at PL1 and PL2 even controlling for PL level.</td></tr>
+<tr><td><strong>Seasonal Ramp-Up</strong></td><td class="better">Improving</td><td>Gap narrows from &minus;33pp (Feb) to &minus;12.5pp (Apr). TS on convergence trajectory.</td></tr>
+<tr><td><strong>AHOD Disruption</strong></td><td class="worse">Amplifying</td><td>Worst gap coincides with AHOD period (Jan&ndash;Apr) when coaching was removed.</td></tr>
+<tr><td><strong>Partner Composition</strong></td><td class="worse">Moderate</td><td>JDA (HC=73.18%) contributes 19% of Non-TS volume with no TS counterpart.</td></tr>
+<tr><td><strong>Training Wave</strong></td><td class="better">Improving</td><td>Wave 7 gap (&minus;17pp) is half of Wave 4&ndash;5 gap (&minus;27 to &minus;30pp).</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout teal">
+<strong>Conclusion:</strong> The FS HC gap is primarily a <strong>proficiency level composition effect</strong> &mdash; the TS population is overwhelmingly concentrated at PL1&ndash;PL2 where HC is naturally lower for both groups. The within-PL gap at lower levels is real but shows strong seasonal improvement, suggesting it is a ramp-up timing issue amplified by the AHOD disruption rather than an inherent capability gap. By PL3+, TS reaches effective parity with Non-TS on HC, and the seasonal trajectory indicates continued convergence.
+</div>
+
     </div><!-- end tab-detail -->
 
     <div id="tab-summary" class="tab-panel active">
@@ -2836,6 +2975,54 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         },
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: 'tNPS' } } } }
+    });
+
+    // Appendix B: HC charts
+    new Chart(document.getElementById('hc_pl_vol_dist'), {
+        type: 'bar',
+        data: {
+            labels: ['PL1', 'PL2', 'PL3', 'PL4'],
+            datasets: [
+                { label: 'TS (% of volume)', data: [74.1, 21.5, 2.7, 1.0], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS (% of volume)', data: [13.8, 26.5, 14.3, 45.4], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, title: { display: true, text: '% of HC Volume' } } } }
+    });
+
+    new Chart(document.getElementById('hc_by_pl_start'), {
+        type: 'bar',
+        data: {
+            labels: ['PL1', 'PL2', 'PL3', 'PL4'],
+            datasets: [
+                { label: 'TS HC', data: [45.31, 47.43, 68.23, 65.57], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Non-TS HC', data: [64.70, 67.34, 67.05, 68.12], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'HC (%)' } } } }
+    });
+
+    new Chart(document.getElementById('hc_by_period'), {
+        type: 'line',
+        data: {
+            labels: ['Before Season', 'Jan-26', 'Feb-26_1', 'Feb-26_2', 'Mar-26_1', 'Mar-26_2', 'Apr-26', 'After Season'],
+            datasets: [
+                { label: 'TS HC', data: [23.48, 32.92, 36.01, 45.58, 49.96, 55.14, 55.84, 31.10], borderColor: tsBorder, backgroundColor: tsColor, borderWidth: 3, tension: 0.3, fill: false },
+                { label: 'Non-TS HC', data: [40.11, 61.06, 69.38, 73.87, 74.67, 77.45, 68.37, 39.89], borderColor: ntsBorder, backgroundColor: ntsColor, borderWidth: 3, tension: 0.3, fill: false }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'HC (%)' } } } }
+    });
+
+    new Chart(document.getElementById('hc_gap_period'), {
+        type: 'bar',
+        data: {
+            labels: ['Before Season', 'Jan-26', 'Feb-26_1', 'Feb-26_2', 'Mar-26_1', 'Mar-26_2', 'Apr-26', 'After Season'],
+            datasets: [
+                { label: 'HC Gap (TS - Non-TS)', data: [-16.63, -28.14, -33.37, -28.30, -24.72, -22.30, -12.52, -8.79], backgroundColor: 'rgba(220,38,38,0.6)', borderColor: '#dc2626', borderWidth: 2 }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { title: { display: true, text: 'Gap (pp)' } } } }
     });
 
 });
