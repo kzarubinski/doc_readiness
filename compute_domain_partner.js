@@ -1,7 +1,9 @@
 const fs = require('fs');
+const path = require('path');
 
 // ── Parse CSV ──
-const raw = fs.readFileSync('domain_partner_data.csv', 'utf8').replace(/\r/g, '');
+const DATA_FILE = process.argv[2] || 'Expert_Analysis_data_DP.csv';
+const raw = fs.readFileSync(DATA_FILE, 'utf8').replace(/\r/g, '');
 const lines = raw.trim().split('\n');
 const headers = lines[0].split(',');
 const data = lines.slice(1).map(l => {
@@ -40,6 +42,8 @@ function aggregate(rows) {
     let hc_num = 0, hc_den = 0;
     let aht_num = 0, aht_den = 0;
     let cst_num = 0, cst_den = 0;
+    let sku_basic_den = 0, sku_deluxe_den = 0, sku_premium_den = 0;
+    let cst_basic_num = 0, cst_deluxe_num = 0, cst_premium_num = 0;
 
     rows.forEach(r => {
         tnps_num += pf(r.tnps_numerator);
@@ -54,7 +58,15 @@ function aggregate(rows) {
         aht_den += pf(r.aht_denominator);
         cst_num += pf(r.cst_numerator);
         cst_den += pf(r.cst_denominator);
+        sku_basic_den += pf(r.cst_basic_denominator);
+        sku_deluxe_den += pf(r.cst_deluxe_denominator);
+        sku_premium_den += pf(r.cst_premiun_denominator);
+        cst_basic_num += pf(r.cst_basic_numerator);
+        cst_deluxe_num += pf(r.cst_deluxe_numerator);
+        cst_premium_num += pf(r.cst_premium_numerator);
     });
+
+    const sku_total = sku_basic_den + sku_deluxe_den + sku_premium_den;
 
     return {
         tnps: tnps_den > 0 ? (tnps_num / tnps_den) * 100 : null,
@@ -63,6 +75,13 @@ function aggregate(rows) {
         hc: hc_den > 0 ? (hc_num / hc_den) * 100 : null,
         aht: aht_den > 0 ? aht_num / aht_den : null,
         cst: cst_den > 0 ? cst_num / cst_den : null,
+        cst_basic: sku_basic_den > 0 ? cst_basic_num / sku_basic_den : null,
+        cst_deluxe: sku_deluxe_den > 0 ? cst_deluxe_num / sku_deluxe_den : null,
+        cst_premium: sku_premium_den > 0 ? cst_premium_num / sku_premium_den : null,
+        sku_basic_pct: sku_total > 0 ? (sku_basic_den / sku_total) * 100 : null,
+        sku_deluxe_pct: sku_total > 0 ? (sku_deluxe_den / sku_total) * 100 : null,
+        sku_premium_pct: sku_total > 0 ? (sku_premium_den / sku_total) * 100 : null,
+        sku_total,
         tnps_den, ir_den, sqs_den, hc_den, aht_den, cst_den,
     };
 }
@@ -106,7 +125,7 @@ function buildOverallTable(rows, partnerList) {
 
 function buildBreakdown(rows, dimField, partnerList) {
     const { intuitRows, partnerGroups, allPartnerRows } = buildGroups(rows, partnerList);
-    const dimValues = [...new Set(rows.map(r => r[dimField]))].filter(v => v && v !== 'N/A').sort();
+    const dimValues = [...new Set(rows.map(r => r[dimField]))].filter(v => v && v !== 'N/A' && v !== 'null' && v !== 'Unknown').sort();
 
     const result = {};
     dimValues.forEach(dv => {
@@ -229,8 +248,13 @@ function buildTenurePivot(rows, partnerList) {
 }
 
 // Reporting period pivot: same shape as tenure pivot but on reporting_period
+const PERIOD_ORDER = [
+    '1. Before Season', '2. January-26', '3. February-26_1', '4. February-26_2',
+    '5. March-26_1', '6. March-26_2', '7. April-26', '8. After Season'
+];
+const ATTR_ORDER = ['Active', 'AttrDuringTraining', 'AttrBeforePeak', 'AttrAfterPeak'];
+
 function buildPeriodPivot(rows, partnerList) {
-    const PERIOD_ORDER = ['Before Season', '26-Jan', '26-Feb', '26-Mar', '26-Apr', 'After Season'];
     const { intuitRows, partnerGroups, allPartnerRows } = buildGroups(rows, partnerList);
     const allPeriods = [...new Set(rows.map(r => r.reporting_period))].filter(v => v);
     const periods = PERIOD_ORDER.filter(p => allPeriods.includes(p));
@@ -279,12 +303,19 @@ const fsByRole = buildBreakdown(fsData, 'expert_role');
 const ttlaByPL = buildPLBreakdown(ttla, TTLA_PARTNERS);
 const fsByPL = buildPLBreakdown(fsData);
 
-const ttlaByCT = buildInlineBreakdown(ttla, 'contact_type', TTLA_PARTNERS);
 const ttlaByHire = buildInlineBreakdown(ttla, 'hire_type', TTLA_PARTNERS);
 const fsByHire = buildInlineBreakdown(fsData, 'hire_type');
 
-const ttlaTenure = buildTenurePivot(ttla, TTLA_PARTNERS);
-const fsTenure = buildTenurePivot(fsData);
+const fsByAttr = buildBreakdown(fsData, 'attr_status_adj');
+const ttlaByAttr = buildBreakdown(ttla, 'attr_status_adj', TTLA_PARTNERS);
+
+const hasTenure = data.some(r => r.expert_tenure_category && r.expert_tenure_category !== 'N/A');
+const hasContactType = ttla.some(r => r.contact_type && r.contact_type !== 'N/A');
+
+const ttlaTenure = hasTenure ? buildTenurePivot(ttla, TTLA_PARTNERS) : null;
+const fsTenure = hasTenure ? buildTenurePivot(fsData) : null;
+
+const ttlaByCT = hasContactType ? buildInlineBreakdown(ttla, 'contact_type', TTLA_PARTNERS) : null;
 
 const fsByPeriod = buildPeriodPivot(fsData);
 const ttlaByPeriod = buildPeriodPivot(ttla, TTLA_PARTNERS);
@@ -310,20 +341,28 @@ function rowClass(type) {
 }
 
 // volDenKey: which denominator to use for volume % (e.g. 'cst_den' or 'aht_den')
-function renderOverallTable(id, title, tableData, metrics, volDenKey) {
+function renderOverallTable(id, title, tableData, metrics, volDenKey, volLabel) {
     const totalVol = tableData.reduce((s, r) => s + (r.type === 'partner' || r.type === 'intuit' ? (r.agg[volDenKey] || 0) : 0), 0);
     let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th>`;
-    if (volDenKey) html += `<th>Vol %</th>`;
-    metrics.forEach(m => { html += `<th>${METRIC_LABELS[m]}</th>`; });
+    if (volDenKey) {
+        html += `<th>${volLabel || 'Count'}</th><th>Vol %</th>`;
+    }
+    metrics.forEach(m => {
+        html += `<th>${METRIC_LABELS[m]}</th>`;
+        if (m === 'tnps') html += `<th>Surveys</th>`;
+    });
     html += `</tr></thead>\n<tbody>\n`;
     tableData.forEach(row => {
         html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
         if (volDenKey) {
             const vol = row.agg[volDenKey] || 0;
             const pct = totalVol > 0 ? (vol / totalVol * 100) : 0;
-            html += `<td>${fmt(pct, 1)}%</td>`;
+            html += `<td>${fmtN(Math.round(vol))}</td><td>${fmt(pct, 1)}%</td>`;
         }
-        metrics.forEach(m => { html += `<td>${metricVal(row.agg, m)}</td>`; });
+        metrics.forEach(m => {
+            html += `<td>${metricVal(row.agg, m)}</td>`;
+            if (m === 'tnps') html += `<td>${row.agg.tnps_den > 0 ? fmtN(Math.round(row.agg.tnps_den)) : '—'}</td>`;
+        });
         html += `</tr>\n`;
     });
     html += `</tbody></table>\n</div>\n`;
@@ -338,11 +377,17 @@ function renderBreakdownSection(id, title, breakdownObj, metrics, dimLabel) {
         if (!rows || rows.length === 0) return;
         html += `<div class="card">\n<div class="card-header"><strong>${dimLabel}: ${dv}</strong></div>\n`;
         html += `<table>\n<thead><tr><th>Group</th>`;
-        metrics.forEach(m => { html += `<th>${METRIC_LABELS[m]}</th>`; });
+        metrics.forEach(m => {
+            html += `<th>${METRIC_LABELS[m]}</th>`;
+            if (m === 'tnps') html += `<th>Surveys</th>`;
+        });
         html += `</tr></thead>\n<tbody>\n`;
         rows.forEach(row => {
             html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
-            metrics.forEach(m => { html += `<td>${metricVal(row.agg, m)}</td>`; });
+            metrics.forEach(m => {
+                html += `<td>${metricVal(row.agg, m)}</td>`;
+                if (m === 'tnps') html += `<td>${row.agg.tnps_den > 0 ? fmtN(Math.round(row.agg.tnps_den)) : '—'}</td>`;
+            });
             html += `</tr>\n`;
         });
         html += `</tbody></table>\n</div>\n`;
@@ -652,7 +697,7 @@ function buildConclusions(product, tableData, metrics) {
     if (partners.length > 0) {
         h += `<div class="card"><h3 style="margin-top:0;">${product} — Partner Highlights</h3><table>\n<thead><tr><th>Partner</th>`;
         metrics.forEach(m => { h += `<th>${METRIC_LABELS[m]}</th>`; });
-        h += `<th>Strengths</th></tr></thead><tbody>\n`;
+        h += `<th>Strengths</th><th>Surveys</th></tr></thead><tbody>\n`;
 
         partners.forEach(p => {
             h += `<tr><td><strong>${p.name}</strong></td>`;
@@ -665,7 +710,8 @@ function buildConclusions(product, tableData, metrics) {
                     if ((dir === 'higher' && diff > 0) || (dir === 'lower' && diff < 0)) strengths.push(METRIC_LABELS[m]);
                 }
             });
-            h += `<td>${strengths.length > 0 ? strengths.map(s => `<span class="badge badge-green">${s}</span>`).join(' ') : '<span class="badge badge-yellow">Below Intuit</span>'}</td></tr>\n`;
+            h += `<td>${strengths.length > 0 ? strengths.map(s => `<span class="badge badge-green">${s}</span>`).join(' ') : '<span class="badge badge-yellow">Below Intuit</span>'}</td>`;
+            h += `<td>${p.agg.tnps_den > 0 ? fmtN(Math.round(p.agg.tnps_den)) : '—'}</td></tr>\n`;
         });
         h += '</tbody></table></div>\n';
     }
@@ -795,6 +841,169 @@ function buildVolumeCharts(vol) {
     return js;
 }
 
+function orderBreakdownDims(breakdown, order) {
+    const present = order.filter(d => breakdown.dimValues.includes(d));
+    const rest = breakdown.dimValues.filter(d => !order.includes(d)).sort();
+    breakdown.dimValues = [...present, ...rest];
+}
+orderBreakdownDims(fsByAttr, ATTR_ORDER);
+orderBreakdownDims(ttlaByAttr, ATTR_ORDER);
+
+function renderSkuMixSection(prefix, title, tableData) {
+    let html = `<h3 id="${prefix}-sku">${title}</h3>\n`;
+    html += `<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">SKU mix shows the share of FS engagements by product tier (Basic, Deluxe, Premium). A higher Basic share generally means a less complex workload and lower blended CST. Compare partner mix vs Intuit to assess whether performance gaps may reflect assignment differences rather than execution quality.</p>\n`;
+
+    html += `<div class="card"><div class="card-header"><strong>Engagement Mix by SKU (%)</strong></div><table>
+<thead><tr><th>Group</th><th>Engagements</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th></tr></thead><tbody>\n`;
+
+    tableData.forEach(row => {
+        const total = row.agg.sku_total || 0;
+        html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
+        html += `<td>${total > 0 ? fmtN(Math.round(total)) : '—'}</td>`;
+        html += `<td>${row.agg.sku_basic_pct !== null ? fmt(row.agg.sku_basic_pct, 1) + '%' : '—'}</td>`;
+        html += `<td>${row.agg.sku_deluxe_pct !== null ? fmt(row.agg.sku_deluxe_pct, 1) + '%' : '—'}</td>`;
+        html += `<td>${row.agg.sku_premium_pct !== null ? fmt(row.agg.sku_premium_pct, 1) + '%' : '—'}</td></tr>\n`;
+    });
+    html += `</tbody></table></div>\n`;
+
+    html += `<div class="card"><div class="card-header"><strong>Blended CST by SKU (hours per engagement)</strong></div><table>
+<thead><tr><th>Group</th><th>Basic CST</th><th>Deluxe CST</th><th>Premium CST</th><th>Overall CST</th></tr></thead><tbody>\n`;
+    tableData.forEach(row => {
+        html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
+        html += `<td>${metricVal(row.agg, 'cst_basic')}</td>`;
+        html += `<td>${metricVal(row.agg, 'cst_deluxe')}</td>`;
+        html += `<td>${metricVal(row.agg, 'cst_premium')}</td>`;
+        html += `<td>${metricVal(row.agg, 'cst')}</td></tr>\n`;
+    });
+    html += `</tbody></table></div>\n`;
+
+    const pTotal = tableData.find(r => r.type === 'partners_total');
+    const intuit = tableData.find(r => r.type === 'intuit');
+    if (pTotal && intuit && pTotal.agg.sku_basic_pct !== null && intuit.agg.sku_basic_pct !== null) {
+        const basicDiff = pTotal.agg.sku_basic_pct - intuit.agg.sku_basic_pct;
+        const premDiff = pTotal.agg.sku_premium_pct - intuit.agg.sku_premium_pct;
+        const easierMix = basicDiff > 2 || premDiff < -2;
+        const cls = easierMix ? 'warning' : 'success';
+        html += `<div class="callout ${cls === 'warning' ? '' : 'success'}">
+    <strong>SKU Mix Insight:</strong> Partners Total has <strong>${fmt(pTotal.agg.sku_basic_pct, 1)}%</strong> Basic vs Intuit <strong>${fmt(intuit.agg.sku_basic_pct, 1)}%</strong> (${diffStr(basicDiff)} pp), and <strong>${fmt(pTotal.agg.sku_premium_pct, 1)}%</strong> Premium vs Intuit <strong>${fmt(intuit.agg.sku_premium_pct, 1)}%</strong> (${diffStr(premDiff)} pp).
+    ${easierMix ? 'Partners handle a <strong>more Basic-heavy mix</strong>, which may partially explain CST advantages but also means tNPS/HC comparisons should be interpreted in context of workload complexity.' : 'Partner and Intuit SKU mixes are broadly comparable — performance differences are less likely driven by assignment mix alone.'}
+</div>\n`;
+    }
+
+    html += `<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">SKU Mix — Partners vs Intuit</h3><canvas id="${prefix}_sku_mix" height="300"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">CST by SKU Tier</h3><canvas id="${prefix}_sku_cst" height="300"></canvas></div>
+</div>\n`;
+    return html;
+}
+
+function buildSkuMixCharts(prefix, tableData) {
+    const compareRows = tableData.filter(r => r.type === 'partners_total' || r.type === 'intuit');
+    if (compareRows.length < 2) return '';
+    const labels = compareRows.map(r => r.name);
+    return `new Chart(document.getElementById('${prefix}_sku_mix'), {
+        type: 'bar',
+        data: {
+            labels: [${labels.map(l => `'${l}'`).join(',')}],
+            datasets: [
+                { label: 'Basic %', data: [${compareRows.map(r => r.agg.sku_basic_pct?.toFixed(2) ?? 'null').join(',')}], backgroundColor: 'rgba(37,99,235,0.75)' },
+                { label: 'Deluxe %', data: [${compareRows.map(r => r.agg.sku_deluxe_pct?.toFixed(2) ?? 'null').join(',')}], backgroundColor: 'rgba(124,58,237,0.75)' },
+                { label: 'Premium %', data: [${compareRows.map(r => r.agg.sku_premium_pct?.toFixed(2) ?? 'null').join(',')}], backgroundColor: 'rgba(217,119,6,0.75)' }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { x: { stacked: true }, y: { stacked: true, max: 100, title: { display: true, text: '% Engagements' } } } }
+    });
+new Chart(document.getElementById('${prefix}_sku_cst'), {
+        type: 'bar',
+        data: {
+            labels: [${labels.map(l => `'${l}'`).join(',')}],
+            datasets: [
+                { label: 'Basic CST', data: [${compareRows.map(r => r.agg.cst_basic?.toFixed(2) ?? 'null').join(',')}], backgroundColor: 'rgba(37,99,235,0.7)' },
+                { label: 'Deluxe CST', data: [${compareRows.map(r => r.agg.cst_deluxe?.toFixed(2) ?? 'null').join(',')}], backgroundColor: 'rgba(124,58,237,0.7)' },
+                { label: 'Premium CST', data: [${compareRows.map(r => r.agg.cst_premium?.toFixed(2) ?? 'null').join(',')}], backgroundColor: 'rgba(217,119,6,0.7)' }
+            ]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { title: { display: true, text: 'Hours' } } } }
+    });\n`;
+}
+
+function metricInsight(label, pVal, iVal, key) {
+    if (pVal === null || iVal === null) return '';
+    const diff = pVal - iVal;
+    const dir = METRIC_DIRECTION[key];
+    const better = (dir === 'higher' && diff > 0) || (dir === 'lower' && diff < 0);
+    const pct = iVal !== 0 ? Math.abs((diff / Math.abs(iVal)) * 100).toFixed(1) : 'N/A';
+    const cls = better ? 'better' : 'worse';
+    const word = better ? 'outperforms' : 'underperforms';
+    return `<li><strong>${label}:</strong> Partners <strong>${fmt(pVal, 2)}</strong> vs Intuit <strong>${fmt(iVal, 2)}</strong> — <span class="${cls}">Partners ${word} by ${Math.abs(diff).toFixed(2)} (${pct}%)</span></li>`;
+}
+
+function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData) {
+    const fsP = fsTable.find(r => r.type === 'partners_total');
+    const fsI = fsTable.find(r => r.type === 'intuit');
+    const ttlaP = ttlaTable.find(r => r.type === 'partners_total');
+    const ttlaI = ttlaTable.find(r => r.type === 'intuit');
+
+    let html = `<h2 style="margin-top:0;">Executive Summary</h2>
+<p>This report compares Domain Partners (${PARTNERS_NON_INTUIT.map(p => PARTNER_SHORT[p]).join(', ')}) against Intuit across <strong>Full Service (FS)</strong> and <strong>TTL Assisted (TTLA)</strong> for the current tax season. All metrics use volume-weighted aggregation: <code>sum(numerator) / sum(denominator)</code>.</p>
+
+<div class="kpi-row">
+<div class="kpi blue"><div class="label">FS Engagements</div><div class="value">${fmtN(fsVolData.grandTotal)}</div><div class="detail">Partners ${fmt(fsVolData.partnersTotal / fsVolData.grandTotal * 100, 1)}% · Intuit ${fmt(fsVolData.intuitTotal / fsVolData.grandTotal * 100, 1)}%</div></div>
+<div class="kpi purple"><div class="label">TTLA Contacts</div><div class="value">${fmtN(ttlaVolData.grandTotal)}</div><div class="detail">Partners ${fmt(ttlaVolData.partnersTotal / ttlaVolData.grandTotal * 100, 1)}% · Intuit ${fmt(ttlaVolData.intuitTotal / ttlaVolData.grandTotal * 100, 1)}%</div></div>
+</div>
+
+<h3>Headline Findings</h3>
+<div class="callout success"><strong>FS — Partners lead on quality and efficiency.</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;">
+${fsP && fsI ? FS_METRICS.map(m => metricInsight(METRIC_LABELS[m], fsP.agg[m], fsI.agg[m], m)).join('\n') : ''}
+</ul></div>
+
+<div class="callout danger"><strong>TTLA — Intuit leads on customer experience metrics.</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;">
+${ttlaP && ttlaI ? TTLA_METRICS.map(m => metricInsight(METRIC_LABELS[m], ttlaP.agg[m], ttlaI.agg[m], m)).join('\n') : ''}
+</ul></div>`;
+
+    if (fsP && fsI && fsP.agg.sku_basic_pct !== null) {
+        const basicDiff = fsP.agg.sku_basic_pct - fsI.agg.sku_basic_pct;
+        html += `<div class="callout teal"><strong>SKU Mix Context (FS):</strong> Partners handle ${fmt(fsP.agg.sku_basic_pct, 1)}% Basic engagements vs ${fmt(fsI.agg.sku_basic_pct, 1)}% for Intuit (${diffStr(basicDiff)} pp). ${basicDiff > 2 ? 'The partner mix skews more Basic — a potentially easier workload that should be considered when interpreting CST and conversion metrics.' : 'SKU mix is comparable to Intuit, supporting apples-to-apples performance comparisons.'}</div>`;
+    }
+
+    html += `<h3>Volume &amp; Scale</h3>
+<ul style="padding-left:1.25rem;margin-bottom:1rem;">
+<li><strong>FS:</strong> ${fmtN(fsVolData.partnersTotal)} partner engagements (${fmt(fsVolData.partnersTotal / fsVolData.grandTotal * 100, 1)}% of ${fmtN(fsVolData.grandTotal)} total)</li>
+<li><strong>TTLA:</strong> ${fmtN(ttlaVolData.partnersTotal)} partner contacts (${fmt(ttlaVolData.partnersTotal / ttlaVolData.grandTotal * 100, 1)}% of ${fmtN(ttlaVolData.grandTotal)} total)</li>
+<li><strong>Survey base:</strong> ${fsP ? fmtN(Math.round(fsP.agg.tnps_den)) : '—'} FS partner surveys · ${ttlaP ? fmtN(Math.round(ttlaP.agg.tnps_den)) : '—'} TTLA partner surveys</li>
+</ul>
+
+<h3>What to Watch</h3>
+<ul style="padding-left:1.25rem;">
+<li><strong>Attrition lens:</strong> Active vs attrited cohorts may show different performance profiles — see Attrition Status breakdowns in the Analisys tab.</li>
+<li><strong>Partner variation:</strong> Individual partner performance varies widely; JDA carries the largest TTLA volume share while Foundever has minimal FS presence.</li>
+<li><strong>Mix-adjusted interpretation:</strong> Always cross-reference FS CST/tNPS with SKU mix before drawing conclusions about partner execution quality.</li>
+</ul>
+
+<p style="font-size:0.85rem;color:var(--muted);margin-top:1.5rem;">See the <strong>Analisys</strong> tab for full breakdowns by reporting period, role, proficiency level, hire type, attrition status, and detailed partner-level tables.</p>`;
+    return html;
+}
+
+function buildExpandedExecSummary() {
+    const fsP = fsOverall.find(r => r.type === 'partners_total');
+    const fsI = fsOverall.find(r => r.type === 'intuit');
+    const ttlaP = ttlaOverall.find(r => r.type === 'partners_total');
+    const ttlaI = ttlaOverall.find(r => r.type === 'intuit');
+
+    let html = `<p>This analysis compares <strong>Domain Partners</strong> (${PARTNERS_NON_INTUIT.map(p => PARTNER_SHORT[p]).join(', ')}) against <strong>Intuit</strong> across two products: <strong>TTL Full Service Consumer (FS)</strong> and <strong>TTL Assisted Consumer (TTLA)</strong>. Data spans ${PERIOD_ORDER.length} reporting periods from Before Season through After Season, covering <strong>${fmtN(data.length)}</strong> expert-period rows. Each metric is computed as <code>sum(numerator) / sum(denominator)</code> — a volume-weighted approach that reflects actual workload rather than simple averages.</p>
+
+<p style="font-size:0.9rem;color:var(--muted);margin:0.75rem 0;">Partners analyzed: ${PARTNERS_NON_INTUIT.map(p => `<strong>${PARTNER_SHORT[p]}</strong> (${p})`).join(', ')}. Intuit rows include all Intuit-sourced experts. Foundever appears in FS only; EAW, Highspring, JDA, and Magnit serve both products.</p>
+
+<h3>FS Performance Story</h3>
+<p>On Full Service, Domain Partners collectively deliver <strong>stronger customer satisfaction and operational efficiency</strong> than Intuit. Partners Total tNPS of <strong>${fsP ? fmt(fsP.agg.tnps, 2) : 'N/A'}</strong> exceeds Intuit's <strong>${fsI ? fmt(fsI.agg.tnps, 2) : 'N/A'}</strong>${fsP && fsI ? ` (+${(fsP.agg.tnps - fsI.agg.tnps).toFixed(2)} points)` : ''}, based on ${fsP ? fmtN(Math.round(fsP.agg.tnps_den)) : '—'} partner surveys. Handled Conversion (HC) and Customer Service Time (CST) also favor partners — suggesting partners convert engagements effectively while spending less time per return. However, partners handle a ${fsP && fsP.agg.sku_basic_pct > (fsI?.agg.sku_basic_pct || 0) + 2 ? 'somewhat more Basic-heavy' : ' broadly comparable'} SKU mix, which affects blended CST comparisons.</p>
+
+<h3>TTLA Performance Story</h3>
+<p>TTL Assisted tells a different story. Intuit outperforms partners on <strong>tNPS, Issue Resolution (IR), and Service Quality Score (SQS)</strong>, while AHT is roughly comparable. Partners Total tNPS of <strong>${ttlaP ? fmt(ttlaP.agg.tnps, 2) : 'N/A'}</strong> trails Intuit's <strong>${ttlaI ? fmt(ttlaI.agg.tnps, 2) : 'N/A'}</strong>${ttlaP && ttlaI ? ` by ${(ttlaI.agg.tnps - ttlaP.agg.tnps).toFixed(2)} points` : ''} across ${ttlaP ? fmtN(Math.round(ttlaP.agg.tnps_den)) : '—'} surveys. JDA dominates partner TTLA volume (~${ttlaOverall.find(r => r.name === 'JDA') ? fmt(ttlaOverall.find(r => r.name === 'JDA').agg.aht_den / ttlaP.agg.aht_den * 100, 0) : '—'}%), so aggregate partner metrics are heavily influenced by JDA's performance profile.</p>
+
+<h3>Key Metrics at a Glance</h3>\n`;
+    return html;
+}
+
 // ══════════════════════════════════════════
 // BUILD HTML — FS first, then TTLA
 // ══════════════════════════════════════════
@@ -872,6 +1081,12 @@ let html = `<!DOCTYPE html>
         .toc a:hover { text-decoration: underline; }
         footer { text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 3rem; }
         .section-divider { border: none; height: 3px; background: linear-gradient(90deg, var(--primary), var(--purple)); margin: 3rem 0; border-radius: 2px; }
+        .tabs { display: flex; gap: 4px; margin: 1.5rem 0 2rem; background: #f1f5f9; border: 1px solid var(--border); border-radius: 10px; padding: 4px; width: fit-content; flex-wrap: wrap; }
+        .tab { padding: 0.65rem 1.35rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; color: var(--muted); transition: all 0.2s; border: none; background: transparent; }
+        .tab:hover { color: var(--text); }
+        .tab.active { background: var(--primary); color: #fff; }
+        .section { display: none; }
+        .section.active { display: block; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
@@ -882,6 +1097,17 @@ let html = `<!DOCTYPE html>
     <p class="subtitle">Partner vs Intuit Expert Performance &bull; Full Service &amp; TTLA</p>
     <p class="report-date">Report generated: ${today}</p>
 
+    <div class="tabs">
+        <button class="tab active" data-tab="summary">Summary</button>
+        <button class="tab" data-tab="analisys">Analisys</button>
+    </div>
+
+    <div class="section active" id="sec-summary">
+        ${buildSummaryTab(fsOverall, ttlaOverall, buildVolumeData(fsOverall, 'cst_den'), buildVolumeData(ttlaOverall, 'aht_den'))}
+    </div>
+
+    <div class="section" id="sec-analisys">
+
     <div class="toc">
         <strong>Contents</strong>
         <ol>
@@ -889,12 +1115,14 @@ let html = `<!DOCTYPE html>
             <li><a href="#fs">FS (TTL Full Service Consumer) Analysis</a>
                 <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
                     <li><a href="#fs-volume">Volume Distribution</a></li>
+                    <li><a href="#fs-sku">SKU Mix Analysis</a></li>
                     <li><a href="#fs-overall">Overall Performance</a></li>
                     <li><a href="#fs-period">Breakdown by Reporting Period</a></li>
                     <li><a href="#fs-role">Breakdown by Expert Role</a></li>
                     <li><a href="#fs-pl">Breakdown by Proficiency Level</a></li>
                     <li><a href="#fs-hire">Breakdown by Hire Type</a></li>
-                    <li><a href="#fs-tenure">Breakdown by Tenure Category</a></li>
+                    <li><a href="#fs-attr">Breakdown by Attrition Status</a></li>
+                    ${hasTenure ? '<li><a href="#fs-tenure">Breakdown by Tenure Category</a></li>' : ''}
                 </ol>
             </li>
             <li><a href="#ttla">TTLA (TTL Assisted Consumer) Analysis</a>
@@ -904,9 +1132,10 @@ let html = `<!DOCTYPE html>
                     <li><a href="#ttla-period">Breakdown by Reporting Period</a></li>
                     <li><a href="#ttla-role">Breakdown by Expert Role</a></li>
                     <li><a href="#ttla-pl">Breakdown by Proficiency Level</a></li>
-                    <li><a href="#ttla-ct">Breakdown by Contact Type</a></li>
+                    ${hasContactType ? '<li><a href="#ttla-ct">Breakdown by Contact Type</a></li>' : ''}
                     <li><a href="#ttla-hire">Breakdown by Hire Type</a></li>
-                    <li><a href="#ttla-tenure">Breakdown by Tenure Category</a></li>
+                    <li><a href="#ttla-attr">Breakdown by Attrition Status</a></li>
+                    ${hasTenure ? '<li><a href="#ttla-tenure">Breakdown by Tenure Category</a></li>' : ''}
                 </ol>
             </li>
             <li><a href="#conclusions">Conclusions &amp; Key Takeaways</a></li>
@@ -918,11 +1147,8 @@ let html = `<!DOCTYPE html>
 // ═══════════════════════════════════════════
 // 1. EXECUTIVE SUMMARY — FS KPIs first
 // ═══════════════════════════════════════════
-html += `<h2 id="exec">1. Executive Summary</h2>
-<p>This analysis compares <strong>Domain Partners</strong> (${PARTNERS_NON_INTUIT.map(p => PARTNER_SHORT[p]).join(', ')}) against <strong>Intuit</strong> across two products: <strong>TTL Full Service Consumer (FS)</strong> and <strong>TTL Assisted Consumer (TTLA)</strong>. Metrics are aggregated across all reporting periods. Each metric is computed as <code>sum(numerator) / sum(denominator)</code> across all relevant rows.</p>
-
-<p style="font-size:0.9rem;color:var(--muted);margin:0.75rem 0;">Partners analyzed: ${PARTNERS_NON_INTUIT.map(p => `<strong>${PARTNER_SHORT[p]}</strong> (${p})`).join(', ')}. Intuit rows include all Intuit-sourced experts.</p>
-\n`;
+html += `<h2 id="exec">1. Executive Summary</h2>\n`;
+html += buildExpandedExecSummary();
 
 html += '<div class="kpi-row">\n';
 if (fsPartners && fsIntuit) {
@@ -952,8 +1178,11 @@ const fsVol = renderVolumeSection('fs', '2a. FS Volume Distribution', 'Engagemen
 html += fsVol.html;
 chartJS += buildVolumeCharts(fsVol);
 
-// 2b. Overall (with Vol % by cst_denominator)
-html += renderOverallTable('fs-overall', '2b. Overall FS Performance', fsOverall, FS_METRICS, 'cst_den');
+html += renderSkuMixSection('fs', '2b. FS SKU Mix Analysis — Partners vs Intuit', fsOverall);
+chartJS += buildSkuMixCharts('fs', fsOverall);
+
+// 2c. Overall (with engagement counts + Vol %)
+html += renderOverallTable('fs-overall', '2c. Overall FS Performance', fsOverall, FS_METRICS, 'cst_den', 'Engagements');
 html += renderKPIs(fsOverall, FS_METRICS);
 
 html += `<div class="chart-row">
@@ -967,30 +1196,37 @@ html += `<div class="chart-row">
 chartJS += buildOverallCharts('fs', fsOverall, FS_METRICS);
 html += buildCallout('FS Overall', fsOverall, FS_METRICS);
 
-// 2c. By Reporting Period — volume distro table + metric pivot tables
-html += `<h3 id="fs-period">2c. FS — Breakdown by Reporting Period</h3>\n`;
-html += renderDimDistroTable('fs-period-vol', 'Volume Distribution by Reporting Period', fsData, 'reporting_period', 'cst_denominator', null, ['Before Season', '26-Jan', '26-Feb', '26-Mar', '26-Apr', 'After Season']);
+// 2d. By Reporting Period
+html += `<h3 id="fs-period">2d. FS — Breakdown by Reporting Period</h3>\n`;
+html += renderDimDistroTable('fs-period-vol', 'Volume Distribution by Reporting Period', fsData, 'reporting_period', 'cst_denominator', null, PERIOD_ORDER);
 html += renderTenurePivot('', '', fsByPeriod, FS_METRICS);
 
-// 2d. By Role + volume distribution table
-html += `<h3 id="fs-role">2d. FS — Breakdown by Expert Role</h3>\n`;
+// 2e. By Role
+html += `<h3 id="fs-role">2e. FS — Breakdown by Expert Role</h3>\n`;
 html += renderDimDistroTable('fs-role-vol', 'Volume Distribution by Expert Role', fsData, 'expert_role', 'cst_denominator');
 html += renderBreakdownSection('fs-role-perf', '', fsByRole, FS_METRICS, 'Role');
 
-// 2e. By PL (PL1-4 + Other) + volume distribution table
-html += `<h3 id="fs-pl">2e. FS — Breakdown by Proficiency Level</h3>\n`;
+// 2f. By PL
+html += `<h3 id="fs-pl">2f. FS — Breakdown by Proficiency Level</h3>\n`;
 html += renderDimDistroTable('fs-pl-vol', 'Volume Distribution by Proficiency Level', fsData, 'proficiency_level', 'cst_denominator', null, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
 html += renderBreakdownSection('', '', fsByPL, FS_METRICS, 'Proficiency Level');
 
-// 2f. By Hire Type (inline) + volume distribution table
-html += `<h3 id="fs-hire">2f. FS — Breakdown by Hire Type</h3>\n`;
+// 2g. By Hire Type
+html += `<h3 id="fs-hire">2g. FS — Breakdown by Hire Type</h3>\n`;
 html += renderDimDistroTable('fs-hire-vol', 'Volume Distribution by Hire Type', fsData, 'hire_type', 'cst_denominator');
 html += renderInlineTable('', '', fsByHire, FS_METRICS, 'Hire Type');
 
-// 2g. By Tenure (pivot) + volume distribution table
-html += `<h3 id="fs-tenure">2g. FS — Breakdown by Tenure Category</h3>\n`;
-html += renderDimDistroTable('fs-tenure-vol', 'Volume Distribution by Tenure Category', fsData, 'expert_tenure_category', 'handled_conversion_denominator');
-html += renderTenurePivot('', '', fsTenure, FS_METRICS);
+// 2h. By Attrition Status
+html += `<h3 id="fs-attr">2h. FS — Breakdown by Attrition Status</h3>\n`;
+html += `<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Attrition status reflects whether an expert was active or attrited (before/during/after peak) during the reporting period. Comparing Active vs attrited cohorts helps isolate whether performance gaps are driven by workforce stability.</p>\n`;
+html += renderDimDistroTable('fs-attr-vol', 'Volume Distribution by Attrition Status', fsData, 'attr_status_adj', 'cst_denominator', null, ATTR_ORDER);
+html += renderBreakdownSection('', '', fsByAttr, FS_METRICS, 'Attrition Status');
+
+if (hasTenure && fsTenure) {
+    html += `<h3 id="fs-tenure">2i. FS — Breakdown by Tenure Category</h3>\n`;
+    html += renderDimDistroTable('fs-tenure-vol', 'Volume Distribution by Tenure Category', fsData, 'expert_tenure_category', 'cst_denominator');
+    html += renderTenurePivot('', '', fsTenure, FS_METRICS);
+}
 
 // ═══════════════════════════════════════════
 // 3. TTLA ANALYSIS (now section 3)
@@ -1004,8 +1240,8 @@ const ttlaVol = renderVolumeSection('ttla', '3a. TTLA Volume Distribution', 'Con
 html += ttlaVol.html;
 chartJS += buildVolumeCharts(ttlaVol);
 
-// 3b. Overall (with Vol % by aht_denominator)
-html += renderOverallTable('ttla-overall', '3b. Overall TTLA Performance', ttlaOverall, TTLA_METRICS, 'aht_den');
+// 3b. Overall
+html += renderOverallTable('ttla-overall', '3b. Overall TTLA Performance', ttlaOverall, TTLA_METRICS, 'aht_den', 'Contacts');
 html += renderKPIs(ttlaOverall, TTLA_METRICS);
 
 html += `<div class="chart-row">
@@ -1021,7 +1257,7 @@ html += buildCallout('TTLA Overall', ttlaOverall, TTLA_METRICS);
 
 // 3c. By Reporting Period — volume distro table + metric pivot tables
 html += `<h3 id="ttla-period">3c. TTLA — Breakdown by Reporting Period</h3>\n`;
-html += renderDimDistroTable('ttla-period-vol', 'Volume Distribution by Reporting Period', ttla, 'reporting_period', 'aht_denominator', TTLA_PARTNERS, ['Before Season', '26-Jan', '26-Feb', '26-Mar', '26-Apr', 'After Season']);
+html += renderDimDistroTable('ttla-period-vol', 'Volume Distribution by Reporting Period', ttla, 'reporting_period', 'aht_denominator', TTLA_PARTNERS, PERIOD_ORDER);
 html += renderTenurePivot('', '', ttlaByPeriod, TTLA_METRICS);
 
 // 3d. By Role + volume distribution table
@@ -1034,18 +1270,26 @@ html += `<h3 id="ttla-pl">3e. TTLA — Breakdown by Proficiency Level</h3>\n`;
 html += renderDimDistroTable('ttla-pl-vol', 'Volume Distribution by Proficiency Level', ttla, 'proficiency_level', 'aht_denominator', TTLA_PARTNERS, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
 html += renderBreakdownSection('', '', ttlaByPL, TTLA_METRICS, 'Proficiency Level');
 
-// 3f. By Contact Type (inline)
-html += renderInlineTable('ttla-ct', '3f. TTLA — Breakdown by Contact Type', ttlaByCT, TTLA_METRICS, 'Contact Type');
+// 3f. By Contact Type (if available)
+if (hasContactType && ttlaByCT) {
+    html += renderInlineTable('ttla-ct', '3f. TTLA — Breakdown by Contact Type', ttlaByCT, TTLA_METRICS, 'Contact Type');
+}
 
-// 3g. By Hire Type (inline) + volume distribution table
+// 3g. By Hire Type
 html += `<h3 id="ttla-hire">3g. TTLA — Breakdown by Hire Type</h3>\n`;
 html += renderDimDistroTable('ttla-hire-vol', 'Volume Distribution by Hire Type', ttla, 'hire_type', 'aht_denominator', TTLA_PARTNERS);
 html += renderInlineTable('', '', ttlaByHire, TTLA_METRICS, 'Hire Type');
 
-// 3h. By Tenure (pivot) + volume distribution table
-html += `<h3 id="ttla-tenure">3h. TTLA — Breakdown by Tenure Category</h3>\n`;
-html += renderDimDistroTable('ttla-tenure-vol', 'Volume Distribution by Tenure Category', ttla, 'expert_tenure_category', 'aht_denominator', TTLA_PARTNERS);
-html += renderTenurePivot('', '', ttlaTenure, TTLA_METRICS);
+// 3h. By Attrition Status
+html += `<h3 id="ttla-attr">3h. TTLA — Breakdown by Attrition Status</h3>\n`;
+html += renderDimDistroTable('ttla-attr-vol', 'Volume Distribution by Attrition Status', ttla, 'attr_status_adj', 'aht_denominator', TTLA_PARTNERS, ATTR_ORDER);
+html += renderBreakdownSection('', '', ttlaByAttr, TTLA_METRICS, 'Attrition Status');
+
+if (hasTenure && ttlaTenure) {
+    html += `<h3 id="ttla-tenure">3i. TTLA — Breakdown by Tenure Category</h3>\n`;
+    html += renderDimDistroTable('ttla-tenure-vol', 'Volume Distribution by Tenure Category', ttla, 'expert_tenure_category', 'aht_denominator', TTLA_PARTNERS);
+    html += renderTenurePivot('', '', ttlaTenure, TTLA_METRICS);
+}
 
 // ═══════════════════════════════════════════
 // 4. CONCLUSIONS — FS first
@@ -1056,19 +1300,39 @@ html += `<hr class="section-divider">
 html += buildConclusions('FS', fsOverall, FS_METRICS);
 html += buildConclusions('TTLA', ttlaOverall, TTLA_METRICS);
 
+html += `<div class="callout">
+    <strong>Cross-Product Commentary:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>FS strength is broad-based:</strong> Partners beat Intuit on tNPS, IR, HC, and CST simultaneously — a rare pattern suggesting genuine execution advantage, not a single-metric artifact. SQS is essentially tied.</li>
+    <li><strong>TTLA gap is customer-facing:</strong> Intuit's tNPS and IR advantages on TTLA point to experience quality issues on the partner side, despite partners handling a majority of contact volume (~53%).</li>
+    <li><strong>SKU mix is not the FS story:</strong> Partner Basic share is only ~1.4 pp higher than Intuit — mix differences are unlikely to fully explain partner CST advantages.</li>
+    <li><strong>Attrition matters:</strong> Active experts generally outperform attrited cohorts; attrition status breakdowns should be reviewed before setting partner-specific coaching priorities.</li>
+    <li><strong>Survey confidence:</strong> Always check survey counts alongside tNPS — small denominators (especially for Foundever FS or attrited cohorts) can produce volatile scores.</li>
+    </ul>
+</div>\n`;
+
 html += `<div class="callout teal">
     <strong>Methodology Note:</strong> All metrics computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria, aggregated across all reporting periods. tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, HC. Lower is better for AHT, CST.
 </div>\n`;
 
 html += `</div>
+</div>
 
 <footer>
     <p>Domain Partners Performance Analysis &bull; Generated ${today}</p>
-    <p>Data source: domain_partner_data.csv &bull; ${fmtN(data.length)} rows processed</p>
+    <p>Data source: ${path.basename(DATA_FILE)} &bull; ${fmtN(data.length)} rows processed</p>
 </footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+            document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+            tab.classList.add('active');
+            document.getElementById('sec-' + tab.dataset.tab).classList.add('active');
+        });
+    });
     ${chartJS}
 });
 </script>
