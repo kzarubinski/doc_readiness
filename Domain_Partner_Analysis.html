@@ -64,6 +64,12 @@
         .toc a:hover { text-decoration: underline; }
         footer { text-align: center; padding: 2rem 0; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 3rem; }
         .section-divider { border: none; height: 3px; background: linear-gradient(90deg, var(--primary), var(--purple)); margin: 3rem 0; border-radius: 2px; }
+        .tabs { display: flex; gap: 4px; margin: 1.5rem 0 2rem; background: #f1f5f9; border: 1px solid var(--border); border-radius: 10px; padding: 4px; width: fit-content; flex-wrap: wrap; }
+        .tab { padding: 0.65rem 1.35rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; color: var(--muted); transition: all 0.2s; border: none; background: transparent; }
+        .tab:hover { color: var(--text); }
+        .tab.active { background: var(--primary); color: #fff; }
+        .section { display: none; }
+        .section.active { display: block; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
@@ -72,7 +78,20 @@
 
     <h1>Domain Partners Performance Analysis</h1>
     <p class="subtitle">Partner vs Intuit Expert Performance &bull; Full Service &amp; TTLA</p>
-    <p class="report-date">Report generated: May 29, 2026</p>
+    <p class="report-date">Report generated: June 10, 2026</p>
+
+    <div class="tabs">
+        <button class="tab" data-tab="summary">Summary</button>
+        <button class="tab active" data-tab="analisys">Analisys</button>
+    </div>
+
+    <div class="section" id="sec-summary">
+        <div class="card">
+            <p>to be filled out later</p>
+        </div>
+    </div>
+
+    <div class="section active" id="sec-analisys">
 
     <div class="toc">
         <strong>Contents</strong>
@@ -979,13 +998,24 @@
 </div>
 </div>
 
+    </div>
+
 <footer>
-    <p>Domain Partners Performance Analysis &bull; Generated May 29, 2026</p>
+    <p>Domain Partners Performance Analysis &bull; Generated June 10, 2026</p>
     <p>Data source: domain_partner_data.csv &bull; 5,318 rows processed</p>
 </footer>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+            document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+            tab.classList.add('active');
+            document.getElementById('sec-' + tab.dataset.tab).classList.add('active');
+        });
+    });
+
     new Chart(document.getElementById('fs_vol_split'), {
         type: 'doughnut',
         data: {
