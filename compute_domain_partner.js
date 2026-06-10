@@ -1,17 +1,48 @@
 const fs = require('fs');
 const path = require('path');
 
-// ── Parse CSV ──
-const DATA_FILE = process.argv[2] || 'Expert_Analysis_data_DP.csv';
-const raw = fs.readFileSync(DATA_FILE, 'utf8').replace(/\r/g, '');
-const lines = raw.trim().split('\n');
-const headers = lines[0].split(',');
-const data = lines.slice(1).map(l => {
-    const vals = l.split(',');
-    const obj = {};
-    headers.forEach((h, i) => obj[h.trim()] = vals[i]);
-    return obj;
-});
+function resolveDataFile(preferredPath, defaultName) {
+    const candidates = [
+        preferredPath,
+        preferredPath && preferredPath.replace(/\.cvs$/i, '.csv'),
+        defaultName,
+        path.join(__dirname, defaultName),
+        path.join(process.env.USERPROFILE || '', 'Cursor', defaultName),
+        path.join(process.env.USERPROFILE || '', 'Cursor', defaultName.replace(/\.csv$/i, '.cvs')),
+    ].filter(Boolean);
+    for (const candidate of candidates) {
+        if (fs.existsSync(candidate)) return candidate;
+    }
+    throw new Error(`Data file not found. Tried: ${candidates.join(', ')}`);
+}
+
+function loadCsv(filePath) {
+    const raw = fs.readFileSync(filePath, 'utf8').replace(/\r/g, '');
+    const lines = raw.trim().split('\n');
+    const headers = lines[0].split(',');
+    const rows = lines.slice(1).map(l => {
+        const vals = l.split(',');
+        const obj = {};
+        headers.forEach((h, i) => obj[h.trim()] = vals[i]);
+        return obj;
+    });
+    return { filePath, headers, rows };
+}
+
+// ── Parse CSV — primary (period) + interaction (contact type / tenure) ──
+const PERIOD_FILE = resolveDataFile(
+    process.argv[2],
+    'Expert_Analysis_data_DP.csv'
+);
+const INTERACTION_FILE = resolveDataFile(
+    process.argv[3],
+    'Expert_Analysis_data_DP2.csv'
+);
+
+const periodCsv = loadCsv(PERIOD_FILE);
+const interactionCsv = loadCsv(INTERACTION_FILE);
+const data = periodCsv.rows;
+const interactionData = interactionCsv.rows;
 
 // ── Helpers ──
 const pf = v => parseFloat(v) || 0;
@@ -91,9 +122,13 @@ function metricVal(m, key) {
     return fmt(m[key], 2);
 }
 
-// ── Split data ──
+// ── Split data (primary = period dataset) ──
 const ttla = data.filter(r => r.product_name === 'TTL Assisted Consumer');
 const fsData = data.filter(r => r.product_name === 'TTL Full Service Consumer');
+
+// Interaction dataset — contact type & tenure (no reporting period)
+const ttlaIx = interactionData.filter(r => r.product_name === 'TTL Assisted Consumer');
+const fsIx = interactionData.filter(r => r.product_name === 'TTL Full Service Consumer');
 
 // ── Build analysis groups ──
 function buildGroups(rows, partnerList) {
@@ -309,13 +344,14 @@ const fsByHire = buildInlineBreakdown(fsData, 'hire_type');
 const fsByAttr = buildBreakdown(fsData, 'attr_status_adj');
 const ttlaByAttr = buildBreakdown(ttla, 'attr_status_adj', TTLA_PARTNERS);
 
-const hasTenure = data.some(r => r.expert_tenure_category && r.expert_tenure_category !== 'N/A');
-const hasContactType = ttla.some(r => r.contact_type && r.contact_type !== 'N/A');
+const hasInteraction = interactionData.length > 0;
+const hasTenure = hasInteraction && interactionData.some(r => r.expert_tenure_category && r.expert_tenure_category !== 'N/A');
+const hasContactType = hasInteraction && ttlaIx.some(r => r.contact_type && r.contact_type !== 'N/A' && r.contact_type !== 'Unknown');
 
-const ttlaTenure = hasTenure ? buildTenurePivot(ttla, TTLA_PARTNERS) : null;
-const fsTenure = hasTenure ? buildTenurePivot(fsData) : null;
+const ttlaTenure = hasTenure ? buildTenurePivot(ttlaIx, TTLA_PARTNERS) : null;
+const fsTenure = hasTenure ? buildTenurePivot(fsIx) : null;
 
-const ttlaByCT = hasContactType ? buildInlineBreakdown(ttla, 'contact_type', TTLA_PARTNERS) : null;
+const ttlaByCT = hasContactType ? buildInlineBreakdown(ttlaIx, 'contact_type', TTLA_PARTNERS) : null;
 
 const fsByPeriod = buildPeriodPivot(fsData);
 const ttlaByPeriod = buildPeriodPivot(ttla, TTLA_PARTNERS);
@@ -1224,7 +1260,8 @@ html += renderBreakdownSection('', '', fsByAttr, FS_METRICS, 'Attrition Status')
 
 if (hasTenure && fsTenure) {
     html += `<h3 id="fs-tenure">2i. FS — Breakdown by Tenure Category</h3>\n`;
-    html += renderDimDistroTable('fs-tenure-vol', 'Volume Distribution by Tenure Category', fsData, 'expert_tenure_category', 'cst_denominator');
+    html += `<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Tenure breakdowns use the interaction dataset (contact type / tenure grain), aggregated across the full season.</p>\n`;
+    html += renderDimDistroTable('fs-tenure-vol', 'Volume Distribution by Tenure Category', fsIx, 'expert_tenure_category', 'cst_denominator');
     html += renderTenurePivot('', '', fsTenure, FS_METRICS);
 }
 
@@ -1233,7 +1270,7 @@ if (hasTenure && fsTenure) {
 // ═══════════════════════════════════════════
 html += `<hr class="section-divider">
 <h2 id="ttla">3. TTLA (TTL Assisted Consumer) Analysis</h2>
-<p>TTLA metrics: <strong>tNPS</strong> (customer satisfaction — higher is better), <strong>IR</strong> (Issue Resolution — higher is better), <strong>SQS</strong> (Service Quality Score — higher is better), <strong>AHT</strong> (Average Handle Time in minutes — lower is more efficient). Contact types: Phone and Chat.</p>\n`;
+<p>TTLA metrics: <strong>tNPS</strong> (customer satisfaction — higher is better), <strong>IR</strong> (Issue Resolution — higher is better), <strong>SQS</strong> (Service Quality Score — higher is better), <strong>AHT</strong> (Average Handle Time in minutes — lower is more efficient). Contact types: Phone, Chat, and Engagement.</p>\n`;
 
 // Volume distribution — TTLA uses aht_denominator (contacts)
 const ttlaVol = renderVolumeSection('ttla', '3a. TTLA Volume Distribution', 'Contacts', ttlaOverall, 'aht_den');
@@ -1270,8 +1307,9 @@ html += `<h3 id="ttla-pl">3e. TTLA — Breakdown by Proficiency Level</h3>\n`;
 html += renderDimDistroTable('ttla-pl-vol', 'Volume Distribution by Proficiency Level', ttla, 'proficiency_level', 'aht_denominator', TTLA_PARTNERS, ['PL1', 'PL2', 'PL3', 'PL4', 'Other']);
 html += renderBreakdownSection('', '', ttlaByPL, TTLA_METRICS, 'Proficiency Level');
 
-// 3f. By Contact Type (if available)
+// 3f. By Contact Type (interaction dataset)
 if (hasContactType && ttlaByCT) {
+    html += `<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Contact type breakdowns use the interaction dataset (contact type / tenure grain), aggregated across the full season.</p>\n`;
     html += renderInlineTable('ttla-ct', '3f. TTLA — Breakdown by Contact Type', ttlaByCT, TTLA_METRICS, 'Contact Type');
 }
 
@@ -1287,7 +1325,8 @@ html += renderBreakdownSection('', '', ttlaByAttr, TTLA_METRICS, 'Attrition Stat
 
 if (hasTenure && ttlaTenure) {
     html += `<h3 id="ttla-tenure">3i. TTLA — Breakdown by Tenure Category</h3>\n`;
-    html += renderDimDistroTable('ttla-tenure-vol', 'Volume Distribution by Tenure Category', ttla, 'expert_tenure_category', 'aht_denominator', TTLA_PARTNERS);
+    html += `<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Tenure breakdowns use the interaction dataset (contact type / tenure grain), aggregated across the full season.</p>\n`;
+    html += renderDimDistroTable('ttla-tenure-vol', 'Volume Distribution by Tenure Category', ttlaIx, 'expert_tenure_category', 'aht_denominator', TTLA_PARTNERS);
     html += renderTenurePivot('', '', ttlaTenure, TTLA_METRICS);
 }
 
@@ -1312,7 +1351,7 @@ html += `<div class="callout">
 </div>\n`;
 
 html += `<div class="callout teal">
-    <strong>Methodology Note:</strong> All metrics computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria, aggregated across all reporting periods. tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, HC. Lower is better for AHT, CST.
+    <strong>Methodology Note:</strong> All metrics computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria. Headline KPIs and reporting-period breakdowns use <strong>${path.basename(PERIOD_FILE)}</strong> (${fmtN(data.length)} rows). Contact type and tenure breakdowns use <strong>${path.basename(INTERACTION_FILE)}</strong> (${fmtN(interactionData.length)} rows). tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, HC. Lower is better for AHT, CST.
 </div>\n`;
 
 html += `</div>
@@ -1320,7 +1359,7 @@ html += `</div>
 
 <footer>
     <p>Domain Partners Performance Analysis &bull; Generated ${today}</p>
-    <p>Data source: ${path.basename(DATA_FILE)} &bull; ${fmtN(data.length)} rows processed</p>
+    <p>Data sources: ${path.basename(PERIOD_FILE)} (${fmtN(data.length)} rows, primary) &bull; ${path.basename(INTERACTION_FILE)} (${fmtN(interactionData.length)} rows, contact/tenure)</p>
 </footer>
 
 <script>
@@ -1342,5 +1381,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 fs.writeFileSync('Domain_Partner_Analysis.html', html);
 console.log('Generated Domain_Partner_Analysis.html');
-console.log('Total rows processed:', data.length);
-console.log('TTLA rows:', ttla.length, '| FS rows:', fsData.length);
+console.log('Period dataset:', PERIOD_FILE, '—', data.length, 'rows');
+console.log('Interaction dataset:', INTERACTION_FILE, '—', interactionData.length, 'rows');
+console.log('TTLA rows (period):', ttla.length, '| FS rows (period):', fsData.length);
+console.log('TTLA rows (interaction):', ttlaIx.length, '| FS rows (interaction):', fsIx.length);
