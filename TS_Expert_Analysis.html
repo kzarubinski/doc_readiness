@@ -114,8 +114,8 @@
                 <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
                     <li><a href="#ttla-volume">Volume Distribution</a></li>
                     <li><a href="#ttla-overall">Overall Performance</a></li>
-                    <li><a href="#ttla-pl-end">Proficiency Level at End of Season</a></li>
                     <li><a href="#ttla-hire">New Hire vs Re-Hire</a></li>
+                    <li><a href="#ttla-pl-end">Proficiency Level at End of Season</a></li>
                     <li><a href="#ttla-pl-start">Proficiency Level at Beginning of Season</a></li>
                     <li><a href="#ttla-tnps-sku">tNPS by SKU</a></li>
                     <li><a href="#ttla-aht-sku">AHT by SKU</a></li>
@@ -966,53 +966,7 @@
 <li><strong>AHT:</strong> TS 23.67 vs Non-TS 22.41 (+1.27) — <span class="worse">worse (higher AHT)</span></li></ul>
 </div>
 
-<h3 id="ttla-pl-end">4c. TTLA — Proficiency Level at End of Season</h3>
-<div class="card">
-<div class="card-header"><strong>Proficiency Level: PL1</strong></div>
-<table>
-<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
-<tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>68.30</td><td>86.64</td><td>81.48</td><td>24.41</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>50.88</td><td>77.61</td><td>77.91</td><td>24.15</td></tr>
-</tbody></table>
-</div>
-<div class="card">
-<div class="card-header"><strong>Proficiency Level: PL2</strong></div>
-<table>
-<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
-<tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>71.35</td><td>88.03</td><td>82.49</td><td>23.55</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>66.69</td><td>85.43</td><td>80.87</td><td>21.98</td></tr>
-</tbody></table>
-</div>
-<div class="card">
-<div class="card-header"><strong>Proficiency Level: PL3</strong></div>
-<table>
-<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
-<tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>82.76</td><td>91.89</td><td>84.83</td><td>22.60</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>73.67</td><td>88.41</td><td>82.11</td><td>21.89</td></tr>
-</tbody></table>
-</div>
-<div class="card">
-<div class="card-header"><strong>Proficiency Level: PL4</strong></div>
-<table>
-<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
-<tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>83.15</td><td>94.12</td><td>84.77</td><td>18.28</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>77.28</td><td>89.70</td><td>83.03</td><td>22.35</td></tr>
-</tbody></table>
-</div>
-<div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by PL (End of Season)</h3><canvas id="ttla_pl_tnps_end"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by PL (End of Season)</h3><canvas id="ttla_pl_aht_end"></canvas></div>
-</div>
-<div class="chart-row">
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR by PL (End of Season)</h3><canvas id="ttla_pl_ir_end"></canvas></div>
-    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (End of Season)</h3><canvas id="ttla_pl_sqs_end"></canvas></div>
-</div>
-
-<h3 id="ttla-hire">4d. TTLA — New Hire vs Re-Hire</h3>
+<h3 id="ttla-hire">4c. TTLA — New Hire vs Re-Hire</h3>
 <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Performance comparison by hire type. Non-Tax Specialist group includes Tax Associate and Tax Expert roles. Metrics computed as sum(numerator) / sum(denominator) across all partners and proficiency levels.</p>
 <div class="card">
 <div class="card-header"><strong>TTLA Performance by Group and Hire Type</strong></div>
@@ -1056,6 +1010,52 @@
 </div>
 <div class="callout success">
 <strong>Re-Hire Insight:</strong> TS Re-Hires maintain a quality advantage over Non-TS (tNPS +2.43, IR +1.13, SQS +0.86) with a modest AHT gap (+0.47 min). TTLA outperformance is consistent across both hire types.
+</div>
+
+<h3 id="ttla-pl-end">4d. TTLA — Proficiency Level at End of Season</h3>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL1</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>68.30</td><td>86.64</td><td>81.48</td><td>24.41</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>50.88</td><td>77.61</td><td>77.91</td><td>24.15</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL2</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>71.35</td><td>88.03</td><td>82.49</td><td>23.55</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>66.69</td><td>85.43</td><td>80.87</td><td>21.98</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL3</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>82.76</td><td>91.89</td><td>84.83</td><td>22.60</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>73.67</td><td>88.41</td><td>82.11</td><td>21.89</td></tr>
+</tbody></table>
+</div>
+<div class="card">
+<div class="card-header"><strong>Proficiency Level: PL4</strong></div>
+<table>
+<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>83.15</td><td>94.12</td><td>84.77</td><td>18.28</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>77.28</td><td>89.70</td><td>83.03</td><td>22.35</td></tr>
+</tbody></table>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by PL (End of Season)</h3><canvas id="ttla_pl_tnps_end"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by PL (End of Season)</h3><canvas id="ttla_pl_aht_end"></canvas></div>
+</div>
+<div class="chart-row">
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA IR by PL (End of Season)</h3><canvas id="ttla_pl_ir_end"></canvas></div>
+    <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (End of Season)</h3><canvas id="ttla_pl_sqs_end"></canvas></div>
 </div>
 
 <h3 id="ttla-pl-start">4e. TTLA — Proficiency Level at Beginning of Season</h3>
