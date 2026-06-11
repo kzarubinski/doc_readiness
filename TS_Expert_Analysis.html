@@ -73,6 +73,7 @@
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
         .summary-img { max-width: 100%; border: 1px solid var(--border); border-radius: 8px; margin: 1rem 0; }
+        .summary-prose > * + * { margin-top: 1.25rem; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
@@ -1990,6 +1991,7 @@
 
 <h2 id="summary-overall">Overall Summary</h2>
 
+<div class="summary-prose">
 <p>This analysis compares <strong>Tax Specialists</strong> against <strong>Non-Tax Specialists</strong> (Tax Associate + Tax Expert combined) across two products: <strong>TTL Full Service Consumer (FS)</strong> and <strong>TTL Assisted Consumer (TTLA)</strong>. All data spans all partners and all reporting periods. Each metric is computed as <code>sum(numerator) / sum(denominator)</code> across all relevant rows.</p>
 
 <p>The data for analysis includes FS and TTLA activity for <strong>FY26</strong> (8/1/25 &ndash; 7/31/26).</p>
@@ -1998,8 +2000,9 @@
 
 <p>Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adjusted</strong> (by SKU and customer type) to separate composition effects from true performance differences.</p>
 
-<div class="callout" style="margin-top:1.5rem;">
+<div class="callout">
 Tax Specialists underperformed on all FS metrics and performed on par or better on the majority of TTLA metrics.
+</div>
 </div>
 
 <hr class="section-divider">
