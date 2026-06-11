@@ -82,7 +82,7 @@
 
     <h1>Tax Specialist Performance Analysis</h1>
     <p class="subtitle">Tax Specialist vs Non-Tax Specialist (Tax Associate + Tax Expert) &bull; Full Service &amp; TTLA</p>
-    <p class="report-date">Report generated: May 28, 2026</p>
+    <p class="report-date">Report generated: June 11, 2026</p>
 
     <div class="tab-nav">
         <button class="tab-btn active" onclick="switchTab('summary')">Summary</button>
@@ -101,6 +101,7 @@
                     <li><a href="#fs-volume">Volume Distribution</a></li>
                     <li><a href="#fs-overall">Overall Performance</a></li>
                     <li><a href="#fs-forecast-group">Forecast Group Category</a></li>
+                    <li><a href="#fs-hire">New Hire vs Re-Hire</a></li>
                     <li><a href="#fs-pl-end">Proficiency Level at End of Season</a></li>
                     <li><a href="#fs-pl-start">Proficiency Level at Beginning of Season</a></li>
                     <li><a href="#fs-sku">SKU Mix &amp; CST by SKU</a></li>
@@ -114,6 +115,7 @@
                     <li><a href="#ttla-volume">Volume Distribution</a></li>
                     <li><a href="#ttla-overall">Overall Performance</a></li>
                     <li><a href="#ttla-pl-end">Proficiency Level at End of Season</a></li>
+                    <li><a href="#ttla-hire">New Hire vs Re-Hire</a></li>
                     <li><a href="#ttla-pl-start">Proficiency Level at Beginning of Season</a></li>
                     <li><a href="#ttla-tnps-sku">tNPS by SKU</a></li>
                     <li><a href="#ttla-aht-sku">AHT by SKU</a></li>
@@ -535,7 +537,55 @@
 </div>
 </div>
 
-<h3 id="fs-pl-end">3d. FS — Proficiency Level at End of Season</h3>
+<h3 id="fs-hire">3d. FS — New Hire vs Re-Hire</h3>
+<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Performance comparison by hire type. Non-Tax Specialist group includes Tax Associate and Tax Expert roles. Metrics computed as sum(numerator) / sum(denominator) across all partners and proficiency levels.</p>
+<div class="card">
+<div class="card-header"><strong>FS Performance by Group and Hire Type</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Hire Type</th><th>Experts</th><th>FS Engagements</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>New Hire</td><td>2,016</td><td>35,517</td><td>55.61</td><td>59.15</td><td>84.25</td><td>47.92</td><td>2.82</td></tr>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>Re-Hire</td><td>847</td><td>87,997</td><td>72.27</td><td>64.78</td><td>87.44</td><td>45.42</td><td>2.46</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>New Hire</td><td>5,577</td><td>118,828</td><td>70.59</td><td>66.08</td><td>86.52</td><td>69.72</td><td>2.59</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>Re-Hire</td><td>9,082</td><td>726,301</td><td>72.64</td><td>72.98</td><td>87.74</td><td>66.68</td><td>3.02</td></tr>
+</tbody></table>
+</div>
+
+<div class="chart-row">
+<div class="card" style="margin:0;">
+<h4 style="margin:0 0 0.75rem;color:var(--primary);">New Hires — TS vs Non-TS</h4>
+<table>
+<thead><tr><th>Metric</th><th>TS</th><th>Non-TS</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>tNPS</strong></td><td>55.61</td><td>70.59</td><td class="worse">&minus;14.98</td></tr>
+<tr><td><strong>IR</strong></td><td>59.15</td><td>66.08</td><td class="worse">&minus;6.93</td></tr>
+<tr><td><strong>SQS</strong></td><td>84.25</td><td>86.52</td><td class="worse">&minus;2.27</td></tr>
+<tr><td><strong>HC</strong></td><td>47.92</td><td>69.72</td><td class="worse">&minus;21.80</td></tr>
+<tr><td><strong>CST</strong></td><td>2.82</td><td>2.59</td><td class="worse">+0.23</td></tr>
+</tbody></table>
+</div>
+<div class="card" style="margin:0;">
+<h4 style="margin:0 0 0.75rem;color:var(--primary);">Re-Hires — TS vs Non-TS</h4>
+<table>
+<thead><tr><th>Metric</th><th>TS</th><th>Non-TS</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>tNPS</strong></td><td>72.27</td><td>72.64</td><td class="worse">&minus;0.37</td></tr>
+<tr><td><strong>IR</strong></td><td>64.78</td><td>72.98</td><td class="worse">&minus;8.20</td></tr>
+<tr><td><strong>SQS</strong></td><td>87.44</td><td>87.74</td><td class="worse">&minus;0.30</td></tr>
+<tr><td><strong>HC</strong></td><td>45.42</td><td>66.68</td><td class="worse">&minus;21.26</td></tr>
+<tr><td><strong>CST</strong></td><td>2.46</td><td>3.02</td><td class="better">&minus;0.56</td></tr>
+</tbody></table>
+</div>
+</div>
+
+<div class="callout danger">
+<strong>New Hire Insight:</strong> The FS gap is concentrated among <strong>New Hires</strong>, where TS trails Non-TS by 14.98 pts on tNPS and 21.80 pts on HC. TS New Hires represent 70.4% of the TS FS population (2,016 of 2,863 expert rows), making this cohort the primary driver of overall FS underperformance.
+</div>
+<div class="callout">
+<strong>Re-Hire Insight:</strong> Among Re-Hires, TS tNPS is nearly on par with Non-TS (72.27 vs 72.64) and CST is lower (2.46 vs 3.02). However, the <strong>HC gap persists</strong> at &minus;21.26 pts, indicating Handle Conversion is not solely a New Hire ramp-up issue.
+</div>
+
+<h3 id="fs-pl-end">3e. FS — Proficiency Level at End of Season</h3>
 <div class="card">
 <div class="card-header"><strong>Proficiency Level: PL1</strong></div>
 <table>
@@ -581,7 +631,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS SQS by PL (End of Season)</h3><canvas id="fs_pl_sqs_end"></canvas></div>
 </div>
 
-<h3 id="fs-pl-start">3e. FS — Proficiency Level at Beginning of Season</h3>
+<h3 id="fs-pl-start">3f. FS — Proficiency Level at Beginning of Season</h3>
 <div class="card">
 <div class="card-header"><strong>Proficiency Level: PL1</strong></div>
 <table>
@@ -627,7 +677,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS SQS by PL (Beginning of Season)</h3><canvas id="fs_pl_sqs_start"></canvas></div>
 </div>
 
-<h3 id="fs-sku">3f. FS — SKU Mix &amp; CST by SKU</h3>
+<h3 id="fs-sku">3g. FS — SKU Mix &amp; CST by SKU</h3>
 <div class="card">
 <div class="card-header"><strong>Overall SKU Mix (% of Engagements)</strong></div>
 <table>
@@ -700,7 +750,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">SKU Mix by PL (Beginning of Season) — Non-TS</h3><canvas id="sku_pl_start_nts"></canvas></div>
 </div>
 
-<h3 id="fs-tnps-sku">3g. FS — tNPS by SKU</h3>
+<h3 id="fs-tnps-sku">3h. FS — tNPS by SKU</h3>
 <p class="callout"><strong>Note:</strong> Not all contacts have an identifiable SKU. The percentages below are calculated only for contacts with a valid SKU assignment.</p>
 <div class="card">
 <div class="card-header"><strong>Overall tNPS by SKU</strong></div>
@@ -762,7 +812,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="fs_tnps_sku_pl_start_nts"></canvas></div>
 </div>
 
-<h3 id="fs-new-returning">3h. FS — New vs Returning Customer</h3>
+<h3 id="fs-new-returning">3i. FS — New vs Returning Customer</h3>
 <p class="callout"><strong>Note:</strong> Customers are classified as "New" (first-time filer) or "Returning" (previously filed). Contacts with unknown customer status are excluded from this breakdown.</p>
 <div class="card">
 <div class="card-header"><strong>FS Performance — New vs Returning Customer</strong></div>
@@ -818,7 +868,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">FS tNPS by SKU — Returning Customer</h3><canvas id="fs_nr_tnps_sku_ret"></canvas></div>
 </div>
 
-<h3 id="fs-avg-engagements">3i. FS — Average Engagements per Expert</h3>
+<h3 id="fs-avg-engagements">3j. FS — Average Engagements per Expert</h3>
 <div class="card">
 <div class="card-header"><strong>Average Engagements per Expert (FS)</strong></div>
 <table>
@@ -962,7 +1012,53 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (End of Season)</h3><canvas id="ttla_pl_sqs_end"></canvas></div>
 </div>
 
-<h3 id="ttla-pl-start">4d. TTLA — Proficiency Level at Beginning of Season</h3>
+<h3 id="ttla-hire">4d. TTLA — New Hire vs Re-Hire</h3>
+<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Performance comparison by hire type. Non-Tax Specialist group includes Tax Associate and Tax Expert roles. Metrics computed as sum(numerator) / sum(denominator) across all partners and proficiency levels.</p>
+<div class="card">
+<div class="card-header"><strong>TTLA Performance by Group and Hire Type</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Hire Type</th><th>Experts</th><th>Contacts</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>New Hire</td><td>1,735</td><td>130,526</td><td>68.78</td><td>87.20</td><td>81.92</td><td>24.52</td></tr>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>Re-Hire</td><td>822</td><td>75,226</td><td>76.10</td><td>89.32</td><td>83.15</td><td>22.20</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>New Hire</td><td>6,167</td><td>1,329,593</td><td>63.40</td><td>83.85</td><td>80.11</td><td>23.16</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>Re-Hire</td><td>8,732</td><td>1,479,095</td><td>73.67</td><td>88.19</td><td>82.29</td><td>21.73</td></tr>
+</tbody></table>
+</div>
+
+<div class="chart-row">
+<div class="card" style="margin:0;">
+<h4 style="margin:0 0 0.75rem;color:var(--primary);">New Hires — TS vs Non-TS</h4>
+<table>
+<thead><tr><th>Metric</th><th>TS</th><th>Non-TS</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>tNPS</strong></td><td>68.78</td><td>63.40</td><td class="better">+5.38</td></tr>
+<tr><td><strong>IR</strong></td><td>87.20</td><td>83.85</td><td class="better">+3.35</td></tr>
+<tr><td><strong>SQS</strong></td><td>81.92</td><td>80.11</td><td class="better">+1.81</td></tr>
+<tr><td><strong>AHT</strong></td><td>24.52</td><td>23.16</td><td class="worse">+1.36</td></tr>
+</tbody></table>
+</div>
+<div class="card" style="margin:0;">
+<h4 style="margin:0 0 0.75rem;color:var(--primary);">Re-Hires — TS vs Non-TS</h4>
+<table>
+<thead><tr><th>Metric</th><th>TS</th><th>Non-TS</th><th>Gap</th></tr></thead>
+<tbody>
+<tr><td><strong>tNPS</strong></td><td>76.10</td><td>73.67</td><td class="better">+2.43</td></tr>
+<tr><td><strong>IR</strong></td><td>89.32</td><td>88.19</td><td class="better">+1.13</td></tr>
+<tr><td><strong>SQS</strong></td><td>83.15</td><td>82.29</td><td class="better">+0.86</td></tr>
+<tr><td><strong>AHT</strong></td><td>22.20</td><td>21.73</td><td class="worse">+0.47</td></tr>
+</tbody></table>
+</div>
+</div>
+
+<div class="callout success">
+<strong>New Hire Insight:</strong> TS New Hires outperform Non-TS on all quality metrics (tNPS +5.38, IR +3.35, SQS +1.81). AHT is 1.36 minutes higher — the only trade-off. This contrasts sharply with FS, where the same New Hire cohort underperforms.
+</div>
+<div class="callout success">
+<strong>Re-Hire Insight:</strong> TS Re-Hires maintain a quality advantage over Non-TS (tNPS +2.43, IR +1.13, SQS +0.86) with a modest AHT gap (+0.47 min). TTLA outperformance is consistent across both hire types.
+</div>
+
+<h3 id="ttla-pl-start">4e. TTLA — Proficiency Level at Beginning of Season</h3>
 <div class="card">
 <div class="card-header"><strong>Proficiency Level: PL1</strong></div>
 <table>
@@ -1008,7 +1104,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA SQS by PL (Beginning of Season)</h3><canvas id="ttla_pl_sqs_start"></canvas></div>
 </div>
 
-<h3 id="ttla-tnps-sku">4e. TTLA — tNPS by SKU</h3>
+<h3 id="ttla-tnps-sku">4f. TTLA — tNPS by SKU</h3>
 <p class="callout"><strong>Note:</strong> Not all contacts have an identifiable SKU. The percentages below are calculated only for contacts with a valid SKU assignment.</p>
 <div class="card">
 <div class="card-header"><strong>Overall tNPS by SKU</strong></div>
@@ -1070,7 +1166,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_tnps_sku_pl_start_nts"></canvas></div>
 </div>
 
-<h3 id="ttla-aht-sku">4f. TTLA — AHT by SKU</h3>
+<h3 id="ttla-aht-sku">4g. TTLA — AHT by SKU</h3>
 <p class="callout"><strong>Note:</strong> Not all contacts have an identifiable SKU. The percentages below are calculated only for contacts with a valid SKU assignment.</p>
 <div class="card">
 <div class="card-header"><strong>Overall AHT by SKU (minutes)</strong></div>
@@ -1132,7 +1228,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA AHT by SKU &amp; PL (Beginning of Season) — Non-TS</h3><canvas id="ttla_aht_sku_pl_start_nts"></canvas></div>
 </div>
 
-<h3 id="ttla-new-returning">4g. TTLA — New vs Returning Customer</h3>
+<h3 id="ttla-new-returning">4h. TTLA — New vs Returning Customer</h3>
 <p class="callout"><strong>Note:</strong> Customers are classified as "New" (first-time filer) or "Returning" (previously filed). Contacts with unknown customer status are excluded from this breakdown.</p>
 <div class="card">
 <div class="card-header"><strong>TTLA Performance — New vs Returning Customer</strong></div>
@@ -1189,7 +1285,7 @@
     <div class="chart-box"><h3 style="margin-top:0;">TTLA tNPS by SKU — Returning Customer</h3><canvas id="ttla_nr_tnps_sku_ret"></canvas></div>
 </div>
 
-<h3 id="ttla-avg-contacts">4h. TTLA — Average Contacts per Expert</h3>
+<h3 id="ttla-avg-contacts">4i. TTLA — Average Contacts per Expert</h3>
 <div class="card">
 <div class="card-header"><strong>Average Contacts per Expert (TTLA)</strong></div>
 <table>
@@ -2090,7 +2186,7 @@ Tax Specialists underperformed on all FS metrics and performed on par or better 
 </div>
 
 <footer>
-    <p>Tax Specialist Performance Analysis &bull; Generated June 2, 2026</p>
+    <p>Tax Specialist Performance Analysis &bull; Generated June 11, 2026</p>
     <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows) &bull; domain_partner_expert_data_upd.csv (35,096 rows) &bull; domain_partner_expert_data_add.csv (35,096 rows) &bull; domain_partner_expert_data_expanded.csv (102,165 rows) &bull; domain_partner_expert_data_expanded_f.csv (95,972 rows) &bull; domain_partner_expert_data_expanded_a.csv (181,530 rows)</p>
 </footer>
 
