@@ -72,6 +72,7 @@
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
+        .summary-img { max-width: 100%; border: 1px solid var(--border); border-radius: 8px; margin: 1rem 0; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
@@ -2015,29 +2016,20 @@
 </tbody></table>
 </div>
 
-<p><strong>SKU Mix Insight:</strong> Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.3% vs 28.1%) and far fewer <strong>Premium</strong> returns (18.0% vs 43.3%). This SKU mix difference significantly contributes to Tax Specialists' lower overall CST despite having higher per-SKU CST for Basic and Deluxe.</p>
+<h3>SKU Mix Insight</h3>
+<p>Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.3% vs 28.1%) and far fewer <strong>Premium</strong> returns (18.0% vs 43.3%). This SKU mix difference significantly contributes to Tax Specialists' lower overall CST despite having higher per-SKU CST for Basic and Deluxe.</p>
 
 <div class="card">
-<div class="card-header"><strong>Overall SKU Mix (% of Engagements)</strong></div>
+<div class="card-header"><strong>FS CST — Mix-Adjusted Summary</strong></div>
 <table>
-<thead><tr><th>Group</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th></tr></thead>
+<thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
 <tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>49.33%</td><td>32.63%</td><td>18.04%</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>28.14%</td><td>28.60%</td><td>43.26%</td></tr>
+<tr><td><strong>CST</strong></td><td>2.57</td><td>3.07</td><td>2.96</td><td class="better">&minus;0.39</td><td class="worse">+0.11</td><td>+0.50</td><td>SKU &times; CustType</td></tr>
 </tbody></table>
 </div>
 
-<div class="card">
-<div class="card-header"><strong>Overall CST by SKU</strong></div>
-<table>
-<thead><tr><th>Group</th><th>CST Basic</th><th>CST Deluxe</th><th>CST Premium</th><th>CST Overall</th></tr></thead>
-<tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>1.96</td><td>2.68</td><td>3.97</td><td>2.57</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>1.80</td><td>2.47</td><td>4.02</td><td>2.96</td></tr>
-</tbody></table>
-</div>
-
-<p><strong>tNPS Mix Insight:</strong> Low results for TS are heavily driven by the fact that TS handles a disproportionately higher share of Triage contacts (29.3% of survey volume vs 18.5% for Non-TS), and these contacts carry significantly lower satisfaction scores across both groups.</p>
+<h3>tNPS Mix Insight</h3>
+<p>Low results for TS are heavily driven by the fact that TS handles a disproportionately higher share of Triage contacts (29.3% of survey volume vs 18.5% for Non-TS), and these contacts carry significantly lower satisfaction scores across both groups.</p>
 
 <div class="card">
 <div class="card-header"><strong>FS tNPS Mix-Adjusted by SKU &mdash; Triage vs Non-Triage</strong></div>
@@ -2087,6 +2079,9 @@
 <div class="callout success">
 <strong>TTLA Key Finding:</strong> Mix-adjustment <strong>confirms and slightly strengthens</strong> TS's TTLA advantage. The tNPS gap increases from +2.71 to +3.06 after adjustment, and the AHT gap narrows from +1.66 to +1.32 minutes. The IR advantage is virtually unchanged. TS's TTLA outperformance is genuine and not a composition artifact.
 </div>
+
+<img src="assets/frs-self-service-pivot.png" alt="FRS Self Service Pivot — CY Value by product and role" class="summary-img">
+<p style="font-size:0.92rem;color:var(--muted);">FRS also shows good performance for TS in the TTLA space.</p>
 
     </div><!-- end tab-summary -->
 
