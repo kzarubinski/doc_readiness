@@ -2085,19 +2085,17 @@
 <h2 id="summary-exec">Executive Summary</h2>
 
 <div class="summary-prose">
-<p><strong>Full Service.</strong> In TY25, Tax Specialists underperformed significantly across all metrics. While part of this gap can be attributed to improper routing—directing TS to Triage call types they were not trained to handle—the overall trend remains concerning.</p>
-
-<p>For PL1 New Hires specifically, the FS gap is also significant, showing a &minus;2.08 gap in tNPS and a &minus;11.32 gap in IR.</p>
-
-<p>Handle Conversion, among the most critical metrics, shows a substantial gap between TS and Non-TS.</p>
-
-<p><strong>Based on these findings, we recommend reevaluating the Tax Specialist hiring strategy for Full Service.</strong></p>
+<p><strong>Recommendation:</strong> We recommend reevaluating the Tax Specialist hiring strategy for Full Service while continuing the existing hiring and training approach for Tax Specialists on TTLA.</p>
 
 <hr class="section-divider">
 
-<p><strong>TTLA.</strong> Tax Specialists performed well on TTLA, delivering results at or above Non-TS levels across key metrics (+8 in tNPS, +4.5 in IR, only lagging in AHT being 1.5 minutes longer).</p>
+<p><strong>Full Service.</strong> In TY25, Tax Specialists underperformed across all metrics. While part of this gap can be attributed to Triage routing, the overall trend remains concerning.</p>
 
-<p><strong>Based on these results, we recommend continuing the existing hiring and training approach for Tax Specialists on TTLA.</strong></p>
+<p>For PL1 New Hires specifically, the FS gap is showing a &minus;2.08 gap in tNPS and a &minus;11.32 gap in IR.</p>
+
+<p>Handle Conversion, being one of the most critical metrics, shows a substantial gap between TS and Non-TS.</p>
+
+<p><strong>TTLA.</strong> Tax Specialists performed well on TTLA, delivering results at or above Non-TS levels across all key metrics (+3.28 in tNPS, +1.38 in SQS, +1.92 in IR, having only AHT being 1.29 minutes longer on average).</p>
 </div>
 
 <h2 id="summary-scope">Analysis Scope</h2>
@@ -2112,50 +2110,52 @@
 <div class="callout">
 Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adjusted</strong> (by SKU and customer type) to separate composition effects from true performance differences.
 </div>
+
+<p>There's also a sizable underperformance in CST/Complete; exact magnitude after removing confounders is being confirmed.</p>
 </div>
 
 <hr class="section-divider">
 
 <h2 id="summary-fs">Full Service Overview</h2>
 
-<h3>FS &mdash; Overall Metrics: TS vs Non-TS</h3>
+<h3>FS &mdash; Mix-Adjusted Performance</h3>
 <div class="card">
+<div class="card-header"><strong>FS Mix-Adjusted Summary</strong></div>
 <table>
-<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
+<thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
 <tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>64.54</td><td>60.99</td><td>85.68</td><td>45.72</td><td>2.57</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>72.2</td><td>72.48</td><td>87.57</td><td>66.51</td><td>2.96</td></tr>
+<tr><td><strong>tNPS</strong></td><td>64.54</td><td>61.44</td><td>72.2</td><td class="worse">-7.66</td><td class="worse">-10.76</td><td>-3.1</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>CST</strong></td><td>2.57</td><td>2.34</td><td>2.96</td><td class="better">-0.39</td><td class="better">-0.61</td><td>-0.23</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>SQS</strong></td><td>85.68</td><td>85.47</td><td>87.57</td><td class="worse">-1.89</td><td class="worse">-2.1</td><td>-0.21</td><td>SKU only</td></tr>
+<tr><td><strong>IR</strong></td><td>60.99</td><td>61.35</td><td>72.48</td><td class="worse">-11.49</td><td class="worse">-11.13</td><td>+0.36</td><td>CustType only</td></tr>
+<tr><td><strong>HC</strong></td><td>45.72</td><td>36.31</td><td>66.51</td><td class="worse">-20.79</td><td class="worse">-30.21</td><td>-9.41</td><td>SKU &times; CustType</td></tr>
 </tbody></table>
 </div>
 
 <h3>SKU Mix Insight</h3>
-<p>Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.3% vs 28.1%) and far fewer <strong>Premium</strong> returns (18.0% vs 43.3%). This SKU mix difference significantly contributes to Tax Specialists' lower overall CST despite having higher per-SKU CST for Basic and Deluxe.</p>
+<p>Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.4% vs 28.7%) and far fewer <strong>Premium</strong> returns (18.0% vs 42.9%). This SKU mix difference significantly contributes to Tax Specialists' lower overall CST despite having higher per-SKU CST for Basic and Deluxe.</p>
 
 <div class="card">
-<div class="card-header"><strong>FS CST — Mix-Adjusted Summary</strong></div>
+<div class="card-header"><strong>Overall SKU Mix (% of Engagements)</strong></div>
+<table>
+<thead><tr><th>Group</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th></tr></thead>
+<tbody>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>49.4%</td><td>32.6%</td><td>18.0%</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>28.7%</td><td>28.5%</td><td>42.9%</td></tr>
+</tbody></table>
+</div>
+
+<h3>PL1 New Hires &mdash; Mix-Adjusted by Triage Category (Non-Triage)</h3>
+<div class="card">
+<div class="card-header"><strong>FS Mix-Adjusted Summary — PL1 New Hires, NON TRIAGE</strong></div>
+<p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">TS survey volume: 5,198 (58.3% of PL1 NH TS surveys) &bull; Non-TS: 4,306 (92.7% of PL1 NH Non-TS surveys)</p>
 <table>
 <thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
 <tbody>
-<tr><td><strong>CST</strong></td><td>2.57</td><td>2.34</td><td>2.96</td><td class="better">&minus;0.39</td><td class="worse">-0.61</td><td>-0.23</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>tNPS</strong></td><td>77.2</td><td>72.86</td><td>74.94</td><td class="better">+2.26</td><td class="worse">-2.08</td><td>-4.34</td><td>SKU within category</td></tr>
+<tr><td><strong>IR</strong></td><td>60.32</td><td>60.11</td><td>71.43</td><td class="worse">-11.11</td><td class="worse">-11.32</td><td>-0.21</td><td>CustType only</td></tr>
 </tbody></table>
 </div>
-
-<h3>tNPS Mix Insight</h3>
-<p>Low results for TS are heavily driven by the fact that TS handles a disproportionately higher share of Triage contacts (29.3% of survey volume vs 18.5% for Non-TS), and these contacts carry significantly lower satisfaction scores across both groups.</p>
-
-<div class="card">
-<div class="card-header"><strong>FS tNPS Mix-Adjusted by SKU &mdash; Triage vs Non-Triage</strong></div>
-<p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">TS tNPS reweighted using Non-TS SKU distribution within each Triage category.</p>
-<table>
-<thead><tr><th>Category</th><th>Actual TS</th><th>Mix-Adj TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adj Gap</th><th>Mix Effect</th></tr></thead>
-<tbody>
-<tr><td><strong>TRIAGE + AMEND</strong></td><td>28.68</td><td>33.74</td><td>47.64</td><td class="worse">&minus;18.96</td><td class="worse">&minus;13.90</td><td>+5.05</td></tr>
-<tr><td><strong>NON TRIAGE</strong></td><td>78.93</td><td>73.75</td><td>77.73</td><td class="better">+1.21</td><td class="worse">&minus;3.97</td><td>&minus;5.18</td></tr>
-<tr><td><strong>ALL</strong></td><td>64.22</td><td>61.30</td><td>72.15</td><td class="worse">&minus;7.93</td><td class="worse">&minus;10.85</td><td>&minus;2.92</td></tr>
-</tbody></table>
-</div>
-
-<p><strong>tNPS (Non-Triage):</strong> TS appears on par raw (+1.14), but after SKU adjustment the gap reverses to -4.21 pts. TS's heavy Basic concentration (which has higher tNPS) masks underperformance in Deluxe and especially Premium SKUs (65.09 vs 69.52).</p>
 
 <h3>Handle Conversion</h3>
 <p>Handle Conversion remains a critical issue, with TS <strong>20.79 points below</strong> Non-TS raw (-30.21 adjusted). See <a href="https://docs.google.com/document/d/1OzaZiwI79bBP5fwR8SppqZhTg8sd95t-fKhh5b3fJu0/edit?usp=sharing" target="_blank" rel="noopener noreferrer">HC Evaluation</a> for additional findings.</p>
@@ -2163,18 +2163,6 @@ Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adju
 <hr class="section-divider">
 
 <h2 id="summary-ttla">TTLA Overview</h2>
-
-<p>TTLA shows at par or slightly better on all metrics except AHT, which is 1.16 higher for TS.</p>
-
-<h3>Overall TTLA Performance</h3>
-<div class="card">
-<table>
-<thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>AHT</th></tr></thead>
-<tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>71.38</td><td>87.95</td><td>82.34</td><td>23.67</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>68.82</td><td>86.14</td><td>81.12</td><td>22.41</td></tr>
-</tbody></table>
-</div>
 
 <h3>TTLA &mdash; Mix-Adjusted Performance</h3>
 <div class="card">
