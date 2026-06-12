@@ -1306,15 +1306,15 @@
 <hr class="section-divider">
 
 <h2 id="pl1-newhire">5. PL1 New Hire Analysis (Beginning of Season)</h2>
-<p>Comparison of Tax Specialist vs Non-TS performance for experts who started the season at PL1 as New Hires.</p>
+<p>Comparison of Tax Specialist vs Non-TS performance for experts who started the season at PL1 as New Hires. Metrics computed from <strong>Expert_Analysis_data_DP3.csv</strong>.</p>
 
 <h3>5a. FS — PL1 New Hire</h3>
 <div class="card">
 <table>
 <thead><tr><th>Group</th><th>tNPS</th><th>IR</th><th>SQS</th><th>HC</th><th>CST</th></tr></thead>
 <tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>55.73</td><td>59.07</td><td>84.26</td><td>47.91</td><td>2.82</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>71.68</td><td>60.83</td><td>85.03</td><td>66.26</td><td>2.26</td></tr>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>55.72</td><td>59.06</td><td>84.26</td><td>47.31</td><td>2.82</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>71.65</td><td>60.83</td><td>85.03</td><td>65.59</td><td>2.26</td></tr>
 </tbody></table>
 </div>
 
@@ -1396,7 +1396,7 @@
 
 <h4 style="color:var(--danger);margin-bottom:0.5rem;">FS — Tax Specialists Underperform</h4>
 <ul style="padding-left:1.25rem;">
-<li><strong>PL1 New Hires show the widest gap:</strong> TS tNPS of 55.73 trails Non-TS by 15.95 points. HC (47.91 vs 66.26) and IR (59.07 vs 60.83) are also lower. CST is higher (2.82 vs 2.26).</li>
+<li><strong>PL1 New Hires show the widest gap:</strong> TS tNPS of 55.72 trails Non-TS by 15.93 points. HC (47.31 vs 65.59) and IR (59.06 vs 60.83) are also lower. CST is higher (2.82 vs 2.26).</li>
 <li><strong>The gap persists at PL1 and PL2 (end of season):</strong> TS is below Non-TS in tNPS, IR, and HC at these levels. TS doesn't begin to close the gap until PL3 (end of season), where tNPS flips to 76.51 vs 66.61.</li>
 <li><strong>Growth trajectory is visible (beginning-of-season view):</strong> Experts who started the season at PL1 underperform, but those who started at PL2 already outperform Non-TS in tNPS (73.92 vs 67.62) and CST (2.45 vs 2.59). This suggests TS performance improves substantially with experience.</li>
 <li><strong>SKU mix is a major confounder:</strong> TS handles 49.3% Basic (vs 28.1% for Non-TS) and only 18.0% Premium (vs 43.3%). Since Basic returns typically yield higher tNPS, the SKU allocation may be masking some TS capability. When comparing tNPS within the same SKU at PL3, TS outperforms Non-TS on Basic (84.93 vs 75.40) and Deluxe (77.91 vs 72.81), and closes the gap on Premium (71.18 vs 54.84).</li>
@@ -1882,22 +1882,22 @@
 </div>
 
 <h3 id="a3-pl1-mix">A3. PL1 New Hire — Mix-Adjusted Performance</h3>
-<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Mix-adjustment for experts who started the season at <strong>PL1 as New Hires</strong> (beginning-of-season proficiency). Same methodology as A1 and A2: TS metrics reweighted using Non-TS SKU and customer-type volume distribution.</p>
+<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Mix-adjustment for experts who started the season at <strong>PL1 as New Hires</strong> (beginning-of-season proficiency). Same methodology as A1 and A2: TS metrics reweighted using Non-TS SKU and customer-type volume distribution. All values computed from <strong>Expert_Analysis_data_DP3.csv</strong>.</p>
 
 <div class="card">
 <div class="card-header"><strong>FS Mix-Adjusted Summary — PL1 New Hires</strong></div>
 <table>
 <thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
 <tbody>
-<tr><td><strong>tNPS</strong></td><td>55.73</td><td>57.10</td><td>71.68</td><td class="worse">&minus;15.95</td><td class="worse">&minus;14.58</td><td>+1.37</td><td>SKU &times; CustType</td></tr>
-<tr><td><strong>CST</strong></td><td>2.82</td><td>2.55</td><td>2.26</td><td class="worse">+0.56</td><td class="worse">+0.30</td><td>&minus;0.26</td><td>SKU &times; CustType</td></tr>
-<tr><td><strong>IR</strong></td><td>59.07</td><td>59.07</td><td>60.83</td><td class="worse">&minus;1.75</td><td class="worse">&minus;1.75</td><td>0.00</td><td>CustType only</td></tr>
-<tr><td><strong>HC</strong></td><td>47.91</td><td>47.91</td><td>66.26</td><td class="worse">&minus;18.35</td><td class="worse">&minus;18.35</td><td>0.00</td><td>CustType only</td></tr>
+<tr><td><strong>tNPS</strong></td><td>55.72</td><td>58.64</td><td>71.65</td><td class="worse">&minus;15.93</td><td class="worse">&minus;13.01</td><td>+2.92</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>CST</strong></td><td>2.82</td><td>2.49</td><td>2.26</td><td class="worse">+0.56</td><td class="worse">+0.23</td><td>&minus;0.33</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>IR</strong></td><td>59.06</td><td>59.18</td><td>60.83</td><td class="worse">&minus;1.77</td><td class="worse">&minus;1.64</td><td>+0.12</td><td>CustType only</td></tr>
+<tr><td><strong>HC</strong></td><td>47.31</td><td>53.51</td><td>65.59</td><td class="worse">&minus;18.28</td><td class="worse">&minus;12.08</td><td>+6.20</td><td>CustType only</td></tr>
 </tbody></table>
 </div>
 
 <div class="callout danger">
-<strong>FS PL1 New Hire Key Finding:</strong> Mix-adjustment narrows the tNPS gap only slightly (&minus;15.95 &rarr; &minus;14.58), confirming that SKU/customer mix explains a small portion of the deficit. CST mix-adjustment reduces TS's raw disadvantage (+0.56 &rarr; +0.30), but TS remains less efficient after adjustment. The <strong>HC gap is unchanged</strong> at &minus;18.35 pts &mdash; Handle Conversion is a genuine performance issue for PL1 New Hire Tax Specialists, not a composition artifact.
+<strong>FS PL1 New Hire Key Finding:</strong> Mix-adjustment narrows the tNPS gap from &minus;15.93 to &minus;13.01, confirming that SKU/customer mix explains a portion of the deficit. CST mix-adjustment reduces TS's raw disadvantage (+0.56 &rarr; +0.23). Customer-type mix on HC explains <strong>6.20 pts</strong> of the raw &minus;18.28 gap, but a <strong>&minus;12.08 pt adjusted deficit</strong> remains &mdash; Handle Conversion is still a genuine performance issue for PL1 New Hire Tax Specialists.
 </div>
 
 <div class="card">
@@ -1905,14 +1905,49 @@
 <table>
 <thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
 <tbody>
-<tr><td><strong>tNPS</strong></td><td>68.78</td><td>69.48</td><td>61.48</td><td class="better">+7.30</td><td class="better">+8.00</td><td>+0.70</td><td>SKU &times; CustType</td></tr>
-<tr><td><strong>AHT</strong></td><td>24.51</td><td>24.56</td><td>23.07</td><td class="worse">+1.45</td><td class="worse">+1.49</td><td>+0.05</td><td>SKU &times; CustType</td></tr>
-<tr><td><strong>IR</strong></td><td>87.18</td><td>87.18</td><td>82.80</td><td class="better">+4.38</td><td class="better">+4.38</td><td>0.00</td><td>CustType only</td></tr>
+<tr><td><strong>tNPS</strong></td><td>68.78</td><td>69.50</td><td>61.48</td><td class="better">+7.30</td><td class="better">+8.02</td><td>+0.72</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>AHT</strong></td><td>24.51</td><td>24.57</td><td>23.07</td><td class="worse">+1.45</td><td class="worse">+1.50</td><td>+0.05</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>IR</strong></td><td>87.18</td><td>87.29</td><td>82.80</td><td class="better">+4.38</td><td class="better">+4.49</td><td>+0.11</td><td>CustType only</td></tr>
 </tbody></table>
 </div>
 
 <div class="callout success">
-<strong>TTLA PL1 New Hire Key Finding:</strong> Mix-adjustment <strong>strengthens</strong> TS's PL1 New Hire advantage on tNPS (+7.30 &rarr; +8.00). The AHT trade-off is virtually unchanged after adjustment (+1.45 &rarr; +1.49 min). TS outperformance on TTLA among PL1 New Hires is genuine and not driven by a favorable assignment mix.
+<strong>TTLA PL1 New Hire Key Finding:</strong> Mix-adjustment <strong>strengthens</strong> TS's PL1 New Hire advantage on tNPS (+7.30 &rarr; +8.02). The AHT trade-off is virtually unchanged after adjustment (+1.45 &rarr; +1.50 min). IR advantage also holds after customer-type adjustment (+4.38 &rarr; +4.49). TS outperformance on TTLA among PL1 New Hires is genuine and not driven by a favorable assignment mix.
+</div>
+
+<h4 id="a3-pl1-triage" style="margin-top:1.5rem;">FS Mix-Adjusted by Triage Category — PL1 New Hires</h4>
+<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Breakdown of FS performance for PL1 New Hires by forecast group category. <strong>TRIAGE + AMEND</strong> and <strong>NON TRIAGE</strong> are analyzed separately. tNPS mix-adjustment reweights TS using Non-TS SKU distribution within each category (same methodology as A4). IR uses customer-type mix adjustment. CST and HC are not available at forecast-group granularity in the source data.</p>
+
+<div class="card">
+<div class="card-header"><strong>FS Mix-Adjusted Summary — PL1 New Hires, TRIAGE + AMEND</strong></div>
+<p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">TS survey volume: 3,714 (41.7% of PL1 NH TS surveys) &bull; Non-TS: 340 (7.3% of PL1 NH Non-TS surveys)</p>
+<table>
+<thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
+<tbody>
+<tr><td><strong>tNPS</strong></td><td>25.66</td><td>27.14</td><td>30.00</td><td class="worse">&minus;4.34</td><td class="worse">&minus;2.86</td><td>+1.48</td><td>SKU within category</td></tr>
+<tr><td><strong>IR</strong></td><td>59.03</td><td>59.14</td><td>59.19</td><td class="worse">&minus;0.16</td><td class="worse">&minus;0.05</td><td>+0.11</td><td>CustType only</td></tr>
+</tbody></table>
+</div>
+
+<div class="card">
+<div class="card-header"><strong>FS Mix-Adjusted Summary — PL1 New Hires, NON TRIAGE</strong></div>
+<p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">TS survey volume: 5,198 (58.3% of PL1 NH TS surveys) &bull; Non-TS: 4,306 (92.7% of PL1 NH Non-TS surveys)</p>
+<table>
+<thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
+<tbody>
+<tr><td><strong>tNPS</strong></td><td>77.20</td><td>72.86</td><td>74.94</td><td class="better">+2.26</td><td class="worse">&minus;2.08</td><td>&minus;4.34</td><td>SKU within category</td></tr>
+<tr><td><strong>IR</strong></td><td>60.32</td><td>60.11</td><td>71.43</td><td class="worse">&minus;11.11</td><td class="worse">&minus;11.32</td><td>&minus;0.21</td><td>CustType only</td></tr>
+</tbody></table>
+</div>
+
+<div class="callout">
+<strong>PL1 New Hire Triage Key Findings:</strong>
+<ul style="margin-top:0.5rem;padding-left:1.25rem;">
+<li><strong>Triage concentration:</strong> PL1 New Hire Tax Specialists handle <strong>41.7%</strong> of their survey volume in Triage+Amend vs only <strong>7.3%</strong> for Non-TS &mdash; a far steeper triage skew than the overall TS population (29.3%).</li>
+<li><strong>tNPS (Triage+Amend):</strong> TS underperforms by 4.34 pts raw, narrowing to 2.86 pts after SKU adjustment. IR is effectively on par (&minus;0.05 pts adjusted).</li>
+<li><strong>tNPS (Non-Triage):</strong> TS appears ahead raw (+2.26), but after SKU adjustment the gap reverses to &minus;2.08 pts &mdash; mirroring the overall A4 pattern where favorable Basic SKU concentration masks underperformance on Non-Triage contacts.</li>
+<li><strong>IR (Non-Triage):</strong> A substantial &minus;11.32 pt adjusted gap on Non-Triage contacts is the primary quality deficit outside of Triage routing.</li>
+</ul>
 </div>
 
 <h3 id="a4-triage-sku">A4. FS — tNPS Mix-Adjusted by SKU (Triage Breakdown)</h3>
@@ -2230,7 +2265,7 @@ Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adju
 
 <footer>
     <p>Tax Specialist Performance Analysis &bull; Generated June 11, 2026</p>
-    <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows) &bull; domain_partner_expert_data_upd.csv (35,096 rows) &bull; domain_partner_expert_data_add.csv (35,096 rows) &bull; domain_partner_expert_data_expanded.csv (102,165 rows) &bull; domain_partner_expert_data_expanded_f.csv (95,972 rows) &bull; domain_partner_expert_data_expanded_a.csv (181,530 rows)</p>
+    <p>Data sources: TS_expert_data.csv (173 rows) &bull; TS_expert_data_ext.csv (34,979 rows) &bull; domain_partner_expert_data_upd.csv (35,096 rows) &bull; domain_partner_expert_data_add.csv (35,096 rows) &bull; domain_partner_expert_data_expanded.csv (102,165 rows) &bull; Expert_Analysis_data_DP3.csv (225,931 rows)</p>
 </footer>
 
 <script>
@@ -2962,7 +2997,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // PL1 New Hire charts
     new Chart(document.getElementById('pl1nh_fs_tnps'), {
         type: 'bar',
-        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'tNPS', data: [55.73, 71.68], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
+        data: { labels: ['Tax Specialist', 'Non-TS'], datasets: [{ label: 'tNPS', data: [55.72, 71.65], backgroundColor: [tsColor, ntsColor], borderColor: [tsBorder, ntsBorder], borderWidth: 2 }] },
         options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false, min: 50 } } }
     });
 
