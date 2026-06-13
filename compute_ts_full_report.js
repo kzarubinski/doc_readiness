@@ -61,12 +61,20 @@ function cls(g, lowerBetter = false) {
   return good ? 'better' : bad ? 'worse' : '';
 }
 
+// DP3 typo: premium CST denominator is cst_premiun_denominator (not cst_premium_denominator)
+function skuMetricFields(prefix, sku) {
+  if (prefix === 'cst' && sku === 'premium') {
+    return { num: 'cst_premium_numerator', den: 'cst_premiun_denominator' };
+  }
+  return { num: `${prefix}_${sku}_numerator`, den: `${prefix}_${sku}_denominator` };
+}
+
 function skuCustMix(tsR, ntsR, prefix, mult = 1) {
   let w = 0, t = 0;
   for (const s of SKUS) for (const c of CUST) {
     const tsC = tsR.filter((r) => r.new_returning_customer === c);
     const ntC = ntsR.filter((r) => r.new_returning_customer === c);
-    const nf = `${prefix}_${s}_numerator`, df = `${prefix}_${s}_denominator`;
+    const { num: nf, den: df } = skuMetricFields(prefix, s);
     const td = sum(tsC, df), nd = sum(ntC, df);
     if (!td || !nd) continue;
     w += (sum(tsC, nf) / td) * mult * nd;
@@ -91,7 +99,7 @@ function custMix(tsR, ntsR, prefix, mult = 1) {
 function skuMix(tsR, ntsR, prefix, mult = 1) {
   let w = 0, t = 0;
   for (const s of SKUS) {
-    const nf = `${prefix}_${s}_numerator`, df = `${prefix}_${s}_denominator`;
+    const { num: nf, den: df } = skuMetricFields(prefix, s);
     const td = sum(tsR, df), nd = sum(ntsR, df);
     if (!td || !nd) continue;
     w += (sum(tsR, nf) / td) * mult * nd;

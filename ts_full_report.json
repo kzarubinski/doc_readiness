@@ -1,0 +1,2780 @@
+{
+  "generated": "2026-06-13T00:12:09.687Z",
+  "sources": {
+    "dp": 180793,
+    "dp2": 222598,
+    "dp3": 225931
+  },
+  "overall": {
+    "fs": {
+      "ts": {
+        "tnps": 64.54,
+        "ir": 60.99,
+        "sqs": 85.68,
+        "hc": 45.72,
+        "cst": 2.57,
+        "aht": 17.95
+      },
+      "nts": {
+        "tnps": 72.2,
+        "ir": 72.48,
+        "sqs": 87.57,
+        "hc": 66.51,
+        "cst": 2.96,
+        "aht": 20.4
+      }
+    },
+    "ttla": {
+      "ts": {
+        "tnps": 71.38,
+        "ir": 87.95,
+        "sqs": 82.34,
+        "aht": 23.67
+      },
+      "nts": {
+        "tnps": 68.82,
+        "ir": 86.14,
+        "sqs": 81.12,
+        "aht": 22.41
+      }
+    }
+  },
+  "expertCounts": {
+    "fs": {
+      "tsExperts": 2781,
+      "ntsExperts": 14301,
+      "totalExperts": 17082,
+      "tsEngPct": 12.5,
+      "ntsEngPct": 87.5,
+      "tsExpertPct": 16.3,
+      "ntsExpertPct": 83.7
+    },
+    "ttla": {
+      "tsExperts": 2477,
+      "ntsExperts": 14526,
+      "totalExperts": 17003,
+      "tsEngPct": 0,
+      "ntsEngPct": 0,
+      "tsExpertPct": 14.6,
+      "ntsExpertPct": 85.4
+    }
+  },
+  "mixAppendix": {
+    "fs": {
+      "tnps": {
+        "actual": 64.54,
+        "adj": 61.44,
+        "nts": 72.2,
+        "rawGap": -7.66,
+        "adjGap": -10.76,
+        "mixEffect": -3.1,
+        "adjustment": "SKU × CustType"
+      },
+      "cst": {
+        "actual": 2.57,
+        "adj": 3.06,
+        "nts": 2.96,
+        "rawGap": -0.39,
+        "adjGap": 0.11,
+        "mixEffect": 0.49,
+        "adjustment": "SKU × CustType"
+      },
+      "sqs": {
+        "actual": 85.68,
+        "adj": 85.47,
+        "nts": 87.57,
+        "rawGap": -1.89,
+        "adjGap": -2.1,
+        "mixEffect": -0.21,
+        "adjustment": "SKU only"
+      },
+      "ir": {
+        "actual": 60.99,
+        "adj": 61.35,
+        "nts": 72.48,
+        "rawGap": -11.49,
+        "adjGap": -11.13,
+        "mixEffect": 0.36,
+        "adjustment": "CustType only"
+      },
+      "hc": {
+        "actual": 45.72,
+        "adj": 36.31,
+        "nts": 66.51,
+        "rawGap": -20.79,
+        "adjGap": -30.21,
+        "mixEffect": -9.41,
+        "adjustment": "SKU × CustType"
+      }
+    },
+    "ttla": {
+      "tnps": {
+        "actual": 71.38,
+        "adj": 72.31,
+        "nts": 68.82,
+        "rawGap": 2.56,
+        "adjGap": 3.48,
+        "mixEffect": 0.92,
+        "adjustment": "SKU × CustType"
+      },
+      "aht": {
+        "actual": 23.67,
+        "adj": 23.7,
+        "nts": 22.41,
+        "rawGap": 1.27,
+        "adjGap": 1.29,
+        "mixEffect": 0.02,
+        "adjustment": "SKU × CustType"
+      },
+      "sqs": {
+        "actual": 82.34,
+        "adj": 82.5,
+        "nts": 81.12,
+        "rawGap": 1.22,
+        "adjGap": 1.38,
+        "mixEffect": 0.16,
+        "adjustment": "SKU only"
+      },
+      "ir": {
+        "actual": 87.95,
+        "adj": 88.06,
+        "nts": 86.14,
+        "rawGap": 1.81,
+        "adjGap": 1.92,
+        "mixEffect": 0.11,
+        "adjustment": "CustType only"
+      }
+    }
+  },
+  "pl1": {
+    "raw": {
+      "fs": {
+        "ts": {
+          "tnps": 55.72,
+          "ir": 59.06,
+          "sqs": 84.26,
+          "hc": 47.31,
+          "cst": 2.82,
+          "aht": 17.91
+        },
+        "nts": {
+          "tnps": 71.65,
+          "ir": 60.83,
+          "sqs": 85.03,
+          "hc": 65.59,
+          "cst": 2.26,
+          "aht": 27.19
+        }
+      },
+      "ttla": {
+        "ts": {
+          "tnps": 68.78,
+          "ir": 87.18,
+          "sqs": 81.93,
+          "aht": 24.51
+        },
+        "nts": {
+          "tnps": 61.48,
+          "ir": 82.8,
+          "sqs": 79.82,
+          "aht": 23.07
+        }
+      }
+    },
+    "mix": {
+      "fs": {
+        "tnps": {
+          "actual": 55.72,
+          "adj": 58.64,
+          "nts": 71.65,
+          "rawGap": -15.93,
+          "adjGap": -13.01,
+          "mixEffect": 2.92,
+          "adjustment": "SKU × CustType"
+        },
+        "cst": {
+          "actual": 2.82,
+          "adj": 2.81,
+          "nts": 2.26,
+          "rawGap": 0.56,
+          "adjGap": 0.55,
+          "mixEffect": -0.01,
+          "adjustment": "SKU × CustType"
+        },
+        "sqs": {
+          "actual": 84.26,
+          "adj": 84.24,
+          "nts": 85.03,
+          "rawGap": -0.78,
+          "adjGap": -0.79,
+          "mixEffect": -0.02,
+          "adjustment": "SKU only"
+        },
+        "ir": {
+          "actual": 59.06,
+          "adj": 59.18,
+          "nts": 60.83,
+          "rawGap": -1.77,
+          "adjGap": -1.64,
+          "mixEffect": 0.12,
+          "adjustment": "CustType only"
+        },
+        "hc": {
+          "actual": 47.31,
+          "adj": 41.23,
+          "nts": 65.59,
+          "rawGap": -18.28,
+          "adjGap": -24.36,
+          "mixEffect": -6.08,
+          "adjustment": "SKU × CustType"
+        }
+      },
+      "ttla": {
+        "tnps": {
+          "actual": 68.78,
+          "adj": 69.5,
+          "nts": 61.48,
+          "rawGap": 7.3,
+          "adjGap": 8.02,
+          "mixEffect": 0.72,
+          "adjustment": "SKU × CustType"
+        },
+        "aht": {
+          "actual": 24.51,
+          "adj": 24.57,
+          "nts": 23.07,
+          "rawGap": 1.45,
+          "adjGap": 1.5,
+          "mixEffect": 0.05,
+          "adjustment": "SKU × CustType"
+        },
+        "sqs": {
+          "actual": 81.93,
+          "adj": 82.01,
+          "nts": 79.82,
+          "rawGap": 2.11,
+          "adjGap": 2.19,
+          "mixEffect": 0.08,
+          "adjustment": "SKU only"
+        },
+        "ir": {
+          "actual": 87.18,
+          "adj": 87.29,
+          "nts": 82.8,
+          "rawGap": 4.38,
+          "adjGap": 4.49,
+          "mixEffect": 0.11,
+          "adjustment": "CustType only"
+        }
+      }
+    },
+    "triage": {
+      "mix": {
+        "tnps": {
+          "actual": 25.66,
+          "adj": 27.14,
+          "nts": 30,
+          "rawGap": -4.34,
+          "adjGap": -2.86,
+          "mixEffect": 1.48,
+          "adjustment": "SKU within category"
+        },
+        "sqs": {
+          "actual": null,
+          "adj": null,
+          "nts": null,
+          "rawGap": 0,
+          "adjGap": 0,
+          "mixEffect": 0,
+          "adjustment": "SKU within category"
+        },
+        "ir": {
+          "actual": 59.03,
+          "adj": 59.14,
+          "nts": 59.19,
+          "rawGap": -0.16,
+          "adjGap": -0.05,
+          "mixEffect": 0.11,
+          "adjustment": "CustType only"
+        }
+      },
+      "tsSurveys": 3714,
+      "ntsSurveys": 340
+    },
+    "nonTriage": {
+      "mix": {
+        "tnps": {
+          "actual": 77.2,
+          "adj": 72.86,
+          "nts": 74.94,
+          "rawGap": 2.26,
+          "adjGap": -2.08,
+          "mixEffect": -4.34,
+          "adjustment": "SKU within category"
+        },
+        "sqs": {
+          "actual": null,
+          "adj": null,
+          "nts": null,
+          "rawGap": 0,
+          "adjGap": 0,
+          "mixEffect": 0,
+          "adjustment": "SKU within category"
+        },
+        "ir": {
+          "actual": 60.32,
+          "adj": 60.11,
+          "nts": 71.43,
+          "rawGap": -11.11,
+          "adjGap": -11.32,
+          "mixEffect": -0.21,
+          "adjustment": "CustType only"
+        }
+      },
+      "tsSurveys": 5198,
+      "ntsSurveys": 4306
+    },
+    "triagePct": {
+      "ts": 41.7,
+      "nts": 7.3
+    }
+  },
+  "triageAllPL": {
+    "triage": {
+      "actual": 29.04,
+      "adj": 34.42,
+      "nts": 47.74,
+      "rawGap": -18.7,
+      "adjGap": -13.33,
+      "mixEffect": 5.38,
+      "adjustment": "SKU"
+    },
+    "nonTriage": {
+      "actual": 78.9,
+      "adj": 73.55,
+      "nts": 77.76,
+      "rawGap": 1.14,
+      "adjGap": -4.21,
+      "mixEffect": -5.35,
+      "adjustment": "SKU"
+    }
+  },
+  "forecastGroup": [
+    {
+      "category": "AMEND",
+      "ts": {
+        "surveys": 10,
+        "pct": 0.1,
+        "tnps": 50,
+        "ir": 50
+      },
+      "nts": {
+        "surveys": 3297,
+        "pct": 4.8,
+        "tnps": 45.4,
+        "ir": 70.46
+      }
+    },
+    {
+      "category": "PYRO",
+      "ts": {
+        "surveys": null,
+        "pct": null,
+        "tnps": null,
+        "ir": null
+      },
+      "nts": {
+        "surveys": 1026,
+        "pct": 1.5,
+        "tnps": 77.68,
+        "ir": null
+      }
+    },
+    {
+      "category": "SYNC LATER",
+      "ts": {
+        "surveys": 5393,
+        "pct": 27.9,
+        "tnps": 72.45,
+        "ir": null
+      },
+      "nts": {
+        "surveys": 14190,
+        "pct": 20.8,
+        "tnps": 74.77,
+        "ir": 97.18
+      }
+    },
+    {
+      "category": "SYNC NOW",
+      "ts": {
+        "surveys": 8285,
+        "pct": 42.8,
+        "tnps": 83.1,
+        "ir": 68.59
+      },
+      "nts": {
+        "surveys": 40327,
+        "pct": 59.1,
+        "tnps": 78.81,
+        "ir": 87.89
+      }
+    },
+    {
+      "category": "TRIAGE",
+      "ts": {
+        "surveys": 5565,
+        "pct": 28.8,
+        "tnps": 29,
+        "ir": 60.75
+      },
+      "nts": {
+        "surveys": 9323,
+        "pct": 13.7,
+        "tnps": 48.57,
+        "ir": 70.07
+      }
+    },
+    {
+      "category": "WELCOME",
+      "ts": {
+        "surveys": 99,
+        "pct": 0.5,
+        "tnps": 78.79,
+        "ir": null
+      },
+      "nts": {
+        "surveys": 32,
+        "pct": 0,
+        "tnps": 87.5,
+        "ir": null
+      }
+    },
+    {
+      "category": "null",
+      "ts": {
+        "surveys": null,
+        "pct": null,
+        "tnps": null,
+        "ir": null
+      },
+      "nts": {
+        "surveys": 29,
+        "pct": 0,
+        "tnps": 58.62,
+        "ir": 80
+      }
+    }
+  ],
+  "plEnd": {
+    "fs": [
+      {
+        "pl": "PL1",
+        "ts": {
+          "tnps": 62.65,
+          "ir": 57.68,
+          "sqs": 84.93,
+          "hc": 42.81,
+          "cst": 2.44,
+          "aht": 18.46
+        },
+        "nts": {
+          "tnps": 65.5,
+          "ir": 65.06,
+          "sqs": 83.74,
+          "hc": 56.22,
+          "cst": 2.33,
+          "aht": 26.29
+        }
+      },
+      {
+        "pl": "PL2",
+        "ts": {
+          "tnps": 62.24,
+          "ir": 61.25,
+          "sqs": 85.52,
+          "hc": 46.49,
+          "cst": 2.66,
+          "aht": 17.5
+        },
+        "nts": {
+          "tnps": 68.15,
+          "ir": 65.02,
+          "sqs": 86.68,
+          "hc": 65.59,
+          "cst": 2.42,
+          "aht": 23
+        }
+      },
+      {
+        "pl": "PL3",
+        "ts": {
+          "tnps": 76.47,
+          "ir": 70.28,
+          "sqs": 88.73,
+          "hc": 47.5,
+          "cst": 2.59,
+          "aht": 18.41
+        },
+        "nts": {
+          "tnps": 66.1,
+          "ir": 68.51,
+          "sqs": 87.64,
+          "hc": 67.32,
+          "cst": 2.83,
+          "aht": 20.84
+        }
+      },
+      {
+        "pl": "PL4",
+        "ts": {
+          "tnps": 67.43,
+          "ir": 55.38,
+          "sqs": 88.41,
+          "hc": 65.11,
+          "cst": 2.31,
+          "aht": 19.59
+        },
+        "nts": {
+          "tnps": 76.65,
+          "ir": 77.04,
+          "sqs": 88.09,
+          "hc": 67.33,
+          "cst": 3.17,
+          "aht": 19.22
+        }
+      }
+    ],
+    "ttla": [
+      {
+        "pl": "PL1",
+        "ts": {
+          "tnps": 68.3,
+          "ir": 86.64,
+          "sqs": 81.48,
+          "aht": 24.41
+        },
+        "nts": {
+          "tnps": 50.84,
+          "ir": 77.58,
+          "sqs": 77.91,
+          "aht": 24.14
+        }
+      },
+      {
+        "pl": "PL2",
+        "ts": {
+          "tnps": 71.35,
+          "ir": 88.03,
+          "sqs": 82.49,
+          "aht": 23.55
+        },
+        "nts": {
+          "tnps": 66.63,
+          "ir": 85.41,
+          "sqs": 80.86,
+          "aht": 21.99
+        }
+      },
+      {
+        "pl": "PL3",
+        "ts": {
+          "tnps": 82.81,
+          "ir": 91.91,
+          "sqs": 84.82,
+          "aht": 22.6
+        },
+        "nts": {
+          "tnps": 73.64,
+          "ir": 88.43,
+          "sqs": 82.1,
+          "aht": 21.86
+        }
+      },
+      {
+        "pl": "PL4",
+        "ts": {
+          "tnps": 82.12,
+          "ir": 93.57,
+          "sqs": 84.78,
+          "aht": 18.27
+        },
+        "nts": {
+          "tnps": 77.28,
+          "ir": 89.68,
+          "sqs": 83.04,
+          "aht": 22.35
+        }
+      }
+    ]
+  },
+  "plStart": {
+    "fs": [
+      {
+        "pl": "PL1",
+        "ts": {
+          "tnps": 60.52,
+          "ir": 59.76,
+          "sqs": 84.98,
+          "hc": 44.53,
+          "cst": 2.67,
+          "aht": 17.86
+        },
+        "nts": {
+          "tnps": 68.38,
+          "ir": 65.81,
+          "sqs": 85.71,
+          "hc": 63.91,
+          "cst": 2.41,
+          "aht": 24.04
+        }
+      },
+      {
+        "pl": "PL2",
+        "ts": {
+          "tnps": 73.93,
+          "ir": 67.65,
+          "sqs": 88.27,
+          "hc": 46.12,
+          "cst": 2.45,
+          "aht": 18.01
+        },
+        "nts": {
+          "tnps": 67.66,
+          "ir": 67.53,
+          "sqs": 87.31,
+          "hc": 66.56,
+          "cst": 2.59,
+          "aht": 21.42
+        }
+      },
+      {
+        "pl": "PL3",
+        "ts": {
+          "tnps": 75.91,
+          "ir": 55.84,
+          "sqs": 88.17,
+          "hc": 67.39,
+          "cst": 2.48,
+          "aht": 22.82
+        },
+        "nts": {
+          "tnps": 69.91,
+          "ir": 71.14,
+          "sqs": 88.02,
+          "hc": 66.42,
+          "cst": 3.1,
+          "aht": 20.47
+        }
+      },
+      {
+        "pl": "PL4",
+        "ts": {
+          "tnps": 58.18,
+          "ir": 50,
+          "sqs": 85.95,
+          "hc": 64.54,
+          "cst": 2.21,
+          "aht": 16.01
+        },
+        "nts": {
+          "tnps": 76.93,
+          "ir": 77.45,
+          "sqs": 88.06,
+          "hc": 67.29,
+          "cst": 3.18,
+          "aht": 19.17
+        }
+      }
+    ],
+    "ttla": [
+      {
+        "pl": "PL1",
+        "ts": {
+          "tnps": 69.51,
+          "ir": 87.29,
+          "sqs": 82.05,
+          "aht": 24.11
+        },
+        "nts": {
+          "tnps": 62.5,
+          "ir": 83.27,
+          "sqs": 80.08,
+          "aht": 22.79
+        }
+      },
+      {
+        "pl": "PL2",
+        "ts": {
+          "tnps": 81.01,
+          "ir": 91.01,
+          "sqs": 83.87,
+          "aht": 21.75
+        },
+        "nts": {
+          "tnps": 69.46,
+          "ir": 86.74,
+          "sqs": 81.44,
+          "aht": 21.88
+        }
+      },
+      {
+        "pl": "PL3",
+        "ts": {
+          "tnps": 82.59,
+          "ir": 94.39,
+          "sqs": 85.82,
+          "aht": 20.33
+        },
+        "nts": {
+          "tnps": 73.01,
+          "ir": 87.84,
+          "sqs": 81.95,
+          "aht": 21.99
+        }
+      },
+      {
+        "pl": "PL4",
+        "ts": {
+          "tnps": 78.43,
+          "ir": 93.88,
+          "sqs": 80.26,
+          "aht": 16.77
+        },
+        "nts": {
+          "tnps": 77.11,
+          "ir": 89.54,
+          "sqs": 82.86,
+          "aht": 22.49
+        }
+      }
+    ]
+  },
+  "skuMix": {
+    "fs": {
+      "ts": {
+        "basic": 49.4,
+        "deluxe": 32.6,
+        "premium": 18
+      },
+      "nts": {
+        "basic": 28.7,
+        "deluxe": 28.5,
+        "premium": 42.9
+      }
+    }
+  },
+  "m2": {
+    "fs": [
+      {
+        "manager": "Laura Sisk",
+        "tsE": 220,
+        "ntsE": 4565,
+        "vol": 151959,
+        "ts": {
+          "tnps": 82.53,
+          "ir": 100,
+          "sqs": 88.34,
+          "hc": 42.54,
+          "cst": 2.22,
+          "aht": 30.78
+        },
+        "nts": {
+          "tnps": 75.36,
+          "ir": 81.13,
+          "sqs": 87.77,
+          "hc": 71.82,
+          "cst": 2.38,
+          "aht": 36.05
+        }
+      },
+      {
+        "manager": "Paul Barone",
+        "tsE": 155,
+        "ntsE": 406,
+        "vol": 44825,
+        "ts": {
+          "tnps": 66.16,
+          "ir": 63.77,
+          "sqs": 85.67,
+          "hc": 45.99,
+          "cst": 2.63,
+          "aht": 16.92
+        },
+        "nts": {
+          "tnps": 77.67,
+          "ir": 77.59,
+          "sqs": 87.98,
+          "hc": 65.96,
+          "cst": 3,
+          "aht": 17.71
+        }
+      },
+      {
+        "manager": "Evelin Moshe",
+        "tsE": 133,
+        "ntsE": 384,
+        "vol": 42438,
+        "ts": {
+          "tnps": 61.14,
+          "ir": 60.82,
+          "sqs": 85.42,
+          "hc": 47.22,
+          "cst": 2.63,
+          "aht": 17.68
+        },
+        "nts": {
+          "tnps": 69.29,
+          "ir": 71.08,
+          "sqs": 87.58,
+          "hc": 66.52,
+          "cst": 3.11,
+          "aht": 18.98
+        }
+      },
+      {
+        "manager": "Alice Rovney",
+        "tsE": 161,
+        "ntsE": 367,
+        "vol": 41999,
+        "ts": {
+          "tnps": 66.89,
+          "ir": 61.28,
+          "sqs": 86.6,
+          "hc": 43.67,
+          "cst": 2.66,
+          "aht": 18.84
+        },
+        "nts": {
+          "tnps": 72.24,
+          "ir": 72.98,
+          "sqs": 88.1,
+          "hc": 65.25,
+          "cst": 3.03,
+          "aht": 20.48
+        }
+      },
+      {
+        "manager": "Chrissy Horan",
+        "tsE": 154,
+        "ntsE": 399,
+        "vol": 41441,
+        "ts": {
+          "tnps": 61.51,
+          "ir": 56.2,
+          "sqs": 86.17,
+          "hc": 47.73,
+          "cst": 2.46,
+          "aht": 17.2
+        },
+        "nts": {
+          "tnps": 70.85,
+          "ir": 72.13,
+          "sqs": 88.04,
+          "hc": 65.68,
+          "cst": 3.09,
+          "aht": 19.07
+        }
+      },
+      {
+        "manager": "Scott Skyberg",
+        "tsE": 143,
+        "ntsE": 444,
+        "vol": 40301,
+        "ts": {
+          "tnps": 71.05,
+          "ir": 65.95,
+          "sqs": 85.12,
+          "hc": 47.75,
+          "cst": 2.57,
+          "aht": 18.5
+        },
+        "nts": {
+          "tnps": 70.93,
+          "ir": 75.13,
+          "sqs": 87.74,
+          "hc": 65.83,
+          "cst": 3.04,
+          "aht": 19.44
+        }
+      },
+      {
+        "manager": "Camala Templeton",
+        "tsE": 160,
+        "ntsE": 366,
+        "vol": 39881,
+        "ts": {
+          "tnps": 60.96,
+          "ir": 60.23,
+          "sqs": 85.93,
+          "hc": 46.08,
+          "cst": 2.65,
+          "aht": 17.1
+        },
+        "nts": {
+          "tnps": 73.3,
+          "ir": 71.76,
+          "sqs": 87.51,
+          "hc": 65.53,
+          "cst": 3.17,
+          "aht": 19.61
+        }
+      },
+      {
+        "manager": "Rodney MacDonald",
+        "tsE": 5,
+        "ntsE": 496,
+        "vol": 38872,
+        "ts": {
+          "tnps": 74.58,
+          "ir": 57.14,
+          "sqs": 90.18,
+          "hc": 52.08,
+          "cst": 2.79,
+          "aht": 18.12
+        },
+        "nts": {
+          "tnps": 74.64,
+          "ir": 73.52,
+          "sqs": 88.07,
+          "hc": 67.5,
+          "cst": 3.22,
+          "aht": 19.11
+        }
+      },
+      {
+        "manager": "Salley McCullar",
+        "tsE": 126,
+        "ntsE": 385,
+        "vol": 35428,
+        "ts": {
+          "tnps": 63.33,
+          "ir": 55.67,
+          "sqs": 85.31,
+          "hc": 43.04,
+          "cst": 2.91,
+          "aht": 18.88
+        },
+        "nts": {
+          "tnps": 68.21,
+          "ir": 66.61,
+          "sqs": 86.99,
+          "hc": 62.54,
+          "cst": 3.07,
+          "aht": 18.81
+        }
+      },
+      {
+        "manager": "Anthony Natale",
+        "tsE": 71,
+        "ntsE": 246,
+        "vol": 32572,
+        "ts": {
+          "tnps": 71.35,
+          "ir": 69.64,
+          "sqs": 87.06,
+          "hc": 51.99,
+          "cst": 2.28,
+          "aht": 19.06
+        },
+        "nts": {
+          "tnps": 74.85,
+          "ir": 73.62,
+          "sqs": 88.59,
+          "hc": 67.82,
+          "cst": 2.97,
+          "aht": 19.94
+        }
+      },
+      {
+        "manager": "Monica Barfknecht",
+        "tsE": 137,
+        "ntsE": 337,
+        "vol": 32315,
+        "ts": {
+          "tnps": 59.51,
+          "ir": 58.63,
+          "sqs": 84.79,
+          "hc": 43.46,
+          "cst": 2.68,
+          "aht": 17.15
+        },
+        "nts": {
+          "tnps": 67.32,
+          "ir": 71.75,
+          "sqs": 87.36,
+          "hc": 65.63,
+          "cst": 3.13,
+          "aht": 19.51
+        }
+      },
+      {
+        "manager": "Jenifer Emery",
+        "tsE": 143,
+        "ntsE": 414,
+        "vol": 31881,
+        "ts": {
+          "tnps": 54.84,
+          "ir": 55.45,
+          "sqs": 83.99,
+          "hc": 48.1,
+          "cst": 2.76,
+          "aht": 17.21
+        },
+        "nts": {
+          "tnps": 67.94,
+          "ir": 70.5,
+          "sqs": 87.44,
+          "hc": 65.35,
+          "cst": 3.01,
+          "aht": 20.43
+        }
+      },
+      {
+        "manager": "Margaret Lambos",
+        "tsE": 92,
+        "ntsE": 219,
+        "vol": 28854,
+        "ts": {
+          "tnps": 62.37,
+          "ir": 62.94,
+          "sqs": 85.27,
+          "hc": 43.77,
+          "cst": 2.47,
+          "aht": 15.84
+        },
+        "nts": {
+          "tnps": 69.5,
+          "ir": 69.45,
+          "sqs": 87.75,
+          "hc": 66.41,
+          "cst": 3.16,
+          "aht": 18.19
+        }
+      },
+      {
+        "manager": "Raquel Fernandes",
+        "tsE": 126,
+        "ntsE": 346,
+        "vol": 28846,
+        "ts": {
+          "tnps": 55.54,
+          "ir": 56.31,
+          "sqs": 85.32,
+          "hc": 47.28,
+          "cst": 2.65,
+          "aht": 17.16
+        },
+        "nts": {
+          "tnps": 65.22,
+          "ir": 64.98,
+          "sqs": 87.85,
+          "hc": 65.2,
+          "cst": 3.07,
+          "aht": 19.31
+        }
+      },
+      {
+        "manager": "Aimee Clausner Shoaf",
+        "tsE": 62,
+        "ntsE": 167,
+        "vol": 21692,
+        "ts": {
+          "tnps": 75.79,
+          "ir": 74.63,
+          "sqs": 87.58,
+          "hc": 44.59,
+          "cst": 2.45,
+          "aht": 18.54
+        },
+        "nts": {
+          "tnps": 68.98,
+          "ir": 70.85,
+          "sqs": 87.82,
+          "hc": 67.03,
+          "cst": 2.96,
+          "aht": 19.73
+        }
+      },
+      {
+        "manager": "Candace Crews",
+        "tsE": 0,
+        "ntsE": 192,
+        "vol": 21137,
+        "ts": {},
+        "nts": {
+          "tnps": 74.24,
+          "ir": 78.85,
+          "sqs": 87.93,
+          "hc": 68.82,
+          "cst": 2.92,
+          "aht": 19.74
+        }
+      },
+      {
+        "manager": "Mercedes Shafer",
+        "tsE": 68,
+        "ntsE": 208,
+        "vol": 20997,
+        "ts": {
+          "tnps": 55.56,
+          "ir": 59.86,
+          "sqs": 85.01,
+          "hc": 48.67,
+          "cst": 2.83,
+          "aht": 16.59
+        },
+        "nts": {
+          "tnps": 70.53,
+          "ir": 72.52,
+          "sqs": 87.47,
+          "hc": 65.04,
+          "cst": 3.12,
+          "aht": 19.41
+        }
+      },
+      {
+        "manager": "Nicole Ahline",
+        "tsE": 17,
+        "ntsE": 184,
+        "vol": 16617,
+        "ts": {
+          "tnps": 68,
+          "ir": 61.76,
+          "sqs": 85.19,
+          "hc": 49.63,
+          "cst": 2.6,
+          "aht": 20.4
+        },
+        "nts": {
+          "tnps": 65.69,
+          "ir": 64.55,
+          "sqs": 86.55,
+          "hc": 55.16,
+          "cst": 3.09,
+          "aht": 14.1
+        }
+      },
+      {
+        "manager": "Jaime Karakachos",
+        "tsE": 7,
+        "ntsE": 159,
+        "vol": 15847,
+        "ts": {
+          "tnps": 53.97,
+          "ir": 66.67,
+          "sqs": 82.44,
+          "hc": 52,
+          "cst": 2.01,
+          "aht": 12.88
+        },
+        "nts": {
+          "tnps": 67.41,
+          "ir": 73.84,
+          "sqs": 86.44,
+          "hc": 59.01,
+          "cst": 3.08,
+          "aht": 14.85
+        }
+      },
+      {
+        "manager": "Tanya Gaborit",
+        "tsE": 2,
+        "ntsE": 143,
+        "vol": 13904,
+        "ts": {
+          "tnps": 78.95,
+          "ir": 50,
+          "sqs": 87.46,
+          "hc": 47.06,
+          "cst": 2.84,
+          "aht": 18.25
+        },
+        "nts": {
+          "tnps": 70.34,
+          "ir": 69.72,
+          "sqs": 87.34,
+          "hc": 58.11,
+          "cst": 3.07,
+          "aht": 14.96
+        }
+      },
+      {
+        "manager": "Deionna Hill",
+        "tsE": 14,
+        "ntsE": 167,
+        "vol": 13831,
+        "ts": {
+          "tnps": 70.83,
+          "ir": 66.67,
+          "sqs": 85.79,
+          "hc": 57.14,
+          "cst": 3.55,
+          "aht": 17.69
+        },
+        "nts": {
+          "tnps": 65.13,
+          "ir": 65.45,
+          "sqs": 85.55,
+          "hc": 59.35,
+          "cst": 3.27,
+          "aht": 15.02
+        }
+      },
+      {
+        "manager": "Bryson Menke",
+        "tsE": 35,
+        "ntsE": 111,
+        "vol": 13787,
+        "ts": {
+          "tnps": 62.59,
+          "ir": 64.38,
+          "sqs": 86.12,
+          "hc": 54.8,
+          "cst": 2.64,
+          "aht": 19.14
+        },
+        "nts": {
+          "tnps": 70.56,
+          "ir": 72.15,
+          "sqs": 87.5,
+          "hc": 65.87,
+          "cst": 3.3,
+          "aht": 19.1
+        }
+      },
+      {
+        "manager": "Marta Gryniv",
+        "tsE": 25,
+        "ntsE": 130,
+        "vol": 12945,
+        "ts": {
+          "tnps": 66.1,
+          "ir": 69.74,
+          "sqs": 85.16,
+          "hc": 52.61,
+          "cst": 3.26,
+          "aht": 18.83
+        },
+        "nts": {
+          "tnps": 65.77,
+          "ir": 70.45,
+          "sqs": 87.68,
+          "hc": 66.91,
+          "cst": 3.04,
+          "aht": 20
+        }
+      },
+      {
+        "manager": "Amanda Kennedy",
+        "tsE": 26,
+        "ntsE": 116,
+        "vol": 12886,
+        "ts": {
+          "tnps": 61.24,
+          "ir": 52.94,
+          "sqs": 87.81,
+          "hc": 44.89,
+          "cst": 2.62,
+          "aht": 18.37
+        },
+        "nts": {
+          "tnps": 75.03,
+          "ir": 75.44,
+          "sqs": 87.89,
+          "hc": 65.44,
+          "cst": 3.21,
+          "aht": 17.92
+        }
+      },
+      {
+        "manager": "Joe Howe",
+        "tsE": 37,
+        "ntsE": 107,
+        "vol": 12863,
+        "ts": {
+          "tnps": 66.12,
+          "ir": 56,
+          "sqs": 86.77,
+          "hc": 47.13,
+          "cst": 2.49,
+          "aht": 17.54
+        },
+        "nts": {
+          "tnps": 70.39,
+          "ir": 74.88,
+          "sqs": 87.93,
+          "hc": 67.45,
+          "cst": 2.85,
+          "aht": 18.25
+        }
+      },
+      {
+        "manager": "Larry Marschke",
+        "tsE": 34,
+        "ntsE": 100,
+        "vol": 12488,
+        "ts": {
+          "tnps": 72.92,
+          "ir": 64.71,
+          "sqs": 85.66,
+          "hc": 39.7,
+          "cst": 2.56,
+          "aht": 13.92
+        },
+        "nts": {
+          "tnps": 77.18,
+          "ir": 76.07,
+          "sqs": 88.48,
+          "hc": 68.19,
+          "cst": 2.97,
+          "aht": 13.67
+        }
+      },
+      {
+        "manager": "Urounda Brooks",
+        "tsE": 37,
+        "ntsE": 104,
+        "vol": 11898,
+        "ts": {
+          "tnps": 63.64,
+          "ir": 63.41,
+          "sqs": 86.42,
+          "hc": 44.38,
+          "cst": 2.86,
+          "aht": 20.62
+        },
+        "nts": {
+          "tnps": 73.08,
+          "ir": 74.35,
+          "sqs": 86.43,
+          "hc": 65.19,
+          "cst": 3.17,
+          "aht": 19.75
+        }
+      },
+      {
+        "manager": "Justin Macnak",
+        "tsE": 29,
+        "ntsE": 119,
+        "vol": 11887,
+        "ts": {
+          "tnps": 60.4,
+          "ir": 62.96,
+          "sqs": 83.96,
+          "hc": 53.17,
+          "cst": 3.31,
+          "aht": 18.85
+        },
+        "nts": {
+          "tnps": 75.32,
+          "ir": 74.16,
+          "sqs": 88.63,
+          "hc": 66.42,
+          "cst": 3.13,
+          "aht": 19.91
+        }
+      },
+      {
+        "manager": "Carrie Gunnell",
+        "tsE": 4,
+        "ntsE": 120,
+        "vol": 11857,
+        "ts": {
+          "tnps": 78.95,
+          "ir": 62.5,
+          "sqs": 88.34,
+          "hc": 56.86,
+          "cst": 2.67,
+          "aht": 19.72
+        },
+        "nts": {
+          "tnps": 65.79,
+          "ir": 70.77,
+          "sqs": 86.6,
+          "hc": 58.04,
+          "cst": 3.13,
+          "aht": 14.6
+        }
+      },
+      {
+        "manager": "Angie Qual",
+        "tsE": 2,
+        "ntsE": 125,
+        "vol": 11743,
+        "ts": {
+          "tnps": 50,
+          "ir": 50,
+          "sqs": 85.11,
+          "hc": 50,
+          "cst": 4.65,
+          "aht": 11.2
+        },
+        "nts": {
+          "tnps": 69.18,
+          "ir": 73.45,
+          "sqs": 86.67,
+          "hc": 56.43,
+          "cst": 2.87,
+          "aht": 15.02
+        }
+      },
+      {
+        "manager": "Krystal Uhrle",
+        "tsE": 34,
+        "ntsE": 91,
+        "vol": 11157,
+        "ts": {
+          "tnps": 71.09,
+          "ir": 66.04,
+          "sqs": 86.84,
+          "hc": 44.25,
+          "cst": 2.25,
+          "aht": 17.47
+        },
+        "nts": {
+          "tnps": 75.33,
+          "ir": 78.01,
+          "sqs": 88.01,
+          "hc": 66.14,
+          "cst": 3.06,
+          "aht": 19.45
+        }
+      },
+      {
+        "manager": "Julie Morris",
+        "tsE": 36,
+        "ntsE": 111,
+        "vol": 11093,
+        "ts": {
+          "tnps": 68.8,
+          "ir": 74.19,
+          "sqs": 85.26,
+          "hc": 43.47,
+          "cst": 2.56,
+          "aht": 16.51
+        },
+        "nts": {
+          "tnps": 73.84,
+          "ir": 71.88,
+          "sqs": 87.33,
+          "hc": 68.04,
+          "cst": 2.99,
+          "aht": 18.23
+        }
+      },
+      {
+        "manager": "Kendee Pemberton",
+        "tsE": 30,
+        "ntsE": 87,
+        "vol": 11079,
+        "ts": {
+          "tnps": 67.9,
+          "ir": 61.9,
+          "sqs": 86.71,
+          "hc": 40.37,
+          "cst": 2.58,
+          "aht": 18.22
+        },
+        "nts": {
+          "tnps": 73.98,
+          "ir": 72.13,
+          "sqs": 88.61,
+          "hc": 65.72,
+          "cst": 2.91,
+          "aht": 20.45
+        }
+      },
+      {
+        "manager": "Hilary Moszynski",
+        "tsE": 148,
+        "ntsE": 198,
+        "vol": 10825,
+        "ts": {
+          "tnps": 66.19,
+          "ir": 59.88,
+          "sqs": 84.14,
+          "hc": 41.51,
+          "cst": 2.18,
+          "aht": 19.06
+        },
+        "nts": {
+          "tnps": 68.44,
+          "ir": 67.94,
+          "sqs": 87.1,
+          "hc": 65.69,
+          "cst": 2.97,
+          "aht": 20.44
+        }
+      },
+      {
+        "manager": "Darron Copeland",
+        "tsE": 26,
+        "ntsE": 104,
+        "vol": 9946,
+        "ts": {
+          "tnps": 57.61,
+          "ir": 45.95,
+          "sqs": 87.06,
+          "hc": 43.85,
+          "cst": 2.37,
+          "aht": 17.84
+        },
+        "nts": {
+          "tnps": 74.59,
+          "ir": 74.63,
+          "sqs": 87.66,
+          "hc": 64.73,
+          "cst": 2.78,
+          "aht": 18.65
+        }
+      },
+      {
+        "manager": "Leigh Peebles",
+        "tsE": 36,
+        "ntsE": 106,
+        "vol": 9405,
+        "ts": {
+          "tnps": 57.77,
+          "ir": 64.65,
+          "sqs": 86.36,
+          "hc": 44.12,
+          "cst": 2.47,
+          "aht": 16.62
+        },
+        "nts": {
+          "tnps": 75.65,
+          "ir": 74.06,
+          "sqs": 87.79,
+          "hc": 66.87,
+          "cst": 3.13,
+          "aht": 18.98
+        }
+      },
+      {
+        "manager": "James Anderson",
+        "tsE": 4,
+        "ntsE": 105,
+        "vol": 9375,
+        "ts": {
+          "tnps": 7.69,
+          "ir": 20,
+          "sqs": 82.59,
+          "hc": 54.31,
+          "cst": 2.83,
+          "aht": 16.54
+        },
+        "nts": {
+          "tnps": 67.48,
+          "ir": 69.23,
+          "sqs": 85.66,
+          "hc": 60.71,
+          "cst": 3.31,
+          "aht": 13.81
+        }
+      },
+      {
+        "manager": "Heather Norton",
+        "tsE": 158,
+        "ntsE": 180,
+        "vol": 8749,
+        "ts": {
+          "tnps": 56.38,
+          "ir": 58.02,
+          "sqs": 83.59,
+          "hc": 41.29,
+          "cst": 2.23,
+          "aht": 19.77
+        },
+        "nts": {
+          "tnps": 69.34,
+          "ir": 73.4,
+          "sqs": 86.55,
+          "hc": 64.68,
+          "cst": 2.82,
+          "aht": 20.46
+        }
+      },
+      {
+        "manager": "Nicholas King",
+        "tsE": 41,
+        "ntsE": 115,
+        "vol": 7985,
+        "ts": {
+          "tnps": 53.21,
+          "ir": 54.55,
+          "sqs": 85.45,
+          "hc": 41.59,
+          "cst": 2.59,
+          "aht": 18.24
+        },
+        "nts": {
+          "tnps": 78.07,
+          "ir": 78.99,
+          "sqs": 87.01,
+          "hc": 65.31,
+          "cst": 3.37,
+          "aht": 19.77
+        }
+      },
+      {
+        "manager": "Saman Esmaily",
+        "tsE": 0,
+        "ntsE": 366,
+        "vol": 6756,
+        "ts": {},
+        "nts": {
+          "tnps": 75.37,
+          "ir": 100,
+          "sqs": 86.09,
+          "hc": 64.61,
+          "cst": 2.99,
+          "aht": 37.81
+        }
+      },
+      {
+        "manager": "Diana Dobiesz",
+        "tsE": 0,
+        "ntsE": 356,
+        "vol": 5642,
+        "ts": {},
+        "nts": {
+          "tnps": 72.25,
+          "ir": 60,
+          "sqs": 85.58,
+          "hc": 63.08,
+          "cst": 2.9,
+          "aht": 39.67
+        }
+      },
+      {
+        "manager": "Aili Chatfield-Taylor",
+        "tsE": 19,
+        "ntsE": 0,
+        "vol": 469,
+        "ts": {
+          "tnps": 77.65,
+          "sqs": 83.67,
+          "hc": 44.62,
+          "cst": 1.69,
+          "aht": 19.33
+        },
+        "nts": {}
+      },
+      {
+        "manager": "null",
+        "tsE": 18,
+        "ntsE": 117,
+        "vol": 145,
+        "ts": {
+          "tnps": 81.97,
+          "sqs": 85.35,
+          "hc": 43.17,
+          "aht": 18.35
+        },
+        "nts": {
+          "tnps": 85.29,
+          "ir": 80,
+          "sqs": 80.46,
+          "hc": 4.9,
+          "cst": 2.4,
+          "aht": 13.51
+        }
+      },
+      {
+        "manager": "Destiny Young",
+        "tsE": 0,
+        "ntsE": 89,
+        "vol": 0,
+        "ts": {},
+        "nts": {
+          "aht": 15.51
+        }
+      },
+      {
+        "manager": "Sherri Brown",
+        "tsE": 0,
+        "ntsE": 152,
+        "vol": 0,
+        "ts": {},
+        "nts": {
+          "aht": 17.39
+        }
+      },
+      {
+        "manager": "Tara McGlynn",
+        "tsE": 0,
+        "ntsE": 79,
+        "vol": 0,
+        "ts": {},
+        "nts": {
+          "aht": 16.98
+        }
+      },
+      {
+        "manager": "Keith Lalonde",
+        "tsE": 0,
+        "ntsE": 162,
+        "vol": 0,
+        "ts": {},
+        "nts": {
+          "sqs": 65.74,
+          "aht": 18.12
+        }
+      }
+    ],
+    "ttla": [
+      {
+        "manager": "Raquel Fernandes",
+        "tsE": 106,
+        "ntsE": 337,
+        "vol": 0,
+        "ts": {
+          "tnps": 71.09,
+          "ir": 87.68,
+          "sqs": 80.93,
+          "aht": 25.07
+        },
+        "nts": {
+          "tnps": 72.25,
+          "ir": 87.11,
+          "sqs": 82.54,
+          "aht": 22.19
+        }
+      },
+      {
+        "manager": "Scott Skyberg",
+        "tsE": 130,
+        "ntsE": 435,
+        "vol": 0,
+        "ts": {
+          "tnps": 72.04,
+          "ir": 85.53,
+          "sqs": 82.05,
+          "aht": 26.02
+        },
+        "nts": {
+          "tnps": 74.17,
+          "ir": 88.44,
+          "sqs": 82.61,
+          "aht": 22.12
+        }
+      },
+      {
+        "manager": "Margaret Lambos",
+        "tsE": 85,
+        "ntsE": 217,
+        "vol": 0,
+        "ts": {
+          "tnps": 63.11,
+          "ir": 83.52,
+          "sqs": 80.3,
+          "aht": 21
+        },
+        "nts": {
+          "tnps": 69.45,
+          "ir": 87.57,
+          "sqs": 82.01,
+          "aht": 22.16
+        }
+      },
+      {
+        "manager": "null",
+        "tsE": 7,
+        "ntsE": 565,
+        "vol": 0,
+        "ts": {
+          "tnps": 0,
+          "ir": 100,
+          "sqs": 78.83,
+          "aht": 15.57
+        },
+        "nts": {
+          "tnps": 67.14,
+          "ir": 86.26,
+          "sqs": 80.61,
+          "aht": 23.23
+        }
+      },
+      {
+        "manager": "Salley McCullar",
+        "tsE": 104,
+        "ntsE": 376,
+        "vol": 0,
+        "ts": {
+          "tnps": 65.88,
+          "ir": 86.35,
+          "sqs": 82.57,
+          "aht": 25.2
+        },
+        "nts": {
+          "tnps": 70.62,
+          "ir": 87.69,
+          "sqs": 81.73,
+          "aht": 22.3
+        }
+      },
+      {
+        "manager": "Camala Templeton",
+        "tsE": 145,
+        "ntsE": 358,
+        "vol": 0,
+        "ts": {
+          "tnps": 71.07,
+          "ir": 87.11,
+          "sqs": 82.15,
+          "aht": 22.07
+        },
+        "nts": {
+          "tnps": 74.51,
+          "ir": 88.22,
+          "sqs": 82.66,
+          "aht": 22.19
+        }
+      },
+      {
+        "manager": "Kendee Pemberton",
+        "tsE": 28,
+        "ntsE": 84,
+        "vol": 0,
+        "ts": {
+          "tnps": 79.19,
+          "ir": 93.21,
+          "sqs": 84.6,
+          "aht": 24.28
+        },
+        "nts": {
+          "tnps": 76.28,
+          "ir": 88.52,
+          "sqs": 83.8,
+          "aht": 22.22
+        }
+      },
+      {
+        "manager": "Monica Barfknecht",
+        "tsE": 124,
+        "ntsE": 337,
+        "vol": 0,
+        "ts": {
+          "tnps": 73.11,
+          "ir": 87.65,
+          "sqs": 81.79,
+          "aht": 24.53
+        },
+        "nts": {
+          "tnps": 72.48,
+          "ir": 88.55,
+          "sqs": 81.66,
+          "aht": 22.44
+        }
+      },
+      {
+        "manager": "Evelin Moshe",
+        "tsE": 116,
+        "ntsE": 383,
+        "vol": 0,
+        "ts": {
+          "tnps": 73.31,
+          "ir": 87.99,
+          "sqs": 82.03,
+          "aht": 23.32
+        },
+        "nts": {
+          "tnps": 74.36,
+          "ir": 88.5,
+          "sqs": 82.69,
+          "aht": 22.13
+        }
+      },
+      {
+        "manager": "Jaime Karakachos",
+        "tsE": 6,
+        "ntsE": 159,
+        "vol": 0,
+        "ts": {
+          "tnps": 62.07,
+          "ir": 88.46,
+          "sqs": 77.19,
+          "aht": 20.27
+        },
+        "nts": {
+          "tnps": 73.13,
+          "ir": 87.79,
+          "sqs": 82.04,
+          "aht": 20.78
+        }
+      },
+      {
+        "manager": "Larry Marschke",
+        "tsE": 29,
+        "ntsE": 99,
+        "vol": 0,
+        "ts": {
+          "tnps": 78.31,
+          "ir": 91.79,
+          "sqs": 81.62,
+          "aht": 19.91
+        },
+        "nts": {
+          "tnps": 73.3,
+          "ir": 89.28,
+          "sqs": 83.08,
+          "aht": 19.11
+        }
+      },
+      {
+        "manager": "Joe Howe",
+        "tsE": 34,
+        "ntsE": 106,
+        "vol": 0,
+        "ts": {
+          "tnps": 77.71,
+          "ir": 92.31,
+          "sqs": 83.32,
+          "aht": 24.23
+        },
+        "nts": {
+          "tnps": 76.56,
+          "ir": 89.35,
+          "sqs": 83.78,
+          "aht": 21.61
+        }
+      },
+      {
+        "manager": "Justin Macnak",
+        "tsE": 26,
+        "ntsE": 117,
+        "vol": 0,
+        "ts": {
+          "tnps": 74.6,
+          "ir": 89.33,
+          "sqs": 83.14,
+          "aht": 27.75
+        },
+        "nts": {
+          "tnps": 74.48,
+          "ir": 88.52,
+          "sqs": 84.21,
+          "aht": 22.85
+        }
+      },
+      {
+        "manager": "Jenifer Emery",
+        "tsE": 126,
+        "ntsE": 395,
+        "vol": 0,
+        "ts": {
+          "tnps": 67.48,
+          "ir": 86.28,
+          "sqs": 81.19,
+          "aht": 23.02
+        },
+        "nts": {
+          "tnps": 73.07,
+          "ir": 88.07,
+          "sqs": 82.27,
+          "aht": 22.92
+        }
+      },
+      {
+        "manager": "Candace Crews",
+        "tsE": 0,
+        "ntsE": 188,
+        "vol": 0,
+        "ts": {},
+        "nts": {
+          "tnps": 77.67,
+          "ir": 90.84,
+          "sqs": 83.53,
+          "aht": 22.24
+        }
+      },
+      {
+        "manager": "Chrissy Horan",
+        "tsE": 133,
+        "ntsE": 393,
+        "vol": 0,
+        "ts": {
+          "tnps": 78.78,
+          "ir": 92.84,
+          "sqs": 81.68,
+          "aht": 22.85
+        },
+        "nts": {
+          "tnps": 74.69,
+          "ir": 88.16,
+          "sqs": 83.47,
+          "aht": 21.49
+        }
+      },
+      {
+        "manager": "Rodney MacDonald",
+        "tsE": 5,
+        "ntsE": 474,
+        "vol": 0,
+        "ts": {
+          "tnps": 76.47,
+          "ir": 96.88,
+          "sqs": 87.78,
+          "aht": 20.2
+        },
+        "nts": {
+          "tnps": 76.18,
+          "ir": 89.58,
+          "sqs": 83.27,
+          "aht": 23.47
+        }
+      },
+      {
+        "manager": "Aimee Clausner Shoaf",
+        "tsE": 57,
+        "ntsE": 162,
+        "vol": 0,
+        "ts": {
+          "tnps": 86.48,
+          "ir": 94.65,
+          "sqs": 84.64,
+          "aht": 26.97
+        },
+        "nts": {
+          "tnps": 74.91,
+          "ir": 87.95,
+          "sqs": 82.59,
+          "aht": 21.87
+        }
+      },
+      {
+        "manager": "Carrie Gunnell",
+        "tsE": 4,
+        "ntsE": 118,
+        "vol": 0,
+        "ts": {
+          "tnps": 16.67,
+          "ir": 66.67,
+          "sqs": 77.74,
+          "aht": 24.85
+        },
+        "nts": {
+          "tnps": 68.46,
+          "ir": 84.39,
+          "sqs": 80.84,
+          "aht": 21.81
+        }
+      },
+      {
+        "manager": "Paul Barone",
+        "tsE": 136,
+        "ntsE": 398,
+        "vol": 0,
+        "ts": {
+          "tnps": 72.73,
+          "ir": 89.55,
+          "sqs": 81.91,
+          "aht": 24.31
+        },
+        "nts": {
+          "tnps": 77.74,
+          "ir": 90.58,
+          "sqs": 82.6,
+          "aht": 21.81
+        }
+      },
+      {
+        "manager": "Mercedes Shafer",
+        "tsE": 63,
+        "ntsE": 199,
+        "vol": 0,
+        "ts": {
+          "tnps": 72.67,
+          "ir": 88.18,
+          "sqs": 81.48,
+          "aht": 24.04
+        },
+        "nts": {
+          "tnps": 74.39,
+          "ir": 87.69,
+          "sqs": 82.51,
+          "aht": 21.83
+        }
+      },
+      {
+        "manager": "Darron Copeland",
+        "tsE": 24,
+        "ntsE": 96,
+        "vol": 0,
+        "ts": {
+          "tnps": 70.59,
+          "ir": 83.85,
+          "sqs": 82.85,
+          "aht": 21.38
+        },
+        "nts": {
+          "tnps": 72.56,
+          "ir": 88.38,
+          "sqs": 82.63,
+          "aht": 22.92
+        }
+      },
+      {
+        "manager": "Bryson Menke",
+        "tsE": 33,
+        "ntsE": 110,
+        "vol": 0,
+        "ts": {
+          "tnps": 73.29,
+          "ir": 88.24,
+          "sqs": 81.49,
+          "aht": 22.69
+        },
+        "nts": {
+          "tnps": 78.04,
+          "ir": 88.31,
+          "sqs": 82.5,
+          "aht": 23.02
+        }
+      },
+      {
+        "manager": "Nicholas King",
+        "tsE": 36,
+        "ntsE": 109,
+        "vol": 0,
+        "ts": {
+          "tnps": 70.77,
+          "ir": 90.11,
+          "sqs": 81.55,
+          "aht": 25.12
+        },
+        "nts": {
+          "tnps": 69.42,
+          "ir": 87.28,
+          "sqs": 81.93,
+          "aht": 22.73
+        }
+      },
+      {
+        "manager": "Nicole Ahline",
+        "tsE": 15,
+        "ntsE": 184,
+        "vol": 0,
+        "ts": {
+          "tnps": 75.71,
+          "ir": 89.06,
+          "sqs": 80.14,
+          "aht": 21.27
+        },
+        "nts": {
+          "tnps": 70.39,
+          "ir": 86.08,
+          "sqs": 81.3,
+          "aht": 19.91
+        }
+      },
+      {
+        "manager": "Urounda Brooks",
+        "tsE": 32,
+        "ntsE": 104,
+        "vol": 0,
+        "ts": {
+          "tnps": 80.7,
+          "ir": 91.74,
+          "sqs": 83.38,
+          "aht": 25.34
+        },
+        "nts": {
+          "tnps": 73.63,
+          "ir": 87.1,
+          "sqs": 81.58,
+          "aht": 22.15
+        }
+      },
+      {
+        "manager": "James Anderson",
+        "tsE": 4,
+        "ntsE": 104,
+        "vol": 0,
+        "ts": {
+          "tnps": 40,
+          "ir": 75,
+          "sqs": 75.89,
+          "aht": 14.24
+        },
+        "nts": {
+          "tnps": 63.36,
+          "ir": 82.32,
+          "sqs": 79.46,
+          "aht": 20.42
+        }
+      },
+      {
+        "manager": "Alice Rovney",
+        "tsE": 145,
+        "ntsE": 360,
+        "vol": 0,
+        "ts": {
+          "tnps": 75.97,
+          "ir": 89.05,
+          "sqs": 82.91,
+          "aht": 23.59
+        },
+        "nts": {
+          "tnps": 73.66,
+          "ir": 88.01,
+          "sqs": 82.82,
+          "aht": 22.13
+        }
+      },
+      {
+        "manager": "Tanya Gaborit",
+        "tsE": 2,
+        "ntsE": 143,
+        "vol": 0,
+        "ts": {
+          "tnps": 100,
+          "ir": 100,
+          "sqs": 87.14,
+          "aht": 28.53
+        },
+        "nts": {
+          "tnps": 74.1,
+          "ir": 87.73,
+          "sqs": 83.09,
+          "aht": 21.38
+        }
+      },
+      {
+        "manager": "Anthony Natale",
+        "tsE": 64,
+        "ntsE": 243,
+        "vol": 0,
+        "ts": {
+          "tnps": 72.8,
+          "ir": 89.2,
+          "sqs": 84.16,
+          "aht": 24.52
+        },
+        "nts": {
+          "tnps": 77.42,
+          "ir": 89.79,
+          "sqs": 83.47,
+          "aht": 22.97
+        }
+      },
+      {
+        "manager": "Julie Morris",
+        "tsE": 33,
+        "ntsE": 109,
+        "vol": 0,
+        "ts": {
+          "tnps": 73.1,
+          "ir": 88.64,
+          "sqs": 82.93,
+          "aht": 23.68
+        },
+        "nts": {
+          "tnps": 72.5,
+          "ir": 86.47,
+          "sqs": 82.18,
+          "aht": 20.87
+        }
+      },
+      {
+        "manager": "Amanda Kennedy",
+        "tsE": 24,
+        "ntsE": 115,
+        "vol": 0,
+        "ts": {
+          "tnps": 67.83,
+          "ir": 89.78,
+          "sqs": 82.88,
+          "aht": 22.76
+        },
+        "nts": {
+          "tnps": 76.34,
+          "ir": 88.05,
+          "sqs": 82.83,
+          "aht": 21.32
+        }
+      },
+      {
+        "manager": "Deionna Hill",
+        "tsE": 12,
+        "ntsE": 168,
+        "vol": 0,
+        "ts": {
+          "tnps": 61.29,
+          "ir": 77.78,
+          "sqs": 81.19,
+          "aht": 22.66
+        },
+        "nts": {
+          "tnps": 72.5,
+          "ir": 87.42,
+          "sqs": 81.7,
+          "aht": 20.29
+        }
+      },
+      {
+        "manager": "Krystal Uhrle",
+        "tsE": 31,
+        "ntsE": 90,
+        "vol": 0,
+        "ts": {
+          "tnps": 80.08,
+          "ir": 93.78,
+          "sqs": 83.84,
+          "aht": 26.53
+        },
+        "nts": {
+          "tnps": 75.09,
+          "ir": 88.72,
+          "sqs": 81.77,
+          "aht": 22.55
+        }
+      },
+      {
+        "manager": "Angie Qual",
+        "tsE": 2,
+        "ntsE": 123,
+        "vol": 0,
+        "ts": {
+          "sqs": 74.03,
+          "aht": 29.06
+        },
+        "nts": {
+          "tnps": 69.18,
+          "ir": 86.08,
+          "sqs": 82.35,
+          "aht": 19.17
+        }
+      },
+      {
+        "manager": "Heather Norton",
+        "tsE": 143,
+        "ntsE": 176,
+        "vol": 0,
+        "ts": {
+          "tnps": 64.4,
+          "ir": 86.23,
+          "sqs": 80.36,
+          "aht": 25.8
+        },
+        "nts": {
+          "tnps": 62.7,
+          "ir": 84.62,
+          "sqs": 81.11,
+          "aht": 24.04
+        }
+      },
+      {
+        "manager": "Hilary Moszynski",
+        "tsE": 127,
+        "ntsE": 195,
+        "vol": 0,
+        "ts": {
+          "tnps": 71.6,
+          "ir": 90.36,
+          "sqs": 81.58,
+          "aht": 25.84
+        },
+        "nts": {
+          "tnps": 68.76,
+          "ir": 85.9,
+          "sqs": 81.69,
+          "aht": 23.7
+        }
+      },
+      {
+        "manager": "Leigh Peebles",
+        "tsE": 33,
+        "ntsE": 106,
+        "vol": 0,
+        "ts": {
+          "tnps": 69.94,
+          "ir": 82.17,
+          "sqs": 81.33,
+          "aht": 24.25
+        },
+        "nts": {
+          "tnps": 75.18,
+          "ir": 88.23,
+          "sqs": 83.41,
+          "aht": 21.87
+        }
+      },
+      {
+        "manager": "Marta Gryniv",
+        "tsE": 18,
+        "ntsE": 128,
+        "vol": 0,
+        "ts": {
+          "tnps": 67.57,
+          "ir": 86.79,
+          "sqs": 82.81,
+          "aht": 28.3
+        },
+        "nts": {
+          "tnps": 72.49,
+          "ir": 87.51,
+          "sqs": 82.5,
+          "aht": 22.66
+        }
+      },
+      {
+        "manager": "Laura Sisk",
+        "tsE": 227,
+        "ntsE": 4949,
+        "vol": 0,
+        "ts": {
+          "tnps": 65.38,
+          "ir": 85.11,
+          "sqs": 83.84,
+          "aht": 22.31
+        },
+        "nts": {
+          "tnps": 64.38,
+          "ir": 84.16,
+          "sqs": 80.25,
+          "aht": 21.66
+        }
+      },
+      {
+        "manager": "Diana Dobiesz",
+        "tsE": 0,
+        "ntsE": 381,
+        "vol": 0,
+        "ts": {},
+        "nts": {
+          "tnps": 67.57,
+          "ir": 85.89,
+          "sqs": 81.06,
+          "aht": 29.91
+        }
+      },
+      {
+        "manager": "Saman Esmaily",
+        "tsE": 0,
+        "ntsE": 384,
+        "vol": 0,
+        "ts": {},
+        "nts": {
+          "tnps": 69.06,
+          "ir": 87.16,
+          "sqs": 80.92,
+          "aht": 29.89
+        }
+      }
+    ]
+  },
+  "trainingWave": {
+    "fs": [
+      {
+        "wave": "Other",
+        "tsE": 0,
+        "ntsE": 36,
+        "ts": {},
+        "nts": {
+          "tnps": 87.41,
+          "ir": 84.4,
+          "sqs": 89.97,
+          "hc": 61.5,
+          "cst": 3.07,
+          "aht": 16.19
+        }
+      },
+      {
+        "wave": "Re-Hire",
+        "tsE": 33,
+        "ntsE": 137,
+        "ts": {
+          "tnps": 66.55,
+          "ir": 67.54,
+          "sqs": 85.1,
+          "hc": 48.8,
+          "aht": 17.46
+        },
+        "nts": {
+          "tnps": 66.67,
+          "ir": 60.87,
+          "sqs": 88.14,
+          "hc": 70.19,
+          "aht": 20.97
+        }
+      },
+      {
+        "wave": "Wave 1",
+        "tsE": 0,
+        "ntsE": 111,
+        "ts": {},
+        "nts": {
+          "tnps": 67.01,
+          "ir": 65.69,
+          "sqs": 85.56,
+          "hc": 55.25,
+          "cst": 3.06,
+          "aht": 12.82
+        }
+      },
+      {
+        "wave": "Wave 2",
+        "tsE": 0,
+        "ntsE": 688,
+        "ts": {},
+        "nts": {
+          "tnps": 80.78,
+          "ir": 100,
+          "sqs": 88.63,
+          "hc": 71.55,
+          "cst": 2.29,
+          "aht": 35.16
+        }
+      },
+      {
+        "wave": "Wave 3",
+        "tsE": 39,
+        "ntsE": 0,
+        "ts": {
+          "tnps": 83.51,
+          "ir": 100,
+          "sqs": 87.22,
+          "hc": 43.57,
+          "cst": 2.16,
+          "aht": 29.39
+        },
+        "nts": {}
+      },
+      {
+        "wave": "Wave 4",
+        "tsE": 102,
+        "ntsE": 1347,
+        "ts": {
+          "tnps": 81.76,
+          "sqs": 88.8,
+          "hc": 44.36,
+          "cst": 2.35,
+          "aht": 31.17
+        },
+        "nts": {
+          "tnps": 74.73,
+          "ir": 65.38,
+          "sqs": 87.78,
+          "hc": 71.07,
+          "cst": 2.46,
+          "aht": 35.39
+        }
+      },
+      {
+        "wave": "Wave 5",
+        "tsE": 79,
+        "ntsE": 39,
+        "ts": {
+          "tnps": 65.81,
+          "ir": 58.82,
+          "sqs": 85.88,
+          "hc": 42.89,
+          "cst": 2.54,
+          "aht": 22.85
+        },
+        "nts": {
+          "tnps": 43.42,
+          "ir": 61.29,
+          "sqs": 85.5,
+          "hc": 73.43,
+          "cst": 3.47,
+          "aht": 14.09
+        }
+      },
+      {
+        "wave": "Wave 6",
+        "tsE": 364,
+        "ntsE": 1779,
+        "ts": {
+          "tnps": 57.11,
+          "ir": 61.82,
+          "sqs": 85.49,
+          "hc": 44.23,
+          "cst": 3.15,
+          "aht": 17.09
+        },
+        "nts": {
+          "tnps": 66.13,
+          "ir": 65.18,
+          "sqs": 85.65,
+          "hc": 68.68,
+          "cst": 2.75,
+          "aht": 30.05
+        }
+      },
+      {
+        "wave": "Wave 7",
+        "tsE": 1387,
+        "ntsE": 1358,
+        "ts": {
+          "tnps": 51.96,
+          "ir": 58.14,
+          "sqs": 83.63,
+          "hc": 48.94,
+          "cst": 2.76,
+          "aht": 17.78
+        },
+        "nts": {
+          "tnps": 56.39,
+          "ir": 59.43,
+          "sqs": 84.77,
+          "hc": 66.44,
+          "cst": 2.68,
+          "aht": 25.21
+        }
+      }
+    ],
+    "ttla": [
+      {
+        "wave": "Other",
+        "tsE": 0,
+        "ntsE": 80,
+        "ts": {},
+        "nts": {
+          "tnps": 80.46,
+          "ir": 91.09,
+          "sqs": 86.01,
+          "aht": 23.22
+        }
+      },
+      {
+        "wave": "Re-Hire",
+        "tsE": 33,
+        "ntsE": 147,
+        "ts": {
+          "tnps": 82.86,
+          "ir": 91.22,
+          "sqs": 82.65,
+          "aht": 26.88
+        },
+        "nts": {
+          "tnps": 70.3,
+          "ir": 83.5,
+          "sqs": 81.4,
+          "aht": 21.76
+        }
+      },
+      {
+        "wave": "Wave 1",
+        "tsE": 0,
+        "ntsE": 112,
+        "ts": {},
+        "nts": {
+          "tnps": 63.42,
+          "ir": 83.56,
+          "sqs": 80.26,
+          "aht": 19.65
+        }
+      },
+      {
+        "wave": "Wave 2",
+        "tsE": 0,
+        "ntsE": 724,
+        "ts": {},
+        "nts": {
+          "tnps": 68.41,
+          "ir": 86.18,
+          "sqs": 80.77,
+          "aht": 20.79
+        }
+      },
+      {
+        "wave": "Wave 3",
+        "tsE": 38,
+        "ntsE": 0,
+        "ts": {
+          "tnps": 65.98,
+          "ir": 87.53,
+          "sqs": 84.07,
+          "aht": 21.95
+        },
+        "nts": {}
+      },
+      {
+        "wave": "Wave 4",
+        "tsE": 101,
+        "ntsE": 1422,
+        "ts": {
+          "tnps": 66.97,
+          "ir": 84.96,
+          "sqs": 84.41,
+          "aht": 22.42
+        },
+        "nts": {
+          "tnps": 67.42,
+          "ir": 85.84,
+          "sqs": 80.75,
+          "aht": 22.61
+        }
+      },
+      {
+        "wave": "Wave 5",
+        "tsE": 87,
+        "ntsE": 36,
+        "ts": {
+          "tnps": 61.45,
+          "ir": 83.91,
+          "sqs": 82.23,
+          "aht": 22.28
+        },
+        "nts": {
+          "tnps": 51.67,
+          "ir": 77.66,
+          "sqs": 80.81,
+          "aht": 23.49
+        }
+      },
+      {
+        "wave": "Wave 6",
+        "tsE": 296,
+        "ntsE": 1885,
+        "ts": {
+          "tnps": 68.88,
+          "ir": 87.54,
+          "sqs": 81.46,
+          "aht": 25.51
+        },
+        "nts": {
+          "tnps": 57.3,
+          "ir": 80.77,
+          "sqs": 79.33,
+          "aht": 25.22
+        }
+      },
+      {
+        "wave": "Wave 7",
+        "tsE": 1177,
+        "ntsE": 1475,
+        "ts": {
+          "tnps": 69.93,
+          "ir": 87.97,
+          "sqs": 81.36,
+          "aht": 25.38
+        },
+        "nts": {
+          "tnps": 52.77,
+          "ir": 79.17,
+          "sqs": 78.47,
+          "aht": 24.53
+        }
+      }
+    ]
+  },
+  "html": {
+    "fsMixAppendix": "<tr><td><strong>tNPS</strong></td><td>64.54</td><td>61.44</td><td>72.2</td><td class=\"worse\">-7.66</td><td class=\"worse\">-10.76</td><td>-3.1</td><td>SKU &times; CustType</td></tr>\n<tr><td><strong>CST</strong></td><td>2.57</td><td>3.06</td><td>2.96</td><td class=\"better\">-0.39</td><td class=\"worse\">+0.11</td><td>+0.49</td><td>SKU &times; CustType</td></tr>\n<tr><td><strong>SQS</strong></td><td>85.68</td><td>85.47</td><td>87.57</td><td class=\"worse\">-1.89</td><td class=\"worse\">-2.1</td><td>-0.21</td><td>SKU only</td></tr>\n<tr><td><strong>IR</strong></td><td>60.99</td><td>61.35</td><td>72.48</td><td class=\"worse\">-11.49</td><td class=\"worse\">-11.13</td><td>+0.36</td><td>CustType only</td></tr>\n<tr><td><strong>HC</strong></td><td>45.72</td><td>36.31</td><td>66.51</td><td class=\"worse\">-20.79</td><td class=\"worse\">-30.21</td><td>-9.41</td><td>SKU &times; CustType</td></tr>",
+    "ttlaMixAppendix": "<tr><td><strong>tNPS</strong></td><td>71.38</td><td>72.31</td><td>68.82</td><td class=\"better\">+2.56</td><td class=\"better\">+3.48</td><td>+0.92</td><td>SKU &times; CustType</td></tr>\n<tr><td><strong>AHT</strong></td><td>23.67</td><td>23.7</td><td>22.41</td><td class=\"better\">+1.27</td><td class=\"better\">+1.29</td><td>+0.02</td><td>SKU &times; CustType</td></tr>\n<tr><td><strong>SQS</strong></td><td>82.34</td><td>82.5</td><td>81.12</td><td class=\"better\">+1.22</td><td class=\"better\">+1.38</td><td>+0.16</td><td>SKU only</td></tr>\n<tr><td><strong>IR</strong></td><td>87.95</td><td>88.06</td><td>86.14</td><td class=\"better\">+1.81</td><td class=\"better\">+1.92</td><td>+0.11</td><td>CustType only</td></tr>",
+    "pl1FsMix": "<tr><td><strong>tNPS</strong></td><td>55.72</td><td>58.64</td><td>71.65</td><td class=\"worse\">-15.93</td><td class=\"worse\">-13.01</td><td>+2.92</td><td>SKU &times; CustType</td></tr>\n<tr><td><strong>CST</strong></td><td>2.82</td><td>2.81</td><td>2.26</td><td class=\"worse\">+0.56</td><td class=\"worse\">+0.55</td><td>-0.01</td><td>SKU &times; CustType</td></tr>\n<tr><td><strong>SQS</strong></td><td>84.26</td><td>84.24</td><td>85.03</td><td class=\"worse\">-0.78</td><td class=\"worse\">-0.79</td><td>-0.02</td><td>SKU only</td></tr>\n<tr><td><strong>IR</strong></td><td>59.06</td><td>59.18</td><td>60.83</td><td class=\"worse\">-1.77</td><td class=\"worse\">-1.64</td><td>+0.12</td><td>CustType only</td></tr>\n<tr><td><strong>HC</strong></td><td>47.31</td><td>41.23</td><td>65.59</td><td class=\"worse\">-18.28</td><td class=\"worse\">-24.36</td><td>-6.08</td><td>SKU &times; CustType</td></tr>",
+    "pl1TtlaMix": "<tr><td><strong>tNPS</strong></td><td>68.78</td><td>69.5</td><td>61.48</td><td class=\"better\">+7.3</td><td class=\"better\">+8.02</td><td>+0.72</td><td>SKU &times; CustType</td></tr>\n<tr><td><strong>AHT</strong></td><td>24.51</td><td>24.57</td><td>23.07</td><td class=\"better\">+1.45</td><td class=\"better\">+1.5</td><td>+0.05</td><td>SKU &times; CustType</td></tr>\n<tr><td><strong>SQS</strong></td><td>81.93</td><td>82.01</td><td>79.82</td><td class=\"better\">+2.11</td><td class=\"better\">+2.19</td><td>+0.08</td><td>SKU only</td></tr>\n<tr><td><strong>IR</strong></td><td>87.18</td><td>87.29</td><td>82.8</td><td class=\"better\">+4.38</td><td class=\"better\">+4.49</td><td>+0.11</td><td>CustType only</td></tr>",
+    "pl1TriageMix": "<tr><td><strong>tNPS</strong></td><td>25.66</td><td>27.14</td><td>30</td><td class=\"worse\">-4.34</td><td class=\"worse\">-2.86</td><td>+1.48</td><td>SKU within category</td></tr>\n<tr><td><strong>IR</strong></td><td>59.03</td><td>59.14</td><td>59.19</td><td class=\"worse\">-0.16</td><td class=\"worse\">-0.05</td><td>+0.11</td><td>CustType only</td></tr>",
+    "pl1NonTriageMix": "<tr><td><strong>tNPS</strong></td><td>77.2</td><td>72.86</td><td>74.94</td><td class=\"better\">+2.26</td><td class=\"worse\">-2.08</td><td>-4.34</td><td>SKU within category</td></tr>\n<tr><td><strong>IR</strong></td><td>60.32</td><td>60.11</td><td>71.43</td><td class=\"worse\">-11.11</td><td class=\"worse\">-11.32</td><td>-0.21</td><td>CustType only</td></tr>",
+    "forecastGroup": "<tr><td rowspan=\"2\"><strong>AMEND</strong></td><td style=\"text-align:center;\">TS</td><td>10</td><td>0.1%</td><td>50</td><td>50</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>3,297</td><td>4.8%</td><td>45.4</td><td>70.46</td></tr>\n<tr><td rowspan=\"2\"><strong>PYRO</strong></td><td style=\"text-align:center;\">TS</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>1,026</td><td>1.5%</td><td>77.68</td><td>&mdash;</td></tr>\n<tr><td rowspan=\"2\"><strong>SYNC LATER</strong></td><td style=\"text-align:center;\">TS</td><td>5,393</td><td>27.9%</td><td>72.45</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>14,190</td><td>20.8%</td><td>74.77</td><td>97.18</td></tr>\n<tr><td rowspan=\"2\"><strong>SYNC NOW</strong></td><td style=\"text-align:center;\">TS</td><td>8,285</td><td>42.8%</td><td>83.1</td><td>68.59</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>40,327</td><td>59.1%</td><td>78.81</td><td>87.89</td></tr>\n<tr><td rowspan=\"2\"><strong>TRIAGE</strong></td><td style=\"text-align:center;\">TS</td><td>5,565</td><td>28.8%</td><td>29</td><td>60.75</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>9,323</td><td>13.7%</td><td>48.57</td><td>70.07</td></tr>\n<tr><td rowspan=\"2\"><strong>WELCOME</strong></td><td style=\"text-align:center;\">TS</td><td>99</td><td>0.5%</td><td>78.79</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>32</td><td>0%</td><td>87.5</td><td>&mdash;</td></tr>\n<tr><td rowspan=\"2\"><strong>null</strong></td><td style=\"text-align:center;\">TS</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>29</td><td>0%</td><td>58.62</td><td>80</td></tr>",
+    "m2Fs": "<tr><td rowspan=\"2\"><strong>Laura Sisk</strong></td><td style=\"text-align:center;\">TS</td><td>220</td><td>82.53</td><td>100</td><td>88.34</td><td>42.54</td><td>2.22</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>4565</td><td>75.36</td><td>81.13</td><td>87.77</td><td>71.82</td><td>2.38</td></tr>\n<tr><td rowspan=\"2\"><strong>Paul Barone</strong></td><td style=\"text-align:center;\">TS</td><td>155</td><td>66.16</td><td>63.77</td><td>85.67</td><td>45.99</td><td>2.63</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>406</td><td>77.67</td><td>77.59</td><td>87.98</td><td>65.96</td><td>3</td></tr>\n<tr><td rowspan=\"2\"><strong>Evelin Moshe</strong></td><td style=\"text-align:center;\">TS</td><td>133</td><td>61.14</td><td>60.82</td><td>85.42</td><td>47.22</td><td>2.63</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>384</td><td>69.29</td><td>71.08</td><td>87.58</td><td>66.52</td><td>3.11</td></tr>\n<tr><td rowspan=\"2\"><strong>Alice Rovney</strong></td><td style=\"text-align:center;\">TS</td><td>161</td><td>66.89</td><td>61.28</td><td>86.6</td><td>43.67</td><td>2.66</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>367</td><td>72.24</td><td>72.98</td><td>88.1</td><td>65.25</td><td>3.03</td></tr>\n<tr><td rowspan=\"2\"><strong>Chrissy Horan</strong></td><td style=\"text-align:center;\">TS</td><td>154</td><td>61.51</td><td>56.2</td><td>86.17</td><td>47.73</td><td>2.46</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>399</td><td>70.85</td><td>72.13</td><td>88.04</td><td>65.68</td><td>3.09</td></tr>\n<tr><td rowspan=\"2\"><strong>Scott Skyberg</strong></td><td style=\"text-align:center;\">TS</td><td>143</td><td>71.05</td><td>65.95</td><td>85.12</td><td>47.75</td><td>2.57</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>444</td><td>70.93</td><td>75.13</td><td>87.74</td><td>65.83</td><td>3.04</td></tr>\n<tr><td rowspan=\"2\"><strong>Camala Templeton</strong></td><td style=\"text-align:center;\">TS</td><td>160</td><td>60.96</td><td>60.23</td><td>85.93</td><td>46.08</td><td>2.65</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>366</td><td>73.3</td><td>71.76</td><td>87.51</td><td>65.53</td><td>3.17</td></tr>\n<tr><td rowspan=\"2\"><strong>Rodney MacDonald</strong></td><td style=\"text-align:center;\">TS</td><td>5</td><td>74.58</td><td>57.14</td><td>90.18</td><td>52.08</td><td>2.79</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>496</td><td>74.64</td><td>73.52</td><td>88.07</td><td>67.5</td><td>3.22</td></tr>\n<tr><td rowspan=\"2\"><strong>Salley McCullar</strong></td><td style=\"text-align:center;\">TS</td><td>126</td><td>63.33</td><td>55.67</td><td>85.31</td><td>43.04</td><td>2.91</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>385</td><td>68.21</td><td>66.61</td><td>86.99</td><td>62.54</td><td>3.07</td></tr>\n<tr><td rowspan=\"2\"><strong>Anthony Natale</strong></td><td style=\"text-align:center;\">TS</td><td>71</td><td>71.35</td><td>69.64</td><td>87.06</td><td>51.99</td><td>2.28</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>246</td><td>74.85</td><td>73.62</td><td>88.59</td><td>67.82</td><td>2.97</td></tr>\n<tr><td rowspan=\"2\"><strong>Monica Barfknecht</strong></td><td style=\"text-align:center;\">TS</td><td>137</td><td>59.51</td><td>58.63</td><td>84.79</td><td>43.46</td><td>2.68</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>337</td><td>67.32</td><td>71.75</td><td>87.36</td><td>65.63</td><td>3.13</td></tr>\n<tr><td rowspan=\"2\"><strong>Jenifer Emery</strong></td><td style=\"text-align:center;\">TS</td><td>143</td><td>54.84</td><td>55.45</td><td>83.99</td><td>48.1</td><td>2.76</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>414</td><td>67.94</td><td>70.5</td><td>87.44</td><td>65.35</td><td>3.01</td></tr>\n<tr><td rowspan=\"2\"><strong>Margaret Lambos</strong></td><td style=\"text-align:center;\">TS</td><td>92</td><td>62.37</td><td>62.94</td><td>85.27</td><td>43.77</td><td>2.47</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>219</td><td>69.5</td><td>69.45</td><td>87.75</td><td>66.41</td><td>3.16</td></tr>\n<tr><td rowspan=\"2\"><strong>Raquel Fernandes</strong></td><td style=\"text-align:center;\">TS</td><td>126</td><td>55.54</td><td>56.31</td><td>85.32</td><td>47.28</td><td>2.65</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>346</td><td>65.22</td><td>64.98</td><td>87.85</td><td>65.2</td><td>3.07</td></tr>\n<tr><td rowspan=\"2\"><strong>Aimee Clausner Shoaf</strong></td><td style=\"text-align:center;\">TS</td><td>62</td><td>75.79</td><td>74.63</td><td>87.58</td><td>44.59</td><td>2.45</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>167</td><td>68.98</td><td>70.85</td><td>87.82</td><td>67.03</td><td>2.96</td></tr>\n<tr><td rowspan=\"2\"><strong>Candace Crews</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>192</td><td>74.24</td><td>78.85</td><td>87.93</td><td>68.82</td><td>2.92</td></tr>\n<tr><td rowspan=\"2\"><strong>Mercedes Shafer</strong></td><td style=\"text-align:center;\">TS</td><td>68</td><td>55.56</td><td>59.86</td><td>85.01</td><td>48.67</td><td>2.83</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>208</td><td>70.53</td><td>72.52</td><td>87.47</td><td>65.04</td><td>3.12</td></tr>\n<tr><td rowspan=\"2\"><strong>Nicole Ahline</strong></td><td style=\"text-align:center;\">TS</td><td>17</td><td>68</td><td>61.76</td><td>85.19</td><td>49.63</td><td>2.6</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>184</td><td>65.69</td><td>64.55</td><td>86.55</td><td>55.16</td><td>3.09</td></tr>\n<tr><td rowspan=\"2\"><strong>Jaime Karakachos</strong></td><td style=\"text-align:center;\">TS</td><td>7</td><td>53.97</td><td>66.67</td><td>82.44</td><td>52</td><td>2.01</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>159</td><td>67.41</td><td>73.84</td><td>86.44</td><td>59.01</td><td>3.08</td></tr>\n<tr><td rowspan=\"2\"><strong>Tanya Gaborit</strong></td><td style=\"text-align:center;\">TS</td><td>2</td><td>78.95</td><td>50</td><td>87.46</td><td>47.06</td><td>2.84</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>143</td><td>70.34</td><td>69.72</td><td>87.34</td><td>58.11</td><td>3.07</td></tr>\n<tr><td rowspan=\"2\"><strong>Deionna Hill</strong></td><td style=\"text-align:center;\">TS</td><td>14</td><td>70.83</td><td>66.67</td><td>85.79</td><td>57.14</td><td>3.55</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>167</td><td>65.13</td><td>65.45</td><td>85.55</td><td>59.35</td><td>3.27</td></tr>\n<tr><td rowspan=\"2\"><strong>Bryson Menke</strong></td><td style=\"text-align:center;\">TS</td><td>35</td><td>62.59</td><td>64.38</td><td>86.12</td><td>54.8</td><td>2.64</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>111</td><td>70.56</td><td>72.15</td><td>87.5</td><td>65.87</td><td>3.3</td></tr>\n<tr><td rowspan=\"2\"><strong>Marta Gryniv</strong></td><td style=\"text-align:center;\">TS</td><td>25</td><td>66.1</td><td>69.74</td><td>85.16</td><td>52.61</td><td>3.26</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>130</td><td>65.77</td><td>70.45</td><td>87.68</td><td>66.91</td><td>3.04</td></tr>\n<tr><td rowspan=\"2\"><strong>Amanda Kennedy</strong></td><td style=\"text-align:center;\">TS</td><td>26</td><td>61.24</td><td>52.94</td><td>87.81</td><td>44.89</td><td>2.62</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>116</td><td>75.03</td><td>75.44</td><td>87.89</td><td>65.44</td><td>3.21</td></tr>\n<tr><td rowspan=\"2\"><strong>Joe Howe</strong></td><td style=\"text-align:center;\">TS</td><td>37</td><td>66.12</td><td>56</td><td>86.77</td><td>47.13</td><td>2.49</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>107</td><td>70.39</td><td>74.88</td><td>87.93</td><td>67.45</td><td>2.85</td></tr>\n<tr><td rowspan=\"2\"><strong>Larry Marschke</strong></td><td style=\"text-align:center;\">TS</td><td>34</td><td>72.92</td><td>64.71</td><td>85.66</td><td>39.7</td><td>2.56</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>100</td><td>77.18</td><td>76.07</td><td>88.48</td><td>68.19</td><td>2.97</td></tr>\n<tr><td rowspan=\"2\"><strong>Urounda Brooks</strong></td><td style=\"text-align:center;\">TS</td><td>37</td><td>63.64</td><td>63.41</td><td>86.42</td><td>44.38</td><td>2.86</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>104</td><td>73.08</td><td>74.35</td><td>86.43</td><td>65.19</td><td>3.17</td></tr>\n<tr><td rowspan=\"2\"><strong>Justin Macnak</strong></td><td style=\"text-align:center;\">TS</td><td>29</td><td>60.4</td><td>62.96</td><td>83.96</td><td>53.17</td><td>3.31</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>119</td><td>75.32</td><td>74.16</td><td>88.63</td><td>66.42</td><td>3.13</td></tr>\n<tr><td rowspan=\"2\"><strong>Carrie Gunnell</strong></td><td style=\"text-align:center;\">TS</td><td>4</td><td>78.95</td><td>62.5</td><td>88.34</td><td>56.86</td><td>2.67</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>120</td><td>65.79</td><td>70.77</td><td>86.6</td><td>58.04</td><td>3.13</td></tr>\n<tr><td rowspan=\"2\"><strong>Angie Qual</strong></td><td style=\"text-align:center;\">TS</td><td>2</td><td>50</td><td>50</td><td>85.11</td><td>50</td><td>4.65</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>125</td><td>69.18</td><td>73.45</td><td>86.67</td><td>56.43</td><td>2.87</td></tr>\n<tr><td rowspan=\"2\"><strong>Krystal Uhrle</strong></td><td style=\"text-align:center;\">TS</td><td>34</td><td>71.09</td><td>66.04</td><td>86.84</td><td>44.25</td><td>2.25</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>91</td><td>75.33</td><td>78.01</td><td>88.01</td><td>66.14</td><td>3.06</td></tr>\n<tr><td rowspan=\"2\"><strong>Julie Morris</strong></td><td style=\"text-align:center;\">TS</td><td>36</td><td>68.8</td><td>74.19</td><td>85.26</td><td>43.47</td><td>2.56</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>111</td><td>73.84</td><td>71.88</td><td>87.33</td><td>68.04</td><td>2.99</td></tr>\n<tr><td rowspan=\"2\"><strong>Kendee Pemberton</strong></td><td style=\"text-align:center;\">TS</td><td>30</td><td>67.9</td><td>61.9</td><td>86.71</td><td>40.37</td><td>2.58</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>87</td><td>73.98</td><td>72.13</td><td>88.61</td><td>65.72</td><td>2.91</td></tr>\n<tr><td rowspan=\"2\"><strong>Hilary Moszynski</strong></td><td style=\"text-align:center;\">TS</td><td>148</td><td>66.19</td><td>59.88</td><td>84.14</td><td>41.51</td><td>2.18</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>198</td><td>68.44</td><td>67.94</td><td>87.1</td><td>65.69</td><td>2.97</td></tr>\n<tr><td rowspan=\"2\"><strong>Darron Copeland</strong></td><td style=\"text-align:center;\">TS</td><td>26</td><td>57.61</td><td>45.95</td><td>87.06</td><td>43.85</td><td>2.37</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>104</td><td>74.59</td><td>74.63</td><td>87.66</td><td>64.73</td><td>2.78</td></tr>\n<tr><td rowspan=\"2\"><strong>Leigh Peebles</strong></td><td style=\"text-align:center;\">TS</td><td>36</td><td>57.77</td><td>64.65</td><td>86.36</td><td>44.12</td><td>2.47</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>106</td><td>75.65</td><td>74.06</td><td>87.79</td><td>66.87</td><td>3.13</td></tr>\n<tr><td rowspan=\"2\"><strong>James Anderson</strong></td><td style=\"text-align:center;\">TS</td><td>4</td><td>7.69</td><td>20</td><td>82.59</td><td>54.31</td><td>2.83</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>105</td><td>67.48</td><td>69.23</td><td>85.66</td><td>60.71</td><td>3.31</td></tr>\n<tr><td rowspan=\"2\"><strong>Heather Norton</strong></td><td style=\"text-align:center;\">TS</td><td>158</td><td>56.38</td><td>58.02</td><td>83.59</td><td>41.29</td><td>2.23</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>180</td><td>69.34</td><td>73.4</td><td>86.55</td><td>64.68</td><td>2.82</td></tr>\n<tr><td rowspan=\"2\"><strong>Nicholas King</strong></td><td style=\"text-align:center;\">TS</td><td>41</td><td>53.21</td><td>54.55</td><td>85.45</td><td>41.59</td><td>2.59</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>115</td><td>78.07</td><td>78.99</td><td>87.01</td><td>65.31</td><td>3.37</td></tr>\n<tr><td rowspan=\"2\"><strong>Saman Esmaily</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>366</td><td>75.37</td><td>100</td><td>86.09</td><td>64.61</td><td>2.99</td></tr>\n<tr><td rowspan=\"2\"><strong>Diana Dobiesz</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>356</td><td>72.25</td><td>60</td><td>85.58</td><td>63.08</td><td>2.9</td></tr>\n<tr><td rowspan=\"2\"><strong>Aili Chatfield-Taylor</strong></td><td style=\"text-align:center;\">TS</td><td>19</td><td>77.65</td><td>&mdash;</td><td>83.67</td><td>44.62</td><td>1.69</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td rowspan=\"2\"><strong>null</strong></td><td style=\"text-align:center;\">TS</td><td>18</td><td>81.97</td><td>&mdash;</td><td>85.35</td><td>43.17</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>117</td><td>85.29</td><td>80</td><td>80.46</td><td>4.9</td><td>2.4</td></tr>\n<tr><td rowspan=\"2\"><strong>Destiny Young</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>89</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td rowspan=\"2\"><strong>Sherri Brown</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>152</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td rowspan=\"2\"><strong>Tara McGlynn</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>79</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td rowspan=\"2\"><strong>Keith Lalonde</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>162</td><td>&mdash;</td><td>&mdash;</td><td>65.74</td><td>&mdash;</td><td>&mdash;</td></tr>",
+    "m2Ttla": "<tr><td rowspan=\"2\"><strong>Raquel Fernandes</strong></td><td style=\"text-align:center;\">TS</td><td>106</td><td>71.09</td><td>87.68</td><td>80.93</td><td>25.07</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>337</td><td>72.25</td><td>87.11</td><td>82.54</td><td>22.19</td></tr>\n<tr><td rowspan=\"2\"><strong>Scott Skyberg</strong></td><td style=\"text-align:center;\">TS</td><td>130</td><td>72.04</td><td>85.53</td><td>82.05</td><td>26.02</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>435</td><td>74.17</td><td>88.44</td><td>82.61</td><td>22.12</td></tr>\n<tr><td rowspan=\"2\"><strong>Margaret Lambos</strong></td><td style=\"text-align:center;\">TS</td><td>85</td><td>63.11</td><td>83.52</td><td>80.3</td><td>21</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>217</td><td>69.45</td><td>87.57</td><td>82.01</td><td>22.16</td></tr>\n<tr><td rowspan=\"2\"><strong>null</strong></td><td style=\"text-align:center;\">TS</td><td>7</td><td>0</td><td>100</td><td>78.83</td><td>15.57</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>565</td><td>67.14</td><td>86.26</td><td>80.61</td><td>23.23</td></tr>\n<tr><td rowspan=\"2\"><strong>Salley McCullar</strong></td><td style=\"text-align:center;\">TS</td><td>104</td><td>65.88</td><td>86.35</td><td>82.57</td><td>25.2</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>376</td><td>70.62</td><td>87.69</td><td>81.73</td><td>22.3</td></tr>\n<tr><td rowspan=\"2\"><strong>Camala Templeton</strong></td><td style=\"text-align:center;\">TS</td><td>145</td><td>71.07</td><td>87.11</td><td>82.15</td><td>22.07</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>358</td><td>74.51</td><td>88.22</td><td>82.66</td><td>22.19</td></tr>\n<tr><td rowspan=\"2\"><strong>Kendee Pemberton</strong></td><td style=\"text-align:center;\">TS</td><td>28</td><td>79.19</td><td>93.21</td><td>84.6</td><td>24.28</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>84</td><td>76.28</td><td>88.52</td><td>83.8</td><td>22.22</td></tr>\n<tr><td rowspan=\"2\"><strong>Monica Barfknecht</strong></td><td style=\"text-align:center;\">TS</td><td>124</td><td>73.11</td><td>87.65</td><td>81.79</td><td>24.53</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>337</td><td>72.48</td><td>88.55</td><td>81.66</td><td>22.44</td></tr>\n<tr><td rowspan=\"2\"><strong>Evelin Moshe</strong></td><td style=\"text-align:center;\">TS</td><td>116</td><td>73.31</td><td>87.99</td><td>82.03</td><td>23.32</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>383</td><td>74.36</td><td>88.5</td><td>82.69</td><td>22.13</td></tr>\n<tr><td rowspan=\"2\"><strong>Jaime Karakachos</strong></td><td style=\"text-align:center;\">TS</td><td>6</td><td>62.07</td><td>88.46</td><td>77.19</td><td>20.27</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>159</td><td>73.13</td><td>87.79</td><td>82.04</td><td>20.78</td></tr>\n<tr><td rowspan=\"2\"><strong>Larry Marschke</strong></td><td style=\"text-align:center;\">TS</td><td>29</td><td>78.31</td><td>91.79</td><td>81.62</td><td>19.91</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>99</td><td>73.3</td><td>89.28</td><td>83.08</td><td>19.11</td></tr>\n<tr><td rowspan=\"2\"><strong>Joe Howe</strong></td><td style=\"text-align:center;\">TS</td><td>34</td><td>77.71</td><td>92.31</td><td>83.32</td><td>24.23</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>106</td><td>76.56</td><td>89.35</td><td>83.78</td><td>21.61</td></tr>\n<tr><td rowspan=\"2\"><strong>Justin Macnak</strong></td><td style=\"text-align:center;\">TS</td><td>26</td><td>74.6</td><td>89.33</td><td>83.14</td><td>27.75</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>117</td><td>74.48</td><td>88.52</td><td>84.21</td><td>22.85</td></tr>\n<tr><td rowspan=\"2\"><strong>Jenifer Emery</strong></td><td style=\"text-align:center;\">TS</td><td>126</td><td>67.48</td><td>86.28</td><td>81.19</td><td>23.02</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>395</td><td>73.07</td><td>88.07</td><td>82.27</td><td>22.92</td></tr>\n<tr><td rowspan=\"2\"><strong>Candace Crews</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>188</td><td>77.67</td><td>90.84</td><td>83.53</td><td>22.24</td></tr>\n<tr><td rowspan=\"2\"><strong>Chrissy Horan</strong></td><td style=\"text-align:center;\">TS</td><td>133</td><td>78.78</td><td>92.84</td><td>81.68</td><td>22.85</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>393</td><td>74.69</td><td>88.16</td><td>83.47</td><td>21.49</td></tr>\n<tr><td rowspan=\"2\"><strong>Rodney MacDonald</strong></td><td style=\"text-align:center;\">TS</td><td>5</td><td>76.47</td><td>96.88</td><td>87.78</td><td>20.2</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>474</td><td>76.18</td><td>89.58</td><td>83.27</td><td>23.47</td></tr>\n<tr><td rowspan=\"2\"><strong>Aimee Clausner Shoaf</strong></td><td style=\"text-align:center;\">TS</td><td>57</td><td>86.48</td><td>94.65</td><td>84.64</td><td>26.97</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>162</td><td>74.91</td><td>87.95</td><td>82.59</td><td>21.87</td></tr>\n<tr><td rowspan=\"2\"><strong>Carrie Gunnell</strong></td><td style=\"text-align:center;\">TS</td><td>4</td><td>16.67</td><td>66.67</td><td>77.74</td><td>24.85</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>118</td><td>68.46</td><td>84.39</td><td>80.84</td><td>21.81</td></tr>\n<tr><td rowspan=\"2\"><strong>Paul Barone</strong></td><td style=\"text-align:center;\">TS</td><td>136</td><td>72.73</td><td>89.55</td><td>81.91</td><td>24.31</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>398</td><td>77.74</td><td>90.58</td><td>82.6</td><td>21.81</td></tr>\n<tr><td rowspan=\"2\"><strong>Mercedes Shafer</strong></td><td style=\"text-align:center;\">TS</td><td>63</td><td>72.67</td><td>88.18</td><td>81.48</td><td>24.04</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>199</td><td>74.39</td><td>87.69</td><td>82.51</td><td>21.83</td></tr>\n<tr><td rowspan=\"2\"><strong>Darron Copeland</strong></td><td style=\"text-align:center;\">TS</td><td>24</td><td>70.59</td><td>83.85</td><td>82.85</td><td>21.38</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>96</td><td>72.56</td><td>88.38</td><td>82.63</td><td>22.92</td></tr>\n<tr><td rowspan=\"2\"><strong>Bryson Menke</strong></td><td style=\"text-align:center;\">TS</td><td>33</td><td>73.29</td><td>88.24</td><td>81.49</td><td>22.69</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>110</td><td>78.04</td><td>88.31</td><td>82.5</td><td>23.02</td></tr>\n<tr><td rowspan=\"2\"><strong>Nicholas King</strong></td><td style=\"text-align:center;\">TS</td><td>36</td><td>70.77</td><td>90.11</td><td>81.55</td><td>25.12</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>109</td><td>69.42</td><td>87.28</td><td>81.93</td><td>22.73</td></tr>\n<tr><td rowspan=\"2\"><strong>Nicole Ahline</strong></td><td style=\"text-align:center;\">TS</td><td>15</td><td>75.71</td><td>89.06</td><td>80.14</td><td>21.27</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>184</td><td>70.39</td><td>86.08</td><td>81.3</td><td>19.91</td></tr>\n<tr><td rowspan=\"2\"><strong>Urounda Brooks</strong></td><td style=\"text-align:center;\">TS</td><td>32</td><td>80.7</td><td>91.74</td><td>83.38</td><td>25.34</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>104</td><td>73.63</td><td>87.1</td><td>81.58</td><td>22.15</td></tr>\n<tr><td rowspan=\"2\"><strong>James Anderson</strong></td><td style=\"text-align:center;\">TS</td><td>4</td><td>40</td><td>75</td><td>75.89</td><td>14.24</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>104</td><td>63.36</td><td>82.32</td><td>79.46</td><td>20.42</td></tr>\n<tr><td rowspan=\"2\"><strong>Alice Rovney</strong></td><td style=\"text-align:center;\">TS</td><td>145</td><td>75.97</td><td>89.05</td><td>82.91</td><td>23.59</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>360</td><td>73.66</td><td>88.01</td><td>82.82</td><td>22.13</td></tr>\n<tr><td rowspan=\"2\"><strong>Tanya Gaborit</strong></td><td style=\"text-align:center;\">TS</td><td>2</td><td>100</td><td>100</td><td>87.14</td><td>28.53</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>143</td><td>74.1</td><td>87.73</td><td>83.09</td><td>21.38</td></tr>\n<tr><td rowspan=\"2\"><strong>Anthony Natale</strong></td><td style=\"text-align:center;\">TS</td><td>64</td><td>72.8</td><td>89.2</td><td>84.16</td><td>24.52</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>243</td><td>77.42</td><td>89.79</td><td>83.47</td><td>22.97</td></tr>\n<tr><td rowspan=\"2\"><strong>Julie Morris</strong></td><td style=\"text-align:center;\">TS</td><td>33</td><td>73.1</td><td>88.64</td><td>82.93</td><td>23.68</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>109</td><td>72.5</td><td>86.47</td><td>82.18</td><td>20.87</td></tr>\n<tr><td rowspan=\"2\"><strong>Amanda Kennedy</strong></td><td style=\"text-align:center;\">TS</td><td>24</td><td>67.83</td><td>89.78</td><td>82.88</td><td>22.76</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>115</td><td>76.34</td><td>88.05</td><td>82.83</td><td>21.32</td></tr>\n<tr><td rowspan=\"2\"><strong>Deionna Hill</strong></td><td style=\"text-align:center;\">TS</td><td>12</td><td>61.29</td><td>77.78</td><td>81.19</td><td>22.66</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>168</td><td>72.5</td><td>87.42</td><td>81.7</td><td>20.29</td></tr>\n<tr><td rowspan=\"2\"><strong>Krystal Uhrle</strong></td><td style=\"text-align:center;\">TS</td><td>31</td><td>80.08</td><td>93.78</td><td>83.84</td><td>26.53</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>90</td><td>75.09</td><td>88.72</td><td>81.77</td><td>22.55</td></tr>\n<tr><td rowspan=\"2\"><strong>Angie Qual</strong></td><td style=\"text-align:center;\">TS</td><td>2</td><td>&mdash;</td><td>&mdash;</td><td>74.03</td><td>29.06</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>123</td><td>69.18</td><td>86.08</td><td>82.35</td><td>19.17</td></tr>\n<tr><td rowspan=\"2\"><strong>Heather Norton</strong></td><td style=\"text-align:center;\">TS</td><td>143</td><td>64.4</td><td>86.23</td><td>80.36</td><td>25.8</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>176</td><td>62.7</td><td>84.62</td><td>81.11</td><td>24.04</td></tr>\n<tr><td rowspan=\"2\"><strong>Hilary Moszynski</strong></td><td style=\"text-align:center;\">TS</td><td>127</td><td>71.6</td><td>90.36</td><td>81.58</td><td>25.84</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>195</td><td>68.76</td><td>85.9</td><td>81.69</td><td>23.7</td></tr>\n<tr><td rowspan=\"2\"><strong>Leigh Peebles</strong></td><td style=\"text-align:center;\">TS</td><td>33</td><td>69.94</td><td>82.17</td><td>81.33</td><td>24.25</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>106</td><td>75.18</td><td>88.23</td><td>83.41</td><td>21.87</td></tr>\n<tr><td rowspan=\"2\"><strong>Marta Gryniv</strong></td><td style=\"text-align:center;\">TS</td><td>18</td><td>67.57</td><td>86.79</td><td>82.81</td><td>28.3</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>128</td><td>72.49</td><td>87.51</td><td>82.5</td><td>22.66</td></tr>\n<tr><td rowspan=\"2\"><strong>Laura Sisk</strong></td><td style=\"text-align:center;\">TS</td><td>227</td><td>65.38</td><td>85.11</td><td>83.84</td><td>22.31</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>4949</td><td>64.38</td><td>84.16</td><td>80.25</td><td>21.66</td></tr>\n<tr><td rowspan=\"2\"><strong>Diana Dobiesz</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>381</td><td>67.57</td><td>85.89</td><td>81.06</td><td>29.91</td></tr>\n<tr><td rowspan=\"2\"><strong>Saman Esmaily</strong></td><td style=\"text-align:center;\">TS</td><td>0</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr>\n<tr><td style=\"text-align:center;\">Non-TS</td><td>384</td><td>69.06</td><td>87.16</td><td>80.92</td><td>29.89</td></tr>"
+  },
+  "totals": {
+    "tsSurveys": 19352,
+    "ntsSurveys": 68224
+  }
+}

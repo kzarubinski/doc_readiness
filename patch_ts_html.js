@@ -15,6 +15,7 @@ const ttlaTs = r.overall.ttla.ts;
 const ttlaNts = r.overall.ttla.nts;
 const m = r.mixAppendix.fs;
 const tm = r.mixAppendix.ttla;
+const pl1Cst = r.pl1.mix.fs.cst;
 const ta = r.triageAllPL;
 
 function gap(a, b) { return Math.round((a - b) * 100) / 100; }
@@ -60,12 +61,59 @@ replaceMixTbody('<strong>TTLA Mix-Adjusted Summary — PL1 New Hires</strong>', 
 replaceMixTbody('<strong>FS Mix-Adjusted Summary — PL1 New Hires, TRIAGE + AMEND</strong>', r.html.pl1TriageMix);
 replaceMixTbody('<strong>FS Mix-Adjusted Summary — PL1 New Hires, NON TRIAGE</strong>', r.html.pl1NonTriageMix);
 replaceMixTbody('<h3 id="a1-fs-mix">A1. FS — Mix-Adjusted Performance</h3>', r.html.fsMixAppendix);
+replaceMixTbody('<h2 id="summary-fs">Full Service Overview</h2>', r.html.fsMixAppendix);
 replaceMixTbody('<h3 id="a2-ttla-mix">A2. TTLA — Mix-Adjusted Performance</h3>', r.html.ttlaMixAppendix);
 replaceMixTbody('<h3>TTLA &mdash; Mix-Adjusted Performance</h3>', r.html.ttlaMixAppendix);
 
-// Summary CST mix row
-replaceMixTbody('<strong>FS CST — Mix-Adjusted Summary</strong>',
-  `<tr><td><strong>CST</strong></td><td>${m.cst.actual}</td><td>${m.cst.adj}</td><td>${m.cst.nts}</td><td class="better">&minus;${Math.abs(m.cst.rawGap)}</td><td class="worse">${m.cst.adjGap > 0 ? '+' : ''}${m.cst.adjGap}</td><td>${m.cst.mixEffect > 0 ? '+' : ''}${m.cst.mixEffect}</td><td>SKU &times; CustType</td></tr>`);
+// FS mix-adjusted narratives (CST corrected — Premium SKU now included)
+html = html.replace(
+  /<strong>FS Key Finding:<\/strong> Mix-adjustment reveals that TS's CST advantage \(2\.57 vs 2\.96\) is partly driven by SKU mix — mix-adjusted CST is [^<]+\. The tNPS gap widens after adjustment \([^)]+\), and HC gap widens substantially \([^)]+\) once SKU &times; customer mix is applied\. SQS shows a small mix effect \([^)]+\)\./,
+  `<strong>FS Key Finding:</strong> Mix-adjustment reveals that TS's raw CST advantage (${m.cst.actual} vs ${m.cst.nts}) is <strong>entirely driven by SKU mix</strong>. After reweighting to Non-TS's SKU distribution, mix-adjusted CST rises to ${m.cst.adj} — slightly <em>worse</em> than Non-TS (adj gap ${m.cst.adjGap > 0 ? '+' : ''}${m.cst.adjGap}). TS is slower (higher CST) on Basic and Deluxe per-SKU; handling far fewer Premium returns creates the illusion of overall CST advantage. The tNPS gap widens after adjustment (${m.tnps.rawGap} &rarr; ${m.tnps.adjGap}), and HC gap widens substantially (${m.hc.rawGap} &rarr; ${m.hc.adjGap}) once SKU &times; customer mix is applied.`
+);
+
+html = html.replace(
+  /a negative CST\/AHT mix effect means TS's mix was making them look better/,
+  'a <strong>positive</strong> CST/AHT mix effect means TS\'s mix was making them look better (lower CST/AHT)'
+);
+
+html = html.replace(
+  /CST mix-adjustment reduces TS's raw disadvantage \(\+0\.56 &rarr; \+0\.23\)\./,
+  `CST mix-adjustment has minimal effect on the PL1 gap (+${pl1Cst.rawGap} &rarr; +${pl1Cst.adjGap}); SKU mix is not a major confounder at this level.`
+);
+
+// SKU mix insight callouts — TS is worse on Basic/Deluxe per-SKU CST
+html = html.replace(
+  /This SKU mix difference significantly contributes to Tax Specialists' lower overall CST despite having higher per-SKU CST for Basic and Deluxe\./g,
+  `This SKU mix difference helps explain TS's favorable raw overall CST. TS has higher (worse) per-SKU CST on Basic and Deluxe; handling far fewer Premium returns masks that underlying disadvantage.`
+);
+
+// Mix chart data (FS compare + effect)
+html = html.replace(
+  /\{ label: 'Actual TS', data: \[64\.54, 60\.99, 85\.68, 45\.72, 100-2\.57\]/,
+  `{ label: 'Actual TS', data: [${m.tnps.actual}, ${m.ir.actual}, ${m.sqs.actual}, ${m.hc.actual}, ${100 - m.cst.actual}]`
+);
+html = html.replace(
+  /\{ label: 'Mix-Adjusted TS', data: \[61\.44, 61\.35, 85\.47, 36\.31, 100-2\.34\]/,
+  `{ label: 'Mix-Adjusted TS', data: [${m.tnps.adj}, ${m.ir.adj}, ${m.sqs.adj}, ${m.hc.adj}, ${100 - m.cst.adj}]`
+);
+html = html.replace(
+  /\{ label: 'Non-TS', data: \[72\.2, 72\.48, 87\.57, 66\.51, 100-2\.96\]/,
+  `{ label: 'Non-TS', data: [${m.tnps.nts}, ${m.ir.nts}, ${m.sqs.nts}, ${m.hc.nts}, ${100 - m.cst.nts}]`
+);
+html = html.replace(
+  /\{ label: 'Adjusted Gap', data: \[-10\.76, -0\.61, -2\.1, -11\.13, -30\.21\]/,
+  `{ label: 'Adjusted Gap', data: [${m.tnps.adjGap}, ${m.cst.adjGap}, ${m.sqs.adjGap}, ${m.ir.adjGap}, ${m.hc.adjGap}]`
+);
+html = html.replace(
+  /\{ label: 'Mix Effect', data: \[-3\.1, -0\.23, -0\.21, 0\.36, -9\.41\]/,
+  `{ label: 'Mix Effect', data: [${m.tnps.mixEffect}, ${m.cst.mixEffect}, ${m.sqs.mixEffect}, ${m.ir.mixEffect}, ${m.hc.mixEffect}]`
+);
+
+// Analysis scope — CST mix-adjusted finding
+html = html.replace(
+  /<p>There's also a sizable underperformance in CST\/Complete; exact magnitude after removing confounders is being confirmed\.<\/p>/,
+  `<p>After SKU &times; customer-type mix adjustment, FS CST is slightly <strong>worse</strong> for Tax Specialists than Non-TS (mix-adj ${m.cst.adj} vs ${m.cst.nts}; adj gap ${m.cst.adjGap > 0 ? '+' : ''}${m.cst.adjGap}). The raw CST advantage is entirely a composition effect — TS handles far fewer Premium returns.</p>`
+);
 
 // Summary triage tNPS table
 const allTnps = m.tnps;
@@ -104,10 +152,10 @@ html = html.replace(
   `Handle Conversion remains a critical issue, with TS <strong>${Math.abs(m.hc.rawGap).toFixed(2)} points below</strong> Non-TS raw (${m.hc.adjGap} adjusted).`
 );
 
-// Chart JS — mix compare (already partially updated; ensure labels match 5 metrics)
+// Chart JS — mix compare labels
 html = html.replace(
   /labels: \['tNPS', 'IR', 'HC \(inv CST\)'\]/,
-  "labels: ['tNPS', 'IR', 'SQS', 'HC', 'CST']"
+  "labels: ['tNPS', 'IR', 'SQS', 'HC', 'CST (inv)']"
 );
 
 // M2 manager tables

@@ -705,7 +705,7 @@
 </tbody></table>
 </div>
 <div class="callout">
-    <strong>SKU Mix Insight:</strong> Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.3% vs 28.1%) and far fewer <strong>Premium</strong> returns (18.0% vs 43.3%). This SKU mix difference significantly contributes to Tax Specialists' lower overall CST despite having higher per-SKU CST for Basic and Deluxe.
+    <strong>SKU Mix Insight:</strong> Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.3% vs 28.1%) and far fewer <strong>Premium</strong> returns (18.0% vs 43.3%). This SKU mix difference helps explain TS's favorable raw overall CST. TS has higher (worse) per-SKU CST on Basic and Deluxe; handling far fewer Premium returns masks that underlying disadvantage.
 </div>
 
 <div class="card">
@@ -1350,7 +1350,7 @@
 <thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
 <tbody>
 <tr><td><strong>tNPS</strong></td><td>55.72</td><td>58.64</td><td>71.65</td><td class="worse">-15.93</td><td class="worse">-13.01</td><td>+2.92</td><td>SKU &times; CustType</td></tr>
-<tr><td><strong>CST</strong></td><td>2.82</td><td>2.49</td><td>2.26</td><td class="worse">+0.56</td><td class="worse">+0.23</td><td>-0.33</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>CST</strong></td><td>2.82</td><td>2.81</td><td>2.26</td><td class="worse">+0.56</td><td class="worse">+0.55</td><td>-0.01</td><td>SKU &times; CustType</td></tr>
 <tr><td><strong>SQS</strong></td><td>84.26</td><td>84.24</td><td>85.03</td><td class="worse">-0.78</td><td class="worse">-0.79</td><td>-0.02</td><td>SKU only</td></tr>
 <tr><td><strong>IR</strong></td><td>59.06</td><td>59.18</td><td>60.83</td><td class="worse">-1.77</td><td class="worse">-1.64</td><td>+0.12</td><td>CustType only</td></tr>
 <tr><td><strong>HC</strong></td><td>47.31</td><td>41.23</td><td>65.59</td><td class="worse">-18.28</td><td class="worse">-24.36</td><td>-6.08</td><td>SKU &times; CustType</td></tr>
@@ -1358,7 +1358,7 @@
 </div>
 
 <div class="callout danger">
-<strong>FS PL1 New Hire Key Finding:</strong> Mix-adjustment narrows the tNPS gap from &minus;15.93 to &minus;13.01, confirming that SKU/customer mix explains a portion of the deficit. CST mix-adjustment reduces TS's raw disadvantage (+0.56 &rarr; +0.23). After SKU &times; customer-type adjustment, the HC gap widens from &minus;18.28 to &minus;24.36 (mix effect &minus;6.08); the <strong>&minus;24.36 pt adjusted deficit</strong> confirms Handle Conversion remains a genuine performance issue for PL1 New Hire Tax Specialists.
+<strong>FS PL1 New Hire Key Finding:</strong> Mix-adjustment narrows the tNPS gap from &minus;15.93 to &minus;13.01, confirming that SKU/customer mix explains a portion of the deficit. CST mix-adjustment has minimal effect on the PL1 gap (+0.56 &rarr; +0.55); SKU mix is not a major confounder at this level. After SKU &times; customer-type adjustment, the HC gap widens from &minus;18.28 to &minus;24.36 (mix effect &minus;6.08); the <strong>&minus;24.36 pt adjusted deficit</strong> confirms Handle Conversion remains a genuine performance issue for PL1 New Hire Tax Specialists.
 </div>
 
 <div class="card">
@@ -1827,7 +1827,7 @@
 <thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
 <tbody>
 <tr><td><strong>tNPS</strong></td><td>64.54</td><td>61.44</td><td>72.2</td><td class="worse">-7.66</td><td class="worse">-10.76</td><td>-3.1</td><td>SKU &times; CustType</td></tr>
-<tr><td><strong>CST</strong></td><td>2.57</td><td>2.34</td><td>2.96</td><td class="better">-0.39</td><td class="better">-0.61</td><td>-0.23</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>CST</strong></td><td>2.57</td><td>3.06</td><td>2.96</td><td class="better">-0.39</td><td class="worse">+0.11</td><td>+0.49</td><td>SKU &times; CustType</td></tr>
 <tr><td><strong>SQS</strong></td><td>85.68</td><td>85.47</td><td>87.57</td><td class="worse">-1.89</td><td class="worse">-2.1</td><td>-0.21</td><td>SKU only</td></tr>
 <tr><td><strong>IR</strong></td><td>60.99</td><td>61.35</td><td>72.48</td><td class="worse">-11.49</td><td class="worse">-11.13</td><td>+0.36</td><td>CustType only</td></tr>
 <tr><td><strong>HC</strong></td><td>45.72</td><td>36.31</td><td>66.51</td><td class="worse">-20.79</td><td class="worse">-30.21</td><td>-9.41</td><td>SKU &times; CustType</td></tr>
@@ -1835,7 +1835,7 @@
 </div>
 
 <div class="callout danger">
-<strong>FS Key Finding:</strong> Mix-adjustment reveals that TS's CST advantage (2.57 vs 2.96) is partly driven by SKU mix — mix-adjusted CST is 2.34 vs Non-TS 2.96. The tNPS gap widens after adjustment (-7.66 &rarr; -10.76), and HC gap widens substantially (-20.79 &rarr; -30.21) once SKU &times; customer mix is applied. SQS shows a small mix effect (-0.21 pts).
+<strong>FS Key Finding:</strong> Mix-adjustment reveals that TS's raw CST advantage (2.57 vs 2.96) is <strong>entirely driven by SKU mix</strong>. After reweighting to Non-TS's SKU distribution, mix-adjusted CST rises to 3.06 — slightly <em>worse</em> than Non-TS (adj gap +0.11). TS is slower (higher CST) on Basic and Deluxe per-SKU; handling far fewer Premium returns creates the illusion of overall CST advantage. The tNPS gap widens after adjustment (-7.66 &rarr; -10.76), and HC gap widens substantially (-20.79 &rarr; -30.21) once SKU &times; customer mix is applied.
 </div>
 
 <div class="chart-row">
@@ -1868,7 +1868,7 @@
 <div class="card" style="border-left:4px solid var(--warning);">
 <h3 style="margin-top:0;">Interpretation Guide</h3>
 <ul style="padding-left:1.25rem;">
-<li><strong>Mix Effect</strong> = Mix-Adjusted TS &minus; Actual TS. A positive value for tNPS/IR/HC means TS was benefiting from a favorable mix; a negative CST/AHT mix effect means TS's mix was making them look better.</li>
+<li><strong>Mix Effect</strong> = Mix-Adjusted TS &minus; Actual TS. A positive value for tNPS/IR/HC means TS was benefiting from a favorable mix; a <strong>positive</strong> CST/AHT mix effect means TS's mix was making them look better (lower CST/AHT).</li>
 <li><strong>Adjusted Gap</strong> = Mix-Adjusted TS &minus; Non-TS. This is the "true" performance difference after removing composition effects.</li>
 <li>For CST and AHT (lower is better): a positive adjusted gap means TS is worse after adjustment; a negative gap means TS is better.</li>
 <li>This analysis adjusts for SKU mix and New/Returning customer mix only. Other confounders (partner mix, proficiency level distribution, volume per expert) are not adjusted here.</li>
@@ -2111,7 +2111,7 @@
 Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adjusted</strong> (by SKU and customer type) to separate composition effects from true performance differences.
 </div>
 
-<p>There's also a sizable underperformance in CST/Complete; exact magnitude after removing confounders is being confirmed.</p>
+<p>After SKU &times; customer-type mix adjustment, FS CST is slightly <strong>worse</strong> for Tax Specialists than Non-TS (mix-adj 3.06 vs 2.96; adj gap +0.11). The raw CST advantage is entirely a composition effect — TS handles far fewer Premium returns.</p>
 </div>
 
 <hr class="section-divider">
@@ -2125,7 +2125,7 @@ Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adju
 <thead><tr><th>Metric</th><th>Actual TS</th><th>Mix-Adjusted TS</th><th>Non-TS</th><th>Raw Gap</th><th>Adjusted Gap</th><th>Mix Effect</th><th>Adjustment</th></tr></thead>
 <tbody>
 <tr><td><strong>tNPS</strong></td><td>64.54</td><td>61.44</td><td>72.2</td><td class="worse">-7.66</td><td class="worse">-10.76</td><td>-3.1</td><td>SKU &times; CustType</td></tr>
-<tr><td><strong>CST</strong></td><td>2.57</td><td>2.34</td><td>2.96</td><td class="better">-0.39</td><td class="better">-0.61</td><td>-0.23</td><td>SKU &times; CustType</td></tr>
+<tr><td><strong>CST</strong></td><td>2.57</td><td>3.06</td><td>2.96</td><td class="better">-0.39</td><td class="worse">+0.11</td><td>+0.49</td><td>SKU &times; CustType</td></tr>
 <tr><td><strong>SQS</strong></td><td>85.68</td><td>85.47</td><td>87.57</td><td class="worse">-1.89</td><td class="worse">-2.1</td><td>-0.21</td><td>SKU only</td></tr>
 <tr><td><strong>IR</strong></td><td>60.99</td><td>61.35</td><td>72.48</td><td class="worse">-11.49</td><td class="worse">-11.13</td><td>+0.36</td><td>CustType only</td></tr>
 <tr><td><strong>HC</strong></td><td>45.72</td><td>36.31</td><td>66.51</td><td class="worse">-20.79</td><td class="worse">-30.21</td><td>-9.41</td><td>SKU &times; CustType</td></tr>
@@ -2133,7 +2133,7 @@ Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adju
 </div>
 
 <h3>SKU Mix Insight</h3>
-<p>Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.4% vs 28.7%) and far fewer <strong>Premium</strong> returns (18.0% vs 42.9%). This SKU mix difference significantly contributes to Tax Specialists' lower overall CST despite having higher per-SKU CST for Basic and Deluxe.</p>
+<p>Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.4% vs 28.7%) and far fewer <strong>Premium</strong> returns (18.0% vs 42.9%). This SKU mix difference helps explain TS's favorable raw overall CST. TS has higher (worse) per-SKU CST on Basic and Deluxe; handling far fewer Premium returns masks that underlying disadvantage.</p>
 
 <div class="card">
 <div class="card-header"><strong>Overall SKU Mix (% of Engagements)</strong></div>
@@ -2977,9 +2977,9 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
             labels: ['tNPS', 'IR', 'SQS', 'HC', 'CST (inv)'],
             datasets: [
-                { label: 'Actual TS', data: [64.54, 60.99, 85.68, 45.72, 100-2.57], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
-                { label: 'Mix-Adjusted TS', data: [61.44, 61.35, 85.47, 36.31, 100-2.34], backgroundColor: mixAdjColor, borderColor: mixAdjBorder, borderWidth: 2 },
-                { label: 'Non-TS', data: [72.2, 72.48, 87.57, 66.51, 100-2.96], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
+                { label: 'Actual TS', data: [64.54, 60.99, 85.68, 45.72, 97.43], backgroundColor: tsColor, borderColor: tsBorder, borderWidth: 2 },
+                { label: 'Mix-Adjusted TS', data: [61.44, 61.35, 85.47, 36.31, 96.94], backgroundColor: mixAdjColor, borderColor: mixAdjBorder, borderWidth: 2 },
+                { label: 'Non-TS', data: [72.2, 72.48, 87.57, 66.51, 97.04], backgroundColor: ntsColor, borderColor: ntsBorder, borderWidth: 2 }
             ]
         },
         options: {
@@ -3001,8 +3001,8 @@ document.addEventListener('DOMContentLoaded', function() {
             labels: ['tNPS', 'CST', 'SQS', 'IR', 'HC'],
             datasets: [
                 { label: 'Raw Gap (TS - NTS)', data: [-7.66, -0.39, -1.89, -11.49, -20.79], backgroundColor: 'rgba(239,68,68,0.6)', borderColor: '#ef4444', borderWidth: 2 },
-                { label: 'Adjusted Gap', data: [-10.76, -0.61, -2.1, -11.13, -30.21], backgroundColor: 'rgba(234,179,8,0.6)', borderColor: '#eab308', borderWidth: 2 },
-                { label: 'Mix Effect', data: [-3.1, -0.23, -0.21, 0.36, -9.41], backgroundColor: 'rgba(99,102,241,0.6)', borderColor: '#6366f1', borderWidth: 2 }
+                { label: 'Adjusted Gap', data: [-10.76, 0.11, -2.1, -11.13, -30.21], backgroundColor: 'rgba(234,179,8,0.6)', borderColor: '#eab308', borderWidth: 2 },
+                { label: 'Mix Effect', data: [-3.1, 0.49, -0.21, 0.36, -9.41], backgroundColor: 'rgba(99,102,241,0.6)', borderColor: '#6366f1', borderWidth: 2 }
             ]
         },
         options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { beginAtZero: true } } }
