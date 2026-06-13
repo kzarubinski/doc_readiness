@@ -38,11 +38,17 @@ const INTERACTION_FILE = resolveDataFile(
     process.argv[3],
     'Expert_Analysis_data_DP2.csv'
 );
+const MIX_FILE = resolveDataFile(
+    process.argv[4],
+    'Expert_Analysis_data_DP3.csv'
+);
 
 const periodCsv = loadCsv(PERIOD_FILE);
 const interactionCsv = loadCsv(INTERACTION_FILE);
+const mixCsv = loadCsv(MIX_FILE);
 const data = periodCsv.rows;
 const interactionData = interactionCsv.rows;
+const mixData = mixCsv.rows;
 
 // ── Helpers ──
 const pf = v => parseFloat(v) || 0;
@@ -63,6 +69,174 @@ const PARTNER_SHORT = {
 
 function isPartner(name) {
     return PARTNERS_NON_INTUIT.includes(name);
+}
+
+function premiumDen(r) {
+    return pf(r.cst_premium_denominator) || pf(r.cst_premiun_denominator);
+}
+
+function sumField(rows, field) {
+    return rows.reduce((a, r) => a + pf(r[field]), 0);
+}
+
+const SKUS = ['basic', 'deluxe', 'premium'];
+const CUST_TYPES = ['New', 'Returning'];
+
+function skuMetricFields(prefix, sku) {
+    return { num: `${prefix}_${sku}_numerator`, den: `${prefix}_${sku}_denominator` };
+}
+
+function ratioRows(rows, key, mult = 1) {
+    const num = key === 'hc' ? 'handled_conversion_numerator' : `${key}_numerator`;
+    const den = key === 'hc' ? 'handled_conversion_denominator' : `${key}_denominator`;
+    const d = sumField(rows, den);
+    return d ? (sumField(rows, num) / d) * mult : null;
+}
+
+function mixFmt(n, dec = 2) {
+    if (n === null || n === undefined || Number.isNaN(n)) return null;
+    return Number(n.toFixed(dec));
+}
+
+function mixGap(a, b) { return mixFmt(a - b); }
+function mixEffect(a, b) { return mixFmt(b - a); }
+
+// Reweight adjusting group to base (Intuit) SKU × customer mix
+function skuCustMixAdj(adjR, baseR, prefix, mult = 1) {
+    let w = 0, t = 0;
+    for (const s of SKUS) {
+        for (const c of CUST_TYPES) {
+            const adjC = adjR.filter(r => r.new_returning_customer === c);
+            const baseC = baseR.filter(r => r.new_returning_customer === c);
+            const { num: nf, den: df } = skuMetricFields(prefix, s);
+            const adjD = sumField(adjC, df);
+            const baseD = sumField(baseC, df);
+            if (!adjD || !baseD) continue;
+            w += (sumField(adjC, nf) / adjD) * mult * baseD;
+            t += baseD;
+        }
+    }
+    return t ? w / t : null;
+}
+
+function custMixAdj(adjR, baseR, prefix, mult = 1) {
+    let w = 0, t = 0;
+    for (const c of CUST_TYPES) {
+        const adjC = adjR.filter(r => r.new_returning_customer === c);
+        const baseC = baseR.filter(r => r.new_returning_customer === c);
+        const denField = prefix === 'hc' ? 'handled_conversion_denominator' : `${prefix}_denominator`;
+        const numField = prefix === 'hc' ? 'handled_conversion_numerator' : `${prefix}_numerator`;
+        const adjD = sumField(adjC, denField);
+        const baseD = sumField(baseC, denField);
+        if (!adjD || !baseD) continue;
+        w += (sumField(adjC, numField) / adjD) * mult * baseD;
+        t += baseD;
+    }
+    return t ? w / t : null;
+}
+
+function skuMixAdj(adjR, baseR, prefix, mult = 1) {
+    let w = 0, t = 0;
+    for (const s of SKUS) {
+        const { num: nf, den: df } = skuMetricFields(prefix, s);
+        const adjD = sumField(adjR, df);
+        const baseD = sumField(baseR, df);
+        if (!adjD || !baseD) continue;
+        w += (sumField(adjR, nf) / adjD) * mult * baseD;
+        t += baseD;
+    }
+    return t ? w / t : null;
+}
+
+const FS_MIX_SPECS = [
+    { name: 'tnps', key: 'tnps', type: 'skuCust', mult: 100, adjLabel: 'SKU × CustType', label: 'tNPS' },
+    { name: 'cst', key: 'cst', type: 'skuCust', mult: 1, adjLabel: 'SKU × CustType', label: 'CST' },
+    { name: 'sqs', key: 'sqs', type: 'sku', mult: 100, adjLabel: 'SKU only', label: 'SQS' },
+    { name: 'ir', key: 'ir', type: 'cust', mult: 100, adjLabel: 'CustType only', label: 'IR' },
+    { name: 'hc', key: 'hc', type: 'skuCust', mult: 100, adjLabel: 'SKU × CustType', label: 'HC' },
+];
+
+const TTLA_MIX_SPECS = [
+    { name: 'tnps', key: 'tnps', type: 'skuCust', mult: 100, adjLabel: 'SKU × CustType', label: 'tNPS' },
+    { name: 'aht', key: 'aht', type: 'skuCust', mult: 1, adjLabel: 'SKU × CustType', label: 'AHT' },
+    { name: 'sqs', key: 'sqs', type: 'sku', mult: 100, adjLabel: 'SKU only', label: 'SQS' },
+    { name: 'ir', key: 'ir', type: 'cust', mult: 100, adjLabel: 'CustType only', label: 'IR' },
+];
+
+function buildPartnerMix(adjR, baseR, specs) {
+    const out = {};
+    for (const s of specs) {
+        const actual = ratioRows(adjR, s.key, s.mult);
+        const base = ratioRows(baseR, s.key, s.mult);
+        let adj = actual;
+        if (s.type === 'skuCust') {
+            adj = skuCustMixAdj(adjR, baseR, s.key === 'hc' ? 'hc' : s.key, s.mult);
+        } else if (s.type === 'cust') {
+            adj = custMixAdj(adjR, baseR, s.key === 'hc' ? 'hc' : s.key, s.mult);
+        } else if (s.type === 'sku') {
+            adj = skuMixAdj(adjR, baseR, s.key, s.mult);
+        }
+        out[s.name] = {
+            label: s.label,
+            actual: mixFmt(actual),
+            adj: mixFmt(adj),
+            base: mixFmt(base),
+            rawGap: mixGap(actual, base),
+            adjGap: mixGap(adj, base),
+            mixEffect: mixEffect(actual, adj),
+            adjustment: s.adjLabel,
+        };
+    }
+    return out;
+}
+
+function mixGapClass(gap, lowerBetter = false) {
+    if (gap === null || Math.abs(gap) < 0.005) return 'neutral';
+    const good = lowerBetter ? gap < 0 : gap > 0;
+    return good ? 'better' : 'worse';
+}
+
+function fmtMixGap(n) {
+    if (n === null || n === undefined) return '—';
+    return (n > 0 ? '+' : '') + n.toFixed(2);
+}
+
+function renderMixRow(m, lowerBetter = false) {
+    const rgCls = mixGapClass(m.rawGap, lowerBetter);
+    const agCls = mixGapClass(m.adjGap, lowerBetter);
+    return `<tr>
+        <td><strong>${m.label}</strong></td>
+        <td>${m.actual ?? '—'}</td>
+        <td>${m.adj ?? '—'}</td>
+        <td>${m.base ?? '—'}</td>
+        <td class="${rgCls}">${fmtMixGap(m.rawGap)}</td>
+        <td class="${agCls}">${fmtMixGap(m.adjGap)}</td>
+        <td>${fmtMixGap(m.mixEffect)}</td>
+        <td>${m.adjustment.replace('×', '&times;')}</td>
+    </tr>`;
+}
+
+function renderMixTable(mix, order, lowerBetter = {}) {
+    const rows = order.map(k => renderMixRow(mix[k], lowerBetter[k] || false)).join('\n');
+    return `<div class="card"><table>
+<thead><tr>
+    <th>Metric</th><th>Actual Partners</th><th>Mix-Adj Partners</th><th>Intuit (Base)</th>
+    <th>Raw Gap</th><th>Adj Gap</th><th>Mix Effect</th><th>Adjustment</th>
+</tr></thead>
+<tbody>${rows}</tbody></table></div>`;
+}
+
+function buildMixFinding(mix, order, lowerBetter, productLabel) {
+    const items = order.map(k => {
+        const m = mix[k];
+        if (!m || m.rawGap === null) return '';
+        const lb = lowerBetter[k];
+        const rawBetter = lb ? m.rawGap < 0 : m.rawGap > 0;
+        const adjBetter = lb ? m.adjGap < 0 : m.adjGap > 0;
+        const persisted = rawBetter === adjBetter;
+        return `<li><strong>${m.label}:</strong> Raw gap ${fmtMixGap(m.rawGap)} → adjusted ${fmtMixGap(m.adjGap)} (mix effect ${fmtMixGap(m.mixEffect)}). ${persisted ? 'Advantage/disadvantage <strong>persists</strong> after mix adjustment.' : 'Mix adjustment <strong>changes interpretation</strong> of the gap.'}</li>`;
+    }).filter(Boolean).join('\n');
+    return `<div class="callout"><strong>${productLabel} Mix-Adjusted Key Findings:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;">${items}</ul></div>`;
 }
 
 // ── Aggregation engine ──
@@ -91,7 +265,7 @@ function aggregate(rows) {
         cst_den += pf(r.cst_denominator);
         sku_basic_den += pf(r.cst_basic_denominator);
         sku_deluxe_den += pf(r.cst_deluxe_denominator);
-        sku_premium_den += pf(r.cst_premiun_denominator);
+        sku_premium_den += premiumDen(r);
         cst_basic_num += pf(r.cst_basic_numerator);
         cst_deluxe_num += pf(r.cst_deluxe_numerator);
         cst_premium_num += pf(r.cst_premium_numerator);
@@ -352,6 +526,21 @@ const ttlaTenure = hasTenure ? buildTenurePivot(ttlaIx, TTLA_PARTNERS) : null;
 const fsTenure = hasTenure ? buildTenurePivot(fsIx) : null;
 
 const ttlaByCT = hasContactType ? buildInlineBreakdown(ttlaIx, 'contact_type', TTLA_PARTNERS) : null;
+
+// Mix-adjusted metrics (DP3 — Intuit base, Partners Total adjusting)
+const fsMixRows = mixData.filter(r => r.product_name === 'TTL Full Service Consumer');
+const ttlaMixRows = mixData.filter(r => r.product_name === 'TTL Assisted Consumer');
+const fsMixIntuit = fsMixRows.filter(r => r.expert_partner_name === 'INTUIT');
+const fsMixPartners = fsMixRows.filter(r => PARTNERS_NON_INTUIT.includes(r.expert_partner_name));
+const ttlaMixIntuit = ttlaMixRows.filter(r => r.expert_partner_name === 'INTUIT');
+const ttlaMixPartners = ttlaMixRows.filter(r => TTLA_PARTNERS.includes(r.expert_partner_name));
+
+const fsMix = buildPartnerMix(fsMixPartners, fsMixIntuit, FS_MIX_SPECS);
+const ttlaMix = buildPartnerMix(ttlaMixPartners, ttlaMixIntuit, TTLA_MIX_SPECS);
+const FS_MIX_ORDER = ['tnps', 'cst', 'sqs', 'ir', 'hc'];
+const TTLA_MIX_ORDER = ['tnps', 'aht', 'sqs', 'ir'];
+const FS_MIX_LOWER = { cst: true, aht: true };
+const TTLA_MIX_LOWER = { aht: true };
 
 const fsByPeriod = buildPeriodPivot(fsData);
 const ttlaByPeriod = buildPeriodPivot(ttla, TTLA_PARTNERS);
@@ -974,7 +1163,7 @@ function metricInsight(label, pVal, iVal, key) {
     return `<li><strong>${label}:</strong> Partners <strong>${fmt(pVal, 2)}</strong> vs Intuit <strong>${fmt(iVal, 2)}</strong> — <span class="${cls}">Partners ${word} by ${Math.abs(diff).toFixed(2)} (${pct}%)</span></li>`;
 }
 
-function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData) {
+function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData, fsMixAdj, ttlaMixAdj) {
     const fsP = fsTable.find(r => r.type === 'partners_total');
     const fsI = fsTable.find(r => r.type === 'intuit');
     const ttlaP = ttlaTable.find(r => r.type === 'partners_total');
@@ -1002,6 +1191,18 @@ ${ttlaP && ttlaI ? TTLA_METRICS.map(m => metricInsight(METRIC_LABELS[m], ttlaP.a
         html += `<div class="callout teal"><strong>SKU Mix Context (FS):</strong> Partners handle ${fmt(fsP.agg.sku_basic_pct, 1)}% Basic engagements vs ${fmt(fsI.agg.sku_basic_pct, 1)}% for Intuit (${diffStr(basicDiff)} pp). ${basicDiff > 2 ? 'The partner mix skews more Basic — a potentially easier workload that should be considered when interpreting CST and conversion metrics.' : 'SKU mix is comparable to Intuit, supporting apples-to-apples performance comparisons.'}</div>`;
     }
 
+    html += `<h3>Mix-Adjusted Highlights</h3>
+<div class="callout teal">
+    <strong>After reweighting Partners Total to Intuit's SKU &amp; customer mix</strong> (see Appendix):
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>FS CST:</strong> Raw gap ${fmtMixGap(fsMixAdj.cst.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.cst.adjGap)} (mix effect ${fmtMixGap(fsMixAdj.cst.mixEffect)})</li>
+    <li><strong>FS tNPS:</strong> Raw gap ${fmtMixGap(fsMixAdj.tnps.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.tnps.adjGap)}</li>
+    <li><strong>FS HC:</strong> Raw gap ${fmtMixGap(fsMixAdj.hc.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.hc.adjGap)}</li>
+    <li><strong>TTLA tNPS:</strong> Raw gap ${fmtMixGap(ttlaMixAdj.tnps.rawGap)} → mix-adjusted ${fmtMixGap(ttlaMixAdj.tnps.adjGap)}</li>
+    <li><strong>TTLA AHT:</strong> Raw gap ${fmtMixGap(ttlaMixAdj.aht.rawGap)} → mix-adjusted ${fmtMixGap(ttlaMixAdj.aht.adjGap)}</li>
+    </ul>
+</div>`;
+
     html += `<h3>Volume &amp; Scale</h3>
 <ul style="padding-left:1.25rem;margin-bottom:1rem;">
 <li><strong>FS:</strong> ${fmtN(fsVolData.partnersTotal)} partner engagements (${fmt(fsVolData.partnersTotal / fsVolData.grandTotal * 100, 1)}% of ${fmtN(fsVolData.grandTotal)} total)</li>
@@ -1013,7 +1214,7 @@ ${ttlaP && ttlaI ? TTLA_METRICS.map(m => metricInsight(METRIC_LABELS[m], ttlaP.a
 <ul style="padding-left:1.25rem;">
 <li><strong>Attrition lens:</strong> Active vs attrited cohorts may show different performance profiles — see Attrition Status breakdowns in the Analisys tab.</li>
 <li><strong>Partner variation:</strong> Individual partner performance varies widely; JDA carries the largest TTLA volume share while Foundever has minimal FS presence.</li>
-<li><strong>Mix-adjusted interpretation:</strong> Always cross-reference FS CST/tNPS with SKU mix before drawing conclusions about partner execution quality.</li>
+<li><strong>Mix-adjusted interpretation:</strong> See the <a href="#appendix-mix">Appendix</a> — partners are reweighted to Intuit's workload mix to isolate execution vs. assignment effects.</li>
 </ul>
 
 <p style="font-size:0.85rem;color:var(--muted);margin-top:1.5rem;">See the <strong>Analisys</strong> tab for full breakdowns by reporting period, role, proficiency level, hire type, attrition status, and detailed partner-level tables.</p>`;
@@ -1139,7 +1340,7 @@ let html = `<!DOCTYPE html>
     </div>
 
     <div class="section active" id="sec-summary">
-        ${buildSummaryTab(fsOverall, ttlaOverall, buildVolumeData(fsOverall, 'cst_den'), buildVolumeData(ttlaOverall, 'aht_den'))}
+        ${buildSummaryTab(fsOverall, ttlaOverall, buildVolumeData(fsOverall, 'cst_den'), buildVolumeData(ttlaOverall, 'aht_den'), fsMix, ttlaMix)}
     </div>
 
     <div class="section" id="sec-analisys">
@@ -1175,6 +1376,12 @@ let html = `<!DOCTYPE html>
                 </ol>
             </li>
             <li><a href="#conclusions">Conclusions &amp; Key Takeaways</a></li>
+            <li><a href="#appendix-mix">Appendix: Mix-Adjusted Metrics</a>
+                <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
+                    <li><a href="#a1-fs-mix">FS Mix-Adjusted Performance</a></li>
+                    <li><a href="#a2-ttla-mix">TTLA Mix-Adjusted Performance</a></li>
+                </ol>
+            </li>
         </ol>
     </div>
 
@@ -1344,22 +1551,39 @@ html += `<div class="callout">
     <ul style="margin-top:0.5rem;padding-left:1.25rem;">
     <li><strong>FS strength is broad-based:</strong> Partners beat Intuit on tNPS, IR, HC, and CST simultaneously — a rare pattern suggesting genuine execution advantage, not a single-metric artifact. SQS is essentially tied.</li>
     <li><strong>TTLA gap is customer-facing:</strong> Intuit's tNPS and IR advantages on TTLA point to experience quality issues on the partner side, despite partners handling a majority of contact volume (~53%).</li>
-    <li><strong>SKU mix is not the FS story:</strong> Partner Basic share is only ~1.4 pp higher than Intuit — mix differences are unlikely to fully explain partner CST advantages.</li>
+    <li><strong>Mix-adjusted FS:</strong> After reweighting to Intuit's SKU &amp; customer mix, CST gap moves from ${fmtMixGap(fsMix.cst.rawGap)} to ${fmtMixGap(fsMix.cst.adjGap)}; tNPS gap from ${fmtMixGap(fsMix.tnps.rawGap)} to ${fmtMixGap(fsMix.tnps.adjGap)}. See Appendix for full mix-adjusted tables.</li>
     <li><strong>Attrition matters:</strong> Active experts generally outperform attrited cohorts; attrition status breakdowns should be reviewed before setting partner-specific coaching priorities.</li>
     <li><strong>Survey confidence:</strong> Always check survey counts alongside tNPS — small denominators (especially for Foundever FS or attrited cohorts) can produce volatile scores.</li>
     </ul>
 </div>\n`;
 
 html += `<div class="callout teal">
-    <strong>Methodology Note:</strong> All metrics computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria. Headline KPIs and reporting-period breakdowns use <strong>${path.basename(PERIOD_FILE)}</strong> (${fmtN(data.length)} rows). Contact type and tenure breakdowns use <strong>${path.basename(INTERACTION_FILE)}</strong> (${fmtN(interactionData.length)} rows). tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, HC. Lower is better for AHT, CST.
+    <strong>Methodology Note:</strong> All metrics computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria. Headline KPIs and reporting-period breakdowns use <strong>${path.basename(PERIOD_FILE)}</strong> (${fmtN(data.length)} rows). Contact type and tenure breakdowns use <strong>${path.basename(INTERACTION_FILE)}</strong> (${fmtN(interactionData.length)} rows). Mix-adjusted metrics use <strong>${path.basename(MIX_FILE)}</strong> (${fmtN(mixData.length)} rows), reweighting Partners Total to Intuit's SKU and customer-type mix. tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, HC. Lower is better for AHT, CST.
 </div>\n`;
+
+// ═══════════════════════════════════════════
+// 5. APPENDIX — Mix-Adjusted Metrics
+// ═══════════════════════════════════════════
+html += `<hr class="section-divider">
+<h2 id="appendix-mix">Appendix: Mix-Adjusted Performance Analysis</h2>
+<p>Mix-adjusted metrics answer: <em>What would Partners Total's performance look like if they handled Intuit's workload mix?</em> <strong>Intuit</strong> is the base reference; <strong>Partners Total</strong> is reweighted using Intuit's SKU distribution and New/Returning customer mix. A persistent gap after adjustment indicates a genuine execution difference rather than a composition artifact.</p>
+<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.5rem;">Gap = Partners minus Intuit. Mix Effect = Mix-Adjusted Partners minus Actual Partners. Source: ${path.basename(MIX_FILE)}.</p>
+
+<h3 id="a1-fs-mix">A1. FS — Mix-Adjusted Performance</h3>
+${renderMixTable(fsMix, FS_MIX_ORDER, FS_MIX_LOWER)}
+${buildMixFinding(fsMix, FS_MIX_ORDER, FS_MIX_LOWER, 'FS')}
+
+<h3 id="a2-ttla-mix">A2. TTLA — Mix-Adjusted Performance</h3>
+${renderMixTable(ttlaMix, TTLA_MIX_ORDER, TTLA_MIX_LOWER)}
+${buildMixFinding(ttlaMix, TTLA_MIX_ORDER, TTLA_MIX_LOWER, 'TTLA')}
+`;
 
 html += `</div>
 </div>
 
 <footer>
     <p>Domain Partners Performance Analysis &bull; Generated ${today}</p>
-    <p>Data sources: ${path.basename(PERIOD_FILE)} (${fmtN(data.length)} rows, primary) &bull; ${path.basename(INTERACTION_FILE)} (${fmtN(interactionData.length)} rows, contact/tenure)</p>
+    <p>Data sources: ${path.basename(PERIOD_FILE)} (${fmtN(data.length)} rows, primary) &bull; ${path.basename(INTERACTION_FILE)} (${fmtN(interactionData.length)} rows, contact/tenure) &bull; ${path.basename(MIX_FILE)} (${fmtN(mixData.length)} rows, mix-adjusted)</p>
 </footer>
 
 <script>
@@ -1383,5 +1607,7 @@ fs.writeFileSync('Domain_Partner_Analysis.html', html);
 console.log('Generated Domain_Partner_Analysis.html');
 console.log('Period dataset:', PERIOD_FILE, '—', data.length, 'rows');
 console.log('Interaction dataset:', INTERACTION_FILE, '—', interactionData.length, 'rows');
+console.log('Mix dataset:', MIX_FILE, '—', mixData.length, 'rows');
+console.log('FS mix CST raw/adj gap:', fsMix.cst.rawGap, fsMix.cst.adjGap);
 console.log('TTLA rows (period):', ttla.length, '| FS rows (period):', fsData.length);
 console.log('TTLA rows (interaction):', ttlaIx.length, '| FS rows (interaction):', fsIx.length);
