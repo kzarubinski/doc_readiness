@@ -2095,6 +2095,8 @@
 
 <p>Handle Conversion, being one of the most critical metrics, shows a substantial gap between TS and Non-TS.</p>
 
+<p>There's also sizable underperformance in CST/Complete; exact magnitude after removing confounders is being confirmed.</p>
+
 <p><strong>TTLA.</strong> Tax Specialists performed well on TTLA, delivering results at or above Non-TS levels across all key metrics (+3.28 in tNPS, +1.38 in SQS, +1.92 in IR, having only AHT being 1.29 minutes longer on average).</p>
 </div>
 
@@ -2110,8 +2112,6 @@
 <div class="callout">
 Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adjusted</strong> (by SKU and customer type) to separate composition effects from true performance differences.
 </div>
-
-<p>After SKU &times; customer-type mix adjustment, FS CST is slightly <strong>worse</strong> for Tax Specialists than Non-TS (mix-adj 3.06 vs 2.96; adj gap +0.11). The raw CST advantage is entirely a composition effect — TS handles far fewer Premium returns.</p>
 </div>
 
 <hr class="section-divider">
@@ -2133,15 +2133,15 @@ Metrics were evaluated both as <strong>raw</strong> (as-is) and <strong>mix-adju
 </div>
 
 <h3>SKU Mix Insight</h3>
-<p>Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns (49.4% vs 28.7%) and far fewer <strong>Premium</strong> returns (18.0% vs 42.9%). This SKU mix difference helps explain TS's favorable raw overall CST. TS has higher (worse) per-SKU CST on Basic and Deluxe; handling far fewer Premium returns masks that underlying disadvantage.</p>
+<p>Tax Specialists handle a much higher proportion of <strong>Basic</strong> returns and far fewer <strong>Premium</strong> returns. TS has higher (worse) per-SKU CST on Basic and Deluxe; handling far fewer Premium returns masks that underlying disadvantage. Mix-adj CST reweights TS to Non-TS New/Returning customer mix within each SKU.</p>
 
 <div class="card">
-<div class="card-header"><strong>Overall SKU Mix (% of Engagements)</strong></div>
+<div class="card-header"><strong>FS SKU Mix &amp; Performance by SKU</strong></div>
 <table>
-<thead><tr><th>Group</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th></tr></thead>
+<thead><tr><th>Group</th><th>Basic %</th><th>Deluxe %</th><th>Premium %</th><th>tNPS Basic</th><th>tNPS Deluxe</th><th>tNPS Premium</th><th>CST Basic</th><th>Mix-Adj CST Basic</th><th>CST Deluxe</th><th>Mix-Adj CST Deluxe</th><th>CST Premium</th><th>Mix-Adj CST Premium</th><th>CST Overall</th><th>Mix-Adj CST Overall</th></tr></thead>
 <tbody>
-<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>49.4%</td><td>32.6%</td><td>18.0%</td></tr>
-<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>28.7%</td><td>28.5%</td><td>42.9%</td></tr>
+<tr class="ts-row"><td><strong>Tax Specialist</strong></td><td>49.4%</td><td>32.6%</td><td>18%</td><td>75.75</td><td>71.08</td><td>48.93</td><td>1.96</td><td>1.98</td><td>2.68</td><td>2.7</td><td>3.97</td><td>4.02</td><td>2.57</td><td>3.06</td></tr>
+<tr class="highlight-row"><td><strong>Non-TS</strong></td><td>28.7%</td><td>28.5%</td><td>42.9%</td><td>77.06</td><td>74.79</td><td>64.36</td><td>1.81</td><td>&mdash;</td><td>2.47</td><td>&mdash;</td><td>4.02</td><td>&mdash;</td><td>2.96</td><td>&mdash;</td></tr>
 </tbody></table>
 </div>
 

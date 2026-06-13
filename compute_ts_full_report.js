@@ -245,6 +245,89 @@ function skuMixPct(rows) {
   return t ? { basic: fmt(b / t * 100, 1), deluxe: fmt(d / t * 100, 1), premium: fmt(p / t * 100, 1) } : null;
 }
 
+function metricBySku(rows, prefix, sku, mult = 100) {
+  const nf = `${prefix}_${sku}_numerator`;
+  const df = `${prefix}_${sku}_denominator`;
+  const d = sum(rows, df);
+  return d ? fmt(sum(rows, nf) / d * mult) : null;
+}
+
+function cstBySku(rows, sku) {
+  const { num: nf, den: df } = skuMetricFields('cst', sku);
+  const d = sum(rows, df);
+  return d ? fmt(sum(rows, nf) / d) : null;
+}
+
+function cstMixAdjBySku(tsR, ntsR, sku) {
+  let w = 0, t = 0;
+  const { num: nf, den: df } = skuMetricFields('cst', sku);
+  for (const c of CUST) {
+    const tsC = tsR.filter((r) => r.new_returning_customer === c);
+    const ntC = ntsR.filter((r) => r.new_returning_customer === c);
+    const td = sum(tsC, df), nd = sum(ntC, df);
+    if (!td || !nd) continue;
+    w += (sum(tsC, nf) / td) * nd;
+    t += nd;
+  }
+  return t ? fmt(w / t) : null;
+}
+
+function buildSkuInsight(tsR, ntsR) {
+  const tsMix = skuMixPct(tsR);
+  const ntsMix = skuMixPct(ntsR);
+  const skus = SKUS.map((sku) => ({
+    sku,
+    tsMixPct: tsMix?.[sku],
+    ntsMixPct: ntsMix?.[sku],
+    tsTnps: metricBySku(tsR, 'tnps', sku),
+    ntsTnps: metricBySku(ntsR, 'tnps', sku),
+    tsCst: cstBySku(tsR, sku),
+    tsCstAdj: cstMixAdjBySku(tsR, ntsR, sku),
+    ntsCst: cstBySku(ntsR, sku),
+  }));
+  return {
+    skus,
+    overall: {
+      tsTnps: fmt(ratio(tsR, 'tnps', 100)),
+      ntsTnps: fmt(ratio(ntsR, 'tnps', 100)),
+      tsCst: fmt(ratio(tsR, 'cst', 1)),
+      tsCstAdj: fmt(skuCustMix(tsR, ntsR, 'cst', 1)),
+      ntsCst: fmt(ratio(ntsR, 'cst', 1)),
+    },
+  };
+}
+
+function skuInsightHtml(insight) {
+  const v = (x, pct = false) => (x == null ? '&mdash;' : pct ? `${x}%` : x);
+  const bySku = (arr, field) => {
+    const o = {};
+    for (const r of arr) o[r.sku] = r[field];
+    return o;
+  };
+  const tsMix = bySku(insight.skus, 'tsMixPct');
+  const ntsMix = bySku(insight.skus, 'ntsMixPct');
+  const tsTnps = bySku(insight.skus, 'tsTnps');
+  const ntsTnps = bySku(insight.skus, 'ntsTnps');
+  const tsCst = bySku(insight.skus, 'tsCst');
+  const tsCstAdj = bySku(insight.skus, 'tsCstAdj');
+  const ntsCst = bySku(insight.skus, 'ntsCst');
+  const o = insight.overall;
+  return `<tr class="ts-row"><td><strong>Tax Specialist</strong></td>` +
+    `<td>${v(tsMix.basic, true)}</td><td>${v(tsMix.deluxe, true)}</td><td>${v(tsMix.premium, true)}</td>` +
+    `<td>${v(tsTnps.basic)}</td><td>${v(tsTnps.deluxe)}</td><td>${v(tsTnps.premium)}</td>` +
+    `<td>${v(tsCst.basic)}</td><td>${v(tsCstAdj.basic)}</td>` +
+    `<td>${v(tsCst.deluxe)}</td><td>${v(tsCstAdj.deluxe)}</td>` +
+    `<td>${v(tsCst.premium)}</td><td>${v(tsCstAdj.premium)}</td>` +
+    `<td>${v(o.tsCst)}</td><td>${v(o.tsCstAdj)}</td></tr>\n` +
+    `<tr class="highlight-row"><td><strong>Non-TS</strong></td>` +
+    `<td>${v(ntsMix.basic, true)}</td><td>${v(ntsMix.deluxe, true)}</td><td>${v(ntsMix.premium, true)}</td>` +
+    `<td>${v(ntsTnps.basic)}</td><td>${v(ntsTnps.deluxe)}</td><td>${v(ntsTnps.premium)}</td>` +
+    `<td>${v(ntsCst.basic)}</td><td>&mdash;</td>` +
+    `<td>${v(ntsCst.deluxe)}</td><td>&mdash;</td>` +
+    `<td>${v(ntsCst.premium)}</td><td>&mdash;</td>` +
+    `<td>${v(o.ntsCst)}</td><td>&mdash;</td></tr>`;
+}
+
 function m2Html(table, product) {
   const isFs = product === FS;
   const v = (x) => (x == null ? '&mdash;' : x);
@@ -336,6 +419,8 @@ const pl1NonTriage = pl1TriageMix(FS, false);
 const pl1TsSurv = sum(pl1FsSplit.ts, 'tnps_denominator');
 const pl1NtsSurv = sum(pl1FsSplit.nts, 'tnps_denominator');
 
+const fsDP3Split = split(fsDP3);
+
 const report = {
   generated: new Date().toISOString(),
   sources: { dp: dp.length, dp2: dp2.length, dp3: dp3.length },
@@ -367,7 +452,8 @@ const report = {
   forecastGroup: forecastGroupTable(dp3),
   plEnd: { fs: plEndTable(dp, FS), ttla: plEndTable(dp, TTLA) },
   plStart: { fs: plStartTable(dp3, FS), ttla: plStartTable(dp3, TTLA) },
-  skuMix: { fs: { ts: skuMixPct(fsSplit.ts), nts: skuMixPct(fsSplit.nts) } },
+  skuMix: { fs: { ts: skuMixPct(fsDP3Split.ts), nts: skuMixPct(fsDP3Split.nts) } },
+  skuInsight: buildSkuInsight(fsDP3Split.ts, fsDP3Split.nts),
   m2: { fs: m2Table(dp, FS), ttla: m2Table(dp, TTLA) },
   trainingWave: { fs: trainingWaveTable(dp, FS), ttla: trainingWaveTable(dp, TTLA) },
   html: {},
@@ -384,6 +470,7 @@ report.html.pl1FsMix = mixTable(report.pl1.mix.fs, ['tnps', 'cst', 'sqs', 'ir', 
 report.html.pl1TtlaMix = mixTable(report.pl1.mix.ttla, ['tnps', 'aht', 'sqs', 'ir']);
 report.html.pl1TriageMix = mixTable(report.pl1.triage.mix, ['tnps', 'sqs', 'ir'], {}, true);
 report.html.pl1NonTriageMix = mixTable(report.pl1.nonTriage.mix, ['tnps', 'sqs', 'ir'], {}, true);
+report.html.skuInsightSummary = skuInsightHtml(report.skuInsight);
 
 function cell(v) { return v == null || v === 0 && v !== '0' ? '&mdash;' : v; }
 function fgRows(fg) {

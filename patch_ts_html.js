@@ -109,11 +109,20 @@ html = html.replace(
   `{ label: 'Mix Effect', data: [${m.tnps.mixEffect}, ${m.cst.mixEffect}, ${m.sqs.mixEffect}, ${m.ir.mixEffect}, ${m.hc.mixEffect}]`
 );
 
-// Analysis scope — CST mix-adjusted finding
+// Analysis scope — remove trailing CST paragraph if present
 html = html.replace(
-  /<p>There's also a sizable underperformance in CST\/Complete; exact magnitude after removing confounders is being confirmed\.<\/p>/,
-  `<p>After SKU &times; customer-type mix adjustment, FS CST is slightly <strong>worse</strong> for Tax Specialists than Non-TS (mix-adj ${m.cst.adj} vs ${m.cst.nts}; adj gap ${m.cst.adjGap > 0 ? '+' : ''}${m.cst.adjGap}). The raw CST advantage is entirely a composition effect — TS handles far fewer Premium returns.</p>`
+  /<p>After SKU &times; customer-type mix adjustment, FS CST is slightly <strong>worse<\/strong> for Tax Specialists than Non-TS \(mix-adj [^<]+\)<\/p>\s*/,
+  ''
 );
+
+// Executive summary — CST/Complete note after Handle Conversion
+html = html.replace(
+  /(<p>Handle Conversion, being one of the most critical metrics, shows a substantial gap between TS and Non-TS\.<\/p>)(?!\s*\n\n<p>There's also sizable underperformance)/,
+  `$1\n\n<p>There's also sizable underperformance in CST/Complete; exact magnitude after removing confounders is being confirmed.</p>`
+);
+
+// Summary SKU Mix Insight — combined table
+replaceMixTbody('<div class="card-header"><strong>FS SKU Mix &amp; Performance by SKU</strong></div>', r.html.skuInsightSummary);
 
 // Summary triage tNPS table
 const allTnps = m.tnps;
