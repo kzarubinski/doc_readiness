@@ -1224,17 +1224,7 @@ function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData, fsMixAdj, t
         html += `<div class="callout teal"><strong>SKU Mix Context (FS):</strong> Partners handle ${fmt(fsP.agg.sku_basic_pct, 1)}% Basic engagements vs ${fmt(fsI.agg.sku_basic_pct, 1)}% for Intuit (${diffStr(basicDiff)} pp). ${basicDiff > 2 ? 'The partner mix skews more Basic — a potentially easier workload that should be considered when interpreting CST and conversion metrics.' : 'SKU mix is comparable to Intuit, supporting apples-to-apples performance comparisons.'}</div>`;
     }
 
-    html += `<h3>Mix-Adjusted Highlights</h3>
-<div class="callout teal">
-    <strong>After reweighting Partners Total to Intuit's SKU &amp; customer mix</strong> (see Appendix):
-    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
-    <li><strong>FS CST:</strong> Raw gap ${fmtMixGap(fsMixAdj.cst.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.cst.adjGap)} (mix effect ${fmtMixGap(fsMixAdj.cst.mixEffect)})</li>
-    <li><strong>FS tNPS:</strong> Raw gap ${fmtMixGap(fsMixAdj.tnps.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.tnps.adjGap)}</li>
-    <li><strong>FS HC:</strong> Raw gap ${fmtMixGap(fsMixAdj.hc.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.hc.adjGap)}</li>
-    <li><strong>TTLA tNPS:</strong> Raw gap ${fmtMixGap(ttlaMixAdj.tnps.rawGap)} → mix-adjusted ${fmtMixGap(ttlaMixAdj.tnps.adjGap)}</li>
-    <li><strong>TTLA AHT:</strong> Raw gap ${fmtMixGap(ttlaMixAdj.aht.rawGap)} → mix-adjusted ${fmtMixGap(ttlaMixAdj.aht.adjGap)}</li>
-    </ul>
-</div>`;
+    html += `<h3>Mix-Adjusted Highlights</h3>\n`;
     html += buildMixFinding(fsMixAdj, FS_MIX_ORDER, FS_MIX_LOWER, 'FS');
     html += buildMixFinding(ttlaMixAdj, TTLA_MIX_ORDER, TTLA_MIX_LOWER, 'TTLA');
 
