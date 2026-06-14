@@ -148,12 +148,23 @@ function skuMixAdj(adjR, baseR, prefix, mult = 1) {
     return t ? w / t : null;
 }
 
+// HC from SKU-level fields only (apples-to-apples with SKU mix adjustment)
+function hcFromSkuFields(rows, mult = 100) {
+    let num = 0, den = 0;
+    for (const s of SKUS) {
+        const { num: nf, den: df } = skuMetricFields('hc', s);
+        num += sumField(rows, nf);
+        den += sumField(rows, df);
+    }
+    return den > 0 ? (num / den) * mult : null;
+}
+
 const FS_MIX_SPECS = [
     { name: 'tnps', key: 'tnps', type: 'skuCust', mult: 100, adjLabel: 'SKU × CustType', label: 'tNPS' },
     { name: 'cst', key: 'cst', type: 'skuCust', mult: 1, adjLabel: 'SKU × CustType', label: 'CST' },
     { name: 'sqs', key: 'sqs', type: 'sku', mult: 100, adjLabel: 'SKU only', label: 'SQS' },
     { name: 'ir', key: 'ir', type: 'cust', mult: 100, adjLabel: 'CustType only', label: 'IR' },
-    { name: 'hc', key: 'hc', type: 'skuCust', mult: 100, adjLabel: 'SKU × CustType', label: 'HC' },
+    { name: 'hc', key: 'hc', type: 'sku', mult: 100, adjLabel: 'SKU only', label: 'HC' },
 ];
 
 const TTLA_MIX_SPECS = [
@@ -166,13 +177,13 @@ const TTLA_MIX_SPECS = [
 function buildPartnerMix(adjR, baseR, specs) {
     const out = {};
     for (const s of specs) {
-        const actual = ratioRows(adjR, s.key, s.mult);
-        const base = ratioRows(baseR, s.key, s.mult);
+        const actual = s.key === 'hc' ? hcFromSkuFields(adjR, s.mult) : ratioRows(adjR, s.key, s.mult);
+        const base = s.key === 'hc' ? hcFromSkuFields(baseR, s.mult) : ratioRows(baseR, s.key, s.mult);
         let adj = actual;
         if (s.type === 'skuCust') {
-            adj = skuCustMixAdj(adjR, baseR, s.key === 'hc' ? 'hc' : s.key, s.mult);
+            adj = skuCustMixAdj(adjR, baseR, s.key, s.mult);
         } else if (s.type === 'cust') {
-            adj = custMixAdj(adjR, baseR, s.key === 'hc' ? 'hc' : s.key, s.mult);
+            adj = custMixAdj(adjR, baseR, s.key, s.mult);
         } else if (s.type === 'sku') {
             adj = skuMixAdj(adjR, baseR, s.key, s.mult);
         }
@@ -1562,6 +1573,7 @@ html += `<hr class="section-divider">
 <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.5rem;">Gap = Partners minus Intuit. Mix Effect = Mix-Adjusted Partners minus Actual Partners. Source: ${path.basename(MIX_FILE)}.</p>
 
 <h3 id="a1-fs-mix">A1. FS — Mix-Adjusted Performance</h3>
+<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;"><strong>HC note:</strong> Actual, mix-adjusted, and Intuit HC use only records with SKU-level HC fields populated (<code>hc_basic</code>, <code>hc_deluxe</code>, <code>hc_premium</code>), with SKU-only mix adjustment — so all three columns are on the same basis.</p>
 ${renderMixTable(fsMix, FS_MIX_ORDER, FS_MIX_LOWER)}
 ${buildMixFinding(fsMix, FS_MIX_ORDER, FS_MIX_LOWER, 'FS')}
 
