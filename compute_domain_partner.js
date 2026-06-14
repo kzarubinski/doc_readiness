@@ -498,6 +498,7 @@ function buildPeriodPivot(rows, partnerList) {
 // ── Metric config ──
 const TTLA_METRICS = ['tnps', 'ir', 'sqs', 'aht'];
 const FS_METRICS = ['tnps', 'ir', 'sqs', 'hc', 'cst'];
+const FS_TENURE_METRICS = ['tnps', 'ir', 'sqs', 'hc'];
 
 const METRIC_LABELS = { tnps: 'tNPS', ir: 'IR', sqs: 'SQS', hc: 'HC', aht: 'AHT', cst: 'CST' };
 const METRIC_DIRECTION = { tnps: 'higher', ir: 'higher', sqs: 'higher', hc: 'higher', aht: 'lower', cst: 'lower' };
@@ -1163,64 +1164,6 @@ function metricInsight(label, pVal, iVal, key) {
     return `<li><strong>${label}:</strong> Partners <strong>${fmt(pVal, 2)}</strong> vs Intuit <strong>${fmt(iVal, 2)}</strong> — <span class="${cls}">Partners ${word} by ${Math.abs(diff).toFixed(2)} (${pct}%)</span></li>`;
 }
 
-function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData, fsMixAdj, ttlaMixAdj) {
-    const fsP = fsTable.find(r => r.type === 'partners_total');
-    const fsI = fsTable.find(r => r.type === 'intuit');
-    const ttlaP = ttlaTable.find(r => r.type === 'partners_total');
-    const ttlaI = ttlaTable.find(r => r.type === 'intuit');
-
-    let html = `<h2 style="margin-top:0;">Executive Summary</h2>
-<p>This report compares Domain Partners (${PARTNERS_NON_INTUIT.map(p => PARTNER_SHORT[p]).join(', ')}) against Intuit across <strong>Full Service (FS)</strong> and <strong>TTL Assisted (TTLA)</strong> for the current tax season. All metrics use volume-weighted aggregation: <code>sum(numerator) / sum(denominator)</code>.</p>
-
-<div class="kpi-row">
-<div class="kpi blue"><div class="label">FS Engagements</div><div class="value">${fmtN(fsVolData.grandTotal)}</div><div class="detail">Partners ${fmt(fsVolData.partnersTotal / fsVolData.grandTotal * 100, 1)}% · Intuit ${fmt(fsVolData.intuitTotal / fsVolData.grandTotal * 100, 1)}%</div></div>
-<div class="kpi purple"><div class="label">TTLA Contacts</div><div class="value">${fmtN(ttlaVolData.grandTotal)}</div><div class="detail">Partners ${fmt(ttlaVolData.partnersTotal / ttlaVolData.grandTotal * 100, 1)}% · Intuit ${fmt(ttlaVolData.intuitTotal / ttlaVolData.grandTotal * 100, 1)}%</div></div>
-</div>
-
-<h3>Headline Findings</h3>
-<div class="callout success"><strong>FS — Partners lead on quality and efficiency.</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;">
-${fsP && fsI ? FS_METRICS.map(m => metricInsight(METRIC_LABELS[m], fsP.agg[m], fsI.agg[m], m)).join('\n') : ''}
-</ul></div>
-
-<div class="callout danger"><strong>TTLA — Intuit leads on customer experience metrics.</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;">
-${ttlaP && ttlaI ? TTLA_METRICS.map(m => metricInsight(METRIC_LABELS[m], ttlaP.agg[m], ttlaI.agg[m], m)).join('\n') : ''}
-</ul></div>`;
-
-    if (fsP && fsI && fsP.agg.sku_basic_pct !== null) {
-        const basicDiff = fsP.agg.sku_basic_pct - fsI.agg.sku_basic_pct;
-        html += `<div class="callout teal"><strong>SKU Mix Context (FS):</strong> Partners handle ${fmt(fsP.agg.sku_basic_pct, 1)}% Basic engagements vs ${fmt(fsI.agg.sku_basic_pct, 1)}% for Intuit (${diffStr(basicDiff)} pp). ${basicDiff > 2 ? 'The partner mix skews more Basic — a potentially easier workload that should be considered when interpreting CST and conversion metrics.' : 'SKU mix is comparable to Intuit, supporting apples-to-apples performance comparisons.'}</div>`;
-    }
-
-    html += `<h3>Mix-Adjusted Highlights</h3>
-<div class="callout teal">
-    <strong>After reweighting Partners Total to Intuit's SKU &amp; customer mix</strong> (see Appendix):
-    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
-    <li><strong>FS CST:</strong> Raw gap ${fmtMixGap(fsMixAdj.cst.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.cst.adjGap)} (mix effect ${fmtMixGap(fsMixAdj.cst.mixEffect)})</li>
-    <li><strong>FS tNPS:</strong> Raw gap ${fmtMixGap(fsMixAdj.tnps.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.tnps.adjGap)}</li>
-    <li><strong>FS HC:</strong> Raw gap ${fmtMixGap(fsMixAdj.hc.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.hc.adjGap)}</li>
-    <li><strong>TTLA tNPS:</strong> Raw gap ${fmtMixGap(ttlaMixAdj.tnps.rawGap)} → mix-adjusted ${fmtMixGap(ttlaMixAdj.tnps.adjGap)}</li>
-    <li><strong>TTLA AHT:</strong> Raw gap ${fmtMixGap(ttlaMixAdj.aht.rawGap)} → mix-adjusted ${fmtMixGap(ttlaMixAdj.aht.adjGap)}</li>
-    </ul>
-</div>`;
-
-    html += `<h3>Volume &amp; Scale</h3>
-<ul style="padding-left:1.25rem;margin-bottom:1rem;">
-<li><strong>FS:</strong> ${fmtN(fsVolData.partnersTotal)} partner engagements (${fmt(fsVolData.partnersTotal / fsVolData.grandTotal * 100, 1)}% of ${fmtN(fsVolData.grandTotal)} total)</li>
-<li><strong>TTLA:</strong> ${fmtN(ttlaVolData.partnersTotal)} partner contacts (${fmt(ttlaVolData.partnersTotal / ttlaVolData.grandTotal * 100, 1)}% of ${fmtN(ttlaVolData.grandTotal)} total)</li>
-<li><strong>Survey base:</strong> ${fsP ? fmtN(Math.round(fsP.agg.tnps_den)) : '—'} FS partner surveys · ${ttlaP ? fmtN(Math.round(ttlaP.agg.tnps_den)) : '—'} TTLA partner surveys</li>
-</ul>
-
-<h3>What to Watch</h3>
-<ul style="padding-left:1.25rem;">
-<li><strong>Attrition lens:</strong> Active vs attrited cohorts may show different performance profiles — see Attrition Status breakdowns in the Analisys tab.</li>
-<li><strong>Partner variation:</strong> Individual partner performance varies widely; JDA carries the largest TTLA volume share while Foundever has minimal FS presence.</li>
-<li><strong>Mix-adjusted interpretation:</strong> See the <a href="#appendix-mix">Appendix</a> — partners are reweighted to Intuit's workload mix to isolate execution vs. assignment effects.</li>
-</ul>
-
-<p style="font-size:0.85rem;color:var(--muted);margin-top:1.5rem;">See the <strong>Analisys</strong> tab for full breakdowns by reporting period, role, proficiency level, hire type, attrition status, and detailed partner-level tables.</p>`;
-    return html;
-}
-
 function buildExpandedExecSummary() {
     const fsP = fsOverall.find(r => r.type === 'partners_total');
     const fsI = fsOverall.find(r => r.type === 'intuit');
@@ -1238,6 +1181,82 @@ function buildExpandedExecSummary() {
 <p>TTL Assisted tells a different story. Intuit outperforms partners on <strong>tNPS, Issue Resolution (IR), and Service Quality Score (SQS)</strong>, while AHT is roughly comparable. Partners Total tNPS of <strong>${ttlaP ? fmt(ttlaP.agg.tnps, 2) : 'N/A'}</strong> trails Intuit's <strong>${ttlaI ? fmt(ttlaI.agg.tnps, 2) : 'N/A'}</strong>${ttlaP && ttlaI ? ` by ${(ttlaI.agg.tnps - ttlaP.agg.tnps).toFixed(2)} points` : ''} across ${ttlaP ? fmtN(Math.round(ttlaP.agg.tnps_den)) : '—'} surveys. JDA dominates partner TTLA volume (~${ttlaOverall.find(r => r.name === 'JDA') ? fmt(ttlaOverall.find(r => r.name === 'JDA').agg.aht_den / ttlaP.agg.aht_den * 100, 0) : '—'}%), so aggregate partner metrics are heavily influenced by JDA's performance profile.</p>
 
 <h3>Key Metrics at a Glance</h3>\n`;
+    return html;
+}
+
+function buildExecutiveSummaryBlock(headingId, sectionNumber) {
+    const fsP = fsOverall.find(r => r.type === 'partners_total');
+    const fsI = fsOverall.find(r => r.type === 'intuit');
+    const ttlaP = ttlaOverall.find(r => r.type === 'partners_total');
+    const ttlaI = ttlaOverall.find(r => r.type === 'intuit');
+
+    const title = sectionNumber ? `${sectionNumber}. Executive Summary` : 'Executive Summary';
+    const idAttr = headingId ? ` id="${headingId}"` : ' style="margin-top:0;"';
+    let html = `<h2${idAttr}>${title}</h2>\n`;
+    html += buildExpandedExecSummary();
+
+    html += '<div class="kpi-row">\n';
+    if (fsP && fsI) {
+        html += addKPI('FS tNPS', fsP.agg.tnps, fsI.agg.tnps, 'tnps');
+        html += addKPI('FS HC', fsP.agg.hc, fsI.agg.hc, 'hc');
+        html += addKPI('FS CST', fsP.agg.cst, fsI.agg.cst, 'cst');
+    }
+    if (ttlaP && ttlaI) {
+        html += addKPI('TTLA tNPS', ttlaP.agg.tnps, ttlaI.agg.tnps, 'tnps');
+        html += addKPI('TTLA AHT', ttlaP.agg.aht, ttlaI.agg.aht, 'aht');
+        html += addKPI('TTLA IR', ttlaP.agg.ir, ttlaI.agg.ir, 'ir');
+    }
+    html += '</div>\n';
+
+    html += buildCallout('FS Overview', fsOverall, FS_METRICS);
+    html += buildCallout('TTLA Overview', ttlaOverall, TTLA_METRICS);
+    return html;
+}
+
+function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData, fsMixAdj, ttlaMixAdj) {
+    const fsP = fsTable.find(r => r.type === 'partners_total');
+    const fsI = fsTable.find(r => r.type === 'intuit');
+
+    let html = buildExecutiveSummaryBlock('');
+
+    if (fsP && fsI && fsP.agg.sku_basic_pct !== null) {
+        const basicDiff = fsP.agg.sku_basic_pct - fsI.agg.sku_basic_pct;
+        html += `<div class="callout teal"><strong>SKU Mix Context (FS):</strong> Partners handle ${fmt(fsP.agg.sku_basic_pct, 1)}% Basic engagements vs ${fmt(fsI.agg.sku_basic_pct, 1)}% for Intuit (${diffStr(basicDiff)} pp). ${basicDiff > 2 ? 'The partner mix skews more Basic — a potentially easier workload that should be considered when interpreting CST and conversion metrics.' : 'SKU mix is comparable to Intuit, supporting apples-to-apples performance comparisons.'}</div>`;
+    }
+
+    html += `<h3>Mix-Adjusted Highlights</h3>
+<div class="callout teal">
+    <strong>After reweighting Partners Total to Intuit's SKU &amp; customer mix</strong> (see Appendix):
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>FS CST:</strong> Raw gap ${fmtMixGap(fsMixAdj.cst.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.cst.adjGap)} (mix effect ${fmtMixGap(fsMixAdj.cst.mixEffect)})</li>
+    <li><strong>FS tNPS:</strong> Raw gap ${fmtMixGap(fsMixAdj.tnps.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.tnps.adjGap)}</li>
+    <li><strong>FS HC:</strong> Raw gap ${fmtMixGap(fsMixAdj.hc.rawGap)} → mix-adjusted ${fmtMixGap(fsMixAdj.hc.adjGap)}</li>
+    <li><strong>TTLA tNPS:</strong> Raw gap ${fmtMixGap(ttlaMixAdj.tnps.rawGap)} → mix-adjusted ${fmtMixGap(ttlaMixAdj.tnps.adjGap)}</li>
+    <li><strong>TTLA AHT:</strong> Raw gap ${fmtMixGap(ttlaMixAdj.aht.rawGap)} → mix-adjusted ${fmtMixGap(ttlaMixAdj.aht.adjGap)}</li>
+    </ul>
+</div>`;
+    html += buildMixFinding(fsMixAdj, FS_MIX_ORDER, FS_MIX_LOWER, 'FS');
+    html += buildMixFinding(ttlaMixAdj, TTLA_MIX_ORDER, TTLA_MIX_LOWER, 'TTLA');
+
+    html += `<h3>Volume &amp; Scale</h3>
+<div class="kpi-row">
+<div class="kpi blue"><div class="label">FS Engagements</div><div class="value">${fmtN(fsVolData.grandTotal)}</div><div class="detail">Partners ${fmt(fsVolData.partnersTotal / fsVolData.grandTotal * 100, 1)}% · Intuit ${fmt(fsVolData.intuitTotal / fsVolData.grandTotal * 100, 1)}%</div></div>
+<div class="kpi purple"><div class="label">TTLA Contacts</div><div class="value">${fmtN(ttlaVolData.grandTotal)}</div><div class="detail">Partners ${fmt(ttlaVolData.partnersTotal / ttlaVolData.grandTotal * 100, 1)}% · Intuit ${fmt(ttlaVolData.intuitTotal / ttlaVolData.grandTotal * 100, 1)}%</div></div>
+</div>
+<ul style="padding-left:1.25rem;margin-bottom:1rem;">
+<li><strong>FS:</strong> ${fmtN(fsVolData.partnersTotal)} partner engagements (${fmt(fsVolData.partnersTotal / fsVolData.grandTotal * 100, 1)}% of ${fmtN(fsVolData.grandTotal)} total)</li>
+<li><strong>TTLA:</strong> ${fmtN(ttlaVolData.partnersTotal)} partner contacts (${fmt(ttlaVolData.partnersTotal / ttlaVolData.grandTotal * 100, 1)}% of ${fmtN(ttlaVolData.grandTotal)} total)</li>
+<li><strong>Survey base:</strong> ${fsP ? fmtN(Math.round(fsP.agg.tnps_den)) : '—'} FS partner surveys · ${ttlaTable.find(r => r.type === 'partners_total') ? fmtN(Math.round(ttlaTable.find(r => r.type === 'partners_total').agg.tnps_den)) : '—'} TTLA partner surveys</li>
+</ul>
+
+<h3>What to Watch</h3>
+<ul style="padding-left:1.25rem;">
+<li><strong>Attrition lens:</strong> Active vs attrited cohorts may show different performance profiles — see Attrition Status breakdowns in the Analisys tab.</li>
+<li><strong>Partner variation:</strong> Individual partner performance varies widely; JDA carries the largest TTLA volume share while Foundever has minimal FS presence.</li>
+<li><strong>Mix-adjusted interpretation:</strong> See the <a href="#appendix-mix">Appendix</a> — partners are reweighted to Intuit's workload mix to isolate execution vs. assignment effects.</li>
+</ul>
+
+<p style="font-size:0.85rem;color:var(--muted);margin-top:1.5rem;">See the <strong>Analisys</strong> tab for full breakdowns by reporting period, role, proficiency level, hire type, attrition status, and detailed partner-level tables.</p>`;
     return html;
 }
 
@@ -1390,24 +1409,7 @@ let html = `<!DOCTYPE html>
 // ═══════════════════════════════════════════
 // 1. EXECUTIVE SUMMARY — FS KPIs first
 // ═══════════════════════════════════════════
-html += `<h2 id="exec">1. Executive Summary</h2>\n`;
-html += buildExpandedExecSummary();
-
-html += '<div class="kpi-row">\n';
-if (fsPartners && fsIntuit) {
-    html += addKPI('FS tNPS', fsPartners.agg.tnps, fsIntuit.agg.tnps, 'tnps');
-    html += addKPI('FS HC', fsPartners.agg.hc, fsIntuit.agg.hc, 'hc');
-    html += addKPI('FS CST', fsPartners.agg.cst, fsIntuit.agg.cst, 'cst');
-}
-if (ttlaPartners && ttlaIntuit) {
-    html += addKPI('TTLA tNPS', ttlaPartners.agg.tnps, ttlaIntuit.agg.tnps, 'tnps');
-    html += addKPI('TTLA AHT', ttlaPartners.agg.aht, ttlaIntuit.agg.aht, 'aht');
-    html += addKPI('TTLA IR', ttlaPartners.agg.ir, ttlaIntuit.agg.ir, 'ir');
-}
-html += '</div>\n';
-
-html += buildCallout('FS Overview', fsOverall, FS_METRICS);
-html += buildCallout('TTLA Overview', ttlaOverall, TTLA_METRICS);
+html += buildExecutiveSummaryBlock('exec', '1');
 
 // ═══════════════════════════════════════════
 // 2. FS ANALYSIS (now section 2)
@@ -1468,8 +1470,8 @@ html += renderBreakdownSection('', '', fsByAttr, FS_METRICS, 'Attrition Status')
 if (hasTenure && fsTenure) {
     html += `<h3 id="fs-tenure">2i. FS — Breakdown by Tenure Category</h3>\n`;
     html += `<p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">Tenure breakdowns use the interaction dataset (contact type / tenure grain), aggregated across the full season.</p>\n`;
-    html += renderDimDistroTable('fs-tenure-vol', 'Volume Distribution by Tenure Category', fsIx, 'expert_tenure_category', 'cst_denominator');
-    html += renderTenurePivot('', '', fsTenure, FS_METRICS);
+    html += renderDimDistroTable('fs-tenure-vol', 'Survey Volume Distribution by Tenure Category', fsIx, 'expert_tenure_category', 'tnps_denominator');
+    html += renderTenurePivot('', '', fsTenure, FS_TENURE_METRICS);
 }
 
 // ═══════════════════════════════════════════
@@ -1558,7 +1560,7 @@ html += `<div class="callout">
 </div>\n`;
 
 html += `<div class="callout teal">
-    <strong>Methodology Note:</strong> All metrics computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria. Headline KPIs and reporting-period breakdowns use <strong>${path.basename(PERIOD_FILE)}</strong> (${fmtN(data.length)} rows). Contact type and tenure breakdowns use <strong>${path.basename(INTERACTION_FILE)}</strong> (${fmtN(interactionData.length)} rows). Mix-adjusted metrics use <strong>${path.basename(MIX_FILE)}</strong> (${fmtN(mixData.length)} rows), reweighting Partners Total to Intuit's SKU and customer-type mix. tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, HC. Lower is better for AHT, CST.
+    <strong>Methodology Note:</strong> All metrics are computed as weighted averages: <code>sum(numerator) / sum(denominator)</code> across all rows matching the filter criteria. Mix-adjusted metrics reweight Partners Total to Intuit's SKU and customer-type workload mix. tNPS and IR are calculated as <code>(numerator/denominator) &times; 100</code>. AHT = total handle time / total contacts (minutes). CST = total service time / total engagements. HC = handled conversions / total handled. SQS = quality score numerator / denominator &times; 100. Higher is better for tNPS, IR, SQS, and HC. Lower is better for AHT and CST.
 </div>\n`;
 
 // ═══════════════════════════════════════════
