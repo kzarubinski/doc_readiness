@@ -42,13 +42,19 @@ const MIX_FILE = resolveDataFile(
     process.argv[4],
     'Expert_Analysis_data_DP3.csv'
 );
+const BOP_FILE = resolveDataFile(
+    process.argv[5],
+    'Expert_Analysis_data_BOP.csv'
+);
 
 const periodCsv = loadCsv(PERIOD_FILE);
 const interactionCsv = loadCsv(INTERACTION_FILE);
 const mixCsv = loadCsv(MIX_FILE);
+const bopCsv = loadCsv(BOP_FILE);
 const data = periodCsv.rows;
 const interactionData = interactionCsv.rows;
 const mixData = mixCsv.rows;
+const bopData = bopCsv.rows;
 
 // ── Helpers ──
 const pf = v => parseFloat(v) || 0;
@@ -307,6 +313,214 @@ function metricVal(m, key) {
     return fmt(m[key], 2);
 }
 
+function aggregateBop(rows) {
+    let bop_num = 0, bop_den = 0;
+    rows.forEach(r => {
+        bop_num += pf(r.bop_num);
+        bop_den += pf(r.bop_denom);
+    });
+    return {
+        bop: bop_den > 0 ? (bop_num / bop_den) * 100 : null,
+        bop_den,
+    };
+}
+
+function bopVal(agg) {
+    return agg.bop === null || agg.bop === undefined ? 'N/A' : fmt(agg.bop, 2);
+}
+
+function computeBopOverallRows(rows, partnerList) {
+    const { intuitRows, partnerGroups, allPartnerRows } = buildGroups(rows, partnerList);
+    const result = [];
+    Object.entries(partnerGroups).forEach(([name, pRows]) => {
+        result.push({ name: PARTNER_SHORT[name] || name, agg: aggregateBop(pRows), type: 'partner' });
+    });
+    if (allPartnerRows.length > 0) {
+        result.push({ name: 'Partners Total', agg: aggregateBop(allPartnerRows), type: 'partners_total' });
+    }
+    if (intuitRows.length > 0) {
+        result.push({ name: 'Intuit', agg: aggregateBop(intuitRows), type: 'intuit' });
+    }
+    return result;
+}
+
+function buildBopBreakdown(rows, dimField, partnerList) {
+    const { intuitRows, partnerGroups, allPartnerRows } = buildGroups(rows, partnerList);
+    const dimValues = [...new Set(rows.map(r => r[dimField]))].filter(v => v && v !== 'N/A' && v !== 'null' && v !== 'Unknown').sort();
+
+    const result = {};
+    dimValues.forEach(dv => {
+        result[dv] = [];
+        Object.entries(partnerGroups).forEach(([name, pRows]) => {
+            const filtered = pRows.filter(r => r[dimField] === dv);
+            if (filtered.length > 0) {
+                result[dv].push({ name: PARTNER_SHORT[name], agg: aggregateBop(filtered), type: 'partner' });
+            }
+        });
+        const apFiltered = allPartnerRows.filter(r => r[dimField] === dv);
+        if (apFiltered.length > 0) {
+            result[dv].push({ name: 'Partners Total', agg: aggregateBop(apFiltered), type: 'partners_total' });
+        }
+        const iFiltered = intuitRows.filter(r => r[dimField] === dv);
+        if (iFiltered.length > 0) {
+            result[dv].push({ name: 'Intuit', agg: aggregateBop(iFiltered), type: 'intuit' });
+        }
+    });
+    return { dimValues, data: result };
+}
+
+function buildBopPLBreakdown(rows, partnerList) {
+    const { intuitRows, partnerGroups, allPartnerRows } = buildGroups(rows, partnerList);
+    const knownPLs = ['PL1', 'PL2', 'PL3', 'PL4'];
+    const dimValues = [...knownPLs, 'Other'];
+    const result = {};
+    dimValues.forEach(dv => {
+        result[dv] = [];
+        const filterFn = dv === 'Other'
+            ? r => !knownPLs.includes(r.proficiency_level)
+            : r => r.proficiency_level === dv;
+
+        Object.entries(partnerGroups).forEach(([name, pRows]) => {
+            const filtered = pRows.filter(filterFn);
+            if (filtered.length > 0) {
+                result[dv].push({ name: PARTNER_SHORT[name], agg: aggregateBop(filtered), type: 'partner' });
+            }
+        });
+        const apFiltered = allPartnerRows.filter(filterFn);
+        if (apFiltered.length > 0) {
+            result[dv].push({ name: 'Partners Total', agg: aggregateBop(apFiltered), type: 'partners_total' });
+        }
+        const iFiltered = intuitRows.filter(filterFn);
+        if (iFiltered.length > 0) {
+            result[dv].push({ name: 'Intuit', agg: aggregateBop(iFiltered), type: 'intuit' });
+        }
+    });
+    return { dimValues, data: result };
+}
+
+function renderBopOverallTable(id, title, tableData) {
+    const totalVol = tableData.reduce((s, r) => s + (r.type === 'partner' || r.type === 'intuit' ? (r.agg.bop_den || 0) : 0), 0);
+    let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th><th>Opportunities</th><th>Vol %</th><th>BOP</th></tr></thead>\n<tbody>\n`;
+    tableData.forEach(row => {
+        const vol = row.agg.bop_den || 0;
+        const pct = totalVol > 0 ? (vol / totalVol * 100) : 0;
+        html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
+        html += `<td>${fmtN(Math.round(vol))}</td><td>${fmt(pct, 1)}%</td><td>${bopVal(row.agg)}</td></tr>\n`;
+    });
+    html += `</tbody></table>\n</div>\n`;
+    return html;
+}
+
+function renderBopBreakdownSection(id, title, breakdownObj, dimLabel) {
+    const { dimValues, data: bData } = breakdownObj;
+    let html = title ? `<h3 id="${id}">${title}</h3>\n` : '';
+    dimValues.forEach(dv => {
+        const rows = bData[dv];
+        if (!rows || rows.length === 0) return;
+        html += `<div class="card">\n<div class="card-header"><strong>${dimLabel}: ${dv}</strong></div>\n`;
+        html += `<table>\n<thead><tr><th>Group</th><th>Opportunities</th><th>BOP</th></tr></thead>\n<tbody>\n`;
+        rows.forEach(row => {
+            html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
+            html += `<td>${row.agg.bop_den > 0 ? fmtN(Math.round(row.agg.bop_den)) : '—'}</td>`;
+            html += `<td>${bopVal(row.agg)}</td></tr>\n`;
+        });
+        html += `</tbody></table>\n</div>\n`;
+    });
+    return html;
+}
+
+function productVolume(r) {
+    return r.product_name === 'TTL Full Service Consumer' ? pf(r.cst_denominator) : pf(r.aht_denominator);
+}
+
+function combinedVolume(rows) {
+    return rows.reduce((s, r) => s + productVolume(r), 0);
+}
+
+function buildDrillDownInsights() {
+    const partnerRows = data.filter(r => PARTNERS_NON_INTUIT.includes(r.expert_partner_name));
+    const intuitRows = data.filter(r => r.expert_partner_name === 'INTUIT');
+    const pVol = combinedVolume(partnerRows);
+    const iVol = combinedVolume(intuitRows);
+    const pNHVol = combinedVolume(partnerRows.filter(r => r.hire_type === 'New Hire'));
+    const pRHVol = combinedVolume(partnerRows.filter(r => r.hire_type === 'Re-Hire'));
+    const iNHVol = combinedVolume(intuitRows.filter(r => r.hire_type === 'New Hire'));
+    const iRHVol = combinedVolume(intuitRows.filter(r => r.hire_type === 'Re-Hire'));
+
+    function blendedTnps(rows) {
+        let n = 0, d = 0;
+        rows.forEach(r => { n += pf(r.tnps_numerator); d += pf(r.tnps_denominator); });
+        return d ? (n / d) * 100 : null;
+    }
+
+    const ttlaPartners = ttlaIx.filter(r => TTLA_PARTNERS.includes(r.expert_partner_name));
+    const ttlaIntuit = ttlaIx.filter(r => r.expert_partner_name === 'INTUIT');
+
+    function contactMetric(rows, metric) {
+        if (metric === 'tnps') return blendedTnps(rows);
+        let n = 0, d = 0;
+        rows.forEach(r => { n += pf(r.aht_numerator); d += pf(r.aht_denominator); });
+        return d ? n / d : null;
+    }
+
+    function contactVolShare(rows, ct) {
+        const total = rows.reduce((s, r) => s + pf(r.aht_denominator), 0);
+        const ctVol = rows.filter(r => r.contact_type === ct).reduce((s, r) => s + pf(r.aht_denominator), 0);
+        return total > 0 ? (ctVol / total) * 100 : 0;
+    }
+
+    const bopPartners = bopData.filter(r => PARTNERS_NON_INTUIT.includes(r.expert_partner_name));
+    const bopIntuit = bopData.filter(r => r.expert_partner_name === 'INTUIT');
+    function bopRate(rows) {
+        let n = 0, d = 0;
+        rows.forEach(r => { n += pf(r.bop_num); d += pf(r.bop_denom); });
+        return d ? (n / d) * 100 : null;
+    }
+
+    const pNHTnps = blendedTnps(partnerRows.filter(r => r.hire_type === 'New Hire'));
+    const pRHTnps = blendedTnps(partnerRows.filter(r => r.hire_type === 'Re-Hire'));
+    const iNHTnps = blendedTnps(intuitRows.filter(r => r.hire_type === 'New Hire'));
+    const iRHTnps = blendedTnps(intuitRows.filter(r => r.hire_type === 'Re-Hire'));
+
+    let html = `<h3>Drill-Down Insights</h3>
+<div class="callout">
+    <strong>Workforce composition — New Hire vs Re-Hire:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>Partners</strong> are predominantly New Hire: <strong>${fmt(pNHVol / pVol * 100, 1)}%</strong> of volume vs <strong>${fmt(pRHVol / pVol * 100, 1)}%</strong> Re-Hire.</li>
+    <li><strong>Intuit</strong> is the inverse: <strong>${fmt(iNHVol / iVol * 100, 1)}%</strong> New Hire vs <strong>${fmt(iRHVol / iVol * 100, 1)}%</strong> Re-Hire.</li>
+    <li>Aggregate partner vs Intuit comparisons should be interpreted in this context — partners are benchmarking against a far more tenured internal workforce.</li>
+    </ul>
+</div>
+
+<div class="callout">
+    <strong>Performance by hire type (FS + TTLA blended tNPS):</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>New Hire tNPS:</strong> Partners ${fmt(pNHTnps, 2)} vs Intuit ${fmt(iNHTnps, 2)} (${diffStr(pNHTnps - iNHTnps)} pts)</li>
+    <li><strong>Re-Hire tNPS:</strong> Partners ${fmt(pRHTnps, 2)} vs Intuit ${fmt(iRHTnps, 2)} (${diffStr(pRHTnps - iRHTnps)} pts)</li>
+    <li>Both groups show higher tNPS among Re-Hires. Partners close the gap on Re-Hire (${fmt(Math.abs(pRHTnps - iRHTnps), 2)} pt spread) vs New Hire (${fmt(Math.abs(pNHTnps - iNHTnps), 2)} pt spread).</li>
+    <li><strong>BOP by hire type:</strong> Partners NH ${fmt(bopRate(bopPartners.filter(r => r.hire_type === 'New Hire')), 2)} vs Intuit ${fmt(bopRate(bopIntuit.filter(r => r.hire_type === 'New Hire')), 2)}; Partners RH ${fmt(bopRate(bopPartners.filter(r => r.hire_type === 'Re-Hire')), 2)} vs Intuit ${fmt(bopRate(bopIntuit.filter(r => r.hire_type === 'Re-Hire')), 2)}.</li>
+    </ul>
+</div>`;
+
+    if (hasContactType) {
+        const phoneP = ttlaPartners.filter(r => r.contact_type === 'Phone');
+        const phoneI = ttlaIntuit.filter(r => r.contact_type === 'Phone');
+        const chatP = ttlaPartners.filter(r => r.contact_type === 'Chat');
+        const chatI = ttlaIntuit.filter(r => r.contact_type === 'Chat');
+        html += `<div class="callout">
+    <strong>TTLA — Phone vs Chat:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>Volume mix:</strong> Partners ${fmt(contactVolShare(ttlaPartners, 'Phone'), 1)}% Phone / ${fmt(contactVolShare(ttlaPartners, 'Chat'), 1)}% Chat vs Intuit ${fmt(contactVolShare(ttlaIntuit, 'Phone'), 1)}% Phone / ${fmt(contactVolShare(ttlaIntuit, 'Chat'), 1)}% Chat.</li>
+    <li><strong>Phone tNPS:</strong> Partners ${fmt(contactMetric(phoneP, 'tnps'), 2)} vs Intuit ${fmt(contactMetric(phoneI, 'tnps'), 2)}; <strong>AHT:</strong> Partners ${fmt(contactMetric(phoneP, 'aht'), 2)} vs Intuit ${fmt(contactMetric(phoneI, 'aht'), 2)} min.</li>
+    <li><strong>Chat tNPS:</strong> Partners ${fmt(contactMetric(chatP, 'tnps'), 2)} vs Intuit ${fmt(contactMetric(chatI, 'tnps'), 2)}; <strong>AHT:</strong> Partners ${fmt(contactMetric(chatP, 'aht'), 2)} vs Intuit ${fmt(contactMetric(chatI, 'aht'), 2)} min.</li>
+    <li>Chat is the larger pain point for partners — lower tNPS and higher AHT vs Intuit. Phone shows a tNPS gap but partners are faster on AHT.</li>
+    </ul>
+</div>`;
+    }
+
+    return html;
+}
+
 // ── Split data (primary = period dataset) ──
 const ttla = data.filter(r => r.product_name === 'TTL Assisted Consumer');
 const fsData = data.filter(r => r.product_name === 'TTL Full Service Consumer');
@@ -552,6 +766,11 @@ const ttlaMix = buildPartnerMix(ttlaMixPartners, ttlaMixIntuit, TTLA_MIX_SPECS);
 const FS_MIX_ORDER = ['tnps', 'cst', 'sqs', 'ir', 'hc'];
 const TTLA_MIX_ORDER = ['tnps', 'aht', 'sqs', 'ir'];
 const FS_MIX_LOWER = { cst: true, aht: true };
+
+const bopOverall = computeBopOverallRows(bopData);
+const bopByHire = buildBopBreakdown(bopData, 'hire_type');
+const bopByRole = buildBopBreakdown(bopData, 'expert_role');
+const bopByPL = buildBopPLBreakdown(bopData);
 const TTLA_MIX_LOWER = { aht: true };
 
 const fsByPeriod = buildPeriodPivot(fsData);
@@ -1239,6 +1458,8 @@ function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData, fsMixAdj, t
     html += buildMixFinding(fsMixAdj, FS_MIX_ORDER, FS_MIX_LOWER, 'FS');
     html += buildMixFinding(ttlaMixAdj, TTLA_MIX_ORDER, TTLA_MIX_LOWER, 'TTLA');
 
+    html += buildDrillDownInsights();
+
     html += `<h3>Volume &amp; Scale</h3>
 <div class="kpi-row">
 <div class="kpi blue"><div class="label">FS Engagements</div><div class="value">${fmtN(fsVolData.grandTotal)}</div><div class="detail">Partners ${fmt(fsVolData.partnersTotal / fsVolData.grandTotal * 100, 1)}% · Intuit ${fmt(fsVolData.intuitTotal / fsVolData.grandTotal * 100, 1)}%</div></div>
@@ -1395,6 +1616,14 @@ let html = `<!DOCTYPE html>
                     ${hasTenure ? '<li><a href="#ttla-tenure">Breakdown by Tenure Category</a></li>' : ''}
                 </ol>
             </li>
+            <li><a href="#bop">BOP Analysis</a>
+                <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
+                    <li><a href="#bop-overall">Overall BOP Performance</a></li>
+                    <li><a href="#bop-hire">Breakdown by Hire Type</a></li>
+                    <li><a href="#bop-role">Breakdown by Expert Role</a></li>
+                    <li><a href="#bop-pl">Breakdown by Proficiency Level</a></li>
+                </ol>
+            </li>
             <li><a href="#conclusions">Conclusions &amp; Key Takeaways</a></li>
             <li><a href="#appendix-mix">Appendix: Mix-Adjusted Metrics</a>
                 <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
@@ -1541,10 +1770,33 @@ if (hasTenure && ttlaTenure) {
 }
 
 // ═══════════════════════════════════════════
-// 4. CONCLUSIONS — FS first
+// 4. BOP ANALYSIS
 // ═══════════════════════════════════════════
 html += `<hr class="section-divider">
-<h2 id="conclusions">4. Conclusions &amp; Key Takeaways</h2>\n`;
+<h2 id="bop">4. BOP Analysis</h2>
+<p>BOP (Business Opportunity Percentage) measures the rate at which experts capture business opportunities: <code>sum(bop_num) / sum(bop_denom) &times; 100</code>. Higher is better.</p>\n`;
+
+html += renderBopOverallTable('bop-overall', '4a. Overall BOP Performance', bopOverall);
+
+const bopP = bopOverall.find(r => r.type === 'partners_total');
+const bopI = bopOverall.find(r => r.type === 'intuit');
+if (bopP && bopI && bopP.agg.bop !== null && bopI.agg.bop !== null) {
+    const diff = bopP.agg.bop - bopI.agg.bop;
+    const cls = diff > 0 ? 'success' : 'danger';
+    html += `<div class="callout ${cls}">
+    <strong>BOP Overview — Partners Total vs Intuit:</strong> Partners Total BOP of <strong>${fmt(bopP.agg.bop, 2)}</strong> vs Intuit <strong>${fmt(bopI.agg.bop, 2)}</strong> (${diffStr(diff)} pts) — Intuit ${diff < 0 ? 'outperforms' : 'underperforms'} on opportunity capture.
+</div>\n`;
+}
+
+html += renderBopBreakdownSection('bop-hire', '4b. BOP — Breakdown by Hire Type', bopByHire, 'Hire Type');
+html += renderBopBreakdownSection('bop-role', '4c. BOP — Breakdown by Expert Role', bopByRole, 'Role');
+html += renderBopBreakdownSection('bop-pl', '4d. BOP — Breakdown by Proficiency Level', bopByPL, 'Proficiency Level');
+
+// ═══════════════════════════════════════════
+// 5. CONCLUSIONS — FS first
+// ═══════════════════════════════════════════
+html += `<hr class="section-divider">
+<h2 id="conclusions">5. Conclusions &amp; Key Takeaways</h2>\n`;
 
 html += buildConclusions('FS', fsOverall, FS_METRICS);
 html += buildConclusions('TTLA', ttlaOverall, TTLA_METRICS);
@@ -1587,7 +1839,7 @@ html += `</div>
 
 <footer>
     <p>Domain Partners Performance Analysis &bull; Generated ${today}</p>
-    <p>Data sources: ${path.basename(PERIOD_FILE)} (${fmtN(data.length)} rows, primary) &bull; ${path.basename(INTERACTION_FILE)} (${fmtN(interactionData.length)} rows, contact/tenure) &bull; ${path.basename(MIX_FILE)} (${fmtN(mixData.length)} rows, mix-adjusted)</p>
+    <p>Data sources: ${path.basename(PERIOD_FILE)} (${fmtN(data.length)} rows, primary) &bull; ${path.basename(INTERACTION_FILE)} (${fmtN(interactionData.length)} rows, contact/tenure) &bull; ${path.basename(MIX_FILE)} (${fmtN(mixData.length)} rows, mix-adjusted) &bull; ${path.basename(BOP_FILE)} (${fmtN(bopData.length)} rows, BOP)</p>
 </footer>
 
 <script>
@@ -1612,6 +1864,7 @@ console.log('Generated Domain_Partner_Analysis.html');
 console.log('Period dataset:', PERIOD_FILE, '—', data.length, 'rows');
 console.log('Interaction dataset:', INTERACTION_FILE, '—', interactionData.length, 'rows');
 console.log('Mix dataset:', MIX_FILE, '—', mixData.length, 'rows');
+console.log('BOP dataset:', BOP_FILE, '—', bopData.length, 'rows');
 console.log('FS mix CST raw/adj gap:', fsMix.cst.rawGap, fsMix.cst.adjGap);
 console.log('TTLA rows (period):', ttla.length, '| FS rows (period):', fsData.length);
 console.log('TTLA rows (interaction):', ttlaIx.length, '| FS rows (interaction):', fsIx.length);
