@@ -1181,7 +1181,7 @@ function buildExpandedExecSummary() {
     const ttlaP = ttlaOverall.find(r => r.type === 'partners_total');
     const ttlaI = ttlaOverall.find(r => r.type === 'intuit');
 
-    let html = `<p>This analysis compares <strong>Domain Partners</strong> (${PARTNERS_NON_INTUIT.map(p => PARTNER_SHORT[p]).join(', ')}) against <strong>Intuit</strong> across two products: <strong>TTL Full Service Consumer (FS)</strong> and <strong>TTL Assisted Consumer (TTLA)</strong>. Data spans ${PERIOD_ORDER.length} reporting periods from Before Season through After Season, covering <strong>${fmtN(data.length)}</strong> expert-period rows. Each metric is computed as <code>sum(numerator) / sum(denominator)</code> — a volume-weighted approach that reflects actual workload rather than simple averages.</p>
+    let html = `<p>This analysis compares <strong>Domain Partners</strong> (${PARTNERS_NON_INTUIT.map(p => PARTNER_SHORT[p]).join(', ')}) against <strong>Intuit</strong> across two products: <strong>TTL Full Service Consumer (FS)</strong> and <strong>TTL Assisted Consumer (TTLA)</strong>. Each metric is computed as <code>sum(numerator) / sum(denominator)</code> — a volume-weighted approach that reflects actual workload rather than simple averages.</p>
 
 <p style="font-size:0.9rem;color:var(--muted);margin:0.75rem 0;">Partners analyzed: ${PARTNERS_NON_INTUIT.map(p => `<strong>${PARTNER_SHORT[p]}</strong> (${p})`).join(', ')}. Intuit rows include all Intuit-sourced experts. Foundever appears in FS only; EAW, Highspring, JDA, and Magnit serve both products.</p>
 
