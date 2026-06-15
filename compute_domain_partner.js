@@ -326,7 +326,7 @@ function aggregateBop(rows) {
 }
 
 function bopVal(agg) {
-    return agg.bop === null || agg.bop === undefined ? 'N/A' : fmt(agg.bop, 2);
+    return agg.bop === null || agg.bop === undefined ? 'N/A' : `${fmt(agg.bop, 2)}%`;
 }
 
 function computeBopOverallRows(rows, partnerList) {
@@ -399,7 +399,7 @@ function buildBopPLBreakdown(rows, partnerList) {
 }
 
 function renderBopOverallTable(id, title, tableData) {
-    let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th><th>BOP</th></tr></thead>\n<tbody>\n`;
+    let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th><th>BOP CST %</th></tr></thead>\n<tbody>\n`;
     tableData.forEach(row => {
         html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
         html += `<td>${bopVal(row.agg)}</td></tr>\n`;
@@ -415,7 +415,7 @@ function renderBopBreakdownSection(id, title, breakdownObj, dimLabel) {
         const rows = bData[dv];
         if (!rows || rows.length === 0) return;
         html += `<div class="card">\n<div class="card-header"><strong>${dimLabel}: ${dv}</strong></div>\n`;
-        html += `<table>\n<thead><tr><th>Group</th><th>BOP</th></tr></thead>\n<tbody>\n`;
+        html += `<table>\n<thead><tr><th>Group</th><th>BOP CST %</th></tr></thead>\n<tbody>\n`;
         rows.forEach(row => {
             html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
             html += `<td>${bopVal(row.agg)}</td></tr>\n`;
@@ -1771,9 +1771,9 @@ let html = `<!DOCTYPE html>
                     ${hasTenure ? '<li><a href="#ttla-tenure">Breakdown by Tenure Category</a></li>' : ''}
                 </ol>
             </li>
-            <li><a href="#bop">BOP Analysis</a>
+            <li><a href="#bop">BOP CST % Analysis</a>
                 <ol style="list-style-type: lower-alpha; padding-left: 1rem;">
-                    <li><a href="#bop-overall">Overall BOP Performance</a></li>
+                    <li><a href="#bop-overall">Overall BOP CST % Performance</a></li>
                     <li><a href="#bop-hire">Breakdown by Hire Type</a></li>
                     <li><a href="#bop-role">Breakdown by Expert Role</a></li>
                     <li><a href="#bop-pl">Breakdown by Proficiency Level</a></li>
@@ -1925,27 +1925,17 @@ if (hasTenure && ttlaTenure) {
 }
 
 // ═══════════════════════════════════════════
-// 4. BOP ANALYSIS
+// 4. BOP CST % ANALYSIS
 // ═══════════════════════════════════════════
 html += `<hr class="section-divider">
-<h2 id="bop">4. BOP Analysis</h2>
-<p>BOP (Back Office Prep) is calculated as <code>sum(bop_num) / sum(bop_denom) &times; 100</code>. Higher is better.</p>\n`;
+<h2 id="bop">4. BOP CST % Analysis</h2>
+<p>BOP (Back Office Prep) CST % is calculated as <code>sum(bop_num) / sum(bop_denom) &times; 100</code>.</p>\n`;
 
-html += renderBopOverallTable('bop-overall', '4a. Overall BOP Performance', bopOverall);
+html += renderBopOverallTable('bop-overall', '4a. Overall BOP CST % Performance', bopOverall);
 
-const bopP = bopOverall.find(r => r.type === 'partners_total');
-const bopI = bopOverall.find(r => r.type === 'intuit');
-if (bopP && bopI && bopP.agg.bop !== null && bopI.agg.bop !== null) {
-    const diff = bopP.agg.bop - bopI.agg.bop;
-    const cls = diff > 0 ? 'success' : 'danger';
-    html += `<div class="callout ${cls}">
-    <strong>BOP Overview — Partners Total vs Intuit:</strong> Partners Total BOP of <strong>${fmt(bopP.agg.bop, 2)}</strong> vs Intuit <strong>${fmt(bopI.agg.bop, 2)}</strong> (${diffStr(diff)} pts) — Intuit ${diff < 0 ? 'outperforms' : 'underperforms'} on Back Office Prep.
-</div>\n`;
-}
-
-html += renderBopBreakdownSection('bop-hire', '4b. BOP — Breakdown by Hire Type', bopByHire, 'Hire Type');
-html += renderBopBreakdownSection('bop-role', '4c. BOP — Breakdown by Expert Role', bopByRole, 'Role');
-html += renderBopBreakdownSection('bop-pl', '4d. BOP — Breakdown by Proficiency Level', bopByPL, 'Proficiency Level');
+html += renderBopBreakdownSection('bop-hire', '4b. BOP CST % — Breakdown by Hire Type', bopByHire, 'Hire Type');
+html += renderBopBreakdownSection('bop-role', '4c. BOP CST % — Breakdown by Expert Role', bopByRole, 'Role');
+html += renderBopBreakdownSection('bop-pl', '4d. BOP CST % — Breakdown by Proficiency Level', bopByPL, 'Proficiency Level');
 
 // ═══════════════════════════════════════════
 // 5. CONCLUSIONS — FS first
