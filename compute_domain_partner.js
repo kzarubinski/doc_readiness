@@ -398,10 +398,19 @@ function buildBopPLBreakdown(rows, partnerList) {
     return { dimValues, data: result };
 }
 
+function bopVolPct(row, rows) {
+    const totalVol = rows
+        .filter(r => r.type === 'partner' || r.type === 'intuit')
+        .reduce((s, r) => s + (r.agg.bop_den || 0), 0);
+    const vol = row.agg.bop_den || 0;
+    return totalVol > 0 ? (vol / totalVol * 100) : 0;
+}
+
 function renderBopOverallTable(id, title, tableData) {
-    let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th><th>BOP CST %</th></tr></thead>\n<tbody>\n`;
+    let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th><th>Vol %</th><th>BOP CST %</th></tr></thead>\n<tbody>\n`;
     tableData.forEach(row => {
         html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
+        html += `<td>${fmt(bopVolPct(row, tableData), 1)}%</td>`;
         html += `<td>${bopVal(row.agg)}</td></tr>\n`;
     });
     html += `</tbody></table>\n</div>\n`;
@@ -415,9 +424,10 @@ function renderBopBreakdownSection(id, title, breakdownObj, dimLabel) {
         const rows = bData[dv];
         if (!rows || rows.length === 0) return;
         html += `<div class="card">\n<div class="card-header"><strong>${dimLabel}: ${dv}</strong></div>\n`;
-        html += `<table>\n<thead><tr><th>Group</th><th>BOP CST %</th></tr></thead>\n<tbody>\n`;
+        html += `<table>\n<thead><tr><th>Group</th><th>Vol %</th><th>BOP CST %</th></tr></thead>\n<tbody>\n`;
         rows.forEach(row => {
             html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
+            html += `<td>${fmt(bopVolPct(row, rows), 1)}%</td>`;
             html += `<td>${bopVal(row.agg)}</td></tr>\n`;
         });
         html += `</tbody></table>\n</div>\n`;
