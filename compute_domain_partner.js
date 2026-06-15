@@ -727,17 +727,6 @@ function inlineSliceCompare(inlineBreakdown, dimValue, metrics) {
     return comparePartnerIntuit(p.aggs[dimValue], i.aggs[dimValue], metrics);
 }
 
-function bopSliceCompare(breakdown, dimValue) {
-    const rows = breakdown?.data?.[dimValue];
-    if (!rows) return null;
-    const p = rows.find(r => r.type === 'partners_total');
-    const i = rows.find(r => r.type === 'intuit');
-    if (!p || !i || p.agg.bop === null || i.agg.bop === null) return null;
-    const diff = p.agg.bop - i.agg.bop;
-    const entry = { label: 'BOP', pVal: p.agg.bop, iVal: i.agg.bop, diff };
-    return diff > 0 ? { advantages: [entry], disadvantages: [] } : diff < 0 ? { advantages: [], disadvantages: [entry] } : { advantages: [], disadvantages: [] };
-}
-
 function renderAdvDisLists(advantages, disadvantages, emptyMsg = '') {
     let html = '';
     if (advantages.length) {
@@ -755,8 +744,6 @@ function buildDrillDownInsights() {
     const fsI = fsOverall.find(r => r.type === 'intuit');
     const ttlaP = ttlaOverall.find(r => r.type === 'partners_total');
     const ttlaI = ttlaOverall.find(r => r.type === 'intuit');
-    const bopP = bopOverall.find(r => r.type === 'partners_total');
-    const bopI = bopOverall.find(r => r.type === 'intuit');
 
     const partnerRows = data.filter(r => PARTNERS_NON_INTUIT.includes(r.expert_partner_name));
     const intuitRows = data.filter(r => r.expert_partner_name === 'INTUIT');
@@ -778,12 +765,6 @@ function buildDrillDownInsights() {
         ...fsCmp.disadvantages.map(d => ({ ...d, label: `FS ${d.label}` })),
         ...ttlaCmp.disadvantages.map(d => ({ ...d, label: `TTLA ${d.label}` })),
     ];
-    if (bopP && bopI && bopP.agg.bop !== null && bopI.agg.bop !== null) {
-        const bopDiff = bopP.agg.bop - bopI.agg.bop;
-        const bopEntry = { label: 'BOP', pVal: bopP.agg.bop, iVal: bopI.agg.bop, diff: bopDiff };
-        if (bopDiff > 0) allAdv.push(bopEntry);
-        else if (bopDiff < 0) allDis.push(bopEntry);
-    }
 
     let html = `<h3>Drill-Down Insights</h3>`;
 
@@ -809,23 +790,20 @@ function buildDrillDownInsights() {
     ['New Hire', 'Re-Hire'].forEach(hireType => {
         const fsSlice = inlineSliceCompare(fsByHire, hireType, FS_METRICS);
         const ttlaSlice = inlineSliceCompare(ttlaByHire, hireType, TTLA_METRICS);
-        const bopSlice = bopSliceCompare(bopByHire, hireType);
         const adv = [
             ...(fsSlice?.advantages.map(a => ({ ...a, label: `FS ${a.label}` })) || []),
             ...(ttlaSlice?.advantages.map(a => ({ ...a, label: `TTLA ${a.label}` })) || []),
-            ...(bopSlice?.advantages || []),
         ];
         const dis = [
             ...(fsSlice?.disadvantages.map(d => ({ ...d, label: `FS ${d.label}` })) || []),
             ...(ttlaSlice?.disadvantages.map(d => ({ ...d, label: `TTLA ${d.label}` })) || []),
-            ...(bopSlice?.disadvantages || []),
         ];
         let footnote = '';
         if (hireType === 'New Hire') {
             footnote = `<p style="margin-top:0.5rem;font-size:0.9rem;color:var(--muted);">Partners carry ${fmt(pNHVol / pVol * 100, 1)}% of volume as New Hires — the segment where Partners most often lead on tNPS.</p>`;
         } else {
             const rhTnpsAdv = [...(fsSlice?.advantages || []), ...(ttlaSlice?.advantages || [])].some(a => a.key === 'tnps');
-            footnote = `<p style="margin-top:0.5rem;font-size:0.9rem;color:var(--muted);">Re-Hire is Intuit's dominant cohort (${fmt(iRHVol / iVol * 100, 1)}% of volume). tNPS gap narrows to near parity${rhTnpsAdv ? ', with Partners leading tNPS in at least one product' : ''}; Intuit typically retains BOP and IR advantages.</p>`;
+            footnote = `<p style="margin-top:0.5rem;font-size:0.9rem;color:var(--muted);">Re-Hire is Intuit's dominant cohort (${fmt(iRHVol / iVol * 100, 1)}% of volume). tNPS gap narrows to near parity${rhTnpsAdv ? ', with Partners leading tNPS in at least one product' : ''}; Intuit typically retains IR advantages on TTLA.</p>`;
         }
         html += `<div class="callout">
     <strong>${hireType} — Partner vs Intuit:</strong>
@@ -878,17 +856,14 @@ function buildDrillDownInsights() {
     (fsByRole.dimValues || []).forEach(role => {
         const fsSlice = breakdownSliceCompare(fsByRole, role, ['tnps', 'hc', 'cst']);
         const ttlaSlice = breakdownSliceCompare(ttlaByRole, role, ['tnps', 'aht']);
-        const bopSlice = bopSliceCompare(bopByRole, role);
-        if (!fsSlice && !ttlaSlice && !bopSlice) return;
+        if (!fsSlice && !ttlaSlice) return;
         const advLabels = [
             ...(fsSlice?.advantages.map(a => `FS ${a.label}`) || []),
             ...(ttlaSlice?.advantages.map(a => `TTLA ${a.label}`) || []),
-            ...(bopSlice?.advantages.map(a => a.label) || []),
         ];
         const disLabels = [
             ...(fsSlice?.disadvantages.map(d => `FS ${d.label}`) || []),
             ...(ttlaSlice?.disadvantages.map(d => `TTLA ${d.label}`) || []),
-            ...(bopSlice?.disadvantages.map(d => d.label) || []),
         ];
         if (advLabels.length || disLabels.length) {
             roleInsights.push(`<li><strong>${role}:</strong> ${advLabels.length ? `<span class="better">Adv: ${advLabels.join(', ')}</span>` : ''}${advLabels.length && disLabels.length ? ' · ' : ''}${disLabels.length ? `<span class="worse">Dis: ${disLabels.join(', ')}</span>` : ''}</li>`);
@@ -902,16 +877,13 @@ function buildDrillDownInsights() {
     (fsByPL.dimValues || []).forEach(pl => {
         const fsSlice = breakdownSliceCompare(fsByPL, pl, ['tnps', 'hc']);
         const ttlaSlice = breakdownSliceCompare(ttlaByPL, pl, ['tnps', 'aht']);
-        const bopSlice = bopSliceCompare(bopByPL, pl);
         const adv = [
             ...(fsSlice?.advantages.map(a => ({ ...a, label: `FS ${a.label}` })) || []),
             ...(ttlaSlice?.advantages.map(a => ({ ...a, label: `TTLA ${a.label}` })) || []),
-            ...(bopSlice?.advantages || []),
         ];
         const dis = [
             ...(fsSlice?.disadvantages.map(d => ({ ...d, label: `FS ${d.label}` })) || []),
             ...(ttlaSlice?.disadvantages.map(d => ({ ...d, label: `TTLA ${d.label}` })) || []),
-            ...(bopSlice?.disadvantages || []),
         ];
         if (adv.length || dis.length) {
             plInsights.push(`<li><strong>${pl}:</strong> ${adv.length ? `<span class="better">${adv.map(a => a.label).join(', ')}</span>` : '—'} vs ${dis.length ? `<span class="worse">${dis.map(d => d.label).join(', ')}</span>` : '—'}</li>`);
