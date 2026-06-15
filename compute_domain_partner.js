@@ -16,6 +16,21 @@ function resolveDataFile(preferredPath, defaultName) {
     throw new Error(`Data file not found. Tried: ${candidates.join(', ')}`);
 }
 
+function tryResolveDataFile(preferredPath, defaultName) {
+    const candidates = [
+        preferredPath,
+        preferredPath && preferredPath.replace(/\.cvs$/i, '.csv'),
+        defaultName,
+        path.join(__dirname, defaultName),
+        path.join(process.env.USERPROFILE || '', 'Cursor', defaultName),
+        path.join(process.env.USERPROFILE || '', 'Cursor', defaultName.replace(/\.csv$/i, '.cvs')),
+    ].filter(Boolean);
+    for (const candidate of candidates) {
+        if (fs.existsSync(candidate)) return candidate;
+    }
+    return null;
+}
+
 function loadCsv(filePath) {
     const raw = fs.readFileSync(filePath, 'utf8').replace(/\r/g, '');
     const lines = raw.trim().split('\n');
@@ -46,15 +61,22 @@ const BOP_FILE = resolveDataFile(
     process.argv[5],
     'Expert_Analysis_data_BOP.csv'
 );
+const BOP2_FILE = tryResolveDataFile(
+    process.argv[6],
+    'Expert_Analysis_data_BOP_2.csv'
+);
 
 const periodCsv = loadCsv(PERIOD_FILE);
 const interactionCsv = loadCsv(INTERACTION_FILE);
 const mixCsv = loadCsv(MIX_FILE);
 const bopCsv = loadCsv(BOP_FILE);
+const bopPeriodCsv = BOP2_FILE ? loadCsv(BOP2_FILE) : { rows: [] };
 const data = periodCsv.rows;
 const interactionData = interactionCsv.rows;
 const mixData = mixCsv.rows;
 const bopData = bopCsv.rows;
+const bopPeriodData = bopPeriodCsv.rows;
+const hasBopPeriod = bopPeriodData.length > 0 && bopPeriodData.some(r => r.reporting_period);
 
 // ── Helpers ──
 const pf = v => parseFloat(v) || 0;
@@ -344,9 +366,10 @@ function computeBopOverallRows(rows, partnerList) {
     return result;
 }
 
-function buildBopBreakdown(rows, dimField, partnerList) {
+function buildBopBreakdown(rows, dimField, partnerList, dimOrder) {
     const { intuitRows, partnerGroups, allPartnerRows } = buildGroups(rows, partnerList);
-    const dimValues = [...new Set(rows.map(r => r[dimField]))].filter(v => v && v !== 'N/A' && v !== 'null' && v !== 'Unknown').sort();
+    const allDim = [...new Set(rows.map(r => r[dimField]))].filter(v => v && v !== 'N/A' && v !== 'null' && v !== 'Unknown');
+    const dimValues = dimOrder ? dimOrder.filter(p => allDim.includes(p)) : allDim.sort();
 
     const result = {};
     dimValues.forEach(dv => {
@@ -396,6 +419,82 @@ function buildBopPLBreakdown(rows, partnerList) {
         }
     });
     return { dimValues, data: result };
+}
+
+function buildBopPeriodPivot(rows, partnerList) {
+    const { intuitRows, partnerGroups, allPartnerRows } = buildGroups(rows, partnerList);
+    const allPeriods = [...new Set(rows.map(r => r.reporting_period))].filter(v => v);
+    const periods = PERIOD_ORDER.filter(p => allPeriods.includes(p));
+
+    const groups = [];
+    Object.entries(partnerGroups).forEach(([name, pRows]) => {
+        const aggs = {};
+        periods.forEach(p => {
+            const filtered = pRows.filter(r => r.reporting_period === p);
+            aggs[p] = filtered.length > 0 ? aggregateBop(filtered) : null;
+        });
+        groups.push({ name: PARTNER_SHORT[name], aggs, type: 'partner' });
+    });
+
+    const ptAggs = {};
+    periods.forEach(p => {
+        const filtered = allPartnerRows.filter(r => r.reporting_period === p);
+        ptAggs[p] = filtered.length > 0 ? aggregateBop(filtered) : null;
+    });
+    if (allPartnerRows.length > 0) groups.push({ name: 'Partners Total', aggs: ptAggs, type: 'partners_total' });
+
+    const iAggs = {};
+    periods.forEach(p => {
+        const filtered = intuitRows.filter(r => r.reporting_period === p);
+        iAggs[p] = filtered.length > 0 ? aggregateBop(filtered) : null;
+    });
+    if (intuitRows.length > 0) groups.push({ name: 'Intuit', aggs: iAggs, type: 'intuit' });
+
+    return { periods, groups };
+}
+
+function periodBopVolPct(agg, groups, period) {
+    const totalVol = groups
+        .filter(g => g.type === 'partner' || g.type === 'intuit')
+        .reduce((s, g) => s + (g.aggs[period]?.bop_den || 0), 0);
+    const vol = agg?.bop_den || 0;
+    return totalVol > 0 ? (vol / totalVol * 100) : null;
+}
+
+function renderBopPeriodPivot(id, title, periodData) {
+    const { periods, groups } = periodData;
+    let html = title ? `<h3 id="${id}">${title}</h3>\n` : '';
+
+    html += `<div class="card">\n<div class="card-header"><strong>BOP CST %</strong></div>\n`;
+    html += `<table>\n<thead><tr><th>Group</th>`;
+    periods.forEach(p => { html += `<th>${p}</th>`; });
+    html += `</tr></thead>\n<tbody>\n`;
+    groups.forEach(g => {
+        html += `<tr class="${rowClass(g.type)}"><td><strong>${g.name}</strong></td>`;
+        periods.forEach(p => {
+            const agg = g.aggs[p];
+            html += `<td>${agg ? bopVal(agg) : 'N/A'}</td>`;
+        });
+        html += `</tr>\n`;
+    });
+    html += `</tbody></table>\n</div>\n`;
+
+    html += `<div class="card">\n<div class="card-header"><strong>Vol %</strong></div>\n`;
+    html += `<table>\n<thead><tr><th>Group</th>`;
+    periods.forEach(p => { html += `<th>${p}</th>`; });
+    html += `</tr></thead>\n<tbody>\n`;
+    groups.forEach(g => {
+        html += `<tr class="${rowClass(g.type)}"><td><strong>${g.name}</strong></td>`;
+        periods.forEach(p => {
+            const agg = g.aggs[p];
+            const pct = agg ? periodBopVolPct(agg, groups, p) : null;
+            html += `<td>${pct === null ? 'N/A' : `${fmt(pct, 1)}%`}</td>`;
+        });
+        html += `</tr>\n`;
+    });
+    html += `</tbody></table>\n</div>\n`;
+
+    return html;
 }
 
 function bopVolPct(row, rows) {
@@ -693,6 +792,7 @@ const bopOverall = computeBopOverallRows(bopData);
 const bopByHire = buildBopBreakdown(bopData, 'hire_type');
 const bopByRole = buildBopBreakdown(bopData, 'expert_role');
 const bopByPL = buildBopPLBreakdown(bopData);
+const bopPeriodPivot = hasBopPeriod ? buildBopPeriodPivot(bopPeriodData) : null;
 const TTLA_MIX_LOWER = { aht: true };
 
 const fsByPeriod = buildPeriodPivot(fsData);
@@ -1787,6 +1887,7 @@ let html = `<!DOCTYPE html>
                     <li><a href="#bop-hire">Breakdown by Hire Type</a></li>
                     <li><a href="#bop-role">Breakdown by Expert Role</a></li>
                     <li><a href="#bop-pl">Breakdown by Proficiency Level</a></li>
+                    ${hasBopPeriod ? '<li><a href="#bop-period">Breakdown by Reporting Period</a></li>' : ''}
                 </ol>
             </li>
             <li><a href="#conclusions">Conclusions &amp; Key Takeaways</a></li>
@@ -1947,6 +2048,10 @@ html += renderBopBreakdownSection('bop-hire', '4b. BOP CST % — Breakdown by Hi
 html += renderBopBreakdownSection('bop-role', '4c. BOP CST % — Breakdown by Expert Role', bopByRole, 'Role');
 html += renderBopBreakdownSection('bop-pl', '4d. BOP CST % — Breakdown by Proficiency Level', bopByPL, 'Proficiency Level');
 
+if (hasBopPeriod) {
+    html += renderBopPeriodPivot('bop-period', '4e. BOP CST % — Breakdown by Reporting Period', bopPeriodPivot);
+}
+
 // ═══════════════════════════════════════════
 // 5. CONCLUSIONS — FS first
 // ═══════════════════════════════════════════
@@ -1994,7 +2099,7 @@ html += `</div>
 
 <footer>
     <p>Domain Partners Performance Analysis &bull; Generated ${today}</p>
-    <p>Data sources: ${path.basename(PERIOD_FILE)} (${fmtN(data.length)} rows, primary) &bull; ${path.basename(INTERACTION_FILE)} (${fmtN(interactionData.length)} rows, contact/tenure) &bull; ${path.basename(MIX_FILE)} (${fmtN(mixData.length)} rows, mix-adjusted) &bull; ${path.basename(BOP_FILE)} (${fmtN(bopData.length)} rows, BOP)</p>
+    <p>Data sources: ${path.basename(PERIOD_FILE)} (${fmtN(data.length)} rows, primary) &bull; ${path.basename(INTERACTION_FILE)} (${fmtN(interactionData.length)} rows, contact/tenure) &bull; ${path.basename(MIX_FILE)} (${fmtN(mixData.length)} rows, mix-adjusted) &bull; ${path.basename(BOP_FILE)} (${fmtN(bopData.length)} rows, BOP)${BOP2_FILE ? ` &bull; ${path.basename(BOP2_FILE)} (${fmtN(bopPeriodData.length)} rows, BOP by period)` : ''}</p>
 </footer>
 
 <script>
@@ -2020,6 +2125,8 @@ console.log('Period dataset:', PERIOD_FILE, '—', data.length, 'rows');
 console.log('Interaction dataset:', INTERACTION_FILE, '—', interactionData.length, 'rows');
 console.log('Mix dataset:', MIX_FILE, '—', mixData.length, 'rows');
 console.log('BOP dataset:', BOP_FILE, '—', bopData.length, 'rows');
+if (BOP2_FILE) console.log('BOP period dataset:', BOP2_FILE, '—', bopPeriodData.length, 'rows');
+else console.log('BOP period dataset: not found (Expert_Analysis_data_BOP_2.csv) — skipping period breakdown');
 console.log('FS mix CST raw/adj gap:', fsMix.cst.rawGap, fsMix.cst.adjGap);
 console.log('TTLA rows (period):', ttla.length, '| FS rows (period):', fsData.length);
 console.log('TTLA rows (interaction):', ttlaIx.length, '| FS rows (interaction):', fsIx.length);
