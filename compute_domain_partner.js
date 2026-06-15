@@ -399,13 +399,10 @@ function buildBopPLBreakdown(rows, partnerList) {
 }
 
 function renderBopOverallTable(id, title, tableData) {
-    const totalVol = tableData.reduce((s, r) => s + (r.type === 'partner' || r.type === 'intuit' ? (r.agg.bop_den || 0) : 0), 0);
-    let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th><th>Opportunities</th><th>Vol %</th><th>BOP</th></tr></thead>\n<tbody>\n`;
+    let html = `<h3 id="${id}">${title}</h3>\n<div class="card">\n<table>\n<thead><tr><th>Group</th><th>BOP</th></tr></thead>\n<tbody>\n`;
     tableData.forEach(row => {
-        const vol = row.agg.bop_den || 0;
-        const pct = totalVol > 0 ? (vol / totalVol * 100) : 0;
         html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
-        html += `<td>${fmtN(Math.round(vol))}</td><td>${fmt(pct, 1)}%</td><td>${bopVal(row.agg)}</td></tr>\n`;
+        html += `<td>${bopVal(row.agg)}</td></tr>\n`;
     });
     html += `</tbody></table>\n</div>\n`;
     return html;
@@ -418,10 +415,9 @@ function renderBopBreakdownSection(id, title, breakdownObj, dimLabel) {
         const rows = bData[dv];
         if (!rows || rows.length === 0) return;
         html += `<div class="card">\n<div class="card-header"><strong>${dimLabel}: ${dv}</strong></div>\n`;
-        html += `<table>\n<thead><tr><th>Group</th><th>Opportunities</th><th>BOP</th></tr></thead>\n<tbody>\n`;
+        html += `<table>\n<thead><tr><th>Group</th><th>BOP</th></tr></thead>\n<tbody>\n`;
         rows.forEach(row => {
             html += `<tr class="${rowClass(row.type)}"><td><strong>${row.name}</strong></td>`;
-            html += `<td>${row.agg.bop_den > 0 ? fmtN(Math.round(row.agg.bop_den)) : '—'}</td>`;
             html += `<td>${bopVal(row.agg)}</td></tr>\n`;
         });
         html += `</tbody></table>\n</div>\n`;
@@ -435,90 +431,6 @@ function productVolume(r) {
 
 function combinedVolume(rows) {
     return rows.reduce((s, r) => s + productVolume(r), 0);
-}
-
-function buildDrillDownInsights() {
-    const partnerRows = data.filter(r => PARTNERS_NON_INTUIT.includes(r.expert_partner_name));
-    const intuitRows = data.filter(r => r.expert_partner_name === 'INTUIT');
-    const pVol = combinedVolume(partnerRows);
-    const iVol = combinedVolume(intuitRows);
-    const pNHVol = combinedVolume(partnerRows.filter(r => r.hire_type === 'New Hire'));
-    const pRHVol = combinedVolume(partnerRows.filter(r => r.hire_type === 'Re-Hire'));
-    const iNHVol = combinedVolume(intuitRows.filter(r => r.hire_type === 'New Hire'));
-    const iRHVol = combinedVolume(intuitRows.filter(r => r.hire_type === 'Re-Hire'));
-
-    function blendedTnps(rows) {
-        let n = 0, d = 0;
-        rows.forEach(r => { n += pf(r.tnps_numerator); d += pf(r.tnps_denominator); });
-        return d ? (n / d) * 100 : null;
-    }
-
-    const ttlaPartners = ttlaIx.filter(r => TTLA_PARTNERS.includes(r.expert_partner_name));
-    const ttlaIntuit = ttlaIx.filter(r => r.expert_partner_name === 'INTUIT');
-
-    function contactMetric(rows, metric) {
-        if (metric === 'tnps') return blendedTnps(rows);
-        let n = 0, d = 0;
-        rows.forEach(r => { n += pf(r.aht_numerator); d += pf(r.aht_denominator); });
-        return d ? n / d : null;
-    }
-
-    function contactVolShare(rows, ct) {
-        const total = rows.reduce((s, r) => s + pf(r.aht_denominator), 0);
-        const ctVol = rows.filter(r => r.contact_type === ct).reduce((s, r) => s + pf(r.aht_denominator), 0);
-        return total > 0 ? (ctVol / total) * 100 : 0;
-    }
-
-    const bopPartners = bopData.filter(r => PARTNERS_NON_INTUIT.includes(r.expert_partner_name));
-    const bopIntuit = bopData.filter(r => r.expert_partner_name === 'INTUIT');
-    function bopRate(rows) {
-        let n = 0, d = 0;
-        rows.forEach(r => { n += pf(r.bop_num); d += pf(r.bop_denom); });
-        return d ? (n / d) * 100 : null;
-    }
-
-    const pNHTnps = blendedTnps(partnerRows.filter(r => r.hire_type === 'New Hire'));
-    const pRHTnps = blendedTnps(partnerRows.filter(r => r.hire_type === 'Re-Hire'));
-    const iNHTnps = blendedTnps(intuitRows.filter(r => r.hire_type === 'New Hire'));
-    const iRHTnps = blendedTnps(intuitRows.filter(r => r.hire_type === 'Re-Hire'));
-
-    let html = `<h3>Drill-Down Insights</h3>
-<div class="callout">
-    <strong>Workforce composition — New Hire vs Re-Hire:</strong>
-    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
-    <li><strong>Partners</strong> are predominantly New Hire: <strong>${fmt(pNHVol / pVol * 100, 1)}%</strong> of volume vs <strong>${fmt(pRHVol / pVol * 100, 1)}%</strong> Re-Hire.</li>
-    <li><strong>Intuit</strong> is the inverse: <strong>${fmt(iNHVol / iVol * 100, 1)}%</strong> New Hire vs <strong>${fmt(iRHVol / iVol * 100, 1)}%</strong> Re-Hire.</li>
-    <li>Aggregate partner vs Intuit comparisons should be interpreted in this context — partners are benchmarking against a far more tenured internal workforce.</li>
-    </ul>
-</div>
-
-<div class="callout">
-    <strong>Performance by hire type (FS + TTLA blended tNPS):</strong>
-    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
-    <li><strong>New Hire tNPS:</strong> Partners ${fmt(pNHTnps, 2)} vs Intuit ${fmt(iNHTnps, 2)} (${diffStr(pNHTnps - iNHTnps)} pts)</li>
-    <li><strong>Re-Hire tNPS:</strong> Partners ${fmt(pRHTnps, 2)} vs Intuit ${fmt(iRHTnps, 2)} (${diffStr(pRHTnps - iRHTnps)} pts)</li>
-    <li>Both groups show higher tNPS among Re-Hires. Partners close the gap on Re-Hire (${fmt(Math.abs(pRHTnps - iRHTnps), 2)} pt spread) vs New Hire (${fmt(Math.abs(pNHTnps - iNHTnps), 2)} pt spread).</li>
-    <li><strong>BOP by hire type:</strong> Partners NH ${fmt(bopRate(bopPartners.filter(r => r.hire_type === 'New Hire')), 2)} vs Intuit ${fmt(bopRate(bopIntuit.filter(r => r.hire_type === 'New Hire')), 2)}; Partners RH ${fmt(bopRate(bopPartners.filter(r => r.hire_type === 'Re-Hire')), 2)} vs Intuit ${fmt(bopRate(bopIntuit.filter(r => r.hire_type === 'Re-Hire')), 2)}.</li>
-    </ul>
-</div>`;
-
-    if (hasContactType) {
-        const phoneP = ttlaPartners.filter(r => r.contact_type === 'Phone');
-        const phoneI = ttlaIntuit.filter(r => r.contact_type === 'Phone');
-        const chatP = ttlaPartners.filter(r => r.contact_type === 'Chat');
-        const chatI = ttlaIntuit.filter(r => r.contact_type === 'Chat');
-        html += `<div class="callout">
-    <strong>TTLA — Phone vs Chat:</strong>
-    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
-    <li><strong>Volume mix:</strong> Partners ${fmt(contactVolShare(ttlaPartners, 'Phone'), 1)}% Phone / ${fmt(contactVolShare(ttlaPartners, 'Chat'), 1)}% Chat vs Intuit ${fmt(contactVolShare(ttlaIntuit, 'Phone'), 1)}% Phone / ${fmt(contactVolShare(ttlaIntuit, 'Chat'), 1)}% Chat.</li>
-    <li><strong>Phone tNPS:</strong> Partners ${fmt(contactMetric(phoneP, 'tnps'), 2)} vs Intuit ${fmt(contactMetric(phoneI, 'tnps'), 2)}; <strong>AHT:</strong> Partners ${fmt(contactMetric(phoneP, 'aht'), 2)} vs Intuit ${fmt(contactMetric(phoneI, 'aht'), 2)} min.</li>
-    <li><strong>Chat tNPS:</strong> Partners ${fmt(contactMetric(chatP, 'tnps'), 2)} vs Intuit ${fmt(contactMetric(chatI, 'tnps'), 2)}; <strong>AHT:</strong> Partners ${fmt(contactMetric(chatP, 'aht'), 2)} vs Intuit ${fmt(contactMetric(chatI, 'aht'), 2)} min.</li>
-    <li>Chat is the larger pain point for partners — lower tNPS and higher AHT vs Intuit. Phone shows a tNPS gap but partners are faster on AHT.</li>
-    </ul>
-</div>`;
-    }
-
-    return html;
 }
 
 // ── Split data (primary = period dataset) ──
@@ -775,6 +687,281 @@ const TTLA_MIX_LOWER = { aht: true };
 
 const fsByPeriod = buildPeriodPivot(fsData);
 const ttlaByPeriod = buildPeriodPivot(ttla, TTLA_PARTNERS);
+
+function partnerBetter(pVal, iVal, key) {
+    if (pVal === null || iVal === null) return null;
+    const diff = pVal - iVal;
+    const dir = METRIC_DIRECTION[key];
+    return (dir === 'higher' && diff > 0) || (dir === 'lower' && diff < 0);
+}
+
+function comparePartnerIntuit(pAgg, iAgg, metrics) {
+    const advantages = [], disadvantages = [];
+    metrics.forEach(m => {
+        if (pAgg[m] === null || iAgg[m] === null) return;
+        const diff = pAgg[m] - iAgg[m];
+        const entry = { key: m, label: METRIC_LABELS[m], pVal: pAgg[m], iVal: iAgg[m], diff };
+        if (partnerBetter(pAgg[m], iAgg[m], m)) advantages.push(entry);
+        else if (diff !== 0) disadvantages.push(entry);
+    });
+    return { advantages, disadvantages };
+}
+
+function metricLine(entry, prefix = '') {
+    return `<strong>${prefix}${entry.label}:</strong> Partners ${fmt(entry.pVal, 2)} vs Intuit ${fmt(entry.iVal, 2)} (${diffStr(entry.diff)})`;
+}
+
+function breakdownSliceCompare(breakdown, dimValue, metrics) {
+    const rows = breakdown?.data?.[dimValue];
+    if (!rows) return null;
+    const p = rows.find(r => r.type === 'partners_total');
+    const i = rows.find(r => r.type === 'intuit');
+    if (!p || !i) return null;
+    return comparePartnerIntuit(p.agg, i.agg, metrics);
+}
+
+function inlineSliceCompare(inlineBreakdown, dimValue, metrics) {
+    const p = inlineBreakdown.groups.find(r => r.type === 'partners_total');
+    const i = inlineBreakdown.groups.find(r => r.type === 'intuit');
+    if (!p || !i || !p.aggs[dimValue] || !i.aggs[dimValue]) return null;
+    return comparePartnerIntuit(p.aggs[dimValue], i.aggs[dimValue], metrics);
+}
+
+function bopSliceCompare(breakdown, dimValue) {
+    const rows = breakdown?.data?.[dimValue];
+    if (!rows) return null;
+    const p = rows.find(r => r.type === 'partners_total');
+    const i = rows.find(r => r.type === 'intuit');
+    if (!p || !i || p.agg.bop === null || i.agg.bop === null) return null;
+    const diff = p.agg.bop - i.agg.bop;
+    const entry = { label: 'BOP', pVal: p.agg.bop, iVal: i.agg.bop, diff };
+    return diff > 0 ? { advantages: [entry], disadvantages: [] } : diff < 0 ? { advantages: [], disadvantages: [entry] } : { advantages: [], disadvantages: [] };
+}
+
+function renderAdvDisLists(advantages, disadvantages, emptyMsg = '') {
+    let html = '';
+    if (advantages.length) {
+        html += `<ul style="margin-top:0.5rem;padding-left:1.25rem;">${advantages.map(a => `<li><span class="better">▲</span> ${metricLine(a)}</li>`).join('\n')}</ul>`;
+    }
+    if (disadvantages.length) {
+        html += `<ul style="margin-top:0.5rem;padding-left:1.25rem;">${disadvantages.map(d => `<li><span class="worse">▼</span> ${metricLine(d)}</li>`).join('\n')}</ul>`;
+    }
+    if (!advantages.length && !disadvantages.length && emptyMsg) html += `<p style="margin-top:0.5rem;">${emptyMsg}</p>`;
+    return html;
+}
+
+function buildDrillDownInsights() {
+    const fsP = fsOverall.find(r => r.type === 'partners_total');
+    const fsI = fsOverall.find(r => r.type === 'intuit');
+    const ttlaP = ttlaOverall.find(r => r.type === 'partners_total');
+    const ttlaI = ttlaOverall.find(r => r.type === 'intuit');
+    const bopP = bopOverall.find(r => r.type === 'partners_total');
+    const bopI = bopOverall.find(r => r.type === 'intuit');
+
+    const partnerRows = data.filter(r => PARTNERS_NON_INTUIT.includes(r.expert_partner_name));
+    const intuitRows = data.filter(r => r.expert_partner_name === 'INTUIT');
+    const pVol = combinedVolume(partnerRows);
+    const iVol = combinedVolume(intuitRows);
+    const pNHVol = combinedVolume(partnerRows.filter(r => r.hire_type === 'New Hire'));
+    const pRHVol = combinedVolume(partnerRows.filter(r => r.hire_type === 'Re-Hire'));
+    const iNHVol = combinedVolume(intuitRows.filter(r => r.hire_type === 'New Hire'));
+    const iRHVol = combinedVolume(intuitRows.filter(r => r.hire_type === 'Re-Hire'));
+
+    const fsCmp = fsP && fsI ? comparePartnerIntuit(fsP.agg, fsI.agg, FS_METRICS) : { advantages: [], disadvantages: [] };
+    const ttlaCmp = ttlaP && ttlaI ? comparePartnerIntuit(ttlaP.agg, ttlaI.agg, TTLA_METRICS) : { advantages: [], disadvantages: [] };
+
+    const allAdv = [
+        ...fsCmp.advantages.map(a => ({ ...a, label: `FS ${a.label}` })),
+        ...ttlaCmp.advantages.map(a => ({ ...a, label: `TTLA ${a.label}` })),
+    ];
+    const allDis = [
+        ...fsCmp.disadvantages.map(d => ({ ...d, label: `FS ${d.label}` })),
+        ...ttlaCmp.disadvantages.map(d => ({ ...d, label: `TTLA ${d.label}` })),
+    ];
+    if (bopP && bopI && bopP.agg.bop !== null && bopI.agg.bop !== null) {
+        const bopDiff = bopP.agg.bop - bopI.agg.bop;
+        const bopEntry = { label: 'BOP', pVal: bopP.agg.bop, iVal: bopI.agg.bop, diff: bopDiff };
+        if (bopDiff > 0) allAdv.push(bopEntry);
+        else if (bopDiff < 0) allDis.push(bopEntry);
+    }
+
+    let html = `<h3>Drill-Down Insights</h3>`;
+
+    html += `<div class="callout success">
+    <strong>Partner Advantages — Overall</strong>
+    ${renderAdvDisLists(allAdv, [], allAdv.length ? '' : 'No overall metrics where Partners Total outperforms Intuit.')}
+</div>`;
+
+    html += `<div class="callout danger">
+    <strong>Partner Disadvantages — Overall</strong>
+    ${renderAdvDisLists([], allDis, allDis.length ? '' : 'No overall metrics where Intuit outperforms Partners Total.')}
+</div>`;
+
+    html += `<div class="callout">
+    <strong>Workforce composition — New Hire vs Re-Hire:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>Partners</strong> are predominantly New Hire: <strong>${fmt(pNHVol / pVol * 100, 1)}%</strong> of volume vs <strong>${fmt(pRHVol / pVol * 100, 1)}%</strong> Re-Hire.</li>
+    <li><strong>Intuit</strong> is the inverse: <strong>${fmt(iNHVol / iVol * 100, 1)}%</strong> New Hire vs <strong>${fmt(iRHVol / iVol * 100, 1)}%</strong> Re-Hire.</li>
+    <li>Aggregate comparisons skew toward a more tenured Intuit workforce — segment by hire type before drawing conclusions.</li>
+    </ul>
+</div>`;
+
+    ['New Hire', 'Re-Hire'].forEach(hireType => {
+        const fsSlice = inlineSliceCompare(fsByHire, hireType, FS_METRICS);
+        const ttlaSlice = inlineSliceCompare(ttlaByHire, hireType, TTLA_METRICS);
+        const bopSlice = bopSliceCompare(bopByHire, hireType);
+        const adv = [
+            ...(fsSlice?.advantages.map(a => ({ ...a, label: `FS ${a.label}` })) || []),
+            ...(ttlaSlice?.advantages.map(a => ({ ...a, label: `TTLA ${a.label}` })) || []),
+            ...(bopSlice?.advantages || []),
+        ];
+        const dis = [
+            ...(fsSlice?.disadvantages.map(d => ({ ...d, label: `FS ${d.label}` })) || []),
+            ...(ttlaSlice?.disadvantages.map(d => ({ ...d, label: `TTLA ${d.label}` })) || []),
+            ...(bopSlice?.disadvantages || []),
+        ];
+        let footnote = '';
+        if (hireType === 'New Hire') {
+            footnote = `<p style="margin-top:0.5rem;font-size:0.9rem;color:var(--muted);">Partners carry ${fmt(pNHVol / pVol * 100, 1)}% of volume as New Hires — the segment where Partners most often lead on tNPS.</p>`;
+        } else {
+            const rhTnpsAdv = [...(fsSlice?.advantages || []), ...(ttlaSlice?.advantages || [])].some(a => a.key === 'tnps');
+            footnote = `<p style="margin-top:0.5rem;font-size:0.9rem;color:var(--muted);">Re-Hire is Intuit's dominant cohort (${fmt(iRHVol / iVol * 100, 1)}% of volume). tNPS gap narrows to near parity${rhTnpsAdv ? ', with Partners leading tNPS in at least one product' : ''}; Intuit typically retains BOP and IR advantages.</p>`;
+        }
+        html += `<div class="callout">
+    <strong>${hireType} — Partner vs Intuit:</strong>
+    ${adv.length ? `<p style="margin-top:0.5rem;margin-bottom:0.25rem;"><span class="better">Advantages</span></p>${renderAdvDisLists(adv, [])}` : ''}
+    ${dis.length ? `<p style="margin-top:0.75rem;margin-bottom:0.25rem;"><span class="worse">Disadvantages</span></p>${renderAdvDisLists([], dis)}` : ''}
+    ${!adv.length && !dis.length ? '<p style="margin-top:0.5rem;">Insufficient data for this segment.</p>' : ''}
+    ${footnote}
+</div>`;
+    });
+
+    if (hasContactType) {
+        const ttlaPartners = ttlaIx.filter(r => TTLA_PARTNERS.includes(r.expert_partner_name));
+        const ttlaIntuit = ttlaIx.filter(r => r.expert_partner_name === 'INTUIT');
+        function contactMetric(rows, metric) {
+            if (metric === 'tnps') {
+                let n = 0, d = 0;
+                rows.forEach(r => { n += pf(r.tnps_numerator); d += pf(r.tnps_denominator); });
+                return d ? (n / d) * 100 : null;
+            }
+            let n = 0, d = 0;
+            rows.forEach(r => { n += pf(r.aht_numerator); d += pf(r.aht_denominator); });
+            return d ? n / d : null;
+        }
+        function contactVolShare(rows, ct) {
+            const total = rows.reduce((s, r) => s + pf(r.aht_denominator), 0);
+            const ctVol = rows.filter(r => r.contact_type === ct).reduce((s, r) => s + pf(r.aht_denominator), 0);
+            return total > 0 ? (ctVol / total) * 100 : 0;
+        }
+        ['Phone', 'Chat'].forEach(ct => {
+            const pRows = ttlaPartners.filter(r => r.contact_type === ct);
+            const iRows = ttlaIntuit.filter(r => r.contact_type === ct);
+            const pTnps = contactMetric(pRows, 'tnps');
+            const iTnps = contactMetric(iRows, 'tnps');
+            const pAht = contactMetric(pRows, 'aht');
+            const iAht = contactMetric(iRows, 'aht');
+            const tnpsAdv = pTnps !== null && iTnps !== null && pTnps > iTnps;
+            const ahtAdv = pAht !== null && iAht !== null && pAht < iAht;
+            html += `<div class="callout">
+    <strong>TTLA ${ct} — Partner vs Intuit:</strong>
+    <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+    <li><strong>Volume mix:</strong> Partners ${fmt(contactVolShare(ttlaPartners, ct), 1)}% ${ct} vs Intuit ${fmt(contactVolShare(ttlaIntuit, ct), 1)}% ${ct}.</li>
+    <li><strong>tNPS:</strong> Partners ${fmt(pTnps, 2)} vs Intuit ${fmt(iTnps, 2)} (${diffStr(pTnps - iTnps)}) — <span class="${tnpsAdv ? 'better' : 'worse'}">${tnpsAdv ? 'Partner advantage' : 'Partner disadvantage'}</span></li>
+    <li><strong>AHT:</strong> Partners ${fmt(pAht, 2)} vs Intuit ${fmt(iAht, 2)} min (${diffStr(pAht - iAht)}) — <span class="${ahtAdv ? 'better' : 'worse'}">${ahtAdv ? 'Partner advantage (faster)' : 'Partner disadvantage (slower)'}</span></li>
+    </ul>
+</div>`;
+        });
+    }
+
+    const roleInsights = [];
+    (fsByRole.dimValues || []).forEach(role => {
+        const fsSlice = breakdownSliceCompare(fsByRole, role, ['tnps', 'hc', 'cst']);
+        const ttlaSlice = breakdownSliceCompare(ttlaByRole, role, ['tnps', 'aht']);
+        const bopSlice = bopSliceCompare(bopByRole, role);
+        if (!fsSlice && !ttlaSlice && !bopSlice) return;
+        const advLabels = [
+            ...(fsSlice?.advantages.map(a => `FS ${a.label}`) || []),
+            ...(ttlaSlice?.advantages.map(a => `TTLA ${a.label}`) || []),
+            ...(bopSlice?.advantages.map(a => a.label) || []),
+        ];
+        const disLabels = [
+            ...(fsSlice?.disadvantages.map(d => `FS ${d.label}`) || []),
+            ...(ttlaSlice?.disadvantages.map(d => `TTLA ${d.label}`) || []),
+            ...(bopSlice?.disadvantages.map(d => d.label) || []),
+        ];
+        if (advLabels.length || disLabels.length) {
+            roleInsights.push(`<li><strong>${role}:</strong> ${advLabels.length ? `<span class="better">Adv: ${advLabels.join(', ')}</span>` : ''}${advLabels.length && disLabels.length ? ' · ' : ''}${disLabels.length ? `<span class="worse">Dis: ${disLabels.join(', ')}</span>` : ''}</li>`);
+        }
+    });
+    if (roleInsights.length) {
+        html += `<div class="callout"><strong>By Expert Role — Partner vs Intuit:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;">${roleInsights.join('\n')}</ul></div>`;
+    }
+
+    const plInsights = [];
+    (fsByPL.dimValues || []).forEach(pl => {
+        const fsSlice = breakdownSliceCompare(fsByPL, pl, ['tnps', 'hc']);
+        const ttlaSlice = breakdownSliceCompare(ttlaByPL, pl, ['tnps', 'aht']);
+        const bopSlice = bopSliceCompare(bopByPL, pl);
+        const adv = [
+            ...(fsSlice?.advantages.map(a => ({ ...a, label: `FS ${a.label}` })) || []),
+            ...(ttlaSlice?.advantages.map(a => ({ ...a, label: `TTLA ${a.label}` })) || []),
+            ...(bopSlice?.advantages || []),
+        ];
+        const dis = [
+            ...(fsSlice?.disadvantages.map(d => ({ ...d, label: `FS ${d.label}` })) || []),
+            ...(ttlaSlice?.disadvantages.map(d => ({ ...d, label: `TTLA ${d.label}` })) || []),
+            ...(bopSlice?.disadvantages || []),
+        ];
+        if (adv.length || dis.length) {
+            plInsights.push(`<li><strong>${pl}:</strong> ${adv.length ? `<span class="better">${adv.map(a => a.label).join(', ')}</span>` : '—'} vs ${dis.length ? `<span class="worse">${dis.map(d => d.label).join(', ')}</span>` : '—'}</li>`);
+        }
+    });
+    if (plInsights.length) {
+        html += `<div class="callout"><strong>By Proficiency Level — wins vs gaps:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;">${plInsights.join('\n')}</ul></div>`;
+    }
+
+    if (fsP && fsI && fsP.agg.cst_basic !== null) {
+        const skuMetrics = ['cst_basic', 'cst_deluxe', 'cst_premium'];
+        const skuLabels = { cst_basic: 'Basic CST', cst_deluxe: 'Deluxe CST', cst_premium: 'Premium CST' };
+        const skuAdv = [], skuDis = [];
+        skuMetrics.forEach(k => {
+            if (fsP.agg[k] === null || fsI.agg[k] === null) return;
+            const diff = fsP.agg[k] - fsI.agg[k];
+            const entry = { label: skuLabels[k], pVal: fsP.agg[k], iVal: fsI.agg[k], diff };
+            if (partnerBetter(fsP.agg[k], fsI.agg[k], 'cst')) skuAdv.push(entry);
+            else if (diff !== 0) skuDis.push(entry);
+        });
+        html += `<div class="callout"><strong>FS SKU Tier — CST (lower is better):</strong>
+    ${skuAdv.length ? `<p style="margin-top:0.5rem;"><span class="better">Partner advantage</span></p>${renderAdvDisLists(skuAdv, [])}` : ''}
+    ${skuDis.length ? `<p style="margin-top:0.5rem;"><span class="worse">Partner disadvantage</span></p>${renderAdvDisLists([], skuDis)}` : ''}
+    <p style="margin-top:0.5rem;font-size:0.9rem;color:var(--muted);">Partners handle ${fmt(fsP.agg.sku_basic_pct, 1)}% Basic vs Intuit ${fmt(fsI.agg.sku_basic_pct, 1)}% — mix context matters when reading aggregate CST.</p>
+</div>`;
+    }
+
+    const partnerHighlights = [];
+    fsOverall.filter(r => r.type === 'partner').forEach(p => {
+        if (!fsI) return;
+        const beats = FS_METRICS.filter(m => p.agg[m] !== null && fsI.agg[m] !== null && partnerBetter(p.agg[m], fsI.agg[m], m));
+        const lags = FS_METRICS.filter(m => p.agg[m] !== null && fsI.agg[m] !== null && !partnerBetter(p.agg[m], fsI.agg[m], m) && p.agg[m] !== fsI.agg[m]);
+        if (beats.length || lags.length) {
+            partnerHighlights.push(`<li><strong>${p.name} (FS):</strong> ${beats.length ? `<span class="better">beats Intuit on ${beats.map(m => METRIC_LABELS[m]).join(', ')}</span>` : ''}${beats.length && lags.length ? ' · ' : ''}${lags.length ? `<span class="worse">lags on ${lags.map(m => METRIC_LABELS[m]).join(', ')}</span>` : ''}</li>`);
+        }
+    });
+    ttlaOverall.filter(r => r.type === 'partner').forEach(p => {
+        if (!ttlaI) return;
+        const beats = TTLA_METRICS.filter(m => p.agg[m] !== null && ttlaI.agg[m] !== null && partnerBetter(p.agg[m], ttlaI.agg[m], m));
+        const lags = TTLA_METRICS.filter(m => p.agg[m] !== null && ttlaI.agg[m] !== null && !partnerBetter(p.agg[m], ttlaI.agg[m], m) && p.agg[m] !== ttlaI.agg[m]);
+        if (beats.length || lags.length) {
+            partnerHighlights.push(`<li><strong>${p.name} (TTLA):</strong> ${beats.length ? `<span class="better">beats Intuit on ${beats.map(m => METRIC_LABELS[m]).join(', ')}</span>` : ''}${beats.length && lags.length ? ' · ' : ''}${lags.length ? `<span class="worse">lags on ${lags.map(m => METRIC_LABELS[m]).join(', ')}</span>` : ''}</li>`);
+        }
+    });
+    if (partnerHighlights.length) {
+        html += `<div class="callout"><strong>Individual Partner Standouts:</strong><ul style="margin-top:0.5rem;padding-left:1.25rem;">${partnerHighlights.join('\n')}</ul></div>`;
+    }
+
+    return html;
+}
 
 // ── HTML rendering ──
 function diffClass(val, key) {
@@ -1443,7 +1630,7 @@ function buildExecutiveSummaryBlock(headingId, sectionNumber) {
     return html;
 }
 
-function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData, fsMixAdj, ttlaMixAdj) {
+function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData) {
     const fsP = fsTable.find(r => r.type === 'partners_total');
     const fsI = fsTable.find(r => r.type === 'intuit');
 
@@ -1453,10 +1640,6 @@ function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData, fsMixAdj, t
         const basicDiff = fsP.agg.sku_basic_pct - fsI.agg.sku_basic_pct;
         html += `<div class="callout teal"><strong>SKU Mix Context (FS):</strong> Partners handle ${fmt(fsP.agg.sku_basic_pct, 1)}% Basic engagements vs ${fmt(fsI.agg.sku_basic_pct, 1)}% for Intuit (${diffStr(basicDiff)} pp). ${basicDiff > 2 ? 'The partner mix skews more Basic — a potentially easier workload that should be considered when interpreting CST and conversion metrics.' : 'SKU mix is comparable to Intuit, supporting apples-to-apples performance comparisons.'}</div>`;
     }
-
-    html += `<h3>Mix-Adjusted Highlights</h3>\n`;
-    html += buildMixFinding(fsMixAdj, FS_MIX_ORDER, FS_MIX_LOWER, 'FS');
-    html += buildMixFinding(ttlaMixAdj, TTLA_MIX_ORDER, TTLA_MIX_LOWER, 'TTLA');
 
     html += buildDrillDownInsights();
 
@@ -1581,7 +1764,7 @@ let html = `<!DOCTYPE html>
     </div>
 
     <div class="section active" id="sec-summary">
-        ${buildSummaryTab(fsOverall, ttlaOverall, buildVolumeData(fsOverall, 'cst_den'), buildVolumeData(ttlaOverall, 'aht_den'), fsMix, ttlaMix)}
+        ${buildSummaryTab(fsOverall, ttlaOverall, buildVolumeData(fsOverall, 'cst_den'), buildVolumeData(ttlaOverall, 'aht_den'))}
     </div>
 
     <div class="section" id="sec-analisys">
@@ -1774,7 +1957,7 @@ if (hasTenure && ttlaTenure) {
 // ═══════════════════════════════════════════
 html += `<hr class="section-divider">
 <h2 id="bop">4. BOP Analysis</h2>
-<p>BOP (Business Opportunity Percentage) measures the rate at which experts capture business opportunities: <code>sum(bop_num) / sum(bop_denom) &times; 100</code>. Higher is better.</p>\n`;
+<p>BOP (Back Office Prep) is calculated as <code>sum(bop_num) / sum(bop_denom) &times; 100</code>. Higher is better.</p>\n`;
 
 html += renderBopOverallTable('bop-overall', '4a. Overall BOP Performance', bopOverall);
 
@@ -1784,7 +1967,7 @@ if (bopP && bopI && bopP.agg.bop !== null && bopI.agg.bop !== null) {
     const diff = bopP.agg.bop - bopI.agg.bop;
     const cls = diff > 0 ? 'success' : 'danger';
     html += `<div class="callout ${cls}">
-    <strong>BOP Overview — Partners Total vs Intuit:</strong> Partners Total BOP of <strong>${fmt(bopP.agg.bop, 2)}</strong> vs Intuit <strong>${fmt(bopI.agg.bop, 2)}</strong> (${diffStr(diff)} pts) — Intuit ${diff < 0 ? 'outperforms' : 'underperforms'} on opportunity capture.
+    <strong>BOP Overview — Partners Total vs Intuit:</strong> Partners Total BOP of <strong>${fmt(bopP.agg.bop, 2)}</strong> vs Intuit <strong>${fmt(bopI.agg.bop, 2)}</strong> (${diffStr(diff)} pts) — Intuit ${diff < 0 ? 'outperforms' : 'underperforms'} on Back Office Prep.
 </div>\n`;
 }
 
