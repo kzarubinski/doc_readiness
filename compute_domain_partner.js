@@ -1669,7 +1669,8 @@ function buildExpandedExecSummary() {
     const ttlaP = ttlaOverall.find(r => r.type === 'partners_total');
     const ttlaI = ttlaOverall.find(r => r.type === 'intuit');
 
-    let html = `<p>This analysis compares <strong>Domain Partners</strong> (${PARTNERS_NON_INTUIT.map(p => PARTNER_SHORT[p]).join(', ')}) against <strong>Intuit</strong> across two products: <strong>TTL Full Service Consumer (FS)</strong> and <strong>TTL Assisted Consumer (TTLA)</strong>. Each metric is computed as <code>sum(numerator) / sum(denominator)</code> — a volume-weighted approach that reflects actual workload rather than simple averages.</p>
+    let html = `<h3>Analysis Context</h3>
+<p>This analysis compares <strong>Domain Partners</strong> (${PARTNERS_NON_INTUIT.map(p => PARTNER_SHORT[p]).join(', ')}) against <strong>Intuit</strong> across two products: <strong>TTL Full Service Consumer (FS)</strong> and <strong>TTL Assisted Consumer (TTLA)</strong>. Each metric is computed as <code>sum(numerator) / sum(denominator)</code> — a volume-weighted approach that reflects actual workload rather than simple averages.</p>
 
 <p style="font-size:0.9rem;color:var(--muted);margin:0.75rem 0;">Partners analyzed: ${PARTNERS_NON_INTUIT.map(p => `<strong>${PARTNER_SHORT[p]}</strong> (${p})`).join(', ')}. Intuit rows include all Intuit-sourced experts. Foundever appears in FS only; EAW, Highspring, JDA, and Magnit serve both products.</p>
 
@@ -1683,7 +1684,7 @@ function buildExpandedExecSummary() {
     return html;
 }
 
-function buildExecutiveSummaryBlock(headingId, sectionNumber) {
+function buildExecutiveSummaryBlock(headingId, sectionNumber, forSummaryTab = false) {
     const fsP = fsOverall.find(r => r.type === 'partners_total');
     const fsI = fsOverall.find(r => r.type === 'intuit');
     const ttlaP = ttlaOverall.find(r => r.type === 'partners_total');
@@ -1692,6 +1693,9 @@ function buildExecutiveSummaryBlock(headingId, sectionNumber) {
     const title = sectionNumber ? `${sectionNumber}. Executive Summary` : 'Executive Summary';
     const idAttr = headingId ? ` id="${headingId}"` : ' style="margin-top:0;"';
     let html = `<h2${idAttr}>${title}</h2>\n`;
+    if (forSummaryTab) {
+        html += `<p style="margin-bottom:1.25rem;">This analysis covers tax year 2025 (January – April 2026), during which Domain Partners supported both FS and TTLA. While comparisons to the Intuit benchmark help contextualize Domain Partner performance, inherent structural differences drive some of the variance, most notably Domain Partners' 76% new hire cohort compared to Intuit's 12%. This analysis is intended as a starting point and is not exhaustive.</p>\n`;
+    }
     html += buildExpandedExecSummary();
 
     html += '<div class="kpi-row">\n';
@@ -1716,7 +1720,7 @@ function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData) {
     const fsP = fsTable.find(r => r.type === 'partners_total');
     const fsI = fsTable.find(r => r.type === 'intuit');
 
-    let html = buildExecutiveSummaryBlock('');
+    let html = buildExecutiveSummaryBlock('', undefined, true);
 
     if (fsP && fsI && fsP.agg.sku_basic_pct !== null) {
         const basicDiff = fsP.agg.sku_basic_pct - fsI.agg.sku_basic_pct;
@@ -1738,12 +1742,12 @@ function buildSummaryTab(fsTable, ttlaTable, fsVolData, ttlaVolData) {
 
 <h3>What to Watch</h3>
 <ul style="padding-left:1.25rem;">
-<li><strong>Attrition lens:</strong> Active vs attrited cohorts may show different performance profiles — see Attrition Status breakdowns in the Analisys tab.</li>
+<li><strong>Attrition lens:</strong> Active vs attrited cohorts may show different performance profiles — see Attrition Status breakdowns in the Analysis tab.</li>
 <li><strong>Partner variation:</strong> Individual partner performance varies widely; JDA carries the largest TTLA volume share while Foundever has minimal FS presence.</li>
 <li><strong>Mix-adjusted interpretation:</strong> See the <a href="#appendix-mix">Appendix</a> — partners are reweighted to Intuit's workload mix to isolate execution vs. assignment effects.</li>
 </ul>
 
-<p style="font-size:0.85rem;color:var(--muted);margin-top:1.5rem;">See the <strong>Analisys</strong> tab for full breakdowns by reporting period, role, proficiency level, hire type, attrition status, and detailed partner-level tables.</p>`;
+<p style="font-size:0.85rem;color:var(--muted);margin-top:1.5rem;">See the <strong>Analysis</strong> tab for full breakdowns by reporting period, role, proficiency level, hire type, attrition status, and detailed partner-level tables.</p>`;
     return html;
 }
 
@@ -1842,14 +1846,14 @@ let html = `<!DOCTYPE html>
 
     <div class="tabs">
         <button class="tab active" data-tab="summary">Summary</button>
-        <button class="tab" data-tab="analisys">Analisys</button>
+        <button class="tab" data-tab="analysis">Analysis</button>
     </div>
 
     <div class="section active" id="sec-summary">
         ${buildSummaryTab(fsOverall, ttlaOverall, buildVolumeData(fsOverall, 'cst_den'), buildVolumeData(ttlaOverall, 'aht_den'))}
     </div>
 
-    <div class="section" id="sec-analisys">
+    <div class="section" id="sec-analysis">
 
     <div class="toc">
         <strong>Contents</strong>
